@@ -28,10 +28,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     NavBarButton currentTab;
 
     JPanel plContent = new JPanel();
-    QuanLySanPhamForm qlsp = new QuanLySanPhamForm();
-    QuanLyNhanVienForm qlnv = new QuanLyNhanVienForm();
-    QuanLyKhachHangForm qlkh = new QuanLyKhachHangForm();
     EmptyPage emptypage = new EmptyPage();
+    QuanLySanPhamForm qlsp;
+    QuanLyNhanVienForm qlnv;
+    QuanLyKhachHangForm qlkh;
 
     public GiaoDienChuan() {
 
@@ -150,6 +150,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Nhân viên":
+                if(qlnv == null) qlnv = new QuanLyNhanVienForm();
                 plContent.add(qlnv, BorderLayout.CENTER);
                 break;
                 
