@@ -142,6 +142,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.removeAll();
         switch (nameAction) {
             case "Sản phẩm":
+                if(qlsp == null) qlsp = new QuanLySanPhamForm();
                 plContent.add(qlsp, BorderLayout.CENTER);
                 break;
                
