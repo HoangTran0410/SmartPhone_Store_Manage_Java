@@ -160,6 +160,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                 
             case "Khách hàng":
+                if(qlkh == null) qlkh = new QuanLyKhachHangForm();
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
                 
