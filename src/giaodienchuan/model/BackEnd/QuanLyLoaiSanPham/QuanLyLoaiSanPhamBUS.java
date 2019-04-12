@@ -39,7 +39,7 @@ public class QuanLyLoaiSanPhamBUS {
             if (type.equals("Tất cả")) {
                 if (lsp.getMaLSP().toLowerCase().contains(value.toLowerCase())
                         || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())
-                        || lsp.getMota().toLowerCase().contains(value.toLowerCase()))  {
+                        || lsp.getMoTa().toLowerCase().contains(value.toLowerCase()))  {
                     result.add(lsp);
                 }
             } else {
@@ -55,7 +55,7 @@ public class QuanLyLoaiSanPhamBUS {
                         }
                         break;
                     case "Mô tả":
-                        if (lsp.getMota().toLowerCase().contains(value.toLowerCase())) {
+                        if (lsp.getMoTa().toLowerCase().contains(value.toLowerCase())) {
                             result.add(lsp);
                         }
                         break;
@@ -102,7 +102,7 @@ public class QuanLyLoaiSanPhamBUS {
             dslsp.forEach((lsp) -> {
                 if (lsp.getMaLSP().equals(malsp)) {
                     lsp.setTenLSP(tenlsp);
-                    lsp.setMota(mota);
+                    lsp.setMoTa(mota);
                 }
             });
         }

@@ -66,8 +66,8 @@ public class QuanLyLoaiSanPhamDAO {
 
     public Boolean add(LoaiSanPham lsp) {
         qllspConnection = new ConnectionDB();
-        Boolean ok = qllspConnection.sqlUpdate("INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`) VALUES ('"
-                + lsp.getMaLSP() + "', '" + lsp.getTenLSP() + "', '" + lsp.getMota()+ "');");
+        Boolean ok = qllspConnection.sqlUpdate("INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`, `MoTa`) VALUES ('"
+                + lsp.getMaLSP() + "', '" + lsp.getTenLSP() + "', '" + lsp.getMoTa()+ "');");
         qllspConnection.closeConnect();
         return ok;
     }
@@ -81,7 +81,7 @@ public class QuanLyLoaiSanPhamDAO {
 
     public Boolean update(String MaLSP, String TenLSP, String Mota) {
         qllspConnection = new ConnectionDB();
-        Boolean ok = qllspConnection.sqlUpdate("Update loaisanpham Set TenLSP='" + TenLSP + "', Mota='" + Mota + "' where MaLSP='" + MaLSP + "'");
+        Boolean ok = qllspConnection.sqlUpdate("Update loaisanpham Set TenLSP='" + TenLSP + "', MoTa='" + Mota + "' where MaLSP='" + MaLSP + "'");
         qllspConnection.closeConnect();
         return ok;
     }
