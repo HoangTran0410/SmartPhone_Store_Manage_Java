@@ -26,7 +26,7 @@ public class QuanLyKhachHangDAO {
                     String makh = r.getString(1);
                     String tenkh = r.getString(2);
                     String diachi = r.getString(3);
-                    int sdt = r.getInt(4);
+                    String sdt = r.getString(4);
                     dskh.add(new KhachHang(makh, tenkh, diachi, sdt));
                 }
             }
@@ -51,7 +51,7 @@ public class QuanLyKhachHangDAO {
                     String makh = r.getString(1);
                     String tenkh = r.getString(2);
                     String diachi = r.getString(3);
-                    int sdt = r.getInt(4);
+                    String sdt = r.getString(4);
                     dskh.add(new KhachHang(makh, tenkh, diachi, sdt));
                 }
             }
@@ -80,12 +80,10 @@ public class QuanLyKhachHangDAO {
         return ok;
     }
 
-    public Boolean update(String MaKH, String TenKH, String DiaChi, int SDT) {
+    public Boolean update(String MaKH, String TenKH, String DiaChi, String SDT) {
         qlkhConnection = new ConnectionDB();
         Boolean ok = qlkhConnection.sqlUpdate("Update KhachHang Set TenKH='" + TenKH
                 + "', DiaChi='" + DiaChi + "', SDT='" + SDT + "' where MaKH='" + MaKH + "'");
-        
-        System.out.println(SDT);
         qlkhConnection.closeConnect();
         return ok;
     }

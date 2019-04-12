@@ -80,7 +80,7 @@ public class QuanLyKhachHangBUS {
         return ok;
     }
 
-    public Boolean add(String makh, String tenkh, String diachi, int sdt) {
+    public Boolean add(String makh, String tenkh, String diachi, String sdt) {
         KhachHang kh = new KhachHang(makh, tenkh, diachi, sdt);
         return add(kh);
     }
@@ -98,7 +98,7 @@ public class QuanLyKhachHangBUS {
         return ok;
     }
 
-    public Boolean update(String makh, String tenkh, String diachi, int sdt) {
+    public Boolean update(String makh, String tenkh, String diachi, String sdt) {
         Boolean ok = qlkhDAO.update(makh, tenkh, diachi, sdt);
 
         if (ok) {
