@@ -26,7 +26,7 @@ public class NhaCungCapBUS {
     }
 
     public void readDB() {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
+        NhaCungCapDAO DAO = new NhaCungCapDAO(); // ?? m đã sửa gì chưa tao chua sua cai nay
         dsncc = DAO.readDB();
         DAO.close();
     }

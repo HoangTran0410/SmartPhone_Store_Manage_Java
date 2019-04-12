@@ -1,12 +1,15 @@
-package giaodienchuan.model.BackEnd.QuanLyNCC;
+package giaodienchuan.model.FrontEnd.Form;
 
-import giaodienchuan.model.FrontEnd.Form.MyTable;
+import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
+import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +55,13 @@ public class NhaCungCapFORM extends JPanel {
         plInput.add(txFax);
 
         // buttons
+        // buttons
+        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
+        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
+        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+        btnNhaplai.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_replay_30px.png")));
+        btnReadDB.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_database_restore_30px.png")));
+        
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);

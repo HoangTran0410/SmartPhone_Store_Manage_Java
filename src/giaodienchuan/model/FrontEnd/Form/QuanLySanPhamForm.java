@@ -39,7 +39,7 @@ public class QuanLySanPhamForm extends JPanel {
 
     JComboBox<String> cbTypeSearch;
 
-    // index
+    // vị trí cột trong bảng mtb, vị trí bắt đầu từ 0
     final int MASP_I = 1, MALSP_I = 2, TEN_I = 3, GIA_I = 4, SOLUONG_I = 5;
 
     public QuanLySanPhamForm() {
@@ -235,6 +235,10 @@ public class QuanLySanPhamForm extends JPanel {
             stt++;
         }
     }
+    // giờ m bê hết code này qua cũng được, xong sửa những chỗ cần thiết là xong ok
+    // ví dụ tên biến các tên sp -> ncc
+    // ncc có mấy textField bla bla
+    // nói chung chỉ sauwr những cái cầnthiết
 
     private Boolean checkEmpty() {
         String mssp = txMasp.getText();
