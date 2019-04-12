@@ -213,7 +213,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (LoaiSanPham lsp : data) {
-            table.addRow(new String[]{String.valueOf(stt), lsp.getMaLSP(), lsp.getTenLSP(), lsp.getMota()});
+            table.addRow(new String[]{String.valueOf(stt), lsp.getMaLSP(), lsp.getTenLSP(), lsp.getMoTa()});
             stt++;
         }
     }
