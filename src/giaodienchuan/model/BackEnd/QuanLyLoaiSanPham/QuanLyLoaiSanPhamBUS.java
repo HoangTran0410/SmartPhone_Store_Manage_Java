@@ -19,7 +19,7 @@ public class QuanLyLoaiSanPhamBUS {
     }
 
     public String[] getHeaders() {
-        return new String[]{"Mã loại", "Tên loại"};
+        return new String[]{"Mã loại", "Tên loại", "Mô tả"};
     }
 
     public void readDB() {
@@ -38,7 +38,8 @@ public class QuanLyLoaiSanPhamBUS {
         dslsp.forEach((lsp) -> {
             if (type.equals("Tất cả")) {
                 if (lsp.getMaLSP().toLowerCase().contains(value.toLowerCase())
-                        || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())) {
+                        || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())
+                        || lsp.getMota().toLowerCase().contains(value.toLowerCase()))  {
                     result.add(lsp);
                 }
             } else {
@@ -53,6 +54,12 @@ public class QuanLyLoaiSanPhamBUS {
                             result.add(lsp);
                         }
                         break;
+                    case "Mô tả":
+                        if (lsp.getMota().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(lsp);
+                        }
+                        break;
+
                 }
             }
 
@@ -70,8 +77,8 @@ public class QuanLyLoaiSanPhamBUS {
         return ok;
     }
 
-    public Boolean add(String malsp, String tenlsp) {
-        LoaiSanPham lsp = new LoaiSanPham(malsp, tenlsp);
+    public Boolean add(String malsp, String tenlsp, String mota) {
+        LoaiSanPham lsp = new LoaiSanPham(malsp, tenlsp, mota);
         return add(lsp);
     }
 
@@ -88,13 +95,14 @@ public class QuanLyLoaiSanPhamBUS {
         return ok;
     }
 
-    public Boolean update(String malsp, String tenlsp) {
-        Boolean ok = qllspDAO.update(malsp, tenlsp);
+    public Boolean update(String malsp, String tenlsp, String mota) {
+        Boolean ok = qllspDAO.update(malsp, tenlsp, mota);
 
         if (ok) {
             dslsp.forEach((lsp) -> {
                 if (lsp.getMaLSP().equals(malsp)) {
                     lsp.setTenLSP(tenlsp);
+                    lsp.setMota(mota);
                 }
             });
         }

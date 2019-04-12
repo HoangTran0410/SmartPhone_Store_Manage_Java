@@ -24,8 +24,9 @@ public class QuanLyLoaiSanPhamDAO {
                 while (r.next()) {
                     String malsp = r.getString(1);
                     String tenlsp = r.getString(2);
+                    String mota = r.getString(3);
 
-                    dslsp.add(new LoaiSanPham(malsp, tenlsp));
+                    dslsp.add(new LoaiSanPham(malsp, tenlsp, mota));
                 }
             }
 
@@ -48,7 +49,9 @@ public class QuanLyLoaiSanPhamDAO {
                 while (r.next()) {
                     String malsp = r.getString(1);
                     String tenlsp = r.getString(2);
-                    dslsp.add(new LoaiSanPham(malsp, tenlsp));
+                    String mota = r.getString(3);
+
+                    dslsp.add(new LoaiSanPham(malsp, tenlsp, mota));
                 }
             }
 
@@ -64,7 +67,7 @@ public class QuanLyLoaiSanPhamDAO {
     public Boolean add(LoaiSanPham lsp) {
         qllspConnection = new ConnectionDB();
         Boolean ok = qllspConnection.sqlUpdate("INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`) VALUES ('"
-                + lsp.getMaLSP()+ "', '" + lsp.getTenLSP() + "');");
+                + lsp.getMaLSP() + "', '" + lsp.getTenLSP() + "', '" + lsp.getMota()+ "');");
         qllspConnection.closeConnect();
         return ok;
     }
@@ -76,9 +79,9 @@ public class QuanLyLoaiSanPhamDAO {
         return ok;
     }
 
-    public Boolean update(String MaLSP, String TenLSP) {
+    public Boolean update(String MaLSP, String TenLSP, String Mota) {
         qllspConnection = new ConnectionDB();
-        Boolean ok = qllspConnection.sqlUpdate("Update loaisanpham Set TenLSP='" + TenLSP + "' where MaLSP='" + MaLSP + "'");
+        Boolean ok = qllspConnection.sqlUpdate("Update loaisanpham Set TenLSP='" + TenLSP + "', Mota='" + Mota + "' where MaLSP='" + MaLSP + "'");
         qllspConnection.closeConnect();
         return ok;
     }
