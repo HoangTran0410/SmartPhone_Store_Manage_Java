@@ -69,7 +69,6 @@ public class ConnectionDB {
             try {
                 rset = stmt.executeQuery(qry);
                 System.out.println("Success Query! " + qry);
-                System.out.println("cccc");
                 return rset;
 
             } catch (SQLException ex) {
