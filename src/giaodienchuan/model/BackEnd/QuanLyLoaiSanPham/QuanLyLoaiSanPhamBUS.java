@@ -19,7 +19,7 @@ public class QuanLyLoaiSanPhamBUS {
     }
 
     public String[] getHeaders() {
-        return new String[]{"Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"};
+        return new String[]{"Mã loại", "Tên loại"};
     }
 
     public void readDB() {

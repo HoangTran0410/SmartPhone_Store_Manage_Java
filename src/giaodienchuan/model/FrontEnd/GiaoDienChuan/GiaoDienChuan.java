@@ -3,6 +3,7 @@ package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 import giaodienchuan.model.FrontEnd.Form.QuanLySinhVienForm;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;
+import giaodienchuan.model.FrontEnd.Form.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -27,9 +28,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     NavBarButton currentTab;
 
     JPanel plContent = new JPanel();
+    EmptyPage emptypage = new EmptyPage();
     QuanLySanPhamForm qlsp;
     QuanLySinhVienForm qlsv;
-    EmptyPage emptypage = new EmptyPage();
+    QuanLyLoaiSanPhamForm qllsp;
 
     public GiaoDienChuan() {
 
@@ -145,7 +147,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                
             case "Loại sản phẩm":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if(qllsp == null) qllsp = new QuanLyLoaiSanPhamForm();
+                plContent.add(qllsp, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
