@@ -1,9 +1,11 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_ChiTietHoaDon_form;
-import giaodienchuan.model.FrontEnd.Form.QuanLySinhVienForm;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;
+import giaodienchuan.model.FrontEnd.Form.QuanLyLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -28,9 +30,13 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     NavBarButton currentTab;
 
     JPanel plContent = new JPanel();
-    QuanLySanPhamForm qlsp = new QuanLySanPhamForm();
-    QuanLySinhVienForm qlsv = new QuanLySinhVienForm();
     EmptyPage emptypage = new EmptyPage();
+    QuanLySanPhamForm qlsp;
+    
+    QuanLyLoaiSanPhamForm qllsp;
+    QuanLyNhanVienForm qlnv;
+    QuanLyKhachHangForm qlkh;
+    HoaDon_ChiTietHoaDon_form qlhd;
 
     public GiaoDienChuan() {
 
@@ -141,23 +147,28 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.removeAll();
         switch (nameAction) {
             case "Sản phẩm":
+                if(qlsp == null) qlsp = new QuanLySanPhamForm();
                 plContent.add(qlsp, BorderLayout.CENTER);
                 break;
                
             case "Loại sản phẩm":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if(qllsp == null) qllsp = new QuanLyLoaiSanPhamForm();
+                plContent.add(qllsp, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
-                plContent.add(qlsv, BorderLayout.CENTER);
+                if(qlnv == null) qlnv = new QuanLyNhanVienForm();
+                plContent.add(qlnv, BorderLayout.CENTER);
                 break;
                 
             case "Khách hàng":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if(qlkh == null) qlkh = new QuanLyKhachHangForm();
+                plContent.add(qlkh, BorderLayout.CENTER);
                 break;
                 
             case "Thống kê":
-                plContent.add(new HoaDon_ChiTietHoaDon_form(), BorderLayout.CENTER);
+                if(qlhd == null) qlhd = new HoaDon_ChiTietHoaDon_form();
+                plContent.add(qlhd, BorderLayout.CENTER);
                 break;
                 
             case "Công cụ": 
@@ -208,4 +219,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
+
 }
