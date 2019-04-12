@@ -1,8 +1,11 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.Form.QuanLySinhVienForm;
+import giaodienchuan.model.FrontEnd.Form.HoaDon_ChiTietHoaDon_form;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;
+import giaodienchuan.model.FrontEnd.Form.QuanLyLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -27,9 +30,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     NavBarButton currentTab;
 
     JPanel plContent = new JPanel();
-    QuanLySanPhamForm qlsp = new QuanLySanPhamForm();
-    QuanLySinhVienForm qlsv = new QuanLySinhVienForm();
     EmptyPage emptypage = new EmptyPage();
+    QuanLySanPhamForm qlsp;
+    QuanLyLoaiSanPhamForm qllsp;
+    QuanLyNhanVienForm qlnv;
+    QuanLyKhachHangForm qlkh;
+    HoaDon_ChiTietHoaDon_form qlhd;
 
     public GiaoDienChuan() {
 
@@ -47,8 +53,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "seperate", "2",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
+            "Hóa đơn", "icons8_agreement_30px.png",
+            "seperate", "1",
+            "Tài khoản", "icons8_circled_user_male_30px.png",
             "Nhân viên", "icons8_user_group_man_woman_30px.png",
             "Khách hàng", "icons8_user_30px.png",
+            "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
             "Cài đặt", "icons8_settings_30px.png"
@@ -140,29 +150,52 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.removeAll();
         switch (nameAction) {
             case "Sản phẩm":
+                if (qlsp == null) {
+                    qlsp = new QuanLySanPhamForm();
+                }
                 plContent.add(qlsp, BorderLayout.CENTER);
                 break;
-               
+
             case "Loại sản phẩm":
+                if (qllsp == null) {
+                    qllsp = new QuanLyLoaiSanPhamForm();
+                }
+                plContent.add(qllsp, BorderLayout.CENTER);
+                break;
+                
+            case "Tài khoản": 
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
-                plContent.add(qlsv, BorderLayout.CENTER);
+                if (qlnv == null) {
+                    qlnv = new QuanLyNhanVienForm();
+                }
+                plContent.add(qlnv, BorderLayout.CENTER);
                 break;
-                
+
             case "Khách hàng":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if (qlkh == null) {
+                    qlkh = new QuanLyKhachHangForm();
+                }
+                plContent.add(qlkh, BorderLayout.CENTER);
                 break;
-                
+
+            case "Hóa đơn":
+                if (qlhd == null) {
+                    qlhd = new HoaDon_ChiTietHoaDon_form();
+                }
+                plContent.add(qlhd, BorderLayout.CENTER);
+                break;
+
             case "Thống kê":
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
-                
-            case "Công cụ": 
+
+            case "Công cụ":
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
-                
+
             case "Cài đặt":
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
@@ -207,4 +240,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
+
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class QuanLySanPhamBUS {
 
     private ArrayList<SanPham> dssp = new ArrayList<>();
+    QuanLySanPhamDAO qlspDAO = new QuanLySanPhamDAO();
 
     public QuanLySanPhamBUS() {
 
@@ -25,7 +26,7 @@ public class QuanLySanPhamBUS {
     }
 
     public void readDB() {
-        dssp = new QuanLySanPhamDAO().readDB();
+        dssp = qlspDAO.readDB();
     }
 
     public ArrayList<SanPham> search(String value, String type) {
@@ -82,7 +83,7 @@ public class QuanLySanPhamBUS {
     }
 
     public Boolean add(SanPham sp) {
-        Boolean ok = new QuanLySanPhamDAO().add(sp);
+        Boolean ok = qlspDAO.add(sp);
 
         if (ok) {
             dssp.add(sp);
@@ -96,7 +97,7 @@ public class QuanLySanPhamBUS {
     }
 
     public Boolean delete(String masp) {
-        Boolean ok = new QuanLySanPhamDAO().delete(masp);
+        Boolean ok = qlspDAO.delete(masp);
 
         if (ok) {
             for (int i = (dssp.size() - 1); i >= 0; i--) {
@@ -109,7 +110,7 @@ public class QuanLySanPhamBUS {
     }
 
     public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong) {
-        Boolean ok = new QuanLySanPhamDAO().update(masp, malsp, tensp, dongia, soluong);
+        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong);
 
         if (ok) {
             dssp.forEach((sp) -> {
