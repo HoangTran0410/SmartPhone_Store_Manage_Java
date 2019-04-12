@@ -1,22 +1,20 @@
-package giaodienchuan.model.BackEnd.QuanLyHoaDon_ChiTietHoaDon;
+package giaodienchuan.model.FrontEnd.Form;
 
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.ChiTietHoaDon_BUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_BUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_DTO;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
-import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 
 public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
@@ -30,7 +28,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
     JTextField txtGioLap = new JTextField();
     JTextField txtTongTien = new JTextField();
     JTextField txtSearchbox = new JTextField();
-    JComboBox timComboBox = new JComboBox(new String[]{"Tất cả","Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập","Giờ lập","Tổng tiền"});
+    JComboBox timComboBox = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
 
     JTextField txtMaHd2 = new JTextField();
     JTextField txtMaSp = new JTextField();
@@ -39,7 +37,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
     JTextField txtTim = new JTextField();
     JTextField txtSearchbox2 = new JTextField();
-    JComboBox timComboBox2 = new JComboBox(new String[]{"Tất cả","Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+    JComboBox timComboBox2 = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
 
     JButton btnXoa = new JButton("Xóa");
     JButton btnThem = new JButton("Thêm");
@@ -53,21 +51,13 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
     MyTable tbHoaDon = new MyTable();
     MyTable tbChiTiet = new MyTable();
-//    JScrollPane scHoaDon = new JScrollPane();
-//    JScrollPane scChiTiet = new JScrollPane();
-//    JTable table = new JTable();
-//    DefaultTableModel model = new DefaultTableModel(new String[]{"Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"}, 0);
-// test đi
 
     public HoaDon_ChiTietHoaDon_form() {
 
-//        table.setPreferredSize(new Dimension(1200 - 250, 600));
         JPanel pnlHoaDon = new JPanel();
         pnlHoaDon.setLayout(new BorderLayout());
-        JPanel pnlChiTiet = new JPanel();
-        pnlChiTiet.setLayout(new BorderLayout());
-        pnlHoaDon.setPreferredSize(new Dimension(1200 - 250, 600));
-        pnlChiTiet.setPreferredSize(new Dimension(1200 - 250, 600));
+        txtMaNv.setEditable(true);
+        pnlHoaDon.setPreferredSize(new Dimension(1200 - 250, 350));
 
         JPanel pnlInput = new JPanel();
         pnlInput.setLayout(new GridLayout(1, 4));
@@ -119,7 +109,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
         pnlHoaDon.add(tbHoaDon);
 
-        tbHoaDon.setHeaders(new ConnectDB("quanlysieuthidienthoai"), "hoadon");
+        tbHoaDon.setHeaders(new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
         btnReadDBMouseClicked();
         tbHoaDon.getTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -128,7 +118,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
             }
         });
         tbChiTiet.setPreferredSize(new Dimension(950, 200));
-        tbChiTiet.setHeaders(new ConnectDB("quanlysieuthidienthoai"), "chitiethoadon");
+        tbChiTiet.setHeaders(new String[]{"Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
         tbChiTiet.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -139,25 +129,25 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         this.add(pnlInput);
         this.add(pnlBtn);
 
-        this.add(tbHoaDon);
+        this.add(pnlHoaDon);
         this.add(pnlCTHD);
         this.add(pnlTimCTHD);
-        
+//        btnSua.setVisible(false);
+
 //        timComboBox.setEditable(true);
 //        timComboBox.getModel()
-        
         btnTimCTHD.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 btnTimKiemCTHDMouseClicked();
             }
-});
+        });
         btnThemCTHD.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
                 btnThemChiTietMouseClicked();
             }
-});
+        });
         this.add(tbChiTiet);
 
         btnReadDB.addMouseListener(new MouseAdapter() {
@@ -200,6 +190,9 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
                 btnReadDBMouseClicked();
             }
         });
+//        popupform.setLocation(450, 300);
+//        popupform.setVisible(true);
+//        this.add(popupform);
     }
 
     private void btnReadDBMouseClicked() {
@@ -207,20 +200,14 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         qlcthd.readDB();
 //        System.out.println(new ConnectDB());
         tbHoaDon.clear();
-        qlhd.dshd.forEach((hd) -> {
+        qlhd.getDshd().forEach((hd) -> {
             System.out.println(hd.getMaHoaDon());
 //            tbHoaDon.addRow(new String[]{"asdasdas","asdasdasdasd","Asdaiii","asdiiidi"});
-            Vector row = new Vector();
-            row.add(hd.getMaHoaDon());
-            row.add(hd.getMaNhanVien());
-            row.add(hd.getMaKhachHang());
-            row.add(hd.getNgayLap());
-            row.add(hd.getGioLap());
-            row.add(hd.getTongTien());
+            String[] row = new String[]{hd.getMaHoaDon(), hd.getMaNhanVien(), hd.getMaKhachHang(), hd.getNgayLap().toString(), hd.getGioLap().toString(), String.valueOf(hd.getTongTien())};
             tbHoaDon.addRow(row);
 //            model.addRow(row);
         });
-        
+
     }
 
     private void tableHoaDonRowClicked() {
@@ -233,13 +220,9 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
             txtGioLap.setText(tbHoaDon.getTable().getModel().getValueAt(i, 4).toString());
             txtTongTien.setText(tbHoaDon.getTable().getModel().getValueAt(i, 5).toString());
             tbChiTiet.clear();
-            qlcthd.dshd.forEach((cthd) -> {
+            qlcthd.getDshd().forEach((cthd) -> {
                 if (tbHoaDon.getTable().getModel().getValueAt(i, 0).toString().equalsIgnoreCase(cthd.getMaHoaDon())) {
-                    Vector row = new Vector();
-                    row.add(cthd.getMaHoaDon());
-                    row.add(cthd.getMaSanPham());
-                    row.add(cthd.getSoLuong());
-                    row.add(cthd.getDonGia());
+                    String[] row = new String[]{cthd.getMaHoaDon(), cthd.getMaSanPham(), String.valueOf(cthd.getSoLuong()), String.valueOf(cthd.getDonGia())};
                     tbChiTiet.addRow(row);
                 }
             });
@@ -267,6 +250,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         }
         return true;
     }
+
     private Boolean checkInputChiTiet() {
         try {
             Integer.parseInt(txtSoLuong.getText());
@@ -280,7 +264,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
     private void btnThemHoaDonMouseClicked() {
         Boolean isValid = true;
-        for (HoaDon_DTO hd : qlhd.dshd) {
+        for (HoaDon_DTO hd : qlhd.getDshd()) {
             if (hd.getMaHoaDon().equalsIgnoreCase(txtMaHd.getText())) {
                 JOptionPane.showMessageDialog(null, "Ma hoa don da ton tai !!");
                 isValid = false;
@@ -290,19 +274,16 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
             qlhd.add(txtMaHd.getText(), txtMaNv.getText(), txtMaKh.getText(), java.time.LocalDate.parse(txtNgayLap.getText()), java.time.LocalTime.parse(txtGioLap.getText()), Float.parseFloat(txtTongTien.getText()));
         }
     }
+
     private void btnThemChiTietMouseClicked() {
         Boolean isValid = true;
         if (isValid && checkInputChiTiet()) {
             qlcthd.add(txtMaHd2.getText(), txtMaSp.getText(), Integer.parseInt(txtSoLuong.getText()), Float.parseFloat(txtSoLuong.getText()));
         }
         tbChiTiet.clear();
-        qlcthd.dshd.forEach((hd) -> {
+        qlcthd.getDshd().forEach((hd) -> {
 //            tbHoaDon.addRow(new String[]{"asdasdas","asdasdasdasd","Asdaiii","asdiiidi"});
-            Vector row = new Vector();
-            row.add(hd.getMaHoaDon());
-            row.add(hd.getMaSanPham());
-            row.add(hd.getSoLuong());
-            row.add(hd.getDonGia());
+            String[] row = new String[]{hd.getMaHoaDon(), hd.getMaSanPham(), String.valueOf(hd.getSoLuong()), String.valueOf(hd.getDonGia())};
             tbChiTiet.addRow(row);
 //            model.addRow(row);
         });
@@ -323,7 +304,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         int i = tbHoaDon.getTable().getSelectedRow();
         if (i >= 0) {
             System.out.println(tbHoaDon.getTable().getModel().getValueAt(i, 0).toString());
-            qlhd.del(tbHoaDon.getTable().getModel().getValueAt(i, 0).toString());
+            qlhd.delete(tbHoaDon.getTable().getModel().getValueAt(i, 0).toString());
         }
     }
 
@@ -334,30 +315,22 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         txtNgayLap.setText("");
         txtGioLap.setText("");
         txtTongTien.setText("");
+//        popupForm pForm = new popupForm();
+//        this.add(pForm);
     }
 
     private void btnTimKiemMouseClicked() {
         tbHoaDon.clear();
-        qlhd.search(timComboBox.getSelectedItem().toString(), txtSearchbox.getText()).forEach((t) -> {
-            Vector row = new Vector();
-            row.add(t.getMaHoaDon());
-            row.add(t.getMaNhanVien());
-            row.add(t.getMaKhachHang());
-            row.add(t.getNgayLap());
-            row.add(t.getGioLap());
-            row.add(t.getTongTien());
+        qlhd.search(timComboBox.getSelectedItem().toString(), txtSearchbox.getText()).forEach((hd) -> {
+            String[] row = new String[]{hd.getMaHoaDon(), hd.getMaNhanVien(), hd.getMaKhachHang(), hd.getNgayLap().toString(), hd.getGioLap().toString(), String.valueOf(hd.getTongTien())};
             tbHoaDon.addRow(row);
         });
     }
-    
-    private void btnTimKiemCTHDMouseClicked(){
+
+    private void btnTimKiemCTHDMouseClicked() {
         tbChiTiet.clear();
         qlcthd.search(timComboBox2.getSelectedItem().toString(), txtSearchbox2.getText()).forEach((t) -> {
-            Vector row = new Vector();
-            row.add(t.getMaHoaDon());
-            row.add(t.getMaSanPham());
-            row.add(t.getSoLuong());
-            row.add(t.getDonGia());
+            String[] row = new String[]{t.getMaHoaDon(), t.getMaSanPham(), String.valueOf(t.getSoLuong()), String.valueOf(t.getDonGia())};
             tbChiTiet.addRow(row);
         });
     }

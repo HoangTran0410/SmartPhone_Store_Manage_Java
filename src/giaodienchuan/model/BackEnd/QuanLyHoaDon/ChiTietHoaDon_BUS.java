@@ -1,40 +1,28 @@
 package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 
 public class ChiTietHoaDon_BUS {
 
     ArrayList<ChiTietHoaDon_DTO> dshd = new ArrayList<>();
+    private ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
 
     public ChiTietHoaDon_BUS() {
     }
 
-    public ArrayList<String> getHeaders() {
-        ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
-        qlhd.closeConnection();
-
-        return qlhd.getHeaders();
+    public ArrayList<ChiTietHoaDon_DTO> getDshd(){
+        return this.dshd;
     }
-
+    
     public void readDB() {
-        ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
         dshd = qlhd.readDB();
-        qlhd.closeConnection();
     }
 
     public Boolean add(ChiTietHoaDon_DTO hd) {
-        ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
         Boolean success = qlhd.add(hd);
-        qlhd.closeConnection();
         if (success) {
-            ChiTietHoaDon_DTO newhd = new ChiTietHoaDon_DTO();
-            newhd.setMaHoaDon(hd.getMaHoaDon());
-            newhd.setMaSanPham(hd.getMaSanPham());
-            newhd.setSoLuong(hd.getSoLuong());
-            newhd.setDonGia(hd.getDonGia());
-            dshd.add(newhd);
+            dshd.add(hd);
             return true;
         }
         return false;
@@ -59,9 +47,7 @@ public class ChiTietHoaDon_BUS {
     }
 
     public Boolean update(ChiTietHoaDon_DTO hd) {
-        ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
         Boolean success = qlhd.update(hd);
-        qlhd.closeConnection();
         if (success) {
             for (ChiTietHoaDon_DTO cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
@@ -72,10 +58,8 @@ public class ChiTietHoaDon_BUS {
         return false;
     }
 
-    public Boolean del(String maHoaDon) {
-        ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
-        Boolean success = qlhd.del(maHoaDon);
-        qlhd.closeConnection();
+    public Boolean delelte(String maHoaDon) {
+        Boolean success = qlhd.delelte(maHoaDon);
         if (success) {
             for (ChiTietHoaDon_DTO cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
@@ -109,28 +93,31 @@ public class ChiTietHoaDon_BUS {
                 });
                 break;
             case "Số lượng":
-                try{
+                try {
                     Integer.parseInt(keyword);
                     dshd.forEach((t) -> {
-                    if (t.getSoLuong()==Integer.parseInt(keyword)) {
-                        result.add(t);
-                    }});
-                }catch(NumberFormatException e){
+                        if (t.getSoLuong() == Integer.parseInt(keyword)) {
+                            result.add(t);
+                        }
+                    });
+                } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "So Luong phai la so !!!");
                 }
                 break;
             case "Đơn giá":
-                try{
+                try {
                     Float.parseFloat(keyword);
                     dshd.forEach((t) -> {
-                    if (t.getDonGia()==Float.parseFloat(keyword)) {
-                        result.add(t);
-                    }});
-                }catch(NumberFormatException e){
+                        if (t.getDonGia() == Float.parseFloat(keyword)) {
+                            result.add(t);
+                        }
+                    });
+                } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Don gia phai la so !!!");
                 }
                 break;
-            default : break;
+            default:
+                break;
         }
         return result;
     }

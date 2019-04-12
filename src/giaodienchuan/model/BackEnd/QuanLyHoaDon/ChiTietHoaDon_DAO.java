@@ -1,5 +1,6 @@
 package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
+import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,23 +8,17 @@ import javax.swing.JOptionPane;
 
 public class ChiTietHoaDon_DAO {
 
-    ConnectDB connection = new ConnectDB();
+    ConnectionDB connection;
 
     public ChiTietHoaDon_DAO() {
-        connection.logIn("root", "");
-    }
-
-    public ArrayList<String> getHeaders() {
-        return connection.getHeaders("chitiethoadon");
-        // mếu ông thay đổi các heađer ở DB, thì ông sẽ luôn phải thay đổi các hàm trong class này right ?
     }
 
     public ArrayList readDB() {
-        connection.setupConnection();
+        connection = new ConnectionDB();
         ArrayList<ChiTietHoaDon_DTO> dshd = new ArrayList<>();
         try {
             String qry = "SELECT * FROM chitiethoadon";
-            ResultSet rs = connection.sqlQry(qry);
+            ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
                     ChiTietHoaDon_DTO hd = new ChiTietHoaDon_DTO();
@@ -43,21 +38,23 @@ public class ChiTietHoaDon_DAO {
     }
 
     public Boolean add(ChiTietHoaDon_DTO hd) {
-        connection.setupConnection();
+        connection = new ConnectionDB();
         Boolean success = connection.sqlUpdate("INSERT INTO chitiethoadon(MaHD,MaSP,SoLuong,DonGia) VALUES ('" + hd.getMaHoaDon() + "','" + hd.getMaSanPham() + "','" + hd.getSoLuong() + "','" + hd.getDonGia() + "');");
         connection.closeConnect();
         return success;
     }
 
-    public Boolean del(String mahd) {
-        connection.setupConnection();
+    public Boolean delelte(String mahd) {
+        connection = new ConnectionDB();
         Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + mahd + "';");
         connection.closeConnect();
         return success;
     }
 
     public Boolean update(ChiTietHoaDon_DTO hd) {
+        connection = new ConnectionDB();
         Boolean success = connection.sqlUpdate("UPDATE chitiethoadon set MaSP='" + hd.getMaSanPham() + "', SoLuong='" + hd.getSoLuong() + "', DonGia='" + hd.getDonGia() + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
+        connection.closeConnect();
         return success;
     }
 

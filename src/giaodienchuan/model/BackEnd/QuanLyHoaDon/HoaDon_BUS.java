@@ -9,28 +9,21 @@ import javax.swing.JOptionPane;
 public class HoaDon_BUS {
 
     ArrayList<HoaDon_DTO> dshd = new ArrayList<>();
+    private HoaDon_DAO qlhd = new HoaDon_DAO();
 
     public HoaDon_BUS() {
     }
-
-    public ArrayList<String> getHeaders() {
-        HoaDon_DAO qlhd = new HoaDon_DAO();
-        qlhd.closeConnection();
-
-        return qlhd.getHeaders();
-
+    
+    public ArrayList<HoaDon_DTO> getDshd(){
+        return this.dshd;
     }
 
     public void readDB() {
-        HoaDon_DAO qlhd = new HoaDon_DAO();
         dshd = qlhd.readDB();
-        qlhd.closeConnection();
     }
 
     public Boolean add(HoaDon_DTO hd) {
-        HoaDon_DAO qlhd = new HoaDon_DAO();
         Boolean success = qlhd.add(hd);
-        qlhd.closeConnection();
         if (success) {
             dshd.add(hd);
             return true;
@@ -49,25 +42,21 @@ public class HoaDon_BUS {
     }
 
     public Boolean update(HoaDon_DTO hd) {
-        HoaDon_DAO qlhd = new HoaDon_DAO();
         Boolean success = qlhd.update(hd);
-        qlhd.closeConnection();
         if (success) {
             for (HoaDon_DTO cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
                     cthd = hd;
                 }
             }
+            return true;
         }
         return false;
     }
 
-    public Boolean del(String maHoaDon) {
-        HoaDon_DAO qlhd = new HoaDon_DAO();
-        Boolean success = qlhd.del(maHoaDon);
-        qlhd.closeConnection();
+    public Boolean delete(String maHoaDon) {
+        Boolean success = qlhd.delete(maHoaDon);
         if (success) {
-            System.out.println("succck");
             for (HoaDon_DTO cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
                     dshd.remove(cthd);
