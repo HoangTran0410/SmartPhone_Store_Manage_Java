@@ -36,40 +36,22 @@ public class QuanLyLoaiSanPhamBUS {
         // phương pháp tìm từ arraylist
         ArrayList<LoaiSanPham> result = new ArrayList<>();
 
-        dslsp.forEach((sp) -> {
+        dslsp.forEach((lsp) -> {
             if (type.equals("Tất cả")) {
-                if (sp.getMaSP().toLowerCase().contains(value.toLowerCase())
-                        || sp.getMaLSP().toLowerCase().contains(value.toLowerCase())
-                        || sp.getTenSP().toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(sp.getDonGia()).toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(sp.getSoLuong()).toLowerCase().contains(value.toLowerCase())) {
-                    result.add(sp);
+                if (lsp.getMaLSP().toLowerCase().contains(value.toLowerCase())
+                 || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())) {
+                    result.add(lsp);
                 }
             } else {
                 switch (type) {
-                    case "Mã sản phẩm":
-                        if (sp.getMaSP().toLowerCase().contains(value.toLowerCase())) {
-                            result.add(sp);
-                        }
-                        break;
                     case "Mã loại":
-                        if (sp.getMaLSP().toLowerCase().contains(value.toLowerCase())) {
-                            result.add(sp);
+                        if (lsp.getMaLSP().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(lsp);
                         }
                         break;
-                    case "Tên":
-                        if (sp.getTenSP().toLowerCase().contains(value.toLowerCase())) {
-                            result.add(sp);
-                        }
-                        break;
-                    case "Đơn giá":
-                        if (String.valueOf(sp.getDonGia()).toLowerCase().contains(value.toLowerCase())) {
-                            result.add(sp);
-                        }
-                        break;
-                    case "Số lượng":
-                        if (String.valueOf(sp.getSoLuong()).toLowerCase().contains(value.toLowerCase())) {
-                            result.add(sp);
+                    case "Tên loại":
+                        if (lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(lsp);
                         }
                         break;
                 }
@@ -80,26 +62,26 @@ public class QuanLyLoaiSanPhamBUS {
         return result;
     }
 
-    public Boolean add(LoaiSanPham sp) {
-        Boolean ok = qllspDAO.add(sp);
+    public Boolean add(LoaiSanPham lsp) {
+        Boolean ok = qllspDAO.add(lsp);
 
         if (ok) {
-            dslsp.add(sp);
+            dslsp.add(lsp);
         }
         return ok;
     }
 
-    public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong) {
-        LoaiSanPham sp = new LoaiSanPham(masp, malsp, tensp, dongia, soluong);
-        return add(sp);
+    public Boolean add(String malsp, String tenlsp) {
+        LoaiSanPham lsp = new LoaiSanPham(malsp, tenlsp);
+        return add(lsp);
     }
 
-    public Boolean delete(String masp) {
-        Boolean ok = new QuanLySanPhamDAO().delete(masp);
+    public Boolean delete(String malsp) {
+        Boolean ok = qllspDAO.delete(malsp);
 
         if (ok) {
             for (int i = (dslsp.size() - 1); i >= 0; i--) {
-                if (dslsp.get(i).getMaSP().equals(masp)) {
+                if (dslsp.get(i).getMaLSP().equals(malsp)) {
                     dslsp.remove(i);
                 }
             }
@@ -107,16 +89,13 @@ public class QuanLyLoaiSanPhamBUS {
         return ok;
     }
 
-    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong) {
-        Boolean ok = new QuanLySanPhamDAO().update(masp, malsp, tensp, dongia, soluong);
+    public Boolean update(String malsp, String tenlsp) {
+        Boolean ok = qllspDAO.update(malsp, tenlsp);
 
         if (ok) {
-            dslsp.forEach((sp) -> {
-                if (sp.getMaSP().equals(masp)) {
-                    sp.setMaLSP(malsp);
-                    sp.setTenSP(tensp);
-                    sp.setDonGia(dongia);
-                    sp.setSoLuong(soluong);
+            dslsp.forEach((lsp) -> {
+                if (lsp.getMaLSP().equals(malsp)) {
+                    lsp.setTenLSP(tenlsp);
                 }
             });
         }
@@ -124,7 +103,7 @@ public class QuanLyLoaiSanPhamBUS {
         return ok;
     }
 
-    public ArrayList<SanPham> getDssp() {
+    public ArrayList<LoaiSanPham> getDssp() {
         return dslsp;
     }
 }
