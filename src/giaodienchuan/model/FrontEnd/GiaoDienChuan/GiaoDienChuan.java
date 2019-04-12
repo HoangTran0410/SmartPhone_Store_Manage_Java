@@ -1,7 +1,8 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.Form.QuanLySinhVienForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
+import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
@@ -28,7 +29,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
     JPanel plContent = new JPanel();
     QuanLySanPhamForm qlsp = new QuanLySanPhamForm();
-    QuanLySinhVienForm qlsv = new QuanLySinhVienForm();
+    QuanLyNhanVienForm qlnv = new QuanLyNhanVienForm();
+    QuanLyKhachHangForm qlkh = new QuanLyKhachHangForm();
     EmptyPage emptypage = new EmptyPage();
 
     public GiaoDienChuan() {
@@ -148,11 +150,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Nhân viên":
-                plContent.add(qlsv, BorderLayout.CENTER);
+                plContent.add(qlnv, BorderLayout.CENTER);
                 break;
                 
             case "Khách hàng":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                plContent.add(qlkh, BorderLayout.CENTER);
                 break;
                 
             case "Thống kê":
@@ -207,4 +209,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
+
 }
