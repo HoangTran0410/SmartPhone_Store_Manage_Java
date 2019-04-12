@@ -32,7 +32,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     JPanel plContent = new JPanel();
     EmptyPage emptypage = new EmptyPage();
     QuanLySanPhamForm qlsp;
-    
     QuanLyLoaiSanPhamForm qllsp;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;

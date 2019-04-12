@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class QuanLyNhanVienBUS {
 
     private ArrayList<NhanVien> dsnv = new ArrayList<>();
+    QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
 
     public QuanLyNhanVienBUS() {
 
@@ -16,20 +17,21 @@ public class QuanLyNhanVienBUS {
             System.out.print(nv.getMaCV() + " ");
             System.out.println(nv.getTenNV() + " ");
             System.out.println(nv.getNgaySinh() + " ");
-            System.out.println(nv.getDiaChi()+" ");
-            System.out.println(nv.getSDT()+" ");
+            System.out.println(nv.getDiaChi() + " ");
+            System.out.println(nv.getSDT() + " ");
         });
     }
-    
-     public String[] getHeaders() {
-        return new String[]{"Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ","Số điện thoại"};
+
+    public String[] getHeaders() {
+        return new String[]{"Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"};
     }
 
     public void readDB() {
-        dsnv = new QuanLyNhanVienDAO().readDB();
+        dsnv = qlnvDAO.readDB();
     }
+
     public ArrayList<NhanVien> search(String value, String type) {
-       ArrayList<NhanVien> result = new ArrayList<>();
+        ArrayList<NhanVien> result = new ArrayList<>();
 
         dsnv.forEach((nv) -> {
             if (type.equals("Tất cả")) {
@@ -38,7 +40,7 @@ public class QuanLyNhanVienBUS {
                         || nv.getTenNV().toLowerCase().contains(value.toLowerCase())
                         || nv.getNgaySinh().toLowerCase().contains(value.toLowerCase())
                         || nv.getDiaChi().toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(nv.getSDT()).toLowerCase().contains(value.toLowerCase())) {
+                        || nv.getSDT().toLowerCase().contains(value.toLowerCase())) {
                     result.add(nv);
                 }
             } else {
@@ -69,7 +71,7 @@ public class QuanLyNhanVienBUS {
                         }
                         break;
                     case "Số điện thoại":
-                        if (String.valueOf(nv.getSDT()).toLowerCase().contains(value.toLowerCase())) {
+                        if (nv.getSDT().toLowerCase().contains(value.toLowerCase())) {
                             result.add(nv);
                         }
                         break;
@@ -80,10 +82,9 @@ public class QuanLyNhanVienBUS {
 
         return result;
     }
+
     public Boolean add(NhanVien nv) {
-        QuanLyNhanVienDAO qlnvDB = new QuanLyNhanVienDAO();
-        Boolean ok = qlnvDB.add(nv);
-        qlnvDB.close();
+        Boolean ok = qlnvDAO.add(nv);
 
         if (ok) {
             dsnv.add(nv);
@@ -91,15 +92,13 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean add(String manv, String macv, String tennv, String ngaysinh, String diachi, int sdt) {
+    public Boolean add(String manv, String macv, String tennv, String ngaysinh, String diachi, String sdt) {
         NhanVien nv = new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt);
         return add(nv);
     }
 
     public Boolean delete(String manv) {
-        QuanLyNhanVienDAO qlnvDB = new QuanLyNhanVienDAO();
-        Boolean ok = qlnvDB.delete(manv);
-        qlnvDB.close();
+        Boolean ok = qlnvDAO.delete(manv);
 
         if (ok) {
             for (int i = (dsnv.size() - 1); i >= 0; i--) {
@@ -111,10 +110,8 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean update(String manv, String macv, String tennv, String ngaysinh, String diachi, long sdt) {
-        QuanLyNhanVienDAO qlnvDB = new QuanLyNhanVienDAO();
-        Boolean ok = qlnvDB.update(manv, macv, tennv, ngaysinh, diachi, sdt);
-        //qlnvDB.close();
+    public Boolean update(String manv, String macv, String tennv, String ngaysinh, String diachi, String sdt) {
+        Boolean ok = qlnvDAO.update(manv, macv, tennv, ngaysinh, diachi, sdt);
 
         if (ok) {
             dsnv.forEach((nv) -> {

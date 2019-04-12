@@ -29,8 +29,7 @@ public class QuanLyNhanVienDAO {
                     String ngaysinh = r.getString(4);
                     String diachi = r.getString(5);
                     String sdt = r.getString(6);
-                    dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, Long.parseLong(sdt)));
-//                    System.out.println("aaaa");
+                    dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
                 }
             }
 
@@ -56,7 +55,7 @@ public class QuanLyNhanVienDAO {
                     String tennv = r.getString(3);
                     String ngaysinh = r.getString(4);
                     String diachi = r.getString(5);
-                    int sdt = r.getInt(6);
+                    String sdt = r.getString(6);
                     dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
                 }
             }
@@ -74,7 +73,7 @@ public class QuanLyNhanVienDAO {
         qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("INSERT INTO `nhanvien` (`MaNV`,`MaCV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES ('"
                 + nv.getMaNV() + "', '" + nv.getMaCV() + "', '" + nv.getTenNV()
-                + "', '" + nv.getNgaySinh() + "', '" + nv.getDiaChi() + "','" + String.valueOf(nv.getSDT()) + "');");
+                + "', '" + nv.getNgaySinh() + "', '" + nv.getDiaChi() + "', '" + nv.getSDT() + "');");
         qlnvConnection.closeConnect();
         return ok;
     }
@@ -86,10 +85,10 @@ public class QuanLyNhanVienDAO {
         return ok;
     }
 
-    public Boolean update(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, long SDT) {
+    public Boolean update(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, String SDT) {
         qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set MaCV='" + MaCV + "',TenNV='" + TenNV
-                + "',NgaySinh='" + NgaySinh + "',DiaChi='" + DiaChi + "'SDT='" + SDT + "' where MaNV='" + MaNV + "'");
+                + "',NgaySinh='" + NgaySinh + "',DiaChi='" + DiaChi + "',SDT='" + SDT + "' where MaNV='" + MaNV + "'");
         qlnvConnection.closeConnect();
         return ok;
     }

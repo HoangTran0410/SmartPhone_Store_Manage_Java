@@ -180,7 +180,7 @@ public class QuanLyNhanVienForm extends JPanel {
             String ten = txTennv.getText();
             String ngaysinh = txNgaysinh.getText();
             String diachi = txDiachi.getText();
-            long sdt = Integer.parseInt(txSDT.getText());
+            String sdt = txSDT.getText();
 
             if (!txManv.getText().equals(manv)) {
                 JOptionPane.showMessageDialog(null, "Mã nhân viên là Khóa Chính nên không thể thay đổi, chỉ cập nhật các trường còn lại!");
@@ -228,7 +228,7 @@ public class QuanLyNhanVienForm extends JPanel {
             String ten = txTennv.getText();
             String ngaysinh = txNgaysinh.getText();
             String diachi = txDiachi.getText();
-            int sdt = Integer.parseInt(txSDT.getText());
+            String sdt = txSDT.getText();
 
             NhanVien nv = new NhanVien(manv, macv, ten, ngaysinh, diachi, sdt);
             qlnv.add(nv);

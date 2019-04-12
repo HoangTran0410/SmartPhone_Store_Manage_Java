@@ -80,7 +80,7 @@ public class QuanLyKhachHangForm extends JPanel {
         plBtn.add(btnReadDB);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên", "Đơn giá", "Số điện thoại"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên", "Địa chỉ", "Số điện thoại"});
 
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
@@ -166,7 +166,7 @@ public class QuanLyKhachHangForm extends JPanel {
             String makh = mtb.getModel().getValueAt(i, MAKH_I).toString();
             String ten = txTen.getText();
             String diachi = txDiachi.getText();
-            int sdt = Integer.parseInt(txSDT.getText());
+            String sdt = txSDT.getText();
 
             if (!txMakh.getText().equals(makh)) {
                 JOptionPane.showMessageDialog(null, "Mã khách hàng là Khóa Chính nên không thể thay đổi, chỉ cập nhật các trường còn lại!");
@@ -210,7 +210,7 @@ public class QuanLyKhachHangForm extends JPanel {
             String makh = txMakh.getText();
             String ten = txTen.getText();
             String diachi = txDiachi.getText();
-            int sdt = Integer.parseInt(txSDT.getText());
+            String sdt = txSDT.getText();
 
             KhachHang kh = new KhachHang(makh, ten, diachi, sdt);
             qlkh.add(kh);

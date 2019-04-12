@@ -1,7 +1,6 @@
 package giaodienchuan.model.BackEnd.KhachHang;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,20 +9,14 @@ import javax.swing.JOptionPane;
 
 public class QuanLyKhachHangDAO {
 
-   ConnectionDB qlkhConnection;
+    ConnectionDB qlkhConnection;
 
     public QuanLyKhachHangDAO() {
 
     }
 
-    
-    // headers của bảng sản phẩm
-    public String[] getHeaders() {
-        return new String[] {"Mã khách hàng", "Tên khách hàng", "Địa chỉ", "SĐT"};
-    }
-
     public ArrayList<KhachHang> readDB() {
-        qlkhConnection= new ConnectionDB();
+        qlkhConnection = new ConnectionDB();
         ArrayList<KhachHang> dskh = new ArrayList<>();
         try {
             String qry = "SELECT * FROM khachhang";
@@ -31,22 +24,21 @@ public class QuanLyKhachHangDAO {
             if (r != null) {
                 while (r.next()) {
                     String makh = r.getString(1);
-                    String tenkh = r.getString(2);                  
-                    String diachi =r.getString(3);
-                    int sdt = r.getInt(4);
+                    String tenkh = r.getString(2);
+                    String diachi = r.getString(3);
+                    String sdt = r.getString(4);
                     dskh.add(new KhachHang(makh, tenkh, diachi, sdt));
                 }
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "-- ERROR! Lỗi đọc dữ liệu bảng khách hàng");
-        }
-        finally{
+        } finally {
             qlkhConnection.closeConnect();
         }
         return dskh;
     }
-    
+
     public ArrayList<KhachHang> search(String columnName, String value) {
         qlkhConnection = new ConnectionDB();
         ArrayList<KhachHang> dskh = new ArrayList<>();
@@ -59,7 +51,7 @@ public class QuanLyKhachHangDAO {
                     String makh = r.getString(1);
                     String tenkh = r.getString(2);
                     String diachi = r.getString(3);
-                    int sdt = r.getInt(4);
+                    String sdt = r.getString(4);
                     dskh.add(new KhachHang(makh, tenkh, diachi, sdt));
                 }
             }
@@ -72,10 +64,11 @@ public class QuanLyKhachHangDAO {
 
         return dskh;
     }
+
     public Boolean add(KhachHang kh) {
-        qlkhConnection =new ConnectionDB();
+        qlkhConnection = new ConnectionDB();
         Boolean ok = qlkhConnection.sqlUpdate("INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`) VALUES ('"
-                + kh.getMaKH() + "', '" + kh.getTenKH() + "', '" + kh.getDiaChi() + "','"+kh.getSDT()+"');");
+                + kh.getMaKH() + "', '" + kh.getTenKH() + "', '" + kh.getDiaChi() + "','" + kh.getSDT() + "');");
         qlkhConnection.closeConnect();
         return ok;
     }
@@ -87,10 +80,10 @@ public class QuanLyKhachHangDAO {
         return ok;
     }
 
-    public Boolean update(String MaKH, String TenKH, String DiaChi, int SDT) {
-        qlkhConnection=new ConnectionDB();
+    public Boolean update(String MaKH, String TenKH, String DiaChi, String SDT) {
+        qlkhConnection = new ConnectionDB();
         Boolean ok = qlkhConnection.sqlUpdate("Update KhachHang Set TenKH='" + TenKH
-                +"',DiaChi='" + DiaChi + "',SDT='" + SDT + "' WHERE MaKH='" + MaKH + "'");
+                + "', DiaChi='" + DiaChi + "', SDT='" + SDT + "' where MaKH='" + MaKH + "'");
         qlkhConnection.closeConnect();
         return ok;
     }
