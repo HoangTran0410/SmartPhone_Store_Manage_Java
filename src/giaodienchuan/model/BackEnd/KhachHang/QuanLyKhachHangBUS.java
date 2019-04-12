@@ -1,11 +1,11 @@
 package giaodienchuan.model.BackEnd.KhachHang;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
 public class QuanLyKhachHangBUS {
 
     private ArrayList<KhachHang> dskh = new ArrayList<>();
+    QuanLyKhachHangDAO qlkhDAO = new QuanLyKhachHangDAO();
 
     public QuanLyKhachHangBUS() {
 
@@ -15,23 +15,22 @@ public class QuanLyKhachHangBUS {
         dskh.forEach((kh) -> {
             System.out.print(kh.getMaKH() + " ");
             System.out.println(kh.getTenKH() + " ");
-            System.out.println(kh.getDiaChi()+" ");
-            System.out.println(kh.getSDT()+" ");
+            System.out.println(kh.getDiaChi() + " ");
+            System.out.println(kh.getSDT() + " ");
         });
     }
-    
+
+    // headers của bảng sản phẩm
     public String[] getHeaders() {
-        QuanLyKhachHangDAO qlkhConnection = new QuanLyKhachHangDAO();
-        qlkhConnection.close();
-        return qlkhConnection.getHeaders();
+        return new String[]{"Mã khách hàng", "Tên khách hàng", "Địa chỉ", "SĐT"};
     }
 
     public void readDB() {
-        dskh = new QuanLyKhachHangDAO().readDB();
+        dskh = qlkhDAO.readDB();
     }
-    
+
     public ArrayList<KhachHang> search(String value, String type) {
-        
+
         ArrayList<KhachHang> result = new ArrayList<>();
 
         dskh.forEach((kh) -> {
@@ -73,9 +72,7 @@ public class QuanLyKhachHangBUS {
     }
 
     public Boolean add(KhachHang kh) {
-        QuanLyKhachHangDAO qlkhConnection = new QuanLyKhachHangDAO();
-        Boolean ok = qlkhConnection.add(kh);
-        qlkhConnection.close();
+        Boolean ok = qlkhDAO.add(kh);
 
         if (ok) {
             dskh.add(kh);
@@ -84,14 +81,12 @@ public class QuanLyKhachHangBUS {
     }
 
     public Boolean add(String makh, String tenkh, String diachi, int sdt) {
-        KhachHang kh = new KhachHang(makh,  tenkh, diachi, sdt);
+        KhachHang kh = new KhachHang(makh, tenkh, diachi, sdt);
         return add(kh);
     }
 
     public Boolean delete(String makh) {
-        QuanLyKhachHangDAO qlkhConnection = new QuanLyKhachHangDAO();
-        Boolean ok = qlkhConnection.delete(makh);
-        qlkhConnection.close();
+        Boolean ok = qlkhDAO.delete(makh);
 
         if (ok) {
             for (int i = (dskh.size() - 1); i >= 0; i--) {
@@ -103,14 +98,12 @@ public class QuanLyKhachHangBUS {
         return ok;
     }
 
-    public Boolean update(String makh,  String tenkh, String diachi, int sdt) {
-        QuanLyKhachHangDAO qlkhConnection = new QuanLyKhachHangDAO();
-        Boolean ok = qlkhConnection.update(makh, tenkh, diachi, sdt);
-        qlkhConnection.close();
+    public Boolean update(String makh, String tenkh, String diachi, int sdt) {
+        Boolean ok = qlkhDAO.update(makh, tenkh, diachi, sdt);
 
         if (ok) {
             dskh.forEach((kh) -> {
-                if (kh.getMaKH().equals(makh)) {                
+                if (kh.getMaKH().equals(makh)) {
                     kh.setTenKH(tenkh);
                     kh.setDiaChi(diachi);
                     kh.setSDT(sdt);
