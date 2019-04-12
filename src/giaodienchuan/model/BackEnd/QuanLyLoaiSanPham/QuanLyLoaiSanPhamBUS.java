@@ -1,10 +1,9 @@
-
 package giaodienchuan.model.BackEnd.QuanLyLoaiSanPham;
-
 
 import java.util.ArrayList;
 
 public class QuanLyLoaiSanPhamBUS {
+
     private ArrayList<LoaiSanPham> dslsp = new ArrayList<>();
     private QuanLyLoaiSanPhamDAO qllspDAO = new QuanLyLoaiSanPhamDAO();
 
@@ -39,7 +38,7 @@ public class QuanLyLoaiSanPhamBUS {
         dslsp.forEach((lsp) -> {
             if (type.equals("Tất cả")) {
                 if (lsp.getMaLSP().toLowerCase().contains(value.toLowerCase())
-                 || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())) {
+                        || lsp.getTenLSP().toLowerCase().contains(value.toLowerCase())) {
                     result.add(lsp);
                 }
             } else {
