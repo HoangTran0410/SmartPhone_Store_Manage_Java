@@ -82,8 +82,10 @@ public class QuanLyKhachHangDAO {
 
     public Boolean update(String MaKH, String TenKH, String DiaChi, int SDT) {
         qlkhConnection = new ConnectionDB();
-        Boolean ok = qlkhConnection.sqlUpdate("Update KhachHang Set MaKH='" + MaKH + "',TenKH='" + TenKH
-                + "',DiaChi='" + DiaChi + "'SDT='" + SDT + "' where MaKH='" + MaKH + "'");
+        Boolean ok = qlkhConnection.sqlUpdate("Update KhachHang Set TenKH='" + TenKH
+                + "', DiaChi='" + DiaChi + "', SDT='" + SDT + "' where MaKH='" + MaKH + "'");
+        
+        System.out.println(SDT);
         qlkhConnection.closeConnect();
         return ok;
     }
