@@ -6,12 +6,9 @@ package giaodienchuan.model.BackEnd.KhachHang;
  * @author DELL
  */
 public class KhachHang {
-    String MaKH;
-    String TenKH;
-    String DiaChi;
-    int SDT;
+    String MaKH, TenKH, DiaChi, SDT;
 
-    public KhachHang(String MaKH, String TenKH, String DiaChi, int SDT) {
+    public KhachHang(String MaKH, String TenKH, String DiaChi, String SDT) {
         this.MaKH = MaKH;
         this.TenKH = TenKH;
         this.DiaChi = DiaChi;
@@ -42,11 +39,11 @@ public class KhachHang {
         this.DiaChi = DiaChi;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
     

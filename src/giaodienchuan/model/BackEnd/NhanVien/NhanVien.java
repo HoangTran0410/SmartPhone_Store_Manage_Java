@@ -1,16 +1,16 @@
-
 package giaodienchuan.model.BackEnd.NhanVien;
 
 public class NhanVien {
-    String MaNV,MaCV,TenNV,NgaySinh,DiaChi;
-    int SDT;
-    public NhanVien(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, int SDT){
-        this.MaNV=MaNV;
-        this.MaCV=MaCV;
-        this.TenNV=TenNV;
-        this.NgaySinh=NgaySinh;
-        this.DiaChi=DiaChi;
-        this.SDT=SDT;
+
+    String MaNV, MaCV, TenNV, NgaySinh, DiaChi, SDT;
+
+    public NhanVien(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, String SDT) {
+        this.MaNV = MaNV;
+        this.MaCV = MaCV;
+        this.TenNV = TenNV;
+        this.NgaySinh = NgaySinh;
+        this.DiaChi = DiaChi;
+        this.SDT = SDT;
     }
 
     public String getMaNV() {
@@ -53,12 +53,12 @@ public class NhanVien {
         this.DiaChi = DiaChi;
     }
 
-    public int getSDT() {
+    public String getSDT() {
         return SDT;
     }
 
-    public void setSDT(int SDT) {
+    public void setSDT(String SDT) {
         this.SDT = SDT;
     }
-    
+
 }

@@ -14,10 +14,10 @@ public class QuanLyNhanVienDAO {
     public QuanLyNhanVienDAO() {
 
     }
-    
+
     public ArrayList<NhanVien> readDB() {
         ArrayList<NhanVien> dsnv = new ArrayList<>();
-        qlnvConnection= new ConnectionDB();
+        qlnvConnection = new ConnectionDB();
         try {
             String qry = "SELECT * FROM nhanvien";
             ResultSet r = qlnvConnection.sqlQuery(qry);
@@ -27,22 +27,21 @@ public class QuanLyNhanVienDAO {
                     String macv = r.getString(2);
                     String tennv = r.getString(3);
                     String ngaysinh = r.getString(4);
-                    String diachi =r.getString(5);
-                    int sdt = r.getInt(6);
-                    dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi,sdt));
+                    String diachi = r.getString(5);
+                    String sdt = r.getString(6);
+                    dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
                 }
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "-- ERROR! Lỗi đọc dữ liệu bảng nhân viên");
-        } 
-        finally{
+        } finally {
             qlnvConnection.closeConnect();
         }
         return dsnv;
     }
-    
-     public ArrayList<NhanVien> search(String columnName, String value) {
+
+    public ArrayList<NhanVien> search(String columnName, String value) {
         qlnvConnection = new ConnectionDB();
         ArrayList<NhanVien> dsnv = new ArrayList<>();
 
@@ -56,7 +55,7 @@ public class QuanLyNhanVienDAO {
                     String tennv = r.getString(3);
                     String ngaysinh = r.getString(4);
                     String diachi = r.getString(5);
-                    int sdt = r.getInt(6);
+                    String sdt = r.getString(6);
                     dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
                 }
             }
@@ -71,25 +70,25 @@ public class QuanLyNhanVienDAO {
     }
 
     public Boolean add(NhanVien nv) {
-        qlnvConnection=new ConnectionDB();
+        qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("INSERT INTO `nhanvien` (`MaNV`,`MaCV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES ('"
-                + nv.getMaNV() + "', '" + nv.getMaCV() + "', '" + nv.getTenNV() 
-                + "', '" + nv.getNgaySinh() + "', '" + nv.getDiaChi() + "','"+String.valueOf(nv.getSDT())+"');");
+                + nv.getMaNV() + "', '" + nv.getMaCV() + "', '" + nv.getTenNV()
+                + "', '" + nv.getNgaySinh() + "', '" + nv.getDiaChi() + "', '" + nv.getSDT() + "');");
         qlnvConnection.closeConnect();
         return ok;
     }
 
     public Boolean delete(String manv) {
-        qlnvConnection=new ConnectionDB();
+        qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("DELETE FROM `nhanvien` WHERE `nhanvien`.`MaNV` = '" + manv + "'");
         qlnvConnection.closeConnect();
         return ok;
     }
 
-    public Boolean update(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, int SDT) {
-        qlnvConnection=new ConnectionDB();
-        Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set MaCV='" + MaCV + "',TenNV='" + TenNV 
-                + "',NgaySinh='" + NgaySinh + "',DiaChi='" + DiaChi + "'SDT='" + SDT + "' where MaNV='" + MaNV + "'");
+    public Boolean update(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, String SDT) {
+        qlnvConnection = new ConnectionDB();
+        Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set MaCV='" + MaCV + "',TenNV='" + TenNV
+                + "',NgaySinh='" + NgaySinh + "',DiaChi='" + DiaChi + "',SDT='" + SDT + "' where MaNV='" + MaNV + "'");
         qlnvConnection.closeConnect();
         return ok;
     }

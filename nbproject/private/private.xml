@@ -3,20 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/Form/QuanLyKhachHangForm.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/NhanVien/NhanVien.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/Form/EmptyPage.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/Form/QuanLyNhanVienForm.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/ChucVu/ChucVuDAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/KhachHang/QuanLyKhachHangDAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/KhachHang/QuanLyKhachHangBUS.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/NhanVien/QuanLyNhanVienDAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/GiaoDienChuan.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/ChucVu/ChucVuBUS.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/NhanVien/QuanLyNhanVienBUS.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/Main.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamDAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
+            
         </group>
     </open-files>
 </project-private>

@@ -2,11 +2,20 @@
 package giaodienchuan.model.BackEnd.QuanLyLoaiSanPham;
 
 public class LoaiSanPham {
-    String MaLSP, TenLSP;
+    String MaLSP, TenLSP, MoTa;
     
-    public LoaiSanPham(String MaLSP, String TenLSP) {
+    public LoaiSanPham(String MaLSP, String TenLSP, String MoTa) {
         this.MaLSP = MaLSP;
         this.TenLSP = TenLSP;
+        this.MoTa = MoTa;
+    }
+
+    public String getMoTa() {
+        return MoTa;
+    }
+
+    public void setMoTa(String MoTa) {
+        this.MoTa = MoTa;
     }
 
     public String getMaLSP() {
@@ -24,6 +33,4 @@ public class LoaiSanPham {
     public void setTenLSP(String TenLSP) {
         this.TenLSP = TenLSP;
     }
-    
-    
 }
