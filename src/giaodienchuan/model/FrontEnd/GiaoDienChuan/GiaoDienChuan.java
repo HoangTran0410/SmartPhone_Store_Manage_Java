@@ -1,6 +1,6 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_ChiTietHoaDon_form;
+import giaodienchuan.model.FrontEnd.Form.HoaDon_ChiTietHoaDon_form;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;

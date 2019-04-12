@@ -1,5 +1,6 @@
 package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
+import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -9,21 +10,17 @@ import javax.swing.JOptionPane;
 
 public class HoaDon_DAO {
 
-    ConnectDB connection = new ConnectDB("quanlysieuthidienthoai");
+    ConnectionDB connection;
 
     public HoaDon_DAO() {
-        connection.logIn("root", "");
-    }
-    
-    public ArrayList<String> getHeaders() {
-        return connection.getHeaders("hoadon");
     }
 
     public ArrayList readDB() {
+        connection = new ConnectionDB();
         ArrayList<HoaDon_DTO> dshd = new ArrayList<>();
         try {
             String qry = "SELECT * FROM hoadon";
-            ResultSet rs = connection.sqlQry(qry);
+            ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
                     HoaDon_DTO hd = new HoaDon_DTO();
@@ -38,21 +35,31 @@ public class HoaDon_DAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Khong tim thay du lieu !!");
+        }finally{
+            connection.closeConnect();
         }
         return dshd;
     }
     public Boolean add(HoaDon_DTO hd){
+        connection =  new ConnectionDB();
         Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('"+hd.getMaHoaDon()+"','"+hd.getMaNhanVien()+"','"+hd.getMaKhachHang()+"','"+hd.getNgayLap()+"','"+hd.getGioLap()+"','"+hd.getTongTien()+"');");
+        connection.closeConnect();
         return success;
     }
-    public Boolean del(String mahd){
-        ChiTietHoaDon_BUS cthd =new ChiTietHoaDon_BUS();
-        if(cthd.del(mahd) && connection.sqlUpdate("DELETE FROM hoadon WHERE MaHD='"+mahd+"';"))
-            return true;
+    public Boolean delete(String mahd){
+        connection =  new ConnectionDB();
+        if(!connection.sqlUpdate("DELETE FROM hoadon WHERE MaHD='"+mahd+"';")){
+            JOptionPane.showMessageDialog(null,"Vui long xoa het chi tiet cua hoa don truoc !!!");
+            connection.closeConnect();
+            return false;
+        }
+        connection.closeConnect();
         return false;
     }
     public Boolean update(HoaDon_DTO hd){
+        connection =  new ConnectionDB();
         Boolean success = connection.sqlUpdate("UPDATE hoadon SET MaNV='"+hd.getMaNhanVien()+"', MaKH='"+hd.getMaKhachHang()+"', NgayLap='"+hd.getNgayLap()+"', GioLap='"+hd.getGioLap()+"', TongTien='"+hd.getTongTien()+"' WHERE MaHD='"+hd.getMaHoaDon()+"';");
+        connection.closeConnect();
         return success;
     }
     public Boolean update(String maHoaDon,String maNhanVien,String maKhachHang,LocalDate ngayLap,LocalTime gioLap,float tongTien){
@@ -64,8 +71,5 @@ public class HoaDon_DAO {
         hd.setGioLap(gioLap);
         hd.setTongTien(tongTien);
         return update(hd);
-    }
-    public void closeConnection(){
-        connection.closeConnect();
     }
 }
