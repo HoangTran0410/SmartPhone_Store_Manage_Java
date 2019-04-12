@@ -1,5 +1,6 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_ChiTietHoaDon_form;
 import giaodienchuan.model.FrontEnd.Form.QuanLySinhVienForm;
 import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.Form.EmptyPage;
@@ -156,7 +157,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                 
             case "Thống kê":
-                plContent.add(emptypage, BorderLayout.CENTER);
+                plContent.add(new HoaDon_ChiTietHoaDon_form(), BorderLayout.CENTER);
                 break;
                 
             case "Công cụ": 
