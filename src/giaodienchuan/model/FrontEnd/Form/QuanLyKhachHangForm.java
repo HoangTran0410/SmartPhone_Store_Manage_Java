@@ -80,7 +80,7 @@ public class QuanLyKhachHangForm extends JPanel {
         plBtn.add(btnReadDB);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên", "Đơn giá", "Số điện thoại"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên", "Địa chỉ", "Số điện thoại"});
 
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
