@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.NhanVien;
+package giaodienchuan.model.BackEnd.QuanLyNhanVien;
 
 public class NhanVien {
 

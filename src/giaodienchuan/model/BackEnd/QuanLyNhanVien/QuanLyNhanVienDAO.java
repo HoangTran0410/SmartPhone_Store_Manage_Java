@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.NhanVien;
+package giaodienchuan.model.BackEnd.QuanLyNhanVien;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 

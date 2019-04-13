@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.QLSV;
+package giaodienchuan.model.FrontEnd.Test.QLSV;
 
 import java.awt.event.MouseEvent;
 import java.sql.Connection;

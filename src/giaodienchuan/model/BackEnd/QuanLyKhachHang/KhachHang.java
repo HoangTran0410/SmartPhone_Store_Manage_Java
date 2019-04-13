@@ -1,5 +1,5 @@
 
-package giaodienchuan.model.BackEnd.KhachHang;
+package giaodienchuan.model.BackEnd.QuanLyKhachHang;
 
 /**
  *

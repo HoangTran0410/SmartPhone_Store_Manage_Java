@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.KhachHang;
+package giaodienchuan.model.BackEnd.QuanLyKhachHang;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 

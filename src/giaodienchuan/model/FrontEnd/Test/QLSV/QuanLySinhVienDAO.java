@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.QLSV;
+package giaodienchuan.model.FrontEnd.Test.QLSV;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 import java.sql.ResultSet;

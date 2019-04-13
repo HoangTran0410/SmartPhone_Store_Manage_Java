@@ -1,8 +1,8 @@
-package giaodienchuan.model.FrontEnd.Form;
+package giaodienchuan.model.FrontEnd.Test.QLSV;
 
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
-import giaodienchuan.model.BackEnd.QLSV.QuanLySinhVienBUS;
-import giaodienchuan.model.BackEnd.QLSV.SinhVien;
+import giaodienchuan.model.FrontEnd.Test.QLSV.QuanLySinhVienBUS;
+import giaodienchuan.model.FrontEnd.Test.QLSV.SinhVien;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
