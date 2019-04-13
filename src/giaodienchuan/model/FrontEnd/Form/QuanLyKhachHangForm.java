@@ -1,8 +1,8 @@
 package giaodienchuan.model.FrontEnd.Form;
 
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
-import giaodienchuan.model.BackEnd.KhachHang.QuanLyKhachHangBUS;
-import giaodienchuan.model.BackEnd.KhachHang.KhachHang;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
