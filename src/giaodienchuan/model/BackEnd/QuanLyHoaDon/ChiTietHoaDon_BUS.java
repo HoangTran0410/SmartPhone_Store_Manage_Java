@@ -5,24 +5,25 @@ import javax.swing.JOptionPane;
 
 public class ChiTietHoaDon_BUS {
 
-    ArrayList<ChiTietHoaDon_DTO> dshd = new ArrayList<>();
-    private ChiTietHoaDon_DAO qlhd = new ChiTietHoaDon_DAO();
+    ArrayList<ChiTietHoaDon_DTO> dscthd = new ArrayList<>();
+    private ChiTietHoaDon_DAO qlcthd = new ChiTietHoaDon_DAO();
 
     public ChiTietHoaDon_BUS() {
+        dscthd = qlcthd.readDB();
     }
 
     public ArrayList<ChiTietHoaDon_DTO> getDshd(){
-        return this.dshd;
+        return this.dscthd;
     }
     
     public void readDB() {
-        dshd = qlhd.readDB();
+        dscthd = qlcthd.readDB();
     }
 
     public Boolean add(ChiTietHoaDon_DTO hd) {
-        Boolean success = qlhd.add(hd);
+        Boolean success = qlcthd.add(hd);
         if (success) {
-            dshd.add(hd);
+            dscthd.add(hd);
             return true;
         }
         return false;
@@ -47,9 +48,9 @@ public class ChiTietHoaDon_BUS {
     }
 
     public Boolean update(ChiTietHoaDon_DTO hd) {
-        Boolean success = qlhd.update(hd);
+        Boolean success = qlcthd.update(hd);
         if (success) {
-            for (ChiTietHoaDon_DTO cthd : dshd) {
+            for (ChiTietHoaDon_DTO cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
                     cthd = hd;
                 }
@@ -59,11 +60,11 @@ public class ChiTietHoaDon_BUS {
     }
 
     public Boolean delelte(String maHoaDon) {
-        Boolean success = qlhd.delelte(maHoaDon);
+        Boolean success = qlcthd.delelte(maHoaDon);
         if (success) {
-            for (ChiTietHoaDon_DTO cthd : dshd) {
+            for (ChiTietHoaDon_DTO cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
-                    dshd.remove(cthd);
+                    dscthd.remove(cthd);
                     return true;
                 }
             }
@@ -75,18 +76,18 @@ public class ChiTietHoaDon_BUS {
         ArrayList<ChiTietHoaDon_DTO> result = new ArrayList<>();
         readDB();
         if (type.equals("Tất cả")) {
-            return dshd;
+            return dscthd;
         }
         switch (type) {
             case "Mã hóa đơn":
-                dshd.forEach((hd) -> {
+                dscthd.forEach((hd) -> {
                     if (hd.getMaHoaDon().equalsIgnoreCase(keyword)) {
                         result.add(hd);
                     }
                 });
                 break;
             case "Mã sản phẩm":
-                dshd.forEach((hd) -> {
+                dscthd.forEach((hd) -> {
                     if (hd.getMaSanPham().equalsIgnoreCase(keyword)) {
                         result.add(hd);
                     }
@@ -95,7 +96,7 @@ public class ChiTietHoaDon_BUS {
             case "Số lượng":
                 try {
                     Integer.parseInt(keyword);
-                    dshd.forEach((t) -> {
+                    dscthd.forEach((t) -> {
                         if (t.getSoLuong() == Integer.parseInt(keyword)) {
                             result.add(t);
                         }
@@ -107,7 +108,7 @@ public class ChiTietHoaDon_BUS {
             case "Đơn giá":
                 try {
                     Float.parseFloat(keyword);
-                    dshd.forEach((t) -> {
+                    dscthd.forEach((t) -> {
                         if (t.getDonGia() == Float.parseFloat(keyword)) {
                             result.add(t);
                         }
