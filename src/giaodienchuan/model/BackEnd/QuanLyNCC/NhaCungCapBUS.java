@@ -5,6 +5,7 @@
  */
 package giaodienchuan.model.BackEnd.QuanLyNCC;
 
+import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
 /**
@@ -12,9 +13,9 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class NhaCungCapBUS {
-
+    
     public ArrayList<NhaCungCap> dsncc = new ArrayList<>();
-
+    NhaCungCapDAO qlnccDAO= new NhaCungCapDAO();
     public void show() {
         dsncc.forEach((sv) -> {
             System.out.print(sv.getMaNCC() + " ");
@@ -26,9 +27,61 @@ public class NhaCungCapBUS {
     }
 
     public void readDB() {
-        NhaCungCapDAO DAO = new NhaCungCapDAO(); // ?? m đã sửa gì chưa tao chua sua cai nay
-        dsncc = DAO.readDB();
-        DAO.close();
+        
+        dsncc = qlnccDAO.readDB();
+        qlnccDAO.close();
+    }
+    public ArrayList<NhaCungCap> search(String value, String type) {
+        // Phương pháp tìm từ database
+//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
+//        dssp = qlspDB.search(columnName, value);
+//        qlspDB.close();
+
+        // phương pháp tìm từ arraylist
+        ArrayList<NhaCungCap> result = new ArrayList<>();
+
+        dsncc.forEach((ncc) -> {
+            if (type.equals("Tất cả")) {
+                if (ncc.getMaNCC().toLowerCase().contains(value.toLowerCase())
+                        || ncc.getTenNCC().toLowerCase().contains(value.toLowerCase())
+                        || ncc.getDiaChi().toLowerCase().contains(value.toLowerCase())
+                        || String.valueOf(ncc.getSDT()).toLowerCase().contains(value.toLowerCase())
+                        || String.valueOf(ncc.getFax()).toLowerCase().contains(value.toLowerCase())) {
+                    result.add(ncc);
+                }
+            } else {
+                switch (type) {
+                    case "Mã nhà cung cấp":
+                        if (ncc.getMaNCC().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(ncc);
+                        }
+                        break;
+                    case "Tên nhà cung cấp":
+                        if (ncc.getTenNCC().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(ncc);
+                        }
+                        break;
+                    case "Địa chỉ":
+                        if (ncc.getDiaChi().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(ncc);
+                        }
+                        break;
+                    case "SĐT":
+                        if (String.valueOf(ncc.getSDT()).toLowerCase().contains(value.toLowerCase())) {
+                            result.add(ncc);
+                        }
+                        break;
+                    case "Fax":
+                        if (String.valueOf(ncc.getFax()).toLowerCase().contains(value.toLowerCase())) {
+                            result.add(ncc);
+                        }
+                        break;
+                }
+            }
+
+        });
+
+        return result;
     }
 
     public Boolean add(NhaCungCap ncc) {

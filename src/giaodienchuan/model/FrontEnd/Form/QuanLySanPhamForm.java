@@ -239,6 +239,8 @@ public class QuanLySanPhamForm extends JPanel {
     // ví dụ tên biến các tên sp -> ncc
     // ncc có mấy textField bla bla
     // nói chung chỉ sauwr những cái cầnthiết
+    // đó. chỉ sửa nhiêu đó, là thành nhà cung cấp
+    // sắp tới t sẽ đổi toàn bộ giao diện, nhưng nói chung hiện giờ m cứ bê code qua rồi sửa cho đúgn để hiểu cái đi, tính sau ok thank
 
     private Boolean checkEmpty() {
         String mssp = txMasp.getText();

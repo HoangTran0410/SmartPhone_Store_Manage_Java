@@ -31,7 +31,8 @@ public class NhaCungCapFORM extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnReadDB = new JButton("Đọc DB");
     JButton btnNhaplai = new JButton("Nhập lại");
-
+    
+    final int MASP_I = 1, MALSP_I = 2, TEN_I = 3, GIA_I = 4, SOLUONG_I = 5;
     public NhaCungCapFORM() {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
