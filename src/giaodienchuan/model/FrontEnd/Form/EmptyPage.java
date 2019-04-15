@@ -8,13 +8,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class EmptyPage extends JPanel {
+    
+    JLabel lbInfo;
+    
     public EmptyPage() {
         setLayout(new GridBagLayout());
         
-        JLabel lbInfo = new JLabel("Hệ thống đang bảo trì");
+        lbInfo = new JLabel("Hệ thống đang bảo trì");
         lbInfo.setFont(new Font("Arial", Font.BOLD, 40));
         lbInfo.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_computer_support_99px.png")));
         
         add(lbInfo);
+    }
+    
+    public void setText(String text) {
+        lbInfo.setText(text);
     }
 }
