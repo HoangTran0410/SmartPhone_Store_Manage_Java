@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.FormChon.ChonLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.FileButton;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -100,7 +101,7 @@ public class ThemSuaSanPhamForm extends JFrame {
             txTen.setText(this.spSua.getTenSP());
             txGia.setText(String.valueOf(this.spSua.getDonGia()));
             txSoLuong.setText(String.valueOf(this.spSua.getSoLuong()));
-            txHinhAnh.setText(this.spSua.getUrlHinhAnh());
+            txHinhAnh.setText(this.spSua.getUrlHinhAnh().replace("\\", "\\\\"));
 
             txMasp.setEditable(false);
             
@@ -122,7 +123,7 @@ public class ThemSuaSanPhamForm extends JFrame {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!") == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 this.dispose();
             }
         });
@@ -169,9 +170,8 @@ public class ThemSuaSanPhamForm extends JFrame {
     }
 
     private void btnChonLoaiMouseClicked() {
-        ChonLoaiSanPhamForm clsp = new ChonLoaiSanPhamForm(txMalsp); // truyền vào textfield
-        clsp.setLocationRelativeTo(null);
-        clsp.setVisible(true);
+//        ChonLoaiSanPhamForm clsp = new ChonLoaiSanPhamForm(txMalsp); // truyền vào textfield
+        ChonSanPhamForm csp = new ChonSanPhamForm(txMalsp);
     }
 
     private void btnChonAnhMouseClicked() {
