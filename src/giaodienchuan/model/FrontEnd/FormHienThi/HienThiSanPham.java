@@ -106,7 +106,7 @@ public class HienThiSanPham extends JPanel {
         });
         
         JPanel plcenterImage = new JPanel();
-        lbImage.setPreferredSize(new Dimension(200, 200));
+        lbImage.setPreferredSize(new Dimension(250, 250));
         plcenterImage.add(lbImage);
 
         //=========== add all to this jpanel ===========
