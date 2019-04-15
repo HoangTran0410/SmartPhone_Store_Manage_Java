@@ -1,5 +1,5 @@
 
-package giaodienchuan.model.FrontEnd.Form;
+package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import java.awt.Font;
 import java.awt.GridBagLayout;

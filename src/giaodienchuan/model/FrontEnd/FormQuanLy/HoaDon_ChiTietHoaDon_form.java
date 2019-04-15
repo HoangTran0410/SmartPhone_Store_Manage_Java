@@ -1,4 +1,4 @@
-package giaodienchuan.model.FrontEnd.Form;
+package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.ChiTietHoaDon_BUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_BUS;
