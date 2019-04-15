@@ -1,11 +1,11 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.Form.HoaDon_ChiTietHoaDon_form;
-import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
-import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
-import giaodienchuan.model.FrontEnd.Form.EmptyPage;
-import giaodienchuan.model.FrontEnd.Form.QuanLyLoaiSanPhamForm;
-import giaodienchuan.model.FrontEnd.Form.QuanLyNhanVienForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.HoaDon_ChiTietHoaDon_form;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
