@@ -8,7 +8,7 @@ public class QuanLyNhanVienBUS {
     QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
 
     public QuanLyNhanVienBUS() {
-
+        dsnv = qlnvDAO.readDB();
     }
 
     public void showConsole() {

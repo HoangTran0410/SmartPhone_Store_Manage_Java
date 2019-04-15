@@ -8,7 +8,7 @@ public class QuanLyKhachHangBUS {
     QuanLyKhachHangDAO qlkhDAO = new QuanLyKhachHangDAO();
 
     public QuanLyKhachHangBUS() {
-
+        dskh = qlkhDAO.readDB();
     }
 
     public void showConsole() {
