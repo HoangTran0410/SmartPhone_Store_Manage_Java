@@ -49,9 +49,7 @@ public class QuanLyKhachHangForm extends JPanel {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
-
-        // read data from database
-        btnReadDBMouseClicked();
+        setDataToTable(qlkh.getDskh(), mtb);
 
         // inputs
         txMakh.setBorder(BorderFactory.createTitledBorder("Mã khách hàng"));
