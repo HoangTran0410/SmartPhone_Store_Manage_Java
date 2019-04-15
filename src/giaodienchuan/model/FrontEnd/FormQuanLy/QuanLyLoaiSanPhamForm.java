@@ -1,27 +1,16 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.LoaiSanPham;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiLoaiSanPham;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaLoaiSanPhamForm;
-import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class QuanLyLoaiSanPhamForm extends JPanel {
     
@@ -48,6 +37,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
+        plBtn.setBackground(new Color(150, 150, 150));
 
         //=========== add all to this jpanel ===========
         this.add(formHienThi, BorderLayout.CENTER);
