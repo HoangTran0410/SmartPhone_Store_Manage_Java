@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.FormChon;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.LoaiSanPham;
+import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,9 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class ChonSanPhamForm extends JFrame {
+public class ChonLoaiSanPhamForm extends JFrame {
 
-    QuanLySanPhamBUS qlsp = new QuanLySanPhamBUS();
+    QuanLyLoaiSanPhamBUS qllsp = new QuanLyLoaiSanPhamBUS();
     MyTable mtb;
     JTextField txTarget;
 
@@ -31,30 +31,29 @@ public class ChonSanPhamForm extends JFrame {
     JButton btnOK = new JButton("Chọn");
     JButton btnCancel = new JButton("Thoát");
 
-    final int MASP_I = 1;
+    final int MALSP_I = 1;
 
-    public ChonSanPhamForm(JTextField _txTarget) {
+    public ChonLoaiSanPhamForm(JTextField _txTarget) {
+        this.setTitle("Chọn Loại Sản Phẩm");
         this.setLayout(new BorderLayout());
-        this.setTitle("Chọn Sản Phẩm");
+        this.setSize(1200 - 200, 600);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.txTarget = _txTarget;
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 400));
-        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng"});
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setHeaders(new String[]{"STT", "Mã loại", "Tên loại", "Mô tả"});
+        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
-        mtb.setAlignment(5, JLabel.CENTER);
-
-        // ======== Get Data from DB =======
-        setDataToTable(qlsp.getDssp(), mtb);
+        setDataToTable(qllsp.getDssp(), mtb);
 
         // ======== search panel ===========
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
         plTim.add(txTim);
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã loại", "Tên loại", "Mô tả"});
         plTim.add(cbTypeSearch);
 
         // ======= Buttons Panel ===========
@@ -69,12 +68,10 @@ public class ChonSanPhamForm extends JFrame {
         JPanel plContainer = new JPanel();
         plContainer.add(plTim);
         plContainer.add(mtb);
-        plContainer.add(plBtns);
+
         
         this.add(plContainer, BorderLayout.CENTER);
-        this.setSize(1200 - 200, 600);
-        this.setLocationRelativeTo(null);
-        //this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.add(plBtns, BorderLayout.SOUTH);
         this.setVisible(true);
 
         // actionlistener
@@ -88,12 +85,12 @@ public class ChonSanPhamForm extends JFrame {
         btnOK.addActionListener((ActionEvent ae) -> {
             int i = mtb.getTable().getSelectedRow();
             if (i >= 0) {
-                String masp = mtb.getModel().getValueAt(i, MASP_I).toString();
-                this.txTarget.setText(masp);
+                String malsp = mtb.getModel().getValueAt(i, MALSP_I).toString();
+                this.txTarget.setText(malsp);
                 this.dispose();
 
             } else {
-                JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm nào!");
+                JOptionPane.showMessageDialog(this, "Chưa chọn loại sản phẩm nào!");
             }
         });
         
@@ -121,15 +118,14 @@ public class ChonSanPhamForm extends JFrame {
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+        setDataToTable(qllsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
-    private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
+    private void setDataToTable(ArrayList<LoaiSanPham> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        for (SanPham sp : data) {
-            table.addRow(new String[]{String.valueOf(stt), sp.getMaSP(), sp.getMaLSP(), sp.getTenSP(),
-                String.valueOf(sp.getDonGia()), String.valueOf(sp.getSoLuong())});
+        for (LoaiSanPham lsp : data) {
+            table.addRow(new String[]{String.valueOf(stt), lsp.getMaLSP(), lsp.getTenLSP(), lsp.getMoTa()});
             stt++;
         }
     }
