@@ -33,7 +33,6 @@ public class ChonSanPhamForm extends JFrame {
         JPanel plBtns = new JPanel();
         plBtns.add(btnOK);
         plBtns.add(btnCancel);
-
         
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtns, BorderLayout.SOUTH);
