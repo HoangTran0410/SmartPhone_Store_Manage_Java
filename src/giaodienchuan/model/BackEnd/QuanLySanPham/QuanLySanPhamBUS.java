@@ -8,7 +8,7 @@ public class QuanLySanPhamBUS {
     QuanLySanPhamDAO qlspDAO = new QuanLySanPhamDAO();
 
     public QuanLySanPhamBUS() {
-
+        dssp = qlspDAO.readDB();
     }
 
     public void showConsole() {
@@ -91,8 +91,8 @@ public class QuanLySanPhamBUS {
         return ok;
     }
 
-    public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong) {
-        SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong);
+    public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
+        SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong, url);
         return add(sp);
     }
 
@@ -109,8 +109,8 @@ public class QuanLySanPhamBUS {
         return ok;
     }
 
-    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong) {
-        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong);
+    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
+        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong, url);
 
         if (ok) {
             dssp.forEach((sp) -> {
@@ -119,6 +119,7 @@ public class QuanLySanPhamBUS {
                     sp.setTenSP(tensp);
                     sp.setDonGia(dongia);
                     sp.setSoLuong(soluong);
+                    sp.setUrlHinhAnh(url);
                 }
             });
         }
