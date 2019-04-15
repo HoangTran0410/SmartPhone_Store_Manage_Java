@@ -3,6 +3,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.FrontEnd.FormChon.ChonLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.FileButton;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
