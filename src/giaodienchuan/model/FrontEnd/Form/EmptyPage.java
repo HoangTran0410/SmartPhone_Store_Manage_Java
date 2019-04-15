@@ -21,7 +21,7 @@ public class EmptyPage extends JPanel {
         add(lbInfo);
     }
     
-    public void setText(String text) {
+    public void setLabelText(String text) {
         lbInfo.setText(text);
     }
 }

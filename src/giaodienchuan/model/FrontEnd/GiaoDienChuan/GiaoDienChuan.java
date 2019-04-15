@@ -165,6 +165,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                 
             case "Tài khoản": 
+                emptypage.setLabelText("Tài khoản đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
@@ -183,6 +184,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
             
             case "Nhà cung cấp":
+                emptypage.setLabelText("Nhà cung cấp đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
@@ -194,14 +196,17 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Thống kê":
+                emptypage.setLabelText("Thống kê đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Công cụ":
+                emptypage.setLabelText("Công cụ đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Cài đặt":
+                emptypage.setLabelText("Cài đặt đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
         }
