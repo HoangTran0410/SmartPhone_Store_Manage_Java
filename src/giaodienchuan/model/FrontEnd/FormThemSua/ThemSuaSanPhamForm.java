@@ -1,6 +1,5 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
-import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.FormChon.ChonLoaiSanPhamForm;
@@ -21,7 +20,6 @@ public class ThemSuaSanPhamForm extends JFrame {
 
     String type;
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
-    QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
     SanPham spSua;
 
     JTextField txMasp = new JTextField(15);
