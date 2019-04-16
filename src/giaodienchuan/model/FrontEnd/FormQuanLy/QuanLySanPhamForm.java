@@ -32,7 +32,7 @@ public class QuanLySanPhamForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.setBackground(new Color(150, 150, 150));
-        
+
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.SOUTH);
 
@@ -52,6 +52,14 @@ public class QuanLySanPhamForm extends JPanel {
         String masp = formHienThi.getSelectedSanPham();
         if (masp != null) {
             ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
+            
+            // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
+            suasp.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    formHienThi.refresh();
+                }
+            });
 
         } else {
             JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để sửa");
@@ -73,5 +81,11 @@ public class QuanLySanPhamForm extends JPanel {
 
     private void btnThemMouseClicked() {
         ThemSuaSanPhamForm themsp = new ThemSuaSanPhamForm("Thêm", "");
+        themsp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                formHienThi.refresh();
+            }
+        });
     }
 }

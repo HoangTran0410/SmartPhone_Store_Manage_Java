@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class QuanLyLoaiSanPhamForm extends JPanel {
-    
+
     HienThiLoaiSanPham formHienThi = new HienThiLoaiSanPham();
 
     JButton btnXoa = new JButton("Xóa");
@@ -27,7 +27,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
 
     public QuanLyLoaiSanPhamForm() {
         setLayout(new BorderLayout());
-        
+
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
@@ -60,6 +60,14 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
         if (masp != null) {
             ThemSuaLoaiSanPhamForm sualsp = new ThemSuaLoaiSanPhamForm("Sửa", masp);
 
+            // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
+            sualsp.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    formHienThi.refresh();
+                }
+            });
+
         } else {
             JOptionPane.showMessageDialog(null, "Chưa chọn loại sản phẩm nào để sửa");
         }
@@ -80,5 +88,12 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
 
     private void btnThemMouseClicked() {
         ThemSuaLoaiSanPhamForm themlsp = new ThemSuaLoaiSanPhamForm("Thêm", "");
+
+        themlsp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                formHienThi.refresh();
+            }
+        });
     }
 }
