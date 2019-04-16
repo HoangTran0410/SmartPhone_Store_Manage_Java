@@ -1,8 +1,8 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
+import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiTaiKhoan;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaTaiKhoanForm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -52,10 +52,10 @@ public class QuanLyTaiKhoanForm extends JPanel {
     private void btnSuaMouseClicked() {
         String masp = formHienThi.getSelectedSanPham();
         if (masp != null) {
-            ThemSuaLoaiSanPhamForm sualsp = new ThemSuaLoaiSanPhamForm("Sửa", masp);
+            ThemSuaTaiKhoanForm suatk = new ThemSuaTaiKhoanForm("Sửa", masp);
 
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
-            sualsp.addWindowListener(new java.awt.event.WindowAdapter() {
+            suatk.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                     formHienThi.refresh();
@@ -70,20 +70,20 @@ public class QuanLyTaiKhoanForm extends JPanel {
     private void btnXoaMouseClicked() {
         String malsp = formHienThi.getSelectedSanPham();
         if (malsp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa loại sản phẩm " + malsp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyLoaiSanPhamBUS().delete(malsp);
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản " + malsp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyTaiKhoanBUS().delete(malsp);
                 formHienThi.refresh();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn loại sản phẩm nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn tài khoản nào để xóa");
         }
     }
 
     private void btnThemMouseClicked() {
-        ThemSuaLoaiSanPhamForm themlsp = new ThemSuaLoaiSanPhamForm("Thêm", "");
+        ThemSuaTaiKhoanForm themtk = new ThemSuaTaiKhoanForm("Thêm", "");
 
-        themlsp.addWindowListener(new java.awt.event.WindowAdapter() {
+        themtk.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 formHienThi.refresh();
