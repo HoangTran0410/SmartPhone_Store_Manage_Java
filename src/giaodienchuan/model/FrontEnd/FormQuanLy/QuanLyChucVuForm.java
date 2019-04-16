@@ -1,8 +1,8 @@
-package giaodienchuan.model.FrontEnd.FormQuanLy;
+package giaodienchuan.model.FrontEnd.Form;
 
+import giaodienchuan.model.BackEnd.ChucVu.ChucVu;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
+import giaodienchuan.model.BackEnd.ChucVu.ChucVuBUS;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -19,17 +19,14 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class QuanLyKhachHangForm extends JPanel {
+public class QuanLyChucVuForm extends JPanel {
 
-    QuanLyKhachHangBUS qlkh = new QuanLyKhachHangBUS();
+    ChucVuBUS qlcv = new ChucVuBUS();
     MyTable mtb;
 
-    JTextField txMakh = new JTextField(15);
-    JTextField txTen = new JTextField(15);
-    JTextField txDiachi = new JTextField(15);
-    JTextField txSDT = new JTextField(15);
+    JTextField txMacv = new JTextField(15);
+    JTextField txTencv = new JTextField(15);
     JTextField txTim = new JTextField(15);
-
     JButton btnXoa = new JButton("Xóa");
     JButton btnThem = new JButton("Thêm");
     JButton btnCapnhat = new JButton("Cập nhật");
@@ -39,30 +36,26 @@ public class QuanLyKhachHangForm extends JPanel {
     JComboBox<String> cbTypeSearch;
 
     // index
-    final int MAKH_I = 1, TEN_I = 2, DIACHI_I = 3, SDT_I = 4;
+    final int MACV_I = 1, TENCV_I = 2, DIACHI_I = 3, SDT_I = 4;
 
-    public QuanLyKhachHangForm() {
+    public QuanLyChucVuForm() {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại"});
-        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 3, 2});
+        mtb.setHeaders(new String[]{"STT", "Mã chức vụ", "Tên chức vụ"});
+        mtb.setColumnsWidth(new double[]{1, 2, 3 });
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.CENTER);
-        setDataToTable(qlkh.getDskh(), mtb);
+
+        // read data from database
+        btnReadDBMouseClicked();
 
         // inputs
-        txMakh.setBorder(BorderFactory.createTitledBorder("Mã khách hàng"));
-        txTen.setBorder(BorderFactory.createTitledBorder("Tên"));
-        txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
-        txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
+        txMacv.setBorder(BorderFactory.createTitledBorder("Mã chức vụ"));
+        txTencv.setBorder(BorderFactory.createTitledBorder("Tên"));
 
         JPanel plInput = new JPanel();
-        plInput.add(txMakh);
-        plInput.add(txTen);
-        plInput.add(txDiachi);
-        plInput.add(txSDT);
-
+        plInput.add(txMacv);
+        plInput.add(txTencv);  
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
@@ -78,7 +71,7 @@ public class QuanLyKhachHangForm extends JPanel {
         plBtn.add(btnReadDB);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên", "Địa chỉ", "Số điện thoại"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã chức vụ", "Tên chức vụ"});
 
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
@@ -139,122 +132,93 @@ public class QuanLyKhachHangForm extends JPanel {
             public void mouseReleased(MouseEvent me) {
                 int i = mtb.getTable().getSelectedRow();
                 if (i >= 0) {
-                    txMakh.setText(mtb.getModel().getValueAt(i, MAKH_I).toString());
-                    txTen.setText(mtb.getModel().getValueAt(i, TEN_I).toString());
-                    txDiachi.setText(mtb.getModel().getValueAt(i, DIACHI_I).toString());
-                    txSDT.setText(mtb.getModel().getValueAt(i, SDT_I).toString());
+                    txMacv.setText(mtb.getModel().getValueAt(i, MACV_I).toString());
+                    txTencv.setText(mtb.getModel().getValueAt(i, TENCV_I).toString());                  
                 }
             }
         });
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlkh.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+        setDataToTable(qlcv.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
     private void btnNhapLaiMouseClicked() {
-        txMakh.setText("");
-        txTen.setText("");
-        txMakh.requestFocus();
+        txMacv.setText("");
+        txTencv.setText("");
+        txMacv.requestFocus();
     }
 
     private void btnCapnhatMouseClicked() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0 && checkEmpty()) {
-            String makh = mtb.getModel().getValueAt(i, MAKH_I).toString();
-            String ten = txTen.getText();
-            String diachi = txDiachi.getText();
-            String sdt = txSDT.getText();
+            String makh = mtb.getModel().getValueAt(i, MACV_I).toString();
+            String ten = txTencv.getText();
 
-            if (!txMakh.getText().equals(makh)) {
-                JOptionPane.showMessageDialog(null, "Mã khách hàng là Khóa Chính nên không thể thay đổi, chỉ cập nhật các trường còn lại!");
-                txMakh.setText(makh);
+            if (!txMacv.getText().equals(makh)) {
+                JOptionPane.showMessageDialog(null, "Mã chức vụ là Khóa Chính nên không thể thay đổi, chỉ cập nhật các trường còn lại!");
+                txMacv.setText(makh);
             }
 
-            mtb.getModel().setValueAt(makh, i, MAKH_I);
-            mtb.getModel().setValueAt(ten, i, TEN_I);
-            mtb.getModel().setValueAt(diachi, i, DIACHI_I);
-            mtb.getModel().setValueAt(sdt, i, SDT_I);
+            mtb.getModel().setValueAt(makh, i, MACV_I);
+            mtb.getModel().setValueAt(ten, i, TENCV_I);
 
-            qlkh.update(makh, ten, diachi, sdt);
+            qlcv.update(makh, ten);
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn khách hàng nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn chức vụ nào để sửa");
         }
     }
 
     private void btnXoaMouseClicked() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            String mskh = mtb.getModel().getValueAt(i, MAKH_I).toString();
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + mskh) == JOptionPane.OK_OPTION) {
-                qlkh.delete(mskh);
+            String macv = mtb.getModel().getValueAt(i, MACV_I).toString();
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa chức vụ " + macv) == JOptionPane.OK_OPTION) {
+                qlcv.delete(macv);
 //                mtb.getModel().removeRow(i);
-                setDataToTable(qlkh.getDskh(), mtb);
+                setDataToTable(qlcv.getDscv(), mtb);
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn khách hàng nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn chức vụ nào để xóa");
         }
     }
 
     private void btnReadDBMouseClicked() {
-        qlkh.readDB();
-        setDataToTable(qlkh.getDskh(), mtb);
+        qlcv.readDB();
+        setDataToTable(qlcv.getDscv(), mtb);
     }
 
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
-            String makh = txMakh.getText();
-            String ten = txTen.getText();
-            String diachi = txDiachi.getText();
-            String sdt = txSDT.getText();
-
-            KhachHang kh = new KhachHang(makh, ten, diachi, sdt);
-            qlkh.add(kh);
-            setDataToTable(qlkh.getDskh(), mtb);
+            String macv = txMacv.getText();
+            String tencv = txTencv.getText();
+            ChucVu cv =new ChucVu(macv,tencv);
+            qlcv.add(cv);
+            setDataToTable(qlcv.getDscv(), mtb);
         }
     }
 
-    private void setDataToTable(ArrayList<KhachHang> data, MyTable table) {
+    private void setDataToTable(ArrayList<ChucVu> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        for (KhachHang kh : data) {
-            table.addRow(new String[]{String.valueOf(stt), kh.getMaKH(), kh.getTenKH(), kh.getDiaChi(),
-                 kh.getSDT()});
+        for (ChucVu cv : data) {
+            table.addRow(new String[]{String.valueOf(stt), cv.getMaCV(), cv.getTenCV() });
             stt++;
         }
     }
 
     private Boolean checkEmpty() {
-        String makh = txMakh.getText();
-        String ten = txTen.getText();
-        String diachi = txDiachi.getText();
-        String sdt = txSDT.getText();
+        String macv = txMacv.getText();
+        String tencv = txTencv.getText();
+        if (macv.trim().equals("")) {
+            return showErrorTx(txMacv, "Mã chức vụ không được để trống");
 
-        if (makh.trim().equals("")) {
-            return showErrorTx(txMakh, "Mã khách hàng không được để trống");
+        } else if (tencv.trim().equals("")) {
+            return showErrorTx(txTencv, "Tên chức vụ không được để trống");
 
-        } else if (ten.trim().equals("")) {
-            return showErrorTx(txTen, "Tên khách hàng không được để trống");
-
-        } else if (diachi.trim().equals("")) {
-            return showErrorTx(txDiachi, "Địa chỉ không được để trống");
-
-        } else if (sdt.trim().equals("")) {
-            return showErrorTx(txSDT, "Số điện thoại không được để trống");
-
-        } else {
-           
-            try {
-                int sl = Integer.parseInt(sdt);
-                if (sl < 0) {
-                    return showErrorTx(txSDT, "Số điện thoại không hợp lệ (phải là số duơng)");
-                }
-            } catch (NumberFormatException e) {
-                return showErrorTx(txSDT, "Số điện thoại không hợp lệ (phải là số nguyên)");
-            }
-        }
+        } 
         return true;
     }
 

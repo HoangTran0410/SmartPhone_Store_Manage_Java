@@ -110,6 +110,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
         pnlHoaDon.add(tbHoaDon);
 
         tbHoaDon.setHeaders(new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
+        btnReadDBMouseClicked();
         tbHoaDon.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -197,12 +198,15 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
     private void btnReadDBMouseClicked() {
         qlhd.readDB();
         qlcthd.readDB();
+//        System.out.println(new ConnectDB());
         tbHoaDon.clear();
         qlhd.getDshd().forEach((hd) -> {
             System.out.println(hd.getMaHoaDon());
+//            tbHoaDon.addRow(new String[]{"asdasdas","asdasdasdasd","Asdaiii","asdiiidi"});
             String[] row = new String[]{hd.getMaHoaDon(), hd.getMaNhanVien(), hd.getMaKhachHang(), hd.getNgayLap().toString(), hd.getGioLap().toString(), String.valueOf(hd.getTongTien())};
             tbHoaDon.addRow(row);
-        });
+//            model.addRow(row);
+               });
 
     }
 
