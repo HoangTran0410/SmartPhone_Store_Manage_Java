@@ -1,8 +1,8 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.ChiTietHoaDon_BUS;
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_BUS;
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon_DTO;
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -18,8 +18,8 @@ import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 
 public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
-    HoaDon_BUS qlhd = new HoaDon_BUS();
-    ChiTietHoaDon_BUS qlcthd = new ChiTietHoaDon_BUS();
+    QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
+    QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
 
     JTextField txtMaHd = new JTextField();
     JTextField txtMaNv = new JTextField();
@@ -260,7 +260,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
 
     private void btnThemHoaDonMouseClicked() {
         Boolean isValid = true;
-        for (HoaDon_DTO hd : qlhd.getDshd()) {
+        for (HoaDon hd : qlhd.getDshd()) {
             if (hd.getMaHoaDon().equalsIgnoreCase(txtMaHd.getText())) {
                 JOptionPane.showMessageDialog(null, "Ma hoa don da ton tai !!");
                 isValid = false;

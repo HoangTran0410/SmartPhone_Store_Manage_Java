@@ -6,16 +6,16 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class HoaDon_BUS {
+public class QuanLyHoaDonBUS {
 
-    ArrayList<HoaDon_DTO> dshd = new ArrayList<>();
-    private HoaDon_DAO qlhd = new HoaDon_DAO();
+    ArrayList<HoaDon> dshd = new ArrayList<>();
+    private QuanLyHoaDonDAO qlhd = new QuanLyHoaDonDAO();
 
-    public HoaDon_BUS() {
+    public QuanLyHoaDonBUS() {
         dshd = qlhd.readDB();
     }
     
-    public ArrayList<HoaDon_DTO> getDshd(){
+    public ArrayList<HoaDon> getDshd(){
         return this.dshd;
     }
 
@@ -23,7 +23,7 @@ public class HoaDon_BUS {
         dshd = qlhd.readDB();
     }
 
-    public Boolean add(HoaDon_DTO hd) {
+    public Boolean add(HoaDon hd) {
         Boolean success = qlhd.add(hd);
         if (success) {
             dshd.add(hd);
@@ -33,19 +33,19 @@ public class HoaDon_BUS {
     }
 
     public Boolean add(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
-        HoaDon_DTO hd = new HoaDon_DTO(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
+        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
         return add(hd);
     }
 
     public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
-        HoaDon_DTO hd = new HoaDon_DTO(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
+        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
         return update(hd);
     }
 
-    public Boolean update(HoaDon_DTO hd) {
+    public Boolean update(HoaDon hd) {
         Boolean success = qlhd.update(hd);
         if (success) {
-            for (HoaDon_DTO cthd : dshd) {
+            for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
                     cthd = hd;
                 }
@@ -58,7 +58,7 @@ public class HoaDon_BUS {
     public Boolean delete(String maHoaDon) {
         Boolean success = qlhd.delete(maHoaDon);
         if (success) {
-            for (HoaDon_DTO cthd : dshd) {
+            for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
                     dshd.remove(cthd);
                     return true;
@@ -68,8 +68,8 @@ public class HoaDon_BUS {
         return false;
     }
 
-    public ArrayList<HoaDon_DTO> search(String type, String keyword) {
-        ArrayList<HoaDon_DTO> result = new ArrayList<>();
+    public ArrayList<HoaDon> search(String type, String keyword) {
+        ArrayList<HoaDon> result = new ArrayList<>();
         readDB();
         switch (type) {
             case "Tất cả":

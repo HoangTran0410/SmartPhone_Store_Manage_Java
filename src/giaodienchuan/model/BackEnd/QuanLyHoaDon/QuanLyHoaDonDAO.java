@@ -8,22 +8,22 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class HoaDon_DAO {
+public class QuanLyHoaDonDAO {
 
     ConnectionDB connection;
 
-    public HoaDon_DAO() {
+    public QuanLyHoaDonDAO() {
     }
 
     public ArrayList readDB() {
         connection = new ConnectionDB();
-        ArrayList<HoaDon_DTO> dshd = new ArrayList<>();
+        ArrayList<HoaDon> dshd = new ArrayList<>();
         try {
             String qry = "SELECT * FROM hoadon";
             ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
-                    HoaDon_DTO hd = new HoaDon_DTO();
+                    HoaDon hd = new HoaDon();
                     hd.setMaHoaDon(rs.getString(1));
                     hd.setMaNhanVien(rs.getString(2));
                     hd.setMaKhachHang(rs.getString(3));
@@ -40,7 +40,7 @@ public class HoaDon_DAO {
         }
         return dshd;
     }
-    public Boolean add(HoaDon_DTO hd){
+    public Boolean add(HoaDon hd){
         connection =  new ConnectionDB();
         Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('"+hd.getMaHoaDon()+"','"+hd.getMaNhanVien()+"','"+hd.getMaKhachHang()+"','"+hd.getNgayLap()+"','"+hd.getGioLap()+"','"+hd.getTongTien()+"');");
         connection.closeConnect();
@@ -56,14 +56,14 @@ public class HoaDon_DAO {
         connection.closeConnect();
         return false;
     }
-    public Boolean update(HoaDon_DTO hd){
+    public Boolean update(HoaDon hd){
         connection =  new ConnectionDB();
         Boolean success = connection.sqlUpdate("UPDATE hoadon SET MaNV='"+hd.getMaNhanVien()+"', MaKH='"+hd.getMaKhachHang()+"', NgayLap='"+hd.getNgayLap()+"', GioLap='"+hd.getGioLap()+"', TongTien='"+hd.getTongTien()+"' WHERE MaHD='"+hd.getMaHoaDon()+"';");
         connection.closeConnect();
         return success;
     }
     public Boolean update(String maHoaDon,String maNhanVien,String maKhachHang,LocalDate ngayLap,LocalTime gioLap,float tongTien){
-        HoaDon_DTO hd = new HoaDon_DTO();
+        HoaDon hd = new HoaDon();
         hd.setMaHoaDon(maHoaDon);
         hd.setMaNhanVien(maNhanVien);
         hd.setMaKhachHang(maKhachHang);

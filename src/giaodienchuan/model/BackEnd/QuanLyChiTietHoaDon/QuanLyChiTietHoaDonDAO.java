@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.QuanLyHoaDon;
+package giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 import java.sql.ResultSet;
@@ -6,22 +6,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-public class ChiTietHoaDon_DAO {
+public class QuanLyChiTietHoaDonDAO {
 
     ConnectionDB connection;
 
-    public ChiTietHoaDon_DAO() {
+    public QuanLyChiTietHoaDonDAO() {
     }
 
     public ArrayList readDB() {
         connection = new ConnectionDB();
-        ArrayList<ChiTietHoaDon_DTO> dshd = new ArrayList<>();
+        ArrayList<ChiTietHoaDon> dshd = new ArrayList<>();
         try {
             String qry = "SELECT * FROM chitiethoadon";
             ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
-                    ChiTietHoaDon_DTO hd = new ChiTietHoaDon_DTO();
+                    ChiTietHoaDon hd = new ChiTietHoaDon();
                     hd.setMaHoaDon(rs.getString(1));
                     hd.setMaSanPham(rs.getString(2));
                     hd.setSoLuong(rs.getInt(3));
@@ -37,7 +37,7 @@ public class ChiTietHoaDon_DAO {
         return dshd;
     }
 
-    public Boolean add(ChiTietHoaDon_DTO hd) {
+    public Boolean add(ChiTietHoaDon hd) {
         connection = new ConnectionDB();
         Boolean success = connection.sqlUpdate("INSERT INTO chitiethoadon(MaHD,MaSP,SoLuong,DonGia) VALUES ('" + hd.getMaHoaDon() + "','" + hd.getMaSanPham() + "','" + hd.getSoLuong() + "','" + hd.getDonGia() + "');");
         connection.closeConnect();
@@ -51,7 +51,7 @@ public class ChiTietHoaDon_DAO {
         return success;
     }
 
-    public Boolean update(ChiTietHoaDon_DTO hd) {
+    public Boolean update(ChiTietHoaDon hd) {
         connection = new ConnectionDB();
         Boolean success = connection.sqlUpdate("UPDATE chitiethoadon set MaSP='" + hd.getMaSanPham() + "', SoLuong='" + hd.getSoLuong() + "', DonGia='" + hd.getDonGia() + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
         connection.closeConnect();
@@ -59,7 +59,7 @@ public class ChiTietHoaDon_DAO {
     }
 
     public Boolean update(String maHoaDon, String maSanPham, int soLuong, float donGia) {
-        ChiTietHoaDon_DTO hd = new ChiTietHoaDon_DTO();
+        ChiTietHoaDon hd = new ChiTietHoaDon();
         hd.setMaHoaDon(maHoaDon);
         hd.setMaSanPham(maSanPham);
         hd.setSoLuong(soLuong);

@@ -3,7 +3,7 @@ package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class HoaDon_DTO {
+public class HoaDon {
 
     private String maHoaDon = "";
     private String maNhanVien = "";
@@ -12,12 +12,12 @@ public class HoaDon_DTO {
     private LocalTime gioLap ;
     private float TongTien = 0;
 
-    public HoaDon_DTO() {
+    public HoaDon() {
         ngayLap = LocalDate.now();
         gioLap = LocalTime.now();
     }
     
-    public HoaDon_DTO(String maHoaDon, String maNhanVien, String maKhachHang,LocalDate ngayNhap,LocalTime gioNhap,float tongTien) {
+    public HoaDon(String maHoaDon, String maNhanVien, String maKhachHang,LocalDate ngayNhap,LocalTime gioNhap,float tongTien) {
         this.maHoaDon = maHoaDon;
         this.maNhanVien =maNhanVien;
         this.maKhachHang =  maKhachHang;

@@ -1,11 +1,11 @@
-package giaodienchuan.model.BackEnd.QuanLyHoaDon;
-public class ChiTietHoaDon_DTO {
+package giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon;
+public class ChiTietHoaDon {
     private String maHoaDon="";
     private String maSanPham="";
     private int soLuong=0;
     private float donGia=0;
 
-    public ChiTietHoaDon_DTO() {
+    public ChiTietHoaDon() {
     }
 
     public String getMaHoaDon() {
