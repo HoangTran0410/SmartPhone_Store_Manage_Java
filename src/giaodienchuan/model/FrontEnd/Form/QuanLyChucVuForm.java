@@ -3,7 +3,6 @@ package giaodienchuan.model.FrontEnd.Form;
 import giaodienchuan.model.BackEnd.ChucVu.ChucVu;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.BackEnd.ChucVu.ChucVuBUS;
-import giaodienchuan.model.BackEnd.KhachHang.KhachHang;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;

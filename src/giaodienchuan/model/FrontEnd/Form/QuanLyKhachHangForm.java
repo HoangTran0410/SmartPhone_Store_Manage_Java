@@ -221,7 +221,7 @@ public class QuanLyKhachHangForm extends JPanel {
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (KhachHang kh : data) {
             table.addRow(new String[]{String.valueOf(stt), kh.getMaKH(), kh.getTenKH(), kh.getDiaChi(),
-                 String.valueOf(kh.getSDT())});
+                 kh.getSDT()});
             stt++;
         }
     }

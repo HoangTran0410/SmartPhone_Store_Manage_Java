@@ -241,7 +241,7 @@ public class QuanLyNhanVienForm extends JPanel {
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (NhanVien nv : data) {
             table.addRow(new String[]{String.valueOf(stt), nv.getMaNV(), nv.getMaCV(), nv.getTenNV(),
-                nv.getNgaySinh(),nv.getDiaChi(), String.valueOf(nv.getSDT())});
+                nv.getNgaySinh(),nv.getDiaChi(), nv.getSDT()});
             stt++;
         }
     }

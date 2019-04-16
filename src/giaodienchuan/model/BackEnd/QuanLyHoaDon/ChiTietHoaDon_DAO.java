@@ -15,7 +15,7 @@ public class ChiTietHoaDon_DAO {
 
     public ArrayList readDB() {
         connection = new ConnectionDB();
-        ArrayList<ChiTietHoaDon_DTO> dshd = new ArrayList<>();
+        ArrayList<ChiTietHoaDon_DTO> dscthd = new ArrayList<>();
         try {
             String qry = "SELECT * FROM chitiethoadon";
             ResultSet rs = connection.sqlQuery(qry);
@@ -26,7 +26,7 @@ public class ChiTietHoaDon_DAO {
                     hd.setMaSanPham(rs.getString(2));
                     hd.setSoLuong(rs.getInt(3));
                     hd.setDonGia(rs.getFloat(4));
-                    dshd.add(hd);
+                    dscthd.add(hd);
                 }
             }
         } catch (SQLException e) {
@@ -34,7 +34,7 @@ public class ChiTietHoaDon_DAO {
         } finally {
             connection.closeConnect();
         }
-        return dshd;
+        return dscthd;
     }
 
     public Boolean add(ChiTietHoaDon_DTO hd) {
