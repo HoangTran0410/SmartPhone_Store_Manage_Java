@@ -86,8 +86,8 @@ public class ChonKhachHangForm extends JFrame {
         btnOK.addActionListener((ActionEvent ae) -> {
             int i = mtb.getTable().getSelectedRow();
             if (i >= 0) {
-                String masp = mtb.getModel().getValueAt(i, MAKH_I).toString();
-                this.txTarget.setText(masp);
+                String makh = mtb.getModel().getValueAt(i, MAKH_I).toString();
+                this.txTarget.setText(makh);
                 this.dispose();
 
             } else {

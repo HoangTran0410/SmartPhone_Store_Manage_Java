@@ -85,8 +85,8 @@ public class ChonChucVuForm extends JFrame {
         btnOK.addActionListener((ActionEvent ae) -> {
             int i = mtb.getTable().getSelectedRow();
             if (i >= 0) {
-                String masp = mtb.getModel().getValueAt(i, MACV_I).toString();
-                this.txTarget.setText(masp);
+                String macv = mtb.getModel().getValueAt(i, MACV_I).toString();
+                this.txTarget.setText(macv);
                 this.dispose();
 
             } else {
