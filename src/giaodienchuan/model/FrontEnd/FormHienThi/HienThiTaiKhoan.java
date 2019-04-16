@@ -35,10 +35,8 @@ public class HienThiTaiKhoan extends JPanel {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Tên tài khoản", "Mật khẩu", "Mã nhân viên", "Mã quyền"});
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
-        mtb.setAlignment(5, JLabel.CENTER);
         setDataToTable(qltk.getDstk(), mtb);
 
         // ======== search panel ===========
