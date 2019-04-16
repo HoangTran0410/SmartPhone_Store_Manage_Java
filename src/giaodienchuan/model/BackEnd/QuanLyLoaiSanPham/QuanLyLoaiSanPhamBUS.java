@@ -8,7 +8,7 @@ public class QuanLyLoaiSanPhamBUS {
     private QuanLyLoaiSanPhamDAO qllspDAO = new QuanLyLoaiSanPhamDAO();
 
     public QuanLyLoaiSanPhamBUS() {
-
+        dslsp = qllspDAO.readDB();
     }
 
     public void showConsole() {

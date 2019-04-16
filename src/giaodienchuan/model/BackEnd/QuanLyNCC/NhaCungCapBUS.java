@@ -5,7 +5,6 @@
  */
 package giaodienchuan.model.BackEnd.QuanLyNCC;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +28,7 @@ public class NhaCungCapBUS {
     public void readDB() {
         
         dsncc = qlnccDAO.readDB();
-        qlnccDAO.close();
+        
     }
     public ArrayList<NhaCungCap> search(String value, String type) {
         // Phương pháp tìm từ database
@@ -87,7 +86,7 @@ public class NhaCungCapBUS {
     public Boolean add(NhaCungCap ncc) {
         NhaCungCapDAO DAO = new NhaCungCapDAO();
         Boolean ok = DAO.add(ncc);
-        DAO.close();
+       
 
         if (ok) {
             dsncc.add(ncc);
@@ -103,7 +102,7 @@ public class NhaCungCapBUS {
     public Boolean delete(String mancc) {
         NhaCungCapDAO DAO = new NhaCungCapDAO();
         Boolean ok = DAO.delete(mancc);
-        DAO.close();
+       
 
         if (ok) {
             for (int i = (dsncc.size() - 1); i >= 0; i--) {
@@ -118,7 +117,7 @@ public class NhaCungCapBUS {
     public Boolean update(String mancc, String tenncc, String diachi, String sdt, String fax) {
         NhaCungCapDAO DAO = new NhaCungCapDAO();
         Boolean ok = DAO.update(mancc, tenncc, diachi, sdt, fax);
-        DAO.close();
+       
 
         if (ok) {
             dsncc.forEach((ncc) -> {

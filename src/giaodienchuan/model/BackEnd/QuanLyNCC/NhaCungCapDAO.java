@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package giaodienchuan.model.BackEnd.QuanLyNCC;;
+package giaodienchuan.model.BackEnd.QuanLyNCC;
+
+;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
@@ -12,22 +14,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
  */
-public class NhaCungCapDAO {             
-    ConnectionDB qlnccConnection= new ConnectionDB();
-    
-    
+
+
+public class NhaCungCapDAO {
+
+    ConnectionDB qlnccConnection;
+
 //    public NhaCungCapDAO(){
 //        nhaCungCapDB.logIn("root","");
 //    }
-    public ArrayList<NhaCungCap> readDB()
-    {
-        ArrayList<NhaCungCap> dsncc=new ArrayList<>();
+    public ArrayList<NhaCungCap> readDB() {
+        ArrayList<NhaCungCap> dsncc = new ArrayList<>();
+        qlnccConnection = new ConnectionDB();
         try {
-            String qry="SELECT * FROM nhacungcap";
+            String qry = "SELECT * FROM nhacungcap";
             ResultSet r = qlnccConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
@@ -36,20 +41,18 @@ public class NhaCungCapDAO {
                     String diachi = r.getString(3);
                     String sdt = r.getString(4);
                     String fax = r.getString(5);
-                    
-                    dsncc.add(new NhaCungCap(ma,ten,diachi,sdt,fax));
+
+                    dsncc.add(new NhaCungCap(ma, ten, diachi, sdt, fax));
                 }
             }
-        }
-        
-         catch (SQLException ex) {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Không thấy data cần tìm trong ResultSet");
-        }
-        finally{
+        } finally {
             qlnccConnection.closeConnect();
         }
         return dsncc;
     }
+
     public ArrayList<NhaCungCap> search(String columnName, String value) {
         qlnccConnection = new ConnectionDB();
         ArrayList<NhaCungCap> dsncc = new ArrayList<>();
@@ -63,7 +66,7 @@ public class NhaCungCapDAO {
                     String tenncc = r.getString(2);
                     String diachi = r.getString(3);
                     String sdt = r.getString(4);
-                    String  fax = r.getString(5);
+                    String fax = r.getString(5);
                     dsncc.add(new NhaCungCap(mancc, tenncc, diachi, sdt, fax));
                 }
             }
@@ -79,22 +82,22 @@ public class NhaCungCapDAO {
 
     public Boolean add(NhaCungCap ncc) {
         Boolean ok = qlnccConnection.sqlUpdate("INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`,`SDT`,`Fax`) VALUES ('"
-                + ncc.getMaNCC()+ "', '" + ncc.getTenNCC()+ "', '" + ncc.getDiaChi()+"','"+ncc.getSDT()+ "','"+ncc.getFax()+"');");
-        
+                + ncc.getMaNCC() + "', '" + ncc.getTenNCC() + "', '" + ncc.getDiaChi() + "','" + ncc.getSDT() + "','" + ncc.getFax() + "');");
+
         qlnccConnection.closeConnect();
-        
+
         return ok;
     }
 
     public Boolean delete(String mancc) {
         Boolean ok = qlnccConnection.sqlUpdate("DELETE FROM `nhacungcap` WHERE `nhacungcap`.`MaNCC` = '" + mancc + "'");
-         qlnccConnection.closeConnect();
+        qlnccConnection.closeConnect();
         return ok;
     }
 
-    public Boolean update(String ma, String ten, String diachi,String sdt,String fax) {
-        Boolean ok = qlnccConnection.sqlUpdate("Update NhaCungCap Set MaNCC='" + ma + "',TenNCC='" + ten + "',DiaChi='" +diachi + "',SDT='" +sdt+ "',Fax='" +fax + "' where MaNCC='" + ma + "'");
-         qlnccConnection.closeConnect();
+    public Boolean update(String ma, String ten, String diachi, String sdt, String fax) {
+        Boolean ok = qlnccConnection.sqlUpdate("Update NhaCungCap Set MaNCC='" + ma + "',TenNCC='" + ten + "',DiaChi='" + diachi + "',SDT='" + sdt + "',Fax='" + fax + "' where MaNCC='" + ma + "'");
+        qlnccConnection.closeConnect();
         return ok;
     }
 
@@ -102,6 +105,4 @@ public class NhaCungCapDAO {
         qlnccConnection.closeConnect();
     }
 
-
-    
 }

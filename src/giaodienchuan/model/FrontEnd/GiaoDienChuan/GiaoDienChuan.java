@@ -1,12 +1,14 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.Form.NhaCungCapFORM;
-import giaodienchuan.model.FrontEnd.Form.HoaDon_ChiTietHoaDon_form;
-import giaodienchuan.model.FrontEnd.Form.QuanLySanPhamForm;
-import giaodienchuan.model.FrontEnd.Form.QuanLyKhachHangForm;
-import giaodienchuan.model.FrontEnd.Form.EmptyPage;
-import giaodienchuan.model.FrontEnd.Form.QuanLyLoaiSanPhamForm;
-import giaodienchuan.model.FrontEnd.Form.QuanLyNhanVienForm;
+
+import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
+import giaodienchuan.model.FrontEnd.FormQuanLy.HoaDon_ChiTietHoaDon_form;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
+
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -60,7 +62,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Tài khoản", "icons8_circled_user_male_30px.png",
             "Nhân viên", "icons8_user_group_man_woman_30px.png",
             "Khách hàng", "icons8_user_30px.png",
-            "Nhà cung cấp", "icons8_client_company_30px.png",
+            "Nhà cung cấp", "icons8_user_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
@@ -148,6 +150,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         add(header, BorderLayout.NORTH);
         add(plContent, BorderLayout.CENTER);
     }
+    
 
     public void doAction(String nameAction) {
         plContent.removeAll();
@@ -167,6 +170,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                 
             case "Tài khoản": 
+                emptypage.setLabelText("Tài khoản đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
@@ -199,14 +203,17 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Thống kê":
+                emptypage.setLabelText("Thống kê đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Công cụ":
+                emptypage.setLabelText("Công cụ đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Cài đặt":
+                emptypage.setLabelText("Cài đặt đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
         }

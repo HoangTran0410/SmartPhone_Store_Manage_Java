@@ -23,12 +23,13 @@ public class QuanLySanPhamDAO {
             ResultSet r = qlspConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
-                    String masp = r.getString(1);
-                    String loaisp = r.getString(2);
-                    String tensp = r.getString(3);
-                    float dongia = r.getFloat(4);
-                    int soluong = r.getInt(5);
-                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong));
+                    String masp = r.getString("MaSP");
+                    String loaisp = r.getString("MaLSP");
+                    String tensp = r.getString("TenSP");
+                    float dongia = r.getFloat("DonGia");
+                    int soluong = r.getInt("SoLuong");
+                    String url = r.getString("HinhAnh");
+                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url)); 
                 }
             }
 
@@ -49,12 +50,13 @@ public class QuanLySanPhamDAO {
             ResultSet r = qlspConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
-                    String masp = r.getString(1);
-                    String loaisp = r.getString(2);
-                    String tensp = r.getString(3);
-                    float dongia = r.getFloat(4);
-                    int soluong = r.getInt(5);
-                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong));
+                    String masp = r.getString("MaSP");
+                    String loaisp = r.getString("MaLSP");
+                    String tensp = r.getString("TenSP");
+                    float dongia = r.getFloat("DonGia");
+                    int soluong = r.getInt("SoLuong");
+                    String url = r.getString("HinhAnh");
+                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url));
                 }
             }
 
@@ -69,9 +71,9 @@ public class QuanLySanPhamDAO {
 
     public Boolean add(SanPham sp) {
         qlspConnection = new ConnectionDB();
-        Boolean ok = qlspConnection.sqlUpdate("INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`) VALUES ('"
+        Boolean ok = qlspConnection.sqlUpdate("INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`) VALUES ('"
                 + sp.getMaSP() + "', '" + sp.getMaLSP() + "', '" + sp.getTenSP()
-                + "', '" + sp.getDonGia() + "', '" + sp.getSoLuong() + "');");
+                + "', '" + sp.getDonGia() + "', '" + sp.getSoLuong() + "', '" + sp.getUrlHinhAnh()+ "');");
         qlspConnection.closeConnect();
         return ok;
     }
@@ -83,10 +85,10 @@ public class QuanLySanPhamDAO {
         return ok;
     }
 
-    public Boolean update(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong) {
+    public Boolean update(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong, String url) {
         qlspConnection = new ConnectionDB();
         Boolean ok = qlspConnection.sqlUpdate("Update SanPham Set MaLSP='" + MaLSP + "',TenSP='" + TenSP
-                + "',DonGia='" + DonGia + "',SoLuong='" + SoLuong + "' where MaSP='" + MaSP + "'");
+                + "',DonGia='" + DonGia + "',SoLuong='" + SoLuong + "',HinhAnh='" + url + "' where MaSP='" + MaSP + "'");
         qlspConnection.closeConnect();
         return ok;
     }

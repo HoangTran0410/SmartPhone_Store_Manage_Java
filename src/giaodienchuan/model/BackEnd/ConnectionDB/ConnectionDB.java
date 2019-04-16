@@ -143,34 +143,4 @@ public class ConnectionDB {
         }
         return headers;
     }
-    
-    // ============================ TEST ====================================
-    public static void main(String[] args) {
-        ConnectionDB c = new ConnectionDB("qlsv");
-        c.logIn("root", "");
-
-        try {
-            // get Data
-            String qry = "SELECT * FROM sinhvien";
-            ResultSet r = c.sqlQuery(qry);
-            if (r != null) {
-                while (r.next()) {
-                    System.out.print(r.getString(1) + " ");
-                    System.out.print(r.getString(2) + " ");
-                    System.out.println(r.getString(3));
-                }
-            }
-
-            // set data
-//            qry = "INSERT into sinhvien VALUES('002', 'nguyen', 'hien')";
-//            if (c.update(qry)) {
-//                System.out.println("Ghi du lieu thanh cong");
-//            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Không thấy data cần tìm trong ResultSet");
-
-        } finally {
-            c.closeConnect();
-        }
-    }
 }
