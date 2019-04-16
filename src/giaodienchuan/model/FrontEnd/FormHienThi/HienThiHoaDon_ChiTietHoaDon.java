@@ -1,6 +1,5 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -14,7 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -23,14 +21,8 @@ import javax.swing.event.DocumentListener;
 public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
-    QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
+//    QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
 
-//    JTextField txtMaHd = new JTextField();
-//    JTextField txtMaNv = new JTextField();
-//    JTextField txtMaKh = new JTextField();
-//    JTextField txtNgayLap = new JTextField();
-//    JTextField txtGioLap = new JTextField();
-//    JTextField txtTongTien = new JTextField();
     JTextField txtSearchbox = new JTextField();
     JComboBox timComboBox = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
 
@@ -40,22 +32,13 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
     JTextField txtDonGia = new JTextField();
 
     JTextField txtTim = new JTextField();
-    JTextField txtSearchbox2 = new JTextField();
-    JComboBox timComboBox2 = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+    
 
     JButton btnXoaHoaDon = new JButton("Xóa");
-//    JButton btnThem = new JButton("Thêm");
-//    JButton btnSua = new JButton("Sửa");
     JButton btnReadDB = new JButton("Đọc DB");
-//    JButton btnNhaplai = new JButton("Nhập lại");
-    JButton btnSearch = new JButton("Tìm kiếm");
-
-    JButton btnThemCTHD = new JButton("Thêm");
-    JButton btnTimCTHD = new JButton("Tim");
-    JButton btnXoaChiTietHoaDon = new JButton("Xóa");
+    JButton btnDetails = new JButton("Xem chi tiết");
 
     MyTable tbHoaDon = new MyTable();
-    MyTable tbChiTiet = new MyTable();
 
     public HienThiHoaDon_ChiTietHoaDon() {
 
@@ -85,33 +68,33 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
         txtSearchbox.setBorder(BorderFactory.createTitledBorder("Nhập vào đây đê"));
 //        pnlBtn.add(btnThem);
 //        pnlBtn.add(btnXoaHoaDon);
-//        pnlBtn.add(btnSua);
+        pnlBtn.add(btnDetails);
 //        pnlBtn.add(btnNhaplai);
         pnlBtn.add(btnReadDB);
         pnlBtn.add(txtSearchbox);
         pnlBtn.add(timComboBox);
 //        pnlBtn.add(btnSearch);
 
-        JPanel pnlCTHD = new JPanel();
-        pnlCTHD.setLayout(new GridLayout(1, 5));
-        pnlCTHD.setPreferredSize(new Dimension(900, 50));
-        txtMaHd2.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
-        txtMaSp.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
-        txtSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
-        txtDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
-        pnlCTHD.add(txtMaHd2);
-        pnlCTHD.add(txtMaSp);
-        pnlCTHD.add(txtSoLuong);
-        pnlCTHD.add(txtDonGia);
-        pnlCTHD.add(btnThemCTHD);
-        JPanel pnlTimCTHD = new JPanel();
-        pnlTimCTHD.setPreferredSize(new Dimension(400, 50));
-        pnlTimCTHD.setLayout(new GridLayout(1, 3));
-        txtSearchbox2.setBorder(BorderFactory.createTitledBorder("Điền vào đây .-. "));
-        pnlTimCTHD.add(txtSearchbox2);
-        pnlTimCTHD.add(timComboBox2);
-        pnlTimCTHD.add(btnTimCTHD);
-        pnlTimCTHD.add(btnXoaChiTietHoaDon);
+//        JPanel pnlCTHD = new JPanel();
+//        pnlCTHD.setLayout(new GridLayout(1, 5));
+//        pnlCTHD.setPreferredSize(new Dimension(900, 50));
+//        txtMaHd2.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
+//        txtMaSp.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
+//        txtSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
+//        txtDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
+//        pnlCTHD.add(txtMaHd2);
+//        pnlCTHD.add(txtMaSp);
+//        pnlCTHD.add(txtSoLuong);
+//        pnlCTHD.add(txtDonGia);
+//        pnlCTHD.add(btnThemCTHD);
+//        JPanel pnlTimCTHD = new JPanel();
+//        pnlTimCTHD.setPreferredSize(new Dimension(400, 50));
+//        pnlTimCTHD.setLayout(new GridLayout(1, 3));
+//        txtSearchbox2.setBorder(BorderFactory.createTitledBorder("Điền vào đây .-. "));
+//        pnlTimCTHD.add(txtSearchbox2);
+//        pnlTimCTHD.add(timComboBox2);
+//        pnlTimCTHD.add(btnTimCTHD);
+//        pnlTimCTHD.add(btnXoaChiTietHoaDon);
 
         pnlHoaDon.add(tbHoaDon);
 
@@ -128,35 +111,30 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //                tableHoaDonRowClicked();
 //            }
 //        });
-        tbChiTiet.setPreferredSize(new Dimension(950, 200));
-        tbChiTiet.setHeaders(new String[]{"STT","Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
-        tbChiTiet.getTable().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                tableChiTietRowClicked();
-            }
-        });
+//        tbChiTiet.setPreferredSize(new Dimension(950, 200));
+//        tbChiTiet.setHeaders(new String[]{"STT","Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+//        tbChiTiet.getTable().addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                tableChiTietRowClicked();
+//            }
+//        });
 
 //        this.add(pnlInput);
         this.add(pnlBtn);
 
         this.add(pnlHoaDon);
-        this.add(pnlCTHD);
-        this.add(pnlTimCTHD);
+//        this.add(pnlCTHD);
+//        this.add(pnlTimCTHD);
 
-        btnTimCTHD.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                btnTimKiemCTHDMouseClicked();
-            }
-        });
-        btnThemCTHD.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                btnThemChiTietMouseClicked();
-            }
-        });
-        this.add(tbChiTiet);
+//        btnTimCTHD.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                btnTimKiemCTHDMouseClicked();
+//            }
+//        });
+        
+//        this.add(tbChiTiet);
 
         btnReadDB.addMouseListener(new MouseAdapter() {
             @Override
@@ -165,6 +143,15 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
             }
         });
 
+        btnDetails.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int i = tbHoaDon.getTable().getSelectedRow();
+                if(i>=0){
+                    HienThiChiTietHoaDon htcthd = new HienThiChiTietHoaDon(tbHoaDon.getModel().getValueAt(i, 1).toString());
+                } 
+            }
+});
 //        btnNhaplai.addMouseListener(new MouseAdapter() {
 //            @Override
 //            public void mouseClicked(MouseEvent e) {
@@ -250,16 +237,16 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //        }
 //    }
 
-    private void tableChiTietRowClicked() {
-        int j = tbChiTiet.getTable().getSelectedRow();
-        if (j >= 0) {
-            txtMaHd2.setText(tbChiTiet.getTable().getModel().getValueAt(j, 0).toString());
-            txtMaSp.setText(tbChiTiet.getTable().getModel().getValueAt(j, 1).toString());
-            txtSoLuong.setText(tbChiTiet.getTable().getModel().getValueAt(j, 2).toString());
-            txtDonGia.setText(tbChiTiet.getTable().getModel().getValueAt(j, 3).toString());
-        }
-    }
 
+//    private void tableChiTietRowClicked() {
+//        int j = tbChiTiet.getTable().getSelectedRow();
+//        if (j >= 0) {
+//            txtMaHd2.setText(tbChiTiet.getTable().getModel().getValueAt(j, 0).toString());
+//            txtMaSp.setText(tbChiTiet.getTable().getModel().getValueAt(j, 1).toString());
+//            txtSoLuong.setText(tbChiTiet.getTable().getModel().getValueAt(j, 2).toString());
+//            txtDonGia.setText(tbChiTiet.getTable().getModel().getValueAt(j, 3).toString());
+//        }
+//    }
 //    private Boolean checkInputHoaDon() {
 //        try {
 //            java.time.LocalDate.parse(txtNgayLap.getText());
@@ -272,16 +259,16 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //        return true;
 //    }
 
-    private Boolean checkInputChiTiet() {
-        try {
-            Integer.parseInt(txtSoLuong.getText());
-            Float.parseFloat(txtDonGia.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "So luong va don gia phai la so !!");
-            return false;
-        }
-        return true;
-    }
+//    private Boolean checkInputChiTiet() {
+//        try {
+//            Integer.parseInt(txtSoLuong.getText());
+//            Float.parseFloat(txtDonGia.getText());
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(null, "So luong va don gia phai la so !!");
+//            return false;
+//        }
+//        return true;
+//    }
 
 //    private void btnThemHoaDonMouseClicked() {
 //        Boolean isValid = true;
@@ -296,19 +283,19 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //        }
 //    }
 
-    private void btnThemChiTietMouseClicked() {
-        Boolean isValid = true;
-        if (isValid && checkInputChiTiet()) {
-            qlcthd.add(txtMaHd2.getText(), txtMaSp.getText(), Integer.parseInt(txtSoLuong.getText()), Float.parseFloat(txtSoLuong.getText()));
-        }
-        tbChiTiet.clear();
-        qlcthd.getDshd().forEach((hd) -> {
-//            tbHoaDon.addRow(new String[]{"asdasdas","asdasdasdasd","Asdaiii","asdiiidi"});
-            String[] row = new String[]{hd.getMaHoaDon(), hd.getMaSanPham(), String.valueOf(hd.getSoLuong()), String.valueOf(hd.getDonGia())};
-            tbChiTiet.addRow(row);
-//            model.addRow(row);
-        });
-    }
+//    private void btnThemChiTietMouseClicked() {
+//        Boolean isValid = true;
+//        if (isValid && checkInputChiTiet()) {
+//            qlcthd.add(txtMaHd2.getText(), txtMaSp.getText(), Integer.parseInt(txtSoLuong.getText()), Float.parseFloat(txtSoLuong.getText()));
+//        }
+//        tbChiTiet.clear();
+//        qlcthd.getDshd().forEach((hd) -> {
+////            tbHoaDon.addRow(new String[]{"asdasdas","asdasdasdasd","Asdaiii","asdiiidi"});
+//            String[] row = new String[]{hd.getMaHoaDon(), hd.getMaSanPham(), String.valueOf(hd.getSoLuong()), String.valueOf(hd.getDonGia())};
+//            tbChiTiet.addRow(row);
+////            model.addRow(row);
+//        });
+//    }
 
 //    private void btnSuaMouseClicked() {
 //        int i = tbHoaDon.getTable().getSelectedRow();
@@ -329,13 +316,7 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //        }
 //    }
 
-    private void btnXoaChiTietHoaDonMouseClicked() {
-        int i = tbChiTiet.getTable().getSelectedRow();
-        if (i >= 0) {
-            System.out.println(tbChiTiet.getTable().getModel().getValueAt(i, 0).toString());
-            qlcthd.delete(tbChiTiet.getTable().getModel().getValueAt(i, 0).toString(), tbChiTiet.getTable().getModel().getValueAt(i, 1).toString());
-        }
-    }
+
 
 //    private void btnNhapLaiMouseClicked() {
 //        txtMaHd.setText("");
@@ -356,13 +337,13 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 //        });
 //    }
 
-    private void btnTimKiemCTHDMouseClicked() {
-        tbChiTiet.clear();
-        qlcthd.search(timComboBox2.getSelectedItem().toString(), txtSearchbox2.getText()).forEach((t) -> {
-            String[] row = new String[]{t.getMaHoaDon(), t.getMaSanPham(), String.valueOf(t.getSoLuong()), String.valueOf(t.getDonGia())};
-            tbChiTiet.addRow(row);
-        });
-    }
+//    private void btnTimKiemCTHDMouseClicked() {
+//        tbChiTiet.clear();
+//        qlcthd.search(timComboBox2.getSelectedItem().toString(), txtSearchbox2.getText()).forEach((t) -> {
+//            String[] row = new String[]{t.getMaHoaDon(), t.getMaSanPham(), String.valueOf(t.getSoLuong()), String.valueOf(t.getDonGia())};
+//            tbChiTiet.addRow(row);
+//        });
+//    }
         public void refresh() {
         qlhd.readDB();
         setDataToTable(qlhd.getDshd(), tbHoaDon);
