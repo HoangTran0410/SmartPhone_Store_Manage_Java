@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
+public class HienThiHoaDon extends JPanel {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
 //    QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
@@ -40,7 +40,7 @@ public class HienThiHoaDon_ChiTietHoaDon extends JPanel {
 
     MyTable tbHoaDon = new MyTable();
 
-    public HienThiHoaDon_ChiTietHoaDon() {
+    public HienThiHoaDon() {
 
         JPanel pnlHoaDon = new JPanel();
         pnlHoaDon.setLayout(new BorderLayout());

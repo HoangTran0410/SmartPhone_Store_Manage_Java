@@ -1,6 +1,6 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.FormQuanLy.HoaDon_ChiTietHoaDon_form;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDon_ChiTietHoaDon_form;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
@@ -35,7 +35,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyLoaiSanPhamForm qllsp;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
-    HoaDon_ChiTietHoaDon_form qlhd;
+    QuanLyHoaDon_ChiTietHoaDon_form qlhd;
 
     public GiaoDienChuan() {
 
@@ -190,7 +190,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             case "Hóa đơn":
                 if (qlhd == null) {
-                    qlhd = new HoaDon_ChiTietHoaDon_form();
+                    qlhd = new QuanLyHoaDon_ChiTietHoaDon_form();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;
