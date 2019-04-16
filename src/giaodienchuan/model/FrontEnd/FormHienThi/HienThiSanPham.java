@@ -38,7 +38,7 @@ public class HienThiSanPham extends JPanel {
         setLayout(new BorderLayout());
 
         mtb = new MyTable();
-         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
+        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng"});
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
         mtb.setAlignment(0, JLabel.CENTER);
