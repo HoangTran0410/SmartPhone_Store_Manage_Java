@@ -12,6 +12,8 @@ public class HoaDon_BUS {
     private HoaDon_DAO qlhd = new HoaDon_DAO();
 
     public HoaDon_BUS() {
+
+        dshd = qlhd.readDB();
     }
     
     public ArrayList<HoaDon_DTO> getDshd(){

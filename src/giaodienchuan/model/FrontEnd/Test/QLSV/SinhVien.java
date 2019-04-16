@@ -1,5 +1,5 @@
 
-package giaodienchuan.model.BackEnd.QLSV;
+package giaodienchuan.model.FrontEnd.Test.QLSV;
 
 
 public class SinhVien {

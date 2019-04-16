@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.NhanVien;
+package giaodienchuan.model.BackEnd.QuanLyNhanVien;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class QuanLyNhanVienBUS {
     QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
 
     public QuanLyNhanVienBUS() {
-
+        dsnv = qlnvDAO.readDB();
     }
 
     public void showConsole() {

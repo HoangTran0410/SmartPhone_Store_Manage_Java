@@ -58,6 +58,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Tài khoản", "icons8_circled_user_male_30px.png",
             "Nhân viên", "icons8_user_group_man_woman_30px.png",
             "Khách hàng", "icons8_user_30px.png",
+            "Nhà cung cấp", "icons8_company_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
@@ -164,6 +165,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
                 
             case "Tài khoản": 
+                emptypage.setLabelText("Tài khoản đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
@@ -180,6 +182,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
+            
+            case "Nhà cung cấp":
+                emptypage.setLabelText("Nhà cung cấp đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
 
             case "Hóa đơn":
                 if (qlhd == null) {
@@ -189,14 +196,17 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Thống kê":
+                emptypage.setLabelText("Thống kê đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Công cụ":
+                emptypage.setLabelText("Công cụ đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Cài đặt":
+                emptypage.setLabelText("Cài đặt đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
         }

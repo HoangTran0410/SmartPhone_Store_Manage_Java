@@ -206,7 +206,7 @@ public class HoaDon_ChiTietHoaDon_form extends JPanel {
             String[] row = new String[]{hd.getMaHoaDon(), hd.getMaNhanVien(), hd.getMaKhachHang(), hd.getNgayLap().toString(), hd.getGioLap().toString(), String.valueOf(hd.getTongTien())};
             tbHoaDon.addRow(row);
 //            model.addRow(row);
-        });
+               });
 
     }
 

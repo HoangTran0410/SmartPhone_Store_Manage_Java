@@ -23,6 +23,25 @@ public class ChiTietHoaDon_BUS {
         Boolean success = qlhd.add(hd);
         if (success) {
             dshd.add(hd);
+    ArrayList<ChiTietHoaDon_DTO> dscthd = new ArrayList<>();
+    private ChiTietHoaDon_DAO qlcthd = new ChiTietHoaDon_DAO();
+
+    public ChiTietHoaDon_BUS() {
+        dscthd = qlcthd.readDB();
+    }
+
+    public ArrayList<ChiTietHoaDon_DTO> getDshd(){
+        return this.dscthd;
+    }
+    
+    public void readDB() {
+        dscthd = qlcthd.readDB();
+    }
+
+    public Boolean add(ChiTietHoaDon_DTO hd) {
+        Boolean success = qlcthd.add(hd);
+        if (success) {
+            dscthd.add(hd);
             return true;
         }
         return false;
@@ -50,6 +69,9 @@ public class ChiTietHoaDon_BUS {
         Boolean success = qlhd.update(hd);
         if (success) {
             for (ChiTietHoaDon_DTO cthd : dshd) {
+        Boolean success = qlcthd.update(hd);
+        if (success) {
+            for (ChiTietHoaDon_DTO cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
                     cthd = hd;
                 }
@@ -64,6 +86,11 @@ public class ChiTietHoaDon_BUS {
             for (ChiTietHoaDon_DTO cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
                     dshd.remove(cthd);
+        Boolean success = qlcthd.delelte(maHoaDon);
+        if (success) {
+            for (ChiTietHoaDon_DTO cthd : dscthd) {
+                if (cthd.getMaHoaDon().equals(maHoaDon)) {
+                    dscthd.remove(cthd);
                     return true;
                 }
             }
@@ -80,6 +107,11 @@ public class ChiTietHoaDon_BUS {
         switch (type) {
             case "Mã hóa đơn":
                 dshd.forEach((hd) -> {
+            return dscthd;
+        }
+        switch (type) {
+            case "Mã hóa đơn":
+                dscthd.forEach((hd) -> {
                     if (hd.getMaHoaDon().equalsIgnoreCase(keyword)) {
                         result.add(hd);
                     }
@@ -87,6 +119,7 @@ public class ChiTietHoaDon_BUS {
                 break;
             case "Mã sản phẩm":
                 dshd.forEach((hd) -> {
+                dscthd.forEach((hd) -> {
                     if (hd.getMaSanPham().equalsIgnoreCase(keyword)) {
                         result.add(hd);
                     }
@@ -96,6 +129,7 @@ public class ChiTietHoaDon_BUS {
                 try {
                     Integer.parseInt(keyword);
                     dshd.forEach((t) -> {
+                    dscthd.forEach((t) -> {
                         if (t.getSoLuong() == Integer.parseInt(keyword)) {
                             result.add(t);
                         }
@@ -108,6 +142,7 @@ public class ChiTietHoaDon_BUS {
                 try {
                     Float.parseFloat(keyword);
                     dshd.forEach((t) -> {
+                    dscthd.forEach((t) -> {
                         if (t.getDonGia() == Float.parseFloat(keyword)) {
                             result.add(t);
                         }

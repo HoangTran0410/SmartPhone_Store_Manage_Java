@@ -1,8 +1,8 @@
 package giaodienchuan.model.FrontEnd.Form;
 
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
-import giaodienchuan.model.BackEnd.KhachHang.QuanLyKhachHangBUS;
-import giaodienchuan.model.BackEnd.KhachHang.KhachHang;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -49,9 +49,7 @@ public class QuanLyKhachHangForm extends JPanel {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
-
-        // read data from database
-        btnReadDBMouseClicked();
+        setDataToTable(qlkh.getDskh(), mtb);
 
         // inputs
         txMakh.setBorder(BorderFactory.createTitledBorder("Mã khách hàng"));

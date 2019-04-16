@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.KhachHang;
+package giaodienchuan.model.BackEnd.QuanLyKhachHang;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class QuanLyKhachHangBUS {
     QuanLyKhachHangDAO qlkhDAO = new QuanLyKhachHangDAO();
 
     public QuanLyKhachHangBUS() {
-
+        dskh = qlkhDAO.readDB();
     }
 
     public void showConsole() {
