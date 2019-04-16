@@ -35,34 +35,38 @@ public class QuanLyHoaDonDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Khong tim thay du lieu !!");
-        }finally{
+        } finally {
             connection.closeConnect();
         }
         return dshd;
     }
-    public Boolean add(HoaDon hd){
-        connection =  new ConnectionDB();
-        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('"+hd.getMaHoaDon()+"','"+hd.getMaNhanVien()+"','"+hd.getMaKhachHang()+"','"+hd.getNgayLap()+"','"+hd.getGioLap()+"','"+hd.getTongTien()+"');");
+
+    public Boolean add(HoaDon hd) {
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('" + hd.getMaHoaDon() + "','" + hd.getMaNhanVien() + "','" + hd.getMaKhachHang() + "','" + hd.getNgayLap() + "','" + hd.getGioLap() + "','" + hd.getTongTien() + "');");
         connection.closeConnect();
         return success;
     }
-    public Boolean delete(String mahd){
-        connection =  new ConnectionDB();
-        if(!connection.sqlUpdate("DELETE FROM hoadon WHERE MaHD='"+mahd+"';")){
-            JOptionPane.showMessageDialog(null,"Vui long xoa het chi tiet cua hoa don truoc !!!");
+
+    public Boolean delete(String mahd) {
+        connection = new ConnectionDB();
+        if (!connection.sqlUpdate("DELETE FROM hoadon WHERE MaHD='" + mahd + "';")) {
+            JOptionPane.showMessageDialog(null, "Vui long xoa het chi tiet cua hoa don truoc !!!");
             connection.closeConnect();
             return false;
         }
         connection.closeConnect();
         return false;
     }
-    public Boolean update(HoaDon hd){
-        connection =  new ConnectionDB();
-        Boolean success = connection.sqlUpdate("UPDATE hoadon SET MaNV='"+hd.getMaNhanVien()+"', MaKH='"+hd.getMaKhachHang()+"', NgayLap='"+hd.getNgayLap()+"', GioLap='"+hd.getGioLap()+"', TongTien='"+hd.getTongTien()+"' WHERE MaHD='"+hd.getMaHoaDon()+"';");
+
+    public Boolean update(HoaDon hd) {
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("UPDATE hoadon SET MaNV='" + hd.getMaNhanVien() + "', MaKH='" + hd.getMaKhachHang() + "', NgayLap='" + hd.getNgayLap() + "', GioLap='" + hd.getGioLap() + "', TongTien='" + hd.getTongTien() + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
         connection.closeConnect();
         return success;
     }
-    public Boolean update(String maHoaDon,String maNhanVien,String maKhachHang,LocalDate ngayLap,LocalTime gioLap,float tongTien){
+
+    public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayLap, LocalTime gioLap, float tongTien) {
         HoaDon hd = new HoaDon();
         hd.setMaHoaDon(maHoaDon);
         hd.setMaNhanVien(maNhanVien);
