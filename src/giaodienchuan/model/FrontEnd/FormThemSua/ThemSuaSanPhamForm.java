@@ -43,7 +43,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
-        // this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.type = _type;
 
         // inputs
