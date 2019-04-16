@@ -51,11 +51,11 @@ public class QuanLyChiTietHoaDonBUS {
         return false;
     }
 
-    public Boolean delelte(String maHoaDon) {
-        Boolean success = qlcthd.delelte(maHoaDon);
+    public Boolean delete(String _maHoaDon,String _maSanPham) {
+        Boolean success = qlcthd.delete(_maHoaDon,_maSanPham);
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
-                if (cthd.getMaHoaDon().equals(maHoaDon)) {
+                if (cthd.getMaHoaDon().equals(_maHoaDon) && cthd.getMaSanPham().equals(_maSanPham)) {
                     dscthd.remove(cthd);
                     return true;
                 }

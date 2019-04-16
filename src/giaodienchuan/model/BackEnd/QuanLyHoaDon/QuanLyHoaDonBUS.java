@@ -15,10 +15,10 @@ public class QuanLyHoaDonBUS {
         dshd = qlhd.readDB();
     }
 
-    public String[] getHeaders() {
-        return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày nhập", "Giờ nhập", "Tổng tiền"};
-    }
-
+//    public String[] getHeaders() {
+//        return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày nhập", "Giờ nhập", "Tổng tiền"};
+//    }
+ 
     public ArrayList<HoaDon> getDshd() {
         return this.dshd;
     }
