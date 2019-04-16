@@ -30,20 +30,12 @@ public class QuanLyChiTietHoaDonBUS {
     }
 
     public Boolean add(String maHoaDon, String maSanPham, int soLuong, float donGia) {
-        ChiTietHoaDon hd = new ChiTietHoaDon();
-        hd.setMaHoaDon(maHoaDon);
-        hd.setMaSanPham(maSanPham);
-        hd.setSoLuong(soLuong);
-        hd.setDonGia(donGia);
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia);
         return add(hd);
     }
 
     public Boolean update(String maHoaDon, String maSanPham, int soLuong, float donGia) {
-        ChiTietHoaDon hd = new ChiTietHoaDon();
-        hd.setMaHoaDon(maHoaDon);
-        hd.setMaSanPham(maSanPham);
-        hd.setSoLuong(soLuong);
-        hd.setDonGia(donGia);
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia);
         return update(hd);
     }
 

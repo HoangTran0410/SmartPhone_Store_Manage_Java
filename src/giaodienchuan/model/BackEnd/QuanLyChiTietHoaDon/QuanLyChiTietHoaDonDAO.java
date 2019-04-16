@@ -21,11 +21,7 @@ public class QuanLyChiTietHoaDonDAO {
             ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
-                    ChiTietHoaDon hd = new ChiTietHoaDon();
-                    hd.setMaHoaDon(rs.getString(1));
-                    hd.setMaSanPham(rs.getString(2));
-                    hd.setSoLuong(rs.getInt(3));
-                    hd.setDonGia(rs.getFloat(4));
+                    ChiTietHoaDon hd = new ChiTietHoaDon(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getFloat(4));
                     dshd.add(hd);
                 }
             }
@@ -59,11 +55,7 @@ public class QuanLyChiTietHoaDonDAO {
     }
 
     public Boolean update(String maHoaDon, String maSanPham, int soLuong, float donGia) {
-        ChiTietHoaDon hd = new ChiTietHoaDon();
-        hd.setMaHoaDon(maHoaDon);
-        hd.setMaSanPham(maSanPham);
-        hd.setSoLuong(soLuong);
-        hd.setDonGia(donGia);
+        ChiTietHoaDon hd = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia);
         return update(hd);
     }
 

@@ -1,11 +1,17 @@
 package giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon;
-public class ChiTietHoaDon {
-    private String maHoaDon="";
-    private String maSanPham="";
-    private int soLuong=0;
-    private float donGia=0;
 
-    public ChiTietHoaDon() {
+public class ChiTietHoaDon {
+
+    private String maHoaDon;
+    private String maSanPham;
+    private int soLuong;
+    private float donGia;
+
+    public ChiTietHoaDon(String mahd, String masp, int soluong, float dongia) {
+        this.maHoaDon = mahd;
+        this.maSanPham = masp;
+        this.soLuong = soluong;
+        this.donGia = dongia;
     }
 
     public String getMaHoaDon() {
@@ -39,6 +45,5 @@ public class ChiTietHoaDon {
     public void setDonGia(float donGia) {
         this.donGia = donGia;
     }
-    
-    
+
 }
