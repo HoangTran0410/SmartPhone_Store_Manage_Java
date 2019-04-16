@@ -42,14 +42,24 @@ public class ThemSuaTaiKhoanForm extends JFrame {
         // inputs
         txUsername.setBorder(BorderFactory.createTitledBorder("Tên tài khoản"));
         txPassword.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
-        txMaNV.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
-        txMaQuyen.setBorder(BorderFactory.createTitledBorder("Mã quyền"));
+        txMaNV.setBorder(BorderFactory.createTitledBorder(" "));
+        txMaQuyen.setBorder(BorderFactory.createTitledBorder(" "));
+        
+        JPanel plChonNhanVien = new JPanel();
+        plChonNhanVien.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
+        plChonNhanVien.add(txMaNV);
+        plChonNhanVien.add(btnChonNhanVien);
+
+        JPanel plChonQuyen = new JPanel();
+        plChonQuyen.setBorder(BorderFactory.createTitledBorder("Mã quyền"));
+        plChonQuyen.add(txMaQuyen);
+        plChonQuyen.add(btnChonQuyen);
 
         JPanel plInput = new JPanel();
         plInput.add(txUsername);
         plInput.add(txPassword);
-        plInput.add(txMaNV);
-        plInput.add(txMaQuyen);
+        plInput.add(plChonNhanVien);
+        plInput.add(plChonQuyen);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -82,11 +92,10 @@ public class ThemSuaTaiKhoanForm extends JFrame {
             txMaQuyen.setText(this.tkSua.getMaQuyen());
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
+            plButton.add(btnHuy);
         }
-
-        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
