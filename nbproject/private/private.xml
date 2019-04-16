@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNCC/NhaCungCapBUS.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
@@ -11,6 +12,15 @@
         </group>
 =======
         <group/>
+>>>>>>> master
+=======
+        <group>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_DTO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/ChiTietHoaDon_DAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/ChiTietHoaDon_BUS.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_DAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_BUS.java</file>
+        </group>
 >>>>>>> master
     </open-files>
 </project-private>

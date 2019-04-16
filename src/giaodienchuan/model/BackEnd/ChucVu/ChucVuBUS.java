@@ -1,11 +1,11 @@
 package giaodienchuan.model.BackEnd.ChucVu;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
 public class ChucVuBUS {
 
     private ArrayList<ChucVu> dscv = new ArrayList<>();
+    ChucVuDAO qlcvDAO = new ChucVuDAO();
 
     public ChucVuBUS() {
 
@@ -19,15 +19,11 @@ public class ChucVuBUS {
     }
 
     public String[] getHeaders() {
-        ChucVuDAO cvConnection = new ChucVuDAO();
-        cvConnection.close();
-        return cvConnection.getHeaders();
+        return new String[]{"Mã chức vụ", "Tên chức vụ"};
     }
 
-    public void readDB() {
-        ChucVuDAO cvConnection = new ChucVuDAO();
-        dscv = cvConnection.readDB();
-        cvConnection.close();
+    public void readDB() { 
+        dscv = qlcvDAO.readDB();
     }
 
     public ArrayList<ChucVu> search(String value, String type) {
@@ -59,11 +55,8 @@ public class ChucVuBUS {
         return result;
     }
 
-    public Boolean add(ChucVu cv) {
-        ChucVuDAO cvConnection = new ChucVuDAO();
-        Boolean ok = cvConnection.add(cv);
-        cvConnection.close();
-
+    public Boolean add(ChucVu cv) {        
+        Boolean ok = qlcvDAO.add(cv);
         if (ok) {
             dscv.add(cv);
         }
@@ -76,10 +69,7 @@ public class ChucVuBUS {
     }
 
     public Boolean delete(String macv) {
-        ChucVuDAO cvConnection = new ChucVuDAO();
-        Boolean ok = cvConnection.delete(macv);
-        cvConnection.close();
-
+        Boolean ok = qlcvDAO.delete(macv);
         if (ok) {
             for (int i = (dscv.size() - 1); i >= 0; i--) {
                 if (dscv.get(i).getMaCV().equals(macv)) {
@@ -91,10 +81,8 @@ public class ChucVuBUS {
     }
 
     public Boolean update(String macv, String tencv) {
-        ChucVuDAO cvConnection = new ChucVuDAO();
-        Boolean ok = cvConnection.update(macv, tencv);
-        cvConnection.close();
-
+        Boolean ok = qlcvDAO.update(macv, tencv);
+ 
         if (ok) {
             dscv.forEach((cv) -> {
                 if (cv.getMaCV().equals(macv)) {

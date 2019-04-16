@@ -34,6 +34,8 @@ public class ThemSuaSanPhamForm extends JFrame {
     MoreButton btnChonLoai = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
+    JButton btnThoat = new JButton("Thoát");
+
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
 
@@ -41,7 +43,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.type = _type;
 
         // inputs
@@ -51,12 +53,12 @@ public class ThemSuaSanPhamForm extends JFrame {
         txGia.setBorder(BorderFactory.createTitledBorder("Đơn Giá (triệu)"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         txHinhAnh.setBorder(BorderFactory.createTitledBorder(" "));
-        
+
         JPanel plChonLoai = new JPanel();
         plChonLoai.setBorder(BorderFactory.createTitledBorder("Mã loại"));
         plChonLoai.add(txMalsp);
         plChonLoai.add(btnChonLoai);
-        
+
         JPanel plChonAnh = new JPanel();
         plChonAnh.setBorder(BorderFactory.createTitledBorder("Url Hình ảnh"));
         plChonAnh.add(txHinhAnh);
@@ -77,9 +79,11 @@ public class ThemSuaSanPhamForm extends JFrame {
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm sản phẩm");
             txMasp.setText("SP" + String.valueOf(qlspBUS.getDssp().size() + 1));
-            
+
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
+            btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
+            plButton.add(btnThoat);
 
         } else {
             this.setTitle("Sửa sản phẩm");
@@ -101,13 +105,12 @@ public class ThemSuaSanPhamForm extends JFrame {
             txHinhAnh.setText(this.spSua.getUrlHinhAnh().replace("\\", "\\\\"));
 
             txMasp.setEditable(false);
-            
+
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
+            plButton.add(btnHuy);
         }
-        
-        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
@@ -118,6 +121,11 @@ public class ThemSuaSanPhamForm extends JFrame {
         });
         btnSua.addActionListener((ae) -> {
             btnSuaMouseClicked();
+        });
+        btnThoat.addActionListener((ae) -> {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                this.dispose();
+            }
         });
         btnHuy.addActionListener((ae) -> {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
@@ -130,7 +138,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         btnChonAnh.addActionListener((ae) -> {
             btnChonAnhMouseClicked();
         });
-        
+
         this.setVisible(true);
     }
 
@@ -145,7 +153,6 @@ public class ThemSuaSanPhamForm extends JFrame {
 
             if (qlspBUS.add(masp, maloai, ten, dongia, soluong, url)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + ten + " thành công!");
-                this.dispose();
             }
         }
     }
@@ -168,7 +175,6 @@ public class ThemSuaSanPhamForm extends JFrame {
 
     private void btnChonLoaiMouseClicked() {
         ChonLoaiSanPhamForm clsp = new ChonLoaiSanPhamForm(txMalsp); // truyền vào textfield
-//        ChonSanPhamForm csp = new ChonSanPhamForm(txMalsp);
     }
 
     private void btnChonAnhMouseClicked() {

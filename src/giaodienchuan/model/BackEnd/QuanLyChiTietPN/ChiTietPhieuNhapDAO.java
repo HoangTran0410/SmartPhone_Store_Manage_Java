@@ -82,4 +82,14 @@ public class ChiTietPhieuNhapDAO {
               +ctpn.getMa()+ "', '" + ctpn.getMaSP() + "','" + ctpn.getSoLuong() + "','" + ctpn.getDonGia() + "')");
         return ok;
     }
+    public boolean delete(String mactpn)
+    {
+        Boolean ok= qlctpnConnection.sqlUpdate("DELETE *FROM `chitietphieunhap` WHERE `chitietphieunhap`.`MaPN`='"+mactpn+"'");
+        return ok;
+    }
+    public boolean update(String mactpn,String masp,Integer soluong,Float dongia)
+    {
+        Boolean ok= qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='"+mactpn+"',MaSP='"+masp+"',SoLuong='"+soluong+"',DonGia='"+dongia+"'");
+        return ok;
+    }
 }
