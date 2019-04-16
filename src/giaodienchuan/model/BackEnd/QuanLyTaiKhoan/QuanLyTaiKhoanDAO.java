@@ -41,7 +41,7 @@ public class QuanLyTaiKhoanDAO {
 
     public Boolean add(TaiKhoan tk) {
         qltkConnectiion = new ConnectionDB();
-        Boolean ok = qltkConnectiion.sqlUpdate("INSERT INTO `taikhoan` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`) VALUES ('"
+        Boolean ok = qltkConnectiion.sqlUpdate("INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MAQuyen`) VALUES ('"
                 + tk.getUsername() + "', '" + tk.getPassword() + "', '" + tk.getMaNV() + "', '" + tk.getMaQuyen() + "');");
         qltkConnectiion.closeConnect();
         return ok;
@@ -57,7 +57,7 @@ public class QuanLyTaiKhoanDAO {
     public Boolean update(String username, String pass, String maNV, String maQuyen) {
         qltkConnectiion = new ConnectionDB();
         Boolean ok = qltkConnectiion.sqlUpdate("Update taikhoan Set MatKhau='" + pass + "',MaNV='" + maNV
-                + "',MaQuyen='" + maQuyen + "' where TaiKhoan='" + username + "'");
+                + "',MaQuyen='" + maQuyen + "' where TenTaiKhoan='" + username + "'");
         qltkConnectiion.closeConnect();
         return ok;
     }
