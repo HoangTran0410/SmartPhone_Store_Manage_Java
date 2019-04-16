@@ -78,49 +78,49 @@ public class QuanLyHoaDonBUS {
         dshd.forEach((hd) -> {
             switch (type) {
                 case "Tất cả":
-                    if (hd.getMaHoaDon().equalsIgnoreCase(keyword)
-                            || hd.getMaNhanVien().equalsIgnoreCase(keyword)
-                            || hd.getMaKhachHang().equalsIgnoreCase(keyword)
-                            || hd.getNgayLap().toString().equalsIgnoreCase(keyword)
-                            || hd.getGioLap().toString().equalsIgnoreCase(keyword)
-                            || String.valueOf(hd.getTongTien()).equalsIgnoreCase(keyword)) {
+                    if (hd.getMaHoaDon().toLowerCase().contains(keyword.toLowerCase())
+                            || hd.getMaNhanVien().toLowerCase().contains(keyword.toLowerCase())
+                            || hd.getMaKhachHang().toLowerCase().contains(keyword.toLowerCase())
+                            || hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())
+                            || hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())
+                            || String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
 
                     break;
 
                 case "Mã hóa đơn":
-                    if (hd.getMaHoaDon().equalsIgnoreCase(keyword)) {
+                    if (hd.getMaHoaDon().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
 
                 case "Mã nhân viên":
-                    if (hd.getMaNhanVien().equalsIgnoreCase(keyword)) {
+                    if (hd.getMaNhanVien().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
 
                 case "Mã khách hàng":
-                    if (hd.getMaKhachHang().equalsIgnoreCase(keyword)) {
+                    if (hd.getMaKhachHang().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
 
                 case "Ngày lập":
-                    if (hd.getNgayLap().toString().equalsIgnoreCase(keyword)) {
+                    if (hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
 
                 case "Giờ lập":
-                    if (hd.getGioLap().toString().equalsIgnoreCase(keyword)) {
+                    if (hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
 
                 case "Tổng tiền":
-                    if (String.valueOf(hd.getTongTien()).equalsIgnoreCase(keyword)) {
+                    if (String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
                     }
                     break;
