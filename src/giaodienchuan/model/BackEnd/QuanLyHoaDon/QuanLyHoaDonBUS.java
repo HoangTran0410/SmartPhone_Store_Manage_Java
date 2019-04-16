@@ -14,8 +14,12 @@ public class QuanLyHoaDonBUS {
     public QuanLyHoaDonBUS() {
         dshd = qlhd.readDB();
     }
-    
-    public ArrayList<HoaDon> getDshd(){
+
+    public String[] getHeaders() {
+        return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày nhập", "Giờ nhập", "Tổng tiền"};
+    }
+
+    public ArrayList<HoaDon> getDshd() {
         return this.dshd;
     }
 
@@ -70,65 +74,58 @@ public class QuanLyHoaDonBUS {
 
     public ArrayList<HoaDon> search(String type, String keyword) {
         ArrayList<HoaDon> result = new ArrayList<>();
-        readDB();
-        switch (type) {
-            case "Tất cả":
-                return dshd;
-            case "Mã hóa đơn":
-                dshd.forEach((t) -> {
-                    if (t.getMaHoaDon().equalsIgnoreCase(keyword)) {
-                        result.add(t);
+
+        dshd.forEach((hd) -> {
+            switch (type) {
+                case "Tất cả":
+                    if (hd.getMaHoaDon().equalsIgnoreCase(keyword)
+                            || hd.getMaNhanVien().equalsIgnoreCase(keyword)
+                            || hd.getMaKhachHang().equalsIgnoreCase(keyword)
+                            || hd.getNgayLap().toString().equalsIgnoreCase(keyword)
+                            || hd.getGioLap().toString().equalsIgnoreCase(keyword)
+                            || String.valueOf(hd.getTongTien()).equalsIgnoreCase(keyword)) {
+                        result.add(hd);
                     }
-                });
-                break;
-            case "Mã nhân viên":
-                dshd.forEach((t) -> {
-                    if (t.getMaNhanVien().equalsIgnoreCase(keyword)) {
-                        result.add(t);
+
+                    break;
+
+                case "Mã hóa đơn":
+                    if (hd.getMaHoaDon().equalsIgnoreCase(keyword)) {
+                        result.add(hd);
                     }
-                });
-                break;
-            case "Mã khách hàng":
-                dshd.forEach((t) -> {
-                    if (t.getMaKhachHang().equalsIgnoreCase(keyword)) {
-                        result.add(t);
+                    break;
+
+                case "Mã nhân viên":
+                    if (hd.getMaNhanVien().equalsIgnoreCase(keyword)) {
+                        result.add(hd);
                     }
-                });
-                break;
-            case "Ngày lập":
-                try{
-                    java.time.LocalDate.parse(keyword);
-                    dshd.forEach((t) -> {
-                    if (t.getNgayLap().equals(java.time.LocalDate.parse(keyword))) {
-                        result.add(t);
-                    }});
-                }catch(DateTimeParseException e){
-                    JOptionPane.showMessageDialog(null, "Dinh dang ngay la : yyyy-mm-dd !!!");
-                }
-                break;
-            case "Giờ lập":
-                try{
-                    java.time.LocalTime.parse(keyword);
-                    dshd.forEach((t) -> {
-                    if (t.getGioLap().equals(java.time.LocalTime.parse(keyword))) {
-                        result.add(t);
-                    }});
-                }catch(DateTimeParseException e){
-                    JOptionPane.showMessageDialog(null, "Dinh dang gio la: hh:mm !!!");
-                }
-                break;
-            case "Tổng tiền":
-                try{
-                    Float.parseFloat(keyword);
-                    dshd.forEach((t) -> {
-                    if (t.getGioLap().equals(Float.parseFloat(keyword))) {
-                        result.add(t);
-                    }});
-                }catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(null, "Tong tien phai la so !!!");
-                }
-                break;
-        }
+                    break;
+
+                case "Mã khách hàng":
+                    if (hd.getMaKhachHang().equalsIgnoreCase(keyword)) {
+                        result.add(hd);
+                    }
+                    break;
+
+                case "Ngày lập":
+                    if (hd.getNgayLap().toString().equalsIgnoreCase(keyword)) {
+                        result.add(hd);
+                    }
+                    break;
+
+                case "Giờ lập":
+                    if (hd.getGioLap().toString().equalsIgnoreCase(keyword)) {
+                        result.add(hd);
+                    }
+                    break;
+
+                case "Tổng tiền":
+                    if (String.valueOf(hd.getTongTien()).equalsIgnoreCase(keyword)) {
+                        result.add(hd);
+                    }
+                    break;
+            }
+        });
         return result;
     }
 }
