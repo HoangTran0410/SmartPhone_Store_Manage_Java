@@ -1,8 +1,6 @@
 package giaodienchuan;
 
-import giaodienchuan.model.FrontEnd.Form.HoaDon_ChiTietHoaDon_form;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.GiaoDienChuan;
-
 
 public class Main {
 
