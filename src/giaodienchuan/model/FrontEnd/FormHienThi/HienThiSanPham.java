@@ -28,7 +28,7 @@ public class HienThiSanPham extends JPanel {
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
     JButton btnRefresh = new JButton("Làm mới");
-    
+
     JLabel lbImage = new JLabel();
 
     // index
@@ -38,7 +38,7 @@ public class HienThiSanPham extends JPanel {
         setLayout(new BorderLayout());
 
         mtb = new MyTable();
-         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
+        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng"});
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
         mtb.setAlignment(0, JLabel.CENTER);
@@ -56,17 +56,17 @@ public class HienThiSanPham extends JPanel {
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
-        
+
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
-        
+
         cbTypeSearch.addActionListener((ActionEvent e) -> {
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
                 txSearchOnChange();
             }
         });
-        
+
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -94,17 +94,17 @@ public class HienThiSanPham extends JPanel {
                 String masp = getSelectedSanPham();
                 if (masp != null) {
                     // show hình
-                    for(SanPham sp : qlsp.getDssp()) {
-                        if(sp.getMaSP().equals(masp)) {
+                    for (SanPham sp : qlsp.getDssp()) {
+                        if (sp.getMaSP().equals(masp)) {
                             // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
                             lbImage.setIcon(new ImageIcon(new ImageIcon(sp.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
                         }
                     }
-                    
+
                 }
             }
         });
-        
+
         JPanel plcenterImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
         plcenterImage.add(lbImage);
