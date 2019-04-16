@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.LoaiSanPham;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
@@ -32,7 +33,7 @@ public class HienThiLoaiSanPham extends JPanel {
         setLayout(new BorderLayout());
 
         mtb = new MyTable();
-//        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
+        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã loại", "Tên loại", "Mô tả"});
         mtb.setColumnsWidth(new double[]{.5, 3, 4, 5});
         mtb.setAlignment(0, JLabel.CENTER);
