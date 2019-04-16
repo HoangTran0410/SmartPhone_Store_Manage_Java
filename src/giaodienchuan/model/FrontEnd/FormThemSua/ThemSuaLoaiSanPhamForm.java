@@ -77,11 +77,10 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
             txMalsp.setEditable(false);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
+            plButton.add(btnHuy);
         }
-
-        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
