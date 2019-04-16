@@ -3,7 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/GiaoDienChuan.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNCC/NhaCungCapBUS.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/Form/QuanLySanPhamForm.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/Form/NhaCungCapFORM.java</file>
         </group>

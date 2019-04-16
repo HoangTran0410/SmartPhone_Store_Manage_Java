@@ -133,5 +133,7 @@ public class NhaCungCapBUS {
 
         return ok;
     }
-
+public ArrayList<NhaCungCap> getDsncc() {
+        return dsncc;
+    }
 }

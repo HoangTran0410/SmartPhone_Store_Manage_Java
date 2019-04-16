@@ -2,18 +2,24 @@ package giaodienchuan.model.FrontEnd.Form;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class NhaCungCapFORM extends JPanel {
 
@@ -25,6 +31,7 @@ public class NhaCungCapFORM extends JPanel {
     JTextField txDiaChi = new JTextField(10);
     JTextField txSDT = new JTextField(10);
     JTextField txFax = new JTextField(10);
+    JTextField txTim = new JTextField(15);
 
     JButton btnXoa = new JButton("Xóa");
     JButton btnThem = new JButton("Thêm");
@@ -32,11 +39,18 @@ public class NhaCungCapFORM extends JPanel {
     JButton btnReadDB = new JButton("Đọc DB");
     JButton btnNhaplai = new JButton("Nhập lại");
     
-    final int MASP_I = 1, MALSP_I = 2, TEN_I = 3, GIA_I = 4, SOLUONG_I = 5;
+    JComboBox<String> cbTypeSearch;
+    
+    final int MANCC_I = 1,  TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
     public NhaCungCapFORM() {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});
+        
+        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setAlignment(4, JLabel.RIGHT);
+        mtb.setAlignment(5, JLabel.CENTER);
 
         // read data from database
         btnReadDBMouseClicked();
@@ -70,8 +84,18 @@ public class NhaCungCapFORM extends JPanel {
         plBtn.add(btnNhaplai);
         plBtn.add(btnReadDB);
 
+         // ======== search panel ===========
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
+
+        JPanel plTim = new JPanel();
+        plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
+        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        plTim.add(cbTypeSearch);
+        plTim.add(txTim);
+
         // container
         this.add(plInput);
+        this.add(plTim);
         this.add(plBtn);
         this.add(mtb);
 
@@ -105,6 +129,29 @@ public class NhaCungCapFORM extends JPanel {
                 btnReadDBMouseClicked();
             }
         });
+        cbTypeSearch.addActionListener((ActionEvent e) -> {
+            txTim.requestFocus();
+            if (!txTim.getText().equals("")) {
+                txSearchOnChange();
+            }
+        });
+        txTim.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+        });
+
 
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -119,6 +166,9 @@ public class NhaCungCapFORM extends JPanel {
                 }
             }
         });
+    }
+    private void txSearchOnChange() {
+        setDataToTable(BUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
     private void btnNhapLaiMouseClicked() {
@@ -148,7 +198,7 @@ public class NhaCungCapFORM extends JPanel {
             mtb.getModel().setValueAt(maNCC, i, 0);
             mtb.getModel().setValueAt(tenNCC, i, 1);
             mtb.getModel().setValueAt(diaChi, i, 2);
-            mtb.getModel().setValueAt(SDT, i, 3);
+           mtb.getModel().setValueAt(SDT, i, 3);
             mtb.getModel().setValueAt(Fax, i, 4);
 
             BUS.update(maNCC, tenNCC, diaChi, SDT, Fax);
@@ -164,7 +214,8 @@ public class NhaCungCapFORM extends JPanel {
             String mancc = mtb.getModel().getValueAt(i, 0).toString();
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sinh viên " + mancc) == JOptionPane.OK_OPTION) {
                 BUS.delete(mancc);
-                mtb.getModel().removeRow(i);
+//                mtb.getModel().removeRow(i);
+            setDataToTable(BUS.getDsncc(), mtb);
             }
 
         } else {
@@ -174,20 +225,31 @@ public class NhaCungCapFORM extends JPanel {
 
     private void btnReadDBMouseClicked() {
         BUS.readDB();
-        mtb.clear();
-        BUS.dsncc.forEach((ncc) -> {
-            mtb.addRow(new String[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(), ncc.getSDT(), ncc.getFax()});
-        });
+//        mtb.clear();
+//        BUS.dsncc.forEach((ncc) -> {
+//            mtb.addRow(new String[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(), ncc.getSDT(), ncc.getFax()});
+//        });
+        setDataToTable(BUS.getDsncc(), mtb);
     }
 
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
             NhaCungCap ncc = new NhaCungCap(txMaNCC.getText(), txTenNCC.getText(), txDiaChi.getText(), txSDT.getText(), txFax.getText());
             BUS.add(ncc);
-            mtb.clear();
-            BUS.dsncc.forEach((n) -> {
-                mtb.addRow(new String[]{n.getMaNCC(), n.getTenNCC(), n.getDiaChi(), n.getSDT(), n.getFax()});
-            });
+//            mtb.clear();
+//            BUS.dsncc.forEach((n) -> {
+//                mtb.addRow(new String[]{n.getMaNCC(), n.getTenNCC(), n.getDiaChi(), n.getSDT(), n.getFax()});
+//            });
+        setDataToTable(BUS.getDsncc(), mtb);
+        }
+    }
+    private void setDataToTable(ArrayList<NhaCungCap> data, MyTable table) {
+        table.clear();
+        int stt = 1; // lưu số thứ tự dòng hiện tại
+        for (NhaCungCap ncc : data) {
+            table.addRow(new String[]{String.valueOf(stt), ncc.getMaNCC(), ncc.getTenNCC(), ncc.getDiaChi(),
+                String.valueOf(ncc.getSDT()), String.valueOf(ncc.getFax())});
+            stt++;
         }
     }
 
@@ -220,4 +282,6 @@ public class NhaCungCapFORM extends JPanel {
         }
         return true;
     }
+
+   
 }
