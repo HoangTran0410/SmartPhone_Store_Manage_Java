@@ -1,4 +1,4 @@
-package giaodienchuan.model.FrontEnd.Form;
+package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.ChucVu.ChucVu;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
