@@ -31,10 +31,9 @@ public class QuanLySanPhamForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
+        this.add(plBtn, BorderLayout.NORTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {
@@ -45,7 +44,7 @@ public class QuanLySanPhamForm extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-                        formHienThi.refresh();
+            formHienThi.refresh();
         });
     }
 
@@ -53,7 +52,7 @@ public class QuanLySanPhamForm extends JPanel {
         String masp = formHienThi.getSelectedSanPham();
         if (masp != null) {
             ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
-            
+
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
             suasp.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
