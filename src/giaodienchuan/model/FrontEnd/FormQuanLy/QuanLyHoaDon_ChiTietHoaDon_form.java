@@ -3,12 +3,10 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,7 +20,6 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
     JButton btnXoaHoaDon = new JButton("Xóa");
 
     public QuanLyHoaDon_ChiTietHoaDon_form() {
-
         setLayout(new BorderLayout());
 
         // buttons
@@ -34,7 +31,6 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoaHoaDon);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -48,7 +44,6 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-            formHienThi.refresh();
         });
     }
 
@@ -63,7 +58,7 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
                 }
             });
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để sửa");
         }
     }
 
