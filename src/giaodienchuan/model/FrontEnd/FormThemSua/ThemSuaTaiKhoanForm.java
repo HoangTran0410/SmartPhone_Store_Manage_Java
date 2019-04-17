@@ -157,7 +157,7 @@ public class ThemSuaTaiKhoanForm extends JFrame {
         if (username.trim().equals("")) {
             return showErrorTx(txUsername, "Tên đăng nhập không được để trống");
 
-        } else if (pass.trim().equals("")) {
+        } else if (pass.equals("")) {
             return showErrorTx(txPassword, "Mật khẩu không được để trống");
 
         } else if (manv.trim().equals("")) {
