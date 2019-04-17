@@ -20,7 +20,7 @@ public class ConnectionDB {
     String pass = null;
 
     String ipAddress = "localhost:3306";
-    
+
     public ConnectionDB() {
         checkDriver();
         DB_Name = "quanlysieuthidienthoai";
@@ -72,7 +72,7 @@ public class ConnectionDB {
                 return rset;
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "-- ERROR! Không thể lấy dữ liệu từ " + DB_Name);
+                JOptionPane.showMessageDialog(null, "-- ERROR! Không thể lấy dữ liệu từ " + DB_Name + "\n" + ex.getLocalizedMessage());
                 return null;
             }
         }
@@ -88,7 +88,7 @@ public class ConnectionDB {
                 return true;
 
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "-- ERROR! Không thể ghi dữ liệu xuống " + DB_Name);
+                JOptionPane.showMessageDialog(null, "-- ERROR! Không thể ghi dữ liệu xuống " + DB_Name + "\n" + ex.getLocalizedMessage());
                 return false;
             }
         }
@@ -106,7 +106,7 @@ public class ConnectionDB {
             }
             System.out.println("Success! Đóng kết nối tới '" + DB_Name + "' thành công.\n**");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "-- ERROR! Không thể đóng kết nối tới " + DB_Name);
+            JOptionPane.showMessageDialog(null, "-- ERROR! Không thể đóng kết nối tới " + DB_Name + "\n" + ex.getLocalizedMessage());
         }
     }
 

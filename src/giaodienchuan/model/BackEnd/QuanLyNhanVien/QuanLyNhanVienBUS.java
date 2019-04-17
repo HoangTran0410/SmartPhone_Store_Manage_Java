@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class QuanLyNhanVienBUS {
 
     private ArrayList<NhanVien> dsnv = new ArrayList<>();
-    QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
+    private QuanLyNhanVienDAO qlnvDAO = new QuanLyNhanVienDAO();
 
     public QuanLyNhanVienBUS() {
         dsnv = qlnvDAO.readDB();

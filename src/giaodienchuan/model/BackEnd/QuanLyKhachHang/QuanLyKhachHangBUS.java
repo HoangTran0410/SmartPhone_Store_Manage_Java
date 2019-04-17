@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class QuanLyKhachHangBUS {
 
     private ArrayList<KhachHang> dskh = new ArrayList<>();
-    QuanLyKhachHangDAO qlkhDAO = new QuanLyKhachHangDAO();
+    private QuanLyKhachHangDAO qlkhDAO = new QuanLyKhachHangDAO();
 
     public QuanLyKhachHangBUS() {
         dskh = qlkhDAO.readDB();
@@ -59,7 +59,7 @@ public class QuanLyKhachHangBUS {
                         }
                         break;
                     case "Số điện thoại":
-                        if (String.valueOf(kh.getSDT()).toLowerCase().contains(value.toLowerCase())) {
+                        if (kh.getSDT().toLowerCase().contains(value.toLowerCase())) {
                             result.add(kh);
                         }
                         break;

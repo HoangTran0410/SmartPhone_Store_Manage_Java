@@ -14,13 +14,9 @@ public class ChucVuDAO {
     public ChucVuDAO() {
 
     }
-    
-    // headers của bảng sản phẩm
-    public String[] getHeaders() {
-        return new String[] { "Mã chức vụ", "Tên chức vụ"};
-    }
 
     public ArrayList<ChucVu> readDB() {
+        cvConnection = new ConnectionDB();
         ArrayList<ChucVu> dscv = new ArrayList<>();
         try {
             String qry = "SELECT * FROM chucvu";
@@ -29,20 +25,19 @@ public class ChucVuDAO {
                 while (r.next()) {
                     String macv = r.getString(1);
                     String tencv = r.getString(2);
-                    
-                    dscv.add(new ChucVu( macv, tencv));
+
+                    dscv.add(new ChucVu(macv, tencv));
                 }
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "-- ERROR! Lỗi đọc dữ liệu bảng chức vụ");
-        }
-        finally{
+        } finally {
             cvConnection.closeConnect();
         }
         return dscv;
     }
-    
+
     public ArrayList<ChucVu> search(String columnName, String value) {
         cvConnection = new ConnectionDB();
         ArrayList<ChucVu> dscv = new ArrayList<>();
@@ -68,22 +63,22 @@ public class ChucVuDAO {
     }
 
     public Boolean add(ChucVu cv) {
-        cvConnection=new ConnectionDB();
+        cvConnection = new ConnectionDB();
         Boolean ok = cvConnection.sqlUpdate("INSERT INTO `chucvu` (`MaCV`, `TenCV`) VALUES ('"
-                + cv.getMaCV() + "', '" + cv.getTenCV() +"');");
+                + cv.getMaCV() + "', '" + cv.getTenCV() + "');");
         cvConnection.closeConnect();
         return ok;
     }
 
     public Boolean delete(String macv) {
-        cvConnection=new ConnectionDB();
-        Boolean ok = cvConnection.sqlUpdate("DELETE FROM `chucvu` WHERE `chucvu`.`MaCV` = '" + macv+ "'");
+        cvConnection = new ConnectionDB();
+        Boolean ok = cvConnection.sqlUpdate("DELETE FROM `chucvu` WHERE `chucvu`.`MaCV` = '" + macv + "'");
         cvConnection.closeConnect();
         return ok;
     }
 
-    public Boolean update( String MaCV, String TenCV) {
-        cvConnection=new ConnectionDB();
+    public Boolean update(String MaCV, String TenCV) {
+        cvConnection = new ConnectionDB();
         Boolean ok = cvConnection.sqlUpdate("Update ChucVu Set MaCV='" + MaCV + "',TenCV='" + TenCV + "'");
         cvConnection.closeConnect();
         return ok;

@@ -4,6 +4,7 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChucVuForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
@@ -41,6 +42,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
     QuanLyHoaDonForm qlhd;
+    QuanLyChucVuForm qlcv;
 
     public GiaoDienChuan() {
 
@@ -209,8 +211,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Chức vụ":
-                emptypage.setLabelText("Quản lý chức vụ đang bảo trì");
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if (qlcv == null) {
+                    qlcv = new QuanLyChucVuForm();
+                }
+                plContent.add(qlcv, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
