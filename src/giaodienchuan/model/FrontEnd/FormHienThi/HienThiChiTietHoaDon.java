@@ -5,6 +5,7 @@ import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -13,9 +14,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -35,6 +38,7 @@ public class HienThiChiTietHoaDon extends JFrame {
     public HienThiChiTietHoaDon(String _mahd) {
         this.mahd = _mahd;
         setLayout(new BorderLayout());
+        this.setTitle("Chi tiết hóa đơn "+_mahd);
 
         table = new MyTable();
         this.setSize(1000, 600);
@@ -42,15 +46,24 @@ public class HienThiChiTietHoaDon extends JFrame {
         table.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), table);
 
+        JPanel plBtn = new JPanel();
+        btnThemCTHD.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
+        btnXoaChiTietHoaDon.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
+        plBtn.add(btnThemCTHD);
+        plBtn.add(btnXoaChiTietHoaDon);
+        plBtn.setBackground(new Color(150, 150, 150));
+        
         JPanel pnlSearch = new JPanel();
+        pnlSearch.setLayout(new BorderLayout());
+        pnlSearch.setPreferredSize(new Dimension(500, 120));
         pnlSearch.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        pnlSearch.add(timComboBox);
-        pnlSearch.add(txtSearchbox);
-        pnlSearch.add(btnXoaChiTietHoaDon);
-        pnlSearch.add(btnThemCTHD);
-        pnlSearch.setLayout(new GridLayout(1, 4));
-        pnlSearch.setPreferredSize(new Dimension(500, 75));
+        pnlSearch.add(timComboBox,BorderLayout.WEST);
+        pnlSearch.add(txtSearchbox,BorderLayout.CENTER);
+        pnlSearch.add(plBtn,BorderLayout.NORTH);
 
+        
+        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         btnXoaChiTietHoaDon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -80,6 +93,7 @@ public class HienThiChiTietHoaDon extends JFrame {
                 txSearchOnChange();
             }
         });
+//        this.add(plBtn, BorderLayout.NORTH);
         this.add(pnlSearch, BorderLayout.NORTH);
         this.add(table, BorderLayout.CENTER);
         this.setVisible(true);
@@ -98,8 +112,18 @@ public class HienThiChiTietHoaDon extends JFrame {
 
     private void btnXoaChiTietHoaDonMouseClicked() {
         int i = table.getTable().getSelectedRow();
+        String _masp = null;
+        String _mahd = null;
         if (i >= 0) {
-            qlcthd.delete(table.getTable().getModel().getValueAt(i, 1).toString(), table.getTable().getModel().getValueAt(i, 2).toString());
+            _mahd = table.getTable().getModel().getValueAt(i, 1).toString();
+            _masp = table.getTable().getModel().getValueAt(i, 2).toString();
+        }
+        if (_mahd != null) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa chi tiết này của hóa đơn " + _mahd + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyChiTietHoaDonBUS().delete(_mahd, _masp);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để xóa");
         }
         refresh();
     }

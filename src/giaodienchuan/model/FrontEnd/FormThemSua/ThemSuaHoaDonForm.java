@@ -7,6 +7,8 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -86,6 +88,14 @@ public class ThemSuaHoaDonForm extends JFrame {
             this.setTitle("Thêm hóa đơn");
             txtMaHd.setText("HD" + String.valueOf(qlhdBUS.getDshd().size() + 1));
 
+            LocalDate ngayLap = java.time.LocalDate.now();
+            LocalTime gioLap = java.time.LocalTime.now();
+
+            this.txtNgayLap.setText(String.valueOf(ngayLap));
+            txtNgayLap.setEditable(false);
+            this.txtGioLap.setText(String.valueOf(gioLap));
+            txtGioLap.setEditable(false);
+
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             plButton.add(btnThem);
 
@@ -133,25 +143,18 @@ public class ThemSuaHoaDonForm extends JFrame {
             }
         });
         btnChonNhanVien.addActionListener((ActionEvent ae) -> {
-//            btnChonLoaiMouseClicked();
+            btnChonNhanVienMouseClicked();
         });
         btnChonKhachHang.addActionListener((ae) -> {
-//            btnChonAnhMouseClicked();
+            btnChonKhachHangMouseClicked();
         });
-
+        
+        txtTongTien.setEditable(false);
         this.setVisible(true);
     }
 
-    private boolean btnThemMouseClicked() {
-        if (txtMaHd.getText().trim().equals("")) {
-            return showErrorTx(txtMaHd, "Mã hóa đơn không được để trống");
-
-        } else if (txtMaNv.getText().trim().equals("")) {
-            return showErrorTx(txtMaNv, "Mã nhân viên không được để trống");
-
-        } else if (txtMaKh.getText().trim().equals("")) {
-            return showErrorTx(txtMaKh, "Mã khách hàng không được để trống");
-        }else {
+    private void btnThemMouseClicked() {
+        if (checkEmpty()) {
             String mahd = txtMaHd.getText();
             String manv = txtMaNv.getText();
             String makh = txtMaKh.getText();
@@ -159,12 +162,15 @@ public class ThemSuaHoaDonForm extends JFrame {
             LocalTime gioLap = java.time.LocalTime.now();
             float tongTien = 0;
 
+            this.txtNgayLap.setText(String.valueOf(ngayLap));
+            this.txtGioLap.setText(String.valueOf(gioLap));
+            this.txtTongTien.setText(String.valueOf(tongTien));
+
             if (qlhdBUS.add(mahd, manv, makh, ngayLap, gioLap, tongTien)) {
                 JOptionPane.showMessageDialog(this, "Thêm hóa đơn " + mahd + " thành công!");
                 this.dispose();
             }
         }
-        return true;
     }
 
     private void btnSuaMouseClicked() {
@@ -174,29 +180,22 @@ public class ThemSuaHoaDonForm extends JFrame {
             String makh = txtMaKh.getText();
             LocalDate ngayLap = java.time.LocalDate.parse(txtNgayLap.getText());
             LocalTime gioLap = java.time.LocalTime.parse(txtGioLap.getText());
-            float tongTien = 0;
+            float tongTien = Float.parseFloat(txtTongTien.getText());
 
-            if (qlhdBUS.add(mahd, manv, makh, ngayLap, gioLap, tongTien)) {
+            if (qlhdBUS.update(mahd, manv, makh, ngayLap, gioLap, tongTien)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + mahd + " thành công!");
                 this.dispose();
             }
         }
     }
 
-//    private void btnChonLoaiMouseClicked() {
-//        ChonLoaiSanPhamForm clsp = new ChonLoaiSanPhamForm(txMalsp); // truyền vào textfield
-////        ChonSanPhamForm csp = new ChonSanPhamForm(txMalsp);
-//    }
+    private void btnChonNhanVienMouseClicked() {
+        ChonNhanVienForm cnv = new ChonNhanVienForm(txtMaNv);
+    }
 
-//    private void btnChonAnhMouseClicked() {
-//        fdChooseImg.setVisible(true);
-//        String url = fdChooseImg.getDirectory() + fdChooseImg.getFile();
-//        if (!url.equals("nullnull")) {
-//            // https://stackoverflow.com/questions/2242417/how-to-remove-the-backslash-in-string-using-regex-in-java
-//            url = url.replace("\\", "\\\\");
-//            txHinhAnh.setText(url);
-//        }
-//    }
+    private void btnChonKhachHangMouseClicked() {
+        ChonKhachHangForm ckh = new ChonKhachHangForm(txtMaKh);
+    }
 
     private Boolean checkEmpty() {
         String mahd = txtMaHd.getText();

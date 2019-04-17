@@ -13,10 +13,6 @@ public class QuanLyHoaDonBUS {
         dshd = qlhd.readDB();
     }
 
-//    public String[] getHeaders() {
-//        return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày nhập", "Giờ nhập", "Tổng tiền"};
-//    }
- 
     public ArrayList<HoaDon> getDshd() {
         return this.dshd;
     }
@@ -50,6 +46,19 @@ public class QuanLyHoaDonBUS {
             for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
                     cthd = hd;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public Boolean updateTongTien(String _mahd,float _tongTien){
+        Boolean success = qlhd.updateTongTien(_mahd,_tongTien);
+        if (success) {
+            for (HoaDon cthd : dshd) {
+                if (cthd.getMaHoaDon().equals(_mahd)) {
+                    cthd.setTongTien(_tongTien);
                 }
             }
             return true;

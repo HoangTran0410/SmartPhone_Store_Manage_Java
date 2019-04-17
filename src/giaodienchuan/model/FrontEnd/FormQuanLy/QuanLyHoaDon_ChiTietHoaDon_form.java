@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 
 public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
@@ -18,8 +20,8 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoaHoaDon = new JButton("Xóa");
-    
-    public QuanLyHoaDon_ChiTietHoaDon_form(){
+
+    public QuanLyHoaDon_ChiTietHoaDon_form() {
 
         setLayout(new BorderLayout());
 
@@ -35,7 +37,7 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
         plBtn.setBackground(new Color(150, 150, 150));
 
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
+        this.add(plBtn, BorderLayout.NORTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {
@@ -51,20 +53,25 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
-        if (masp != null) {
-            ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
-
+        String mahd = formHienThi.getSelectedHoaDon();
+        if (mahd != null) {
+            ThemSuaHoaDonForm tshd = new ThemSuaHoaDonForm("Sửa", mahd);
+            tshd.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    formHienThi.refresh();
+                }
+            });
         } else {
             JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để sửa");
         }
     }
 
     private void btnXoaHoaDonMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
-        if (masp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + masp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyHoaDonBUS().delete(masp);
+        String mahd = formHienThi.getSelectedHoaDon();
+        if (mahd != null) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyHoaDonBUS().delete(mahd);
                 formHienThi.refresh();
             }
 
@@ -74,6 +81,12 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
     }
 
     private void btnThemMouseClicked() {
-        ThemSuaHoaDonForm themsp = new ThemSuaHoaDonForm("Thêm", "");
+        ThemSuaHoaDonForm themhd = new ThemSuaHoaDonForm("Thêm", "");
+        themhd.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                formHienThi.refresh();
+            }
+        });
     }
 }

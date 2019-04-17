@@ -46,6 +46,13 @@ public class QuanLyChiTietHoaDonDAO {
         connection.closeConnect();
         return success;
     }
+    
+    public Boolean deleteAll(String _mahd) {
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd +"';");
+        connection.closeConnect();
+        return success;
+    }
 
     public Boolean update(ChiTietHoaDon hd) {
         connection = new ConnectionDB();

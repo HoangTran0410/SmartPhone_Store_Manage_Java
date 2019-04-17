@@ -127,6 +127,13 @@ public class HienThiSanPham extends JPanel {
         }
         return null;
     }
+    public String getDonGia(){
+        int i = mtb.getTable().getSelectedRow();
+        if (i >= 0) {
+            return mtb.getModel().getValueAt(i,GIA_I ).toString();
+        }
+        return null;
+    }
 
     private void txSearchOnChange() {
         setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
