@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
@@ -23,10 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author nguye
- */
 public class ThemSuaHoaDonForm extends JFrame {
 
     String type;
@@ -78,7 +69,6 @@ public class ThemSuaHoaDonForm extends JFrame {
         plInput.add(plChonKhachHang);
         plInput.add(txtNgayLap);
         plInput.add(txtGioLap);
-        plInput.add(txtTongTien);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -92,9 +82,7 @@ public class ThemSuaHoaDonForm extends JFrame {
             LocalTime gioLap = java.time.LocalTime.now();
 
             this.txtNgayLap.setText(String.valueOf(ngayLap));
-            txtNgayLap.setEditable(false);
             this.txtGioLap.setText(String.valueOf(gioLap));
-            txtGioLap.setEditable(false);
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             plButton.add(btnThem);
@@ -107,7 +95,7 @@ public class ThemSuaHoaDonForm extends JFrame {
                 }
             }
             if (this.hdSua == null) {
-                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy sản phẩm");
+                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy hóa đơn");
                 this.dispose();
             }
 
@@ -119,6 +107,8 @@ public class ThemSuaHoaDonForm extends JFrame {
             txtTongTien.setText(String.valueOf(this.hdSua.getTongTien()));
 
             txtMaHd.setEditable(false);
+            
+            plInput.add(txtTongTien);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
             plButton.add(btnSua);
@@ -218,6 +208,7 @@ public class ThemSuaHoaDonForm extends JFrame {
 
         } else if (gioLap.trim().equals("")) {
             return showErrorTx(txtGioLap, "Giờ lập không được để trống");
+            
         } else {
             try {
                 LocalDate ngay = java.time.LocalDate.parse(ngayLap);

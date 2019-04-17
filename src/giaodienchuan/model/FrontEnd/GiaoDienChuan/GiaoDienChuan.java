@@ -1,6 +1,6 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDon_ChiTietHoaDon_form;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
@@ -40,7 +40,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyTaiKhoanForm qltk;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
-    QuanLyHoaDon_ChiTietHoaDon_form qlhd;
+    QuanLyHoaDonForm qlhd;
 
     public GiaoDienChuan() {
 
@@ -91,8 +91,9 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         //https://stackoverflow.com/questions/1385737/scrollable-jpanel
         //https://stackoverflow.com/questions/5590242/how-to-hide-the-jscrollbars-in-a-jscrollpane
         //https://stackoverflow.com/questions/5583495/how-do-i-speed-up-the-scroll-speed-in-a-jscrollpane-when-using-the-mouse-wheel
-        menu.setAutoscrolls(true);
         JScrollPane scrollMenu = new JScrollPane(menu, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        menu.setAutoscrolls(true);
+        menu.setPreferredSize(new Dimension(menuW, HEIGHT + 200));
         scrollMenu.setPreferredSize(new Dimension(menuW, HEIGHT));
         scrollMenu.setBorder(BorderFactory.createEmptyBorder());
         scrollMenu.getVerticalScrollBar().setUnitIncrement(5);
@@ -185,7 +186,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 
             case "Hóa đơn":
                 if (qlhd == null) {
-                    qlhd = new QuanLyHoaDon_ChiTietHoaDon_form();
+                    qlhd = new QuanLyHoaDonForm();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;

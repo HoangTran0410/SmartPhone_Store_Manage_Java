@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
@@ -106,7 +107,7 @@ public class HienThiHoaDon extends JPanel {
     private void btnDetailsMouseClicked() {
         int i = tbHoaDon.getTable().getSelectedRow();
         if (i >= 0) {
-            HienThiChiTietHoaDon htcthd = new HienThiChiTietHoaDon(tbHoaDon.getModel().getValueAt(i, 1).toString());
+            QuanLyChiTietHoaDonForm htcthd = new QuanLyChiTietHoaDonForm(tbHoaDon.getModel().getValueAt(i, 1).toString());
             htcthd.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {

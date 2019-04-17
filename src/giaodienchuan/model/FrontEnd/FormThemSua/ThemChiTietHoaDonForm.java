@@ -28,19 +28,18 @@ public class ThemChiTietHoaDonForm extends JFrame {
 
     public ThemChiTietHoaDonForm(String _mahd) {
         this.setLayout(new BorderLayout());
-        this.setSize(450, 500);
+        this.setSize(600, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         // inputs
-        txMasp.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
         txMahd.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
-        txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
+        txMasp.setBorder(BorderFactory.createTitledBorder(" "));
         txGia.setBorder(BorderFactory.createTitledBorder("Đơn Giá (triệu)"));
+        txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
 
-        JPanel pnlChonHoaDon = new JPanel();
-        pnlChonHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
-        pnlChonHoaDon.add(txMahd);
+        txMahd.setEditable(false);
+        txGia.setEditable(false);
 
         JPanel pnlChonSanPham = new JPanel();
         pnlChonSanPham.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
@@ -48,13 +47,10 @@ public class ThemChiTietHoaDonForm extends JFrame {
         pnlChonSanPham.add(btnChonSanPham);
 
         JPanel plInput = new JPanel();
-
-//        plInput.add(txMahd);
-        plInput.add(pnlChonHoaDon);
-//        plInput.add(txMasp);
+        plInput.add(txMahd);
         plInput.add(pnlChonSanPham);
-        plInput.add(txSoLuong);
         plInput.add(txGia);
+        plInput.add(txSoLuong);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -103,7 +99,7 @@ public class ThemChiTietHoaDonForm extends JFrame {
     }
 
     private void btnChonSanPhamMouseClicked() {
-        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp,txGia,null,null,null); // truyền vào textfield
+        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp, null, null, txGia, null); // truyền vào textfield
     }
 
     private Boolean checkEmpty() {
