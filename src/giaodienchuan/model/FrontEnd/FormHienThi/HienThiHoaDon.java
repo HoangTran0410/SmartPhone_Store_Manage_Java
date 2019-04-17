@@ -2,19 +2,18 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -24,34 +23,18 @@ public class HienThiHoaDon extends JPanel {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
 
-    JTextField txtSearchbox = new JTextField();
-    JComboBox timComboBox = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
+    JTextField txTim = new JTextField(15);
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
 
-    JButton btnXoaHoaDon = new JButton("Xóa");
-    JButton btnReadDB = new JButton("Đọc DB");
+    JButton btnRefresh = new JButton("Làm mới");
     JButton btnDetails = new JButton("Xem chi tiết");
 
-    MyTable tbHoaDon = new MyTable();
+    MyTable tbHoaDon;
 
     public HienThiHoaDon() {
+        setLayout(new BorderLayout());
 
-        JPanel pnlHoaDon = new JPanel();
-        pnlHoaDon.setLayout(new BorderLayout());
-        pnlHoaDon.setPreferredSize(new Dimension(1200 - 250, 350));
-
-        JPanel pnlInput = new JPanel();
-        pnlInput.setLayout(new GridLayout(1, 4));
-        pnlInput.setPreferredSize(new Dimension(900, 45));
-
-        JPanel pnlBtn = new JPanel();
-        pnlBtn.setLayout(new GridLayout(1, 8));
-        txtSearchbox.setBorder(BorderFactory.createTitledBorder("Nhập vào đây đê"));
-        pnlBtn.add(btnDetails);
-        pnlBtn.add(btnReadDB);
-        pnlBtn.add(txtSearchbox);
-        pnlBtn.add(timComboBox);
-        pnlHoaDon.add(tbHoaDon);
-
+        tbHoaDon = new MyTable();
         tbHoaDon.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
         tbHoaDon.setColumnsWidth(new double[]{.5, 1.6, 1.6, 1.6, 1.6, 1.5, 1.6});
         tbHoaDon.setAlignment(0, JLabel.CENTER);
@@ -59,26 +42,33 @@ public class HienThiHoaDon extends JPanel {
         tbHoaDon.setAlignment(5, JLabel.CENTER);
         tbHoaDon.setAlignment(6, JLabel.RIGHT);
         setDataToTable(qlhd.getDshd(), tbHoaDon);
-        this.add(pnlBtn);
-        this.add(pnlHoaDon);
 
-        btnReadDB.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                refresh();
-            }
+        JPanel plHeader = new JPanel();
+        JPanel plTim = new JPanel();
+        plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
+        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        plTim.add(cbTypeSearch);
+        plTim.add(txTim);
+        plHeader.add(plTim);
+
+        btnDetails.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_show_property_30px.png")));
+        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
+        plHeader.add(btnDetails);
+        plHeader.add(btnRefresh);
+
+        //=========== add all to this jpanel ===========
+        this.add(plHeader, BorderLayout.NORTH);
+        this.add(tbHoaDon, BorderLayout.CENTER);
+
+        btnRefresh.addActionListener((ae) -> {
+            refresh();
         });
 
-        btnDetails.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int i = tbHoaDon.getTable().getSelectedRow();
-                if (i >= 0) {
-                    btnDetailsMouseClicked(i);
-                }
-            }
+        btnDetails.addActionListener((ae) -> {
+            btnDetailsMouseClicked();
         });
-        txtSearchbox.getDocument().addDocumentListener(new DocumentListener() {
+        
+        txTim.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 txSearchOnChange();
@@ -111,17 +101,22 @@ public class HienThiHoaDon extends JPanel {
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlhd.search(timComboBox.getSelectedItem().toString(), txtSearchbox.getText()), tbHoaDon);
+        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText()), tbHoaDon);
     }
 
-    private void btnDetailsMouseClicked(int i) {
-        HienThiChiTietHoaDon htcthd = new HienThiChiTietHoaDon(tbHoaDon.getModel().getValueAt(i, 1).toString());
-        htcthd.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                refresh();
-            }
-        });
+    private void btnDetailsMouseClicked() {
+        int i = tbHoaDon.getTable().getSelectedRow();
+        if (i >= 0) {
+            QuanLyChiTietHoaDonForm htcthd = new QuanLyChiTietHoaDonForm(tbHoaDon.getModel().getValueAt(i, 1).toString());
+            htcthd.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    refresh();
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xem!");
+        }
     }
 
     private void setDataToTable(ArrayList<HoaDon> data, MyTable table) {

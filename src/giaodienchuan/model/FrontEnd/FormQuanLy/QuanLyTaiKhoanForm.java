@@ -31,11 +31,10 @@ public class QuanLyTaiKhoanForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
         //=========== add all to this jpanel ===========
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
+        this.add(plBtn, BorderLayout.NORTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {

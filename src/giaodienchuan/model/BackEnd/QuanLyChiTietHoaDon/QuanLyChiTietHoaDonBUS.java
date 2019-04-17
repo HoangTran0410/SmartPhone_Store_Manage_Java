@@ -31,14 +31,8 @@ public class QuanLyChiTietHoaDonBUS {
             }
         }
         dscthd.removeAll(toRemove);
-//        for (ChiTietHoaDon cthd : dscthd) {
-//            if (cthd.getMaHoaDon().equals(hd.getMaHoaDon()) && cthd.getMaSanPham().equals(hd.getMaSanPham())) {
-//                soLuong += cthd.getSoLuong();
-////                toRemove.add(cthd);
-//            }
-//        }
         hd.setSoLuong(soLuong);
-        
+
         qlcthd.delete(hd.getMaHoaDon(), hd.getMaSanPham());
         Boolean success = qlcthd.add(hd);
         if (success) {
@@ -72,15 +66,15 @@ public class QuanLyChiTietHoaDonBUS {
             }
             updateTongTien(hd.getMaHoaDon());
         }
-        
+
         return success;
     }
-    
-    private Boolean updateTongTien(String _mahd){
-        float tong=0;
-        for(ChiTietHoaDon ct:dscthd){
-            if(ct.getMaHoaDon().equals(_mahd)){
-                tong+=ct.getSoLuong()*ct.getDonGia();
+
+    private Boolean updateTongTien(String _mahd) {
+        float tong = 0;
+        for (ChiTietHoaDon ct : dscthd) {
+            if (ct.getMaHoaDon().equals(_mahd)) {
+                tong += ct.getSoLuong() * ct.getDonGia();
             }
         }
         Boolean success = qlhd.updateTongTien(_mahd, tong);
