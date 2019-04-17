@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,6 +33,9 @@ public class HienThiChiTietHoaDon extends JPanel {
 
         mtb = new MyTable();
         mtb.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+        mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setAlignment(3, JLabel.CENTER);
+        mtb.setAlignment(4, JLabel.RIGHT);
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);
 
         JPanel plHeader = new JPanel();
