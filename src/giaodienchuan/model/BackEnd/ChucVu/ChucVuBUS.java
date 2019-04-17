@@ -8,7 +8,7 @@ public class ChucVuBUS {
     ChucVuDAO qlcvDAO = new ChucVuDAO();
 
     public ChucVuBUS() {
-
+        dscv = qlcvDAO.readDB();
     }
 
     public void showConsole() {
@@ -87,7 +87,6 @@ public class ChucVuBUS {
             dscv.forEach((cv) -> {
                 if (cv.getMaCV().equals(macv)) {
                     cv.setTenCV(tencv);
-
                 }
             });
         }
