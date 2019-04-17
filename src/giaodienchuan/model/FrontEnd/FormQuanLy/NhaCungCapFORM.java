@@ -2,7 +2,9 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhaCungCap;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,51 +24,52 @@ import javax.swing.event.DocumentListener;
 
 public class NhaCungCapFORM extends JPanel {
 
-    NhaCungCapBUS BUS = new NhaCungCapBUS();
-    MyTable mtb;
+//    NhaCungCapBUS BUS = new NhaCungCapBUS();
+//    MyTable mtb;
 
-    JTextField txMaNCC = new JTextField(10);
-    JTextField txTenNCC = new JTextField(10);
-    JTextField txDiaChi = new JTextField(10);
-    JTextField txSDT = new JTextField(10);
-    JTextField txFax = new JTextField(10);
-    JTextField txTim = new JTextField(15);
-
+//    JTextField txMaNCC = new JTextField(10);
+//    JTextField txTenNCC = new JTextField(10);
+//    JTextField txDiaChi = new JTextField(10);
+//    JTextField txSDT = new JTextField(10);
+//    JTextField txFax = new JTextField(10);
+//    JTextField txTim = new JTextField(15);
+    
+    HienThiNhaCungCap formHienThi=new HienThiNhaCungCap();
     JButton btnXoa = new JButton("Xóa");
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnReadDB = new JButton("Đọc DB");
     JButton btnNhaplai = new JButton("Nhập lại");
     
-    JComboBox<String> cbTypeSearch;
+//    JComboBox<String> cbTypeSearch;
     
-    final int MANCC_I = 1,  TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
+//    final int MANCC_I = 1,  TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
     public NhaCungCapFORM() {
-        mtb = new MyTable();
-        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT","Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
-        
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
-        mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
-        mtb.setAlignment(5, JLabel.CENTER);
+//        mtb = new MyTable();
+//        mtb.setPreferredSize(new Dimension(1200 - 250, 600));
+//        mtb.setHeaders(new String[]{"STT","Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
+//        
+//        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+//        mtb.setAlignment(0, JLabel.CENTER);
+//        mtb.setAlignment(4, JLabel.RIGHT);
+//        mtb.setAlignment(5, JLabel.CENTER);
 
         // read data from database
-        btnReadDBMouseClicked();
+//        btnReadDBMouseClicked();
 
         // inputs
-        txMaNCC.setBorder(BorderFactory.createTitledBorder("Mã nhà cung cấp"));
-        txTenNCC.setBorder(BorderFactory.createTitledBorder("Tên nhà cung cấp"));
-        txDiaChi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
-        txSDT.setBorder(BorderFactory.createTitledBorder("SDT"));
-        txFax.setBorder(BorderFactory.createTitledBorder("Fax"));
-
-        JPanel plInput = new JPanel();
-        plInput.add(txMaNCC);
-        plInput.add(txTenNCC);
-        plInput.add(txDiaChi);
-        plInput.add(txSDT);
-        plInput.add(txFax);
+//        txMaNCC.setBorder(BorderFactory.createTitledBorder("Mã nhà cung cấp"));
+//        txTenNCC.setBorder(BorderFactory.createTitledBorder("Tên nhà cung cấp"));
+//        txDiaChi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
+//        txSDT.setBorder(BorderFactory.createTitledBorder("SDT"));
+//        txFax.setBorder(BorderFactory.createTitledBorder("Fax"));
+//
+//        JPanel plInput = new JPanel();
+//        plInput.add(txMaNCC);
+//        plInput.add(txTenNCC);
+//        plInput.add(txDiaChi);
+//        plInput.add(txSDT);
+//        plInput.add(txFax);
 
         // buttons
         // buttons
@@ -82,21 +85,23 @@ public class NhaCungCapFORM extends JPanel {
         plBtn.add(btnSua);
         plBtn.add(btnNhaplai);
         plBtn.add(btnReadDB);
-
-         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã NCC", "Tên NCC", "Địa chỉ", "Điện thoại", "Fax"});
-
-        JPanel plTim = new JPanel();
-        plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
-        plTim.add(cbTypeSearch);
-        plTim.add(txTim);
-
-        // container
-        this.add(plInput);
-        this.add(plTim);
-        this.add(plBtn);
-        this.add(mtb);
+        
+         this.add(formHienThi, BorderLayout.CENTER);
+         this.add(plBtn, BorderLayout.SOUTH);
+//         // ======== search panel ===========
+//        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã NCC", "Tên NCC", "Địa chỉ", "Điện thoại", "Fax"});
+//
+//        JPanel plTim = new JPanel();
+//        plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
+//        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+//        plTim.add(cbTypeSearch);
+//        plTim.add(txTim);
+//
+//        // container
+//        this.add(plInput);
+//        this.add(plTim);
+//        this.add(plBtn);
+//        this.add(mtb);
 
         btnThem.addActionListener(new ActionListener() {
             @Override
@@ -128,43 +133,43 @@ public class NhaCungCapFORM extends JPanel {
                 btnReadDBMouseClicked();
             }
         });
-        cbTypeSearch.addActionListener((ActionEvent e) -> {
-            txTim.requestFocus();
-            if (!txTim.getText().equals("")) {
-                txSearchOnChange();
-            }
-        });
-        txTim.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-        });
-
-
-        mtb.getTable().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                int i = mtb.getTable().getSelectedRow();
-                if (i >= 0) {
-                    txMaNCC.setText(mtb.getModel().getValueAt(i, MANCC_I).toString());
-                    txTenNCC.setText(mtb.getModel().getValueAt(i,TENNCC_I).toString());
-                    txDiaChi.setText(mtb.getModel().getValueAt(i,DIACHI_I).toString());
-                    txSDT.setText(mtb.getModel().getValueAt(i, SDT_I).toString());
-                    txFax.setText(mtb.getModel().getValueAt(i, FAX_I).toString());
-                }
-            }
-        });
+//        cbTypeSearch.addActionListener((ActionEvent e) -> {
+//            txTim.requestFocus();
+//            if (!txTim.getText().equals("")) {
+//                txSearchOnChange();
+//            }
+//        });
+//        txTim.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                txSearchOnChange();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                txSearchOnChange();
+//            }
+//
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                txSearchOnChange();
+//            }
+//        });
+//
+//
+//        mtb.getTable().addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseReleased(MouseEvent me) {
+//                int i = mtb.getTable().getSelectedRow();
+//                if (i >= 0) {
+//                    txMaNCC.setText(mtb.getModel().getValueAt(i, MANCC_I).toString());
+//                    txTenNCC.setText(mtb.getModel().getValueAt(i,TENNCC_I).toString());
+//                    txDiaChi.setText(mtb.getModel().getValueAt(i,DIACHI_I).toString());
+//                    txSDT.setText(mtb.getModel().getValueAt(i, SDT_I).toString());
+//                    txFax.setText(mtb.getModel().getValueAt(i, FAX_I).toString());
+//                }
+//            }
+//        });
 
     }
     private void txSearchOnChange() {

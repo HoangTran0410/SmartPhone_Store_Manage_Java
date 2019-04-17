@@ -16,12 +16,12 @@ public class NhaCungCapBUS {
     public ArrayList<NhaCungCap> dsncc = new ArrayList<>();
     NhaCungCapDAO qlnccDAO= new NhaCungCapDAO();
     public void show() {
-        dsncc.forEach((sv) -> {
-            System.out.print(sv.getMaNCC() + " ");
-            System.out.print(sv.getTenNCC() + " ");
-            System.out.println(sv.getDiaChi() + " ");
-            System.out.println(sv.getSDT() + " ");
-            System.out.println(sv.getFax());
+        dsncc.forEach((ncc) -> {
+            System.out.print(ncc.getMaNCC() + " ");
+            System.out.print(ncc.getTenNCC() + " ");
+            System.out.println(ncc.getDiaChi() + " ");
+            System.out.println(ncc.getSDT() + " ");
+            System.out.println(ncc.getFax());
         });
     }
 

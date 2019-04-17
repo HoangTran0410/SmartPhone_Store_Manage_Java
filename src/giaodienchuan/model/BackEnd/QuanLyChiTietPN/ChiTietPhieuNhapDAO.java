@@ -80,16 +80,20 @@ public class ChiTietPhieuNhapDAO {
     {
         Boolean ok= qlctpnConnection.sqlUpdate("INSERT INTO `chitietphieunhap`(`MaPN`,`MaSP`,`SoLuong`,`DonGia`) VALUE('"
               +ctpn.getMa()+ "', '" + ctpn.getMaSP() + "','" + ctpn.getSoLuong() + "','" + ctpn.getDonGia() + "')");
+        qlctpnConnection.closeConnect();
         return ok;
+        
     }
     public boolean delete(String mactpn)
     {
         Boolean ok= qlctpnConnection.sqlUpdate("DELETE *FROM `chitietphieunhap` WHERE `chitietphieunhap`.`MaPN`='"+mactpn+"'");
+        qlctpnConnection.closeConnect();
         return ok;
     }
     public boolean update(String mactpn,String masp,Integer soluong,Float dongia)
     {
         Boolean ok= qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='"+mactpn+"',MaSP='"+masp+"',SoLuong='"+soluong+"',DonGia='"+dongia+"'");
+        qlctpnConnection.closeConnect();
         return ok;
     }
 }
