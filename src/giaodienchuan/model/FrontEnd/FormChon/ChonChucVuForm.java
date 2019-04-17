@@ -19,7 +19,7 @@ public class ChonChucVuForm extends JFrame {
     JTextField txTarget;
 
     public ChonChucVuForm(JTextField _txTarget) {
-        this.setTitle("Chọn Loại Sản Phẩm");
+        this.setTitle("Chọn chức vụ");
         this.setLayout(new BorderLayout());
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
@@ -29,27 +29,27 @@ public class ChonChucVuForm extends JFrame {
         // ======= Buttons Panel ===========
         btnCancel.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
         btnOK.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_ok_30px.png")));
-        
+
         JPanel plBtns = new JPanel();
         plBtns.add(btnOK);
         plBtns.add(btnCancel);
-        
+
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtns, BorderLayout.SOUTH);
         this.setVisible(true);
 
         // actionlistener
         btnOK.addActionListener((ActionEvent ae) -> {
-            String masp = formHienThi.getSelectedSanPham();
+            String masp = formHienThi.getSelectedChucVu();
             if (masp != null) {
                 this.txTarget.setText(masp);
                 this.dispose();
 
             } else {
-                JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm nào!");
+                JOptionPane.showMessageDialog(this, "Chưa chọn chức vụ nào!");
             }
         });
-        
+
         btnCancel.addActionListener((ae) -> {
             this.dispose();
         });

@@ -92,7 +92,7 @@ public class HienThiChucVu extends JPanel {
         setDataToTable(qlcv.getDscv(), mtb);
     }
     
-    public String getSelectedSanPham() {
+    public String getSelectedChucVu() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
             return mtb.getModel().getValueAt(i, MACV_I).toString();
@@ -111,9 +111,5 @@ public class HienThiChucVu extends JPanel {
             table.addRow(new String[]{String.valueOf(stt), cv.getMaCV(), cv.getTenCV()});
             stt++;
         }
-    }
-
-    public String getSelectedChucVu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

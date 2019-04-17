@@ -4,11 +4,9 @@ import giaodienchuan.model.BackEnd.ChucVu.ChucVuBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChucVu;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaChucVuForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -20,9 +18,6 @@ public class QuanLyChucVuForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-      JComboBox<String> cbTypeSearch;
-    final int MAKH_I = 1, TENKH_I = 2, DIACHI_I=3, SDT_I=4;
- 
     public QuanLyChucVuForm() {
         setLayout(new BorderLayout());
 
@@ -35,10 +30,9 @@ public class QuanLyChucVuForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
+        this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {
@@ -56,7 +50,7 @@ public class QuanLyChucVuForm extends JPanel {
         String macv = formHienThi.getSelectedChucVu();
         if (macv != null) {
             ThemSuaChucVuForm suacv = new ThemSuaChucVuForm("Sửa", macv);
-            
+
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
             suacv.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
@@ -73,13 +67,13 @@ public class QuanLyChucVuForm extends JPanel {
     private void btnXoaMouseClicked() {
         String macv = formHienThi.getSelectedChucVu();
         if (macv != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + macv + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa chức vụ " + macv + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new ChucVuBUS().delete(macv);
                 formHienThi.refresh();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn khách hàng nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn chức vụ nào để xóa");
         }
     }
 

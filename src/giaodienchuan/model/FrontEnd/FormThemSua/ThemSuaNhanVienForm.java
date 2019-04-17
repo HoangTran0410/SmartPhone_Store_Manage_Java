@@ -2,6 +2,8 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.FrontEnd.FormChon.ChonChucVuForm;
+import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,6 +26,8 @@ public class ThemSuaNhanVienForm extends JFrame {
     JTextField txNgaysinh = new JTextField(12);
     JTextField txDiachi = new JTextField(15);
     JTextField txSDT= new JTextField(12);
+    
+    MoreButton btnChonChucVu = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
@@ -38,15 +42,20 @@ public class ThemSuaNhanVienForm extends JFrame {
 
         // inputs
         txManv.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
-        txMacv.setBorder(BorderFactory.createTitledBorder("Mã chức vụ"));        
+        txMacv.setBorder(BorderFactory.createTitledBorder(" "));        
         txTennv.setBorder(BorderFactory.createTitledBorder("Tên nhân viên"));
         txNgaysinh.setBorder(BorderFactory.createTitledBorder("Ngày sinh"));
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));        
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
+        
+        JPanel plChonChucVu = new JPanel();
+        plChonChucVu.setBorder(BorderFactory.createTitledBorder("Mã chức vụ"));
+        plChonChucVu.add(txMacv);
+        plChonChucVu.add(btnChonChucVu);
 
         JPanel plInput = new JPanel();
         plInput.add(txManv);
-        plInput.add(txMacv);
+        plInput.add(plChonChucVu);
         plInput.add(txTennv);
         plInput.add(txNgaysinh);
         plInput.add(txDiachi);
@@ -105,6 +114,9 @@ public class ThemSuaNhanVienForm extends JFrame {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 this.dispose();
             }
+        });
+        btnChonChucVu.addActionListener((ae) -> {
+            ChonChucVuForm clsp = new ChonChucVuForm(txMacv); // truyền vào textfield
         });
 
         this.setVisible(true);

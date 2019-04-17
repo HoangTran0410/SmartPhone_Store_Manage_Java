@@ -4,11 +4,9 @@ import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhanVien;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhanVienForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,8 +17,7 @@ public class QuanLyNhanVienForm extends JPanel {
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
-    JComboBox<String> cbTypeSearch;
-    final int MANV_I = 1, MACV_I = 2, TENNV_I = 3, NGAYSINH_I=4, DIACHI_I=5, SDT_I=6;
+
     public QuanLyNhanVienForm() {
         setLayout(new BorderLayout());
 
@@ -33,10 +30,9 @@ public class QuanLyNhanVienForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
+        this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {
@@ -54,7 +50,7 @@ public class QuanLyNhanVienForm extends JPanel {
         String manv = formHienThi.getSelectedNhanVien();
         if (manv != null) {
             ThemSuaNhanVienForm suanv = new ThemSuaNhanVienForm("Sửa", manv);
-            
+
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
             suanv.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override

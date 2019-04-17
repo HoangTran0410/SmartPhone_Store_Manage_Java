@@ -4,11 +4,9 @@ import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhachHang;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhachHangForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -20,9 +18,6 @@ public class QuanLyKhachHangForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-      JComboBox<String> cbTypeSearch;
-    final int MAKH_I = 1, TENKH_I = 2, DIACHI_I=3, SDT_I=4;
- 
     public QuanLyKhachHangForm() {
         setLayout(new BorderLayout());
 
@@ -35,10 +30,9 @@ public class QuanLyKhachHangForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.setBackground(new Color(150, 150, 150));
 
+        this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtn, BorderLayout.SOUTH);
 
         // actionlistener
         btnThem.addActionListener((ActionEvent ae) -> {
@@ -56,7 +50,7 @@ public class QuanLyKhachHangForm extends JPanel {
         String makh = formHienThi.getSelectedKhachHang();
         if (makh != null) {
             ThemSuaKhachHangForm suakh = new ThemSuaKhachHangForm("Sửa", makh);
-            
+
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
             suakh.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
