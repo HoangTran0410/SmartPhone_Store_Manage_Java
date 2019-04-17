@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,9 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiSanPham extends JPanel {
+public class HienThiNhanVien extends JPanel {
 
-    QuanLySanPhamBUS qlsp = new QuanLySanPhamBUS();
+    QuanLyNhanVienBUS qlnv = new QuanLyNhanVienBUS();
     MyTable mtb;
 
     JTextField txTim = new JTextField(15);
@@ -32,22 +32,20 @@ public class HienThiSanPham extends JPanel {
     JLabel lbImage = new JLabel();
 
     // index
-    final int MASP_I = 1, MALSP_I = 2, TEN_I = 3, GIA_I = 4, SOLUONG_I = 5;
+    final int MANV_I = 1, MACV_I = 2, TENNV_I = 3, NGAYSINH_I = 4, DIACHI_I = 5,  SDT_I = 6;
 
-    public HienThiSanPham() {
+    public HienThiNhanVien() {
         setLayout(new BorderLayout());
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng"});
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setHeaders(new String[]{"STT", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
+        mtb.setColumnsWidth(new double[]{.5, 1.5, 1.5, 2.5, 1.3,3, 1.5});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
-        mtb.setAlignment(5, JLabel.CENTER);
-        setDataToTable(qlsp.getDssp(), mtb);
+        setDataToTable(qlnv.getDsnv(), mtb);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
 
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
@@ -88,56 +86,35 @@ public class HienThiSanPham extends JPanel {
                 txSearchOnChange();
             }
         });
-        mtb.getTable().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                String masp = getSelectedSanPham();
-                if (masp != null) {
-                    // show hình
-                    for(SanPham sp : qlsp.getDssp()) {
-                        if(sp.getMaSP().equals(masp)) {
-                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-                            lbImage.setIcon(new ImageIcon(new ImageIcon(sp.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
-                        }
-                    }
-                    
-                }
-            }
-        });
         
-        JPanel plcenterImage = new JPanel();
-        lbImage.setPreferredSize(new Dimension(250, 250));
-        plcenterImage.add(lbImage);
-
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
-        this.add(plcenterImage, BorderLayout.SOUTH);
     }
 
     public void refresh() {
-        qlsp.readDB();
-        setDataToTable(qlsp.getDssp(), mtb);
+        qlnv.readDB();
+        setDataToTable(qlnv.getDsnv(), mtb);
     }
 
-    public String getSelectedSanPham() {
+    public String getSelectedNhanVien() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MASP_I).toString();
+            return mtb.getModel().getValueAt(i, MANV_I).toString();
         }
         return null;
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+        setDataToTable(qlnv.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
-    private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
+    private void setDataToTable(ArrayList<NhanVien> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        for (SanPham sp : data) {
-            table.addRow(new String[]{String.valueOf(stt), sp.getMaSP(), sp.getMaLSP(), sp.getTenSP(),
-                String.valueOf(sp.getDonGia()), String.valueOf(sp.getSoLuong())});
+        for (NhanVien nv : data) {
+            table.addRow(new String[]{String.valueOf(stt), nv.getMaNV(), nv.getMaCV(), nv.getTenNV(),
+                nv.getNgaySinh(),nv.getDiaChi(), nv.getSDT()});
             stt++;
         }
     }

@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_DTO.java</file>
-            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/ChiTietHoaDon_DAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/ChiTietHoaDon_BUS.java</file>
-            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_DAO.java</file>
-            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyHoaDon/HoaDon_BUS.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormQuanLy/QuanLyNhanVienForm.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNhanVien/NhanVien.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormQuanLy/QuanLySanPhamForm.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/GiaoDienChuan.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiNhanVien.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormThemSua/ThemSuaSanPhamForm.java</file>
+            <file>file:/C:/Users/DELL/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNhanVien/QuanLyNhanVienBUS.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,10 +1,7 @@
 
 package giaodienchuan.model.BackEnd.QuanLyKhachHang;
 
-/**
- *
- * @author DELL
- */
+
 public class KhachHang {
     String MaKH, TenKH, DiaChi, SDT;
 
