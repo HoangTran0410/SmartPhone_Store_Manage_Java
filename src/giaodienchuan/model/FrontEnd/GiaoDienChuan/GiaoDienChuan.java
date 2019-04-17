@@ -13,15 +13,18 @@ import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarTitle;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
@@ -50,7 +53,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
         setIconImage(logo.getImage());
-
+        
+        // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
@@ -59,7 +63,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "seperate", "1",
             "Quyền", "icons8_police_badge_30px.png",
             "Tài khoản", "icons8_key_30px.png",
-            "Nhân viên", "icons8_user_group_man_woman_30px.png",
+            "Chức vụ", "icons8_active_directory_30px.png",
+            "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_company_30px.png",
             "seperate", "1",
@@ -81,7 +86,17 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 menu.addItem(nb);
             }
         }
-
+        
+        //https://stackoverflow.com/questions/1385737/scrollable-jpanel
+        //https://stackoverflow.com/questions/5590242/how-to-hide-the-jscrollbars-in-a-jscrollpane
+        //https://stackoverflow.com/questions/5583495/how-do-i-speed-up-the-scroll-speed-in-a-jscrollpane-when-using-the-mouse-wheel
+        menu.setAutoscrolls(true);
+        JScrollPane scrollMenu = new JScrollPane(menu, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollMenu.setPreferredSize(new Dimension(menuW, HEIGHT));
+        scrollMenu.setBorder(BorderFactory.createEmptyBorder());
+        scrollMenu.getVerticalScrollBar().setUnitIncrement(5);
+        
+        // ================ Header ===================
         int headerBg = 30;
         int headerH = 55;
         header = new NavBarContainer(new Rectangle(0, 0, WIDTH, headerH));
@@ -145,7 +160,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.setLayout(new BorderLayout());
 
         addMouseListener(this);
-        add(menu, BorderLayout.WEST);
+        add(scrollMenu, BorderLayout.WEST);
         add(header, BorderLayout.NORTH);
         add(plContent, BorderLayout.CENTER);
     }
@@ -166,17 +181,22 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
-            
+
             case "Quyền":
-                emptypage.setLabelText("Quyền đang bảo trì");
+                emptypage.setLabelText("Quản lý quyền đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
-                
-            case "Tài khoản": 
+
+            case "Tài khoản":
                 if (qltk == null) {
                     qltk = new QuanLyTaiKhoanForm();
                 }
                 plContent.add(qltk, BorderLayout.CENTER);
+                break;
+
+            case "Chức vụ":
+                emptypage.setLabelText("Quản lý chức vụ đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
@@ -192,9 +212,9 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
-            
+
             case "Nhà cung cấp":
-                emptypage.setLabelText("Nhà cung cấp đang bảo trì");
+                emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
