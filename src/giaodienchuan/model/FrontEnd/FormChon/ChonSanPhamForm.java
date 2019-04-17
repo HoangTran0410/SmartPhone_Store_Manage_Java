@@ -17,15 +17,22 @@ public class ChonSanPhamForm extends JFrame {
 
     JButton btnOK = new JButton("Chọn");
     JButton btnCancel = new JButton("Thoát");
-    JTextField txTarget1;
-    JTextField txTarget2;
+    JTextField txMasp;
+    JTextField txMalsp;
+    JTextField txTensp;
+    JTextField txDonGia;
+    JTextField txSoluong;
 
-    public ChonSanPhamForm(JTextField _txTarget) {
+    public ChonSanPhamForm(JTextField _masp,JTextField _malsp,JTextField _tensp,JTextField _donGia,JTextField _soLuong) {
         this.setLayout(new BorderLayout());
         this.setTitle("Chọn Sản Phẩm");
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
-        this.txTarget1 = _txTarget;
+        this.txMasp = _masp;
+        this.txMalsp = _malsp;
+        this.txTensp = _tensp;
+        this.txDonGia = _donGia;
+        this.txSoluong = _soLuong;
 
         // ======= Buttons Panel ===========
         btnCancel.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -40,49 +47,27 @@ public class ChonSanPhamForm extends JFrame {
         this.setVisible(true);
 
         btnOK.addActionListener((ActionEvent ae) -> {
-            String masp = formHienThi.getSelectedSanPham();
-            if (masp != null) {
-                this.txTarget1.setText(masp);
+            if (formHienThi.getSelectedSanPham(1) != null) {
+                this.txMasp.setText(formHienThi.getSelectedSanPham(1));
                 this.dispose();
-
             } else {
                 JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm nào!");
             }
-        });
-        
-        btnCancel.addActionListener((ae) -> {
-            this.dispose();
-        });
-    }
-        public ChonSanPhamForm(JTextField _txTarget1,JTextField _txTarget2) {
-        this.setLayout(new BorderLayout());
-        this.setTitle("Chọn Sản Phẩm");
-        this.setSize(1200 - 200, 600);
-        this.setLocationRelativeTo(null);
-        this.txTarget1 = _txTarget1;
-        this.txTarget2 = _txTarget2;
-
-        // ======= Buttons Panel ===========
-        btnCancel.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        btnOK.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_ok_30px.png")));
-        
-        JPanel plBtns = new JPanel();
-        plBtns.add(btnOK);
-        plBtns.add(btnCancel);
-        
-        this.add(formHienThi, BorderLayout.CENTER);
-        this.add(plBtns, BorderLayout.SOUTH);
-        this.setVisible(true);
-
-        btnOK.addActionListener((ActionEvent ae) -> {
-            String masp = formHienThi.getSelectedSanPham();
-            String donGia = formHienThi.getDonGia();
-            if (masp != null) {
-                this.txTarget1.setText(masp);
-                this.txTarget2.setText(donGia);
+            if (formHienThi.getSelectedSanPham(2) != null) {
+                this.txMalsp.setText(formHienThi.getSelectedSanPham(2));
                 this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm nào!");
+            }
+            if (formHienThi.getSelectedSanPham(3) != null) {
+                this.txTensp.setText(formHienThi.getSelectedSanPham(3));
+                this.dispose();
+            }
+            if (formHienThi.getSelectedSanPham(4) != null) {
+                this.txDonGia.setText(formHienThi.getSelectedSanPham(4));
+                this.dispose();
+            }
+            if (formHienThi.getSelectedSanPham(5) != null) {
+                this.txSoluong.setText(formHienThi.getSelectedSanPham(5));
+                this.dispose();
             }
         });
         

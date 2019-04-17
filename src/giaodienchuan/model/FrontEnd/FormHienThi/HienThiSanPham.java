@@ -91,7 +91,7 @@ public class HienThiSanPham extends JPanel {
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
-                String masp = getSelectedSanPham();
+                String masp = getSelectedSanPham(1);
                 if (masp != null) {
                     // show hình
                     for (SanPham sp : qlsp.getDssp()) {
@@ -120,21 +120,14 @@ public class HienThiSanPham extends JPanel {
         setDataToTable(qlsp.getDssp(), mtb);
     }
 
-    public String getSelectedSanPham() {
+    public String getSelectedSanPham(int col) {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MASP_I).toString();
+            return mtb.getModel().getValueAt(i, col).toString();
         }
         return null;
     }
-    public String getDonGia(){
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i,GIA_I ).toString();
-        }
-        return null;
-    }
-
+    
     private void txSearchOnChange() {
         setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }

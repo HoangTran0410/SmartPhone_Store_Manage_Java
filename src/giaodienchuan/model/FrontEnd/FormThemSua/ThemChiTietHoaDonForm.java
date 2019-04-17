@@ -103,7 +103,7 @@ public class ThemChiTietHoaDonForm extends JFrame {
     }
 
     private void btnChonSanPhamMouseClicked() {
-        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp,txGia); // truyền vào textfield
+        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp,txGia,null,null,null); // truyền vào textfield
     }
 
     private Boolean checkEmpty() {

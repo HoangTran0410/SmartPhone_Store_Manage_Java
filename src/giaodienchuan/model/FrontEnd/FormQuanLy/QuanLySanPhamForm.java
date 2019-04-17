@@ -50,7 +50,7 @@ public class QuanLySanPhamForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
+        String masp = formHienThi.getSelectedSanPham(1);
         if (masp != null) {
             ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
             
@@ -68,7 +68,7 @@ public class QuanLySanPhamForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
+        String masp = formHienThi.getSelectedSanPham(1);
         if (masp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLySanPhamBUS().delete(masp);
