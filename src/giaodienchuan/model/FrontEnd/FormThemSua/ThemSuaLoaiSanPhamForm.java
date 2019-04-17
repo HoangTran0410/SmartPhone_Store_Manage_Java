@@ -23,6 +23,8 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
     JTextArea txMota = new JTextArea(3, 15);
 
     JButton btnThem = new JButton("Thêm");
+    JButton btnThoat = new JButton("Thoát");
+
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
 
@@ -49,14 +51,16 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm loại sản phẩm");
-            txMalsp.setText("LSP" + String.valueOf(qllspBUS.getDssp().size() + 1));
+            txMalsp.setText("LSP" + String.valueOf(qllspBUS.getDslsp().size() + 1));
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
+            btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
+            plButton.add(btnThoat);
 
         } else {
             this.setTitle("Sửa loại sản phẩm");
-            for (LoaiSanPham lsp : qllspBUS.getDssp()) {
+            for (LoaiSanPham lsp : qllspBUS.getDslsp()) {
                 if (lsp.getMaLSP().equals(_malsp)) {
                     this.lspSua = lsp;
                 }
@@ -73,11 +77,10 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
             txMalsp.setEditable(false);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
+            plButton.add(btnHuy);
         }
-
-        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
@@ -85,6 +88,11 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
         // mouse listener
         btnThem.addActionListener((ae) -> {
             btnThemMouseClicked();
+        });
+        btnThoat.addActionListener((ae) -> {
+            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                this.dispose();
+            }
         });
         btnSua.addActionListener((ae) -> {
             btnSuaMouseClicked();
@@ -106,7 +114,6 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
 
             if (qllspBUS.add(malsp, tenlsp, mota)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + tenlsp + " thành công!");
-                this.dispose();
             }
         }
     }
@@ -136,7 +143,7 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
             return showErrorTx(txTenlsp, "Tên loại không được để trống");
 
         } else if (mota.trim().equals("")) {
-            return showErrorTx(txTenlsp, "Mô tả không được để trống");
+            return showErrorTx(txMota, "Mô tả không được để trống");
         }
 
         return true;

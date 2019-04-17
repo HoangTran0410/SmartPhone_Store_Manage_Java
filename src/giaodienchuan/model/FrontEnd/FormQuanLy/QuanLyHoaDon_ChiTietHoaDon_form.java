@@ -18,7 +18,9 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoaHoaDon = new JButton("Xóa");
+    
     public QuanLyHoaDon_ChiTietHoaDon_form(){
+
         setLayout(new BorderLayout());
 
         // buttons
@@ -31,7 +33,7 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
         plBtn.add(btnXoaHoaDon);
         plBtn.add(btnSua);
         plBtn.setBackground(new Color(150, 150, 150));
-        
+
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.SOUTH);
 
@@ -44,7 +46,7 @@ public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-                        formHienThi.refresh();
+            formHienThi.refresh();
         });
     }
 

@@ -110,7 +110,7 @@ public class QuanLyLoaiSanPhamBUS {
         return ok;
     }
 
-    public ArrayList<LoaiSanPham> getDssp() {
+    public ArrayList<LoaiSanPham> getDslsp() {
         return dslsp;
     }
 }

@@ -1,8 +1,8 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.FrontEnd.FormHienThi.HienThiSanPham;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
+import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
+import giaodienchuan.model.FrontEnd.FormHienThi.HienThiTaiKhoan;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaTaiKhoanForm;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,15 +11,15 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class QuanLySanPhamForm extends JPanel {
+public class QuanLyTaiKhoanForm extends JPanel {
 
-    HienThiSanPham formHienThi = new HienThiSanPham();
+    HienThiTaiKhoan formHienThi = new HienThiTaiKhoan();
 
+    JButton btnXoa = new JButton("Xóa");
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
-    JButton btnXoa = new JButton("Xóa");
 
-    public QuanLySanPhamForm() {
+    public QuanLyTaiKhoanForm() {
         setLayout(new BorderLayout());
 
         // buttons
@@ -33,6 +33,7 @@ public class QuanLySanPhamForm extends JPanel {
         plBtn.add(btnSua);
         plBtn.setBackground(new Color(150, 150, 150));
 
+        //=========== add all to this jpanel ===========
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.SOUTH);
 
@@ -45,17 +46,16 @@ public class QuanLySanPhamForm extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-                        formHienThi.refresh();
         });
     }
 
     private void btnSuaMouseClicked() {
         String masp = formHienThi.getSelectedSanPham();
         if (masp != null) {
-            ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
-            
+            ThemSuaTaiKhoanForm suatk = new ThemSuaTaiKhoanForm("Sửa", masp);
+
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
-            suasp.addWindowListener(new java.awt.event.WindowAdapter() {
+            suatk.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                     formHienThi.refresh();
@@ -63,26 +63,27 @@ public class QuanLySanPhamForm extends JPanel {
             });
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn tài khoản nào để sửa");
         }
     }
 
     private void btnXoaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
-        if (masp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLySanPhamBUS().delete(masp);
+        String malsp = formHienThi.getSelectedSanPham();
+        if (malsp != null) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản " + malsp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyTaiKhoanBUS().delete(malsp);
                 formHienThi.refresh();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn tài khoản nào để xóa");
         }
     }
 
     private void btnThemMouseClicked() {
-        ThemSuaSanPhamForm themsp = new ThemSuaSanPhamForm("Thêm", "");
-        themsp.addWindowListener(new java.awt.event.WindowAdapter() {
+        ThemSuaTaiKhoanForm themtk = new ThemSuaTaiKhoanForm("Thêm", "");
+
+        themtk.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                 formHienThi.refresh();

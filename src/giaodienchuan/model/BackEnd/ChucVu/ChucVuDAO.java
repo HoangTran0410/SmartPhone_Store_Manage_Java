@@ -1,7 +1,6 @@
 package giaodienchuan.model.BackEnd.ChucVu;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,6 +36,9 @@ public class ChucVuDAO {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "-- ERROR! Lỗi đọc dữ liệu bảng chức vụ");
+        }
+        finally{
+            cvConnection.closeConnect();
         }
         return dscv;
     }

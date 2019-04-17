@@ -2,12 +2,10 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -124,5 +122,4 @@ public class HienThiChiTietHoaDon extends JFrame {
             stt++;
         }
     }
-
 }
