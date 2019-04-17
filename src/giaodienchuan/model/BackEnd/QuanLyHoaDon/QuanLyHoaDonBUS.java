@@ -69,9 +69,9 @@ public class QuanLyHoaDonBUS {
     public Boolean delete(String maHoaDon) {
         Boolean success = qlhdDAO.delete(maHoaDon);
         if (success) {
-            for (HoaDon cthd : dshd) {
-                if (cthd.getMaHoaDon().equals(maHoaDon)) {
-                    dshd.remove(cthd);
+            for (HoaDon hd : dshd) {
+                if (hd.getMaHoaDon().equals(maHoaDon)) {
+                    dshd.remove(hd);
                     return true;
                 }
             }
