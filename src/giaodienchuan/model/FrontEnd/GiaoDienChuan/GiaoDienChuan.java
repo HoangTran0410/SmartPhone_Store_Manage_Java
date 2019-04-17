@@ -60,6 +60,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
             "Hóa đơn", "icons8_agreement_30px.png",
+            "Phiếu nhập", "icons8_truck_30px.png",
             "seperate", "1",
             "Quyền", "icons8_police_badge_30px.png",
             "Tài khoản", "icons8_key_30px.png",
@@ -181,6 +182,18 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
+                
+            case "Hóa đơn":
+                if (qlhd == null) {
+                    qlhd = new HoaDon_ChiTietHoaDon_form();
+                }
+                plContent.add(qlhd, BorderLayout.CENTER);
+                break;
+            
+            case "Phiếu nhập":
+                emptypage.setLabelText("Quản lý phiếu nhập đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
 
             case "Quyền":
                 emptypage.setLabelText("Quản lý quyền đang bảo trì");
@@ -216,13 +229,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             case "Nhà cung cấp":
                 emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
-                break;
-
-            case "Hóa đơn":
-                if (qlhd == null) {
-                    qlhd = new HoaDon_ChiTietHoaDon_form();
-                }
-                plContent.add(qlhd, BorderLayout.CENTER);
                 break;
 
             case "Thống kê":
