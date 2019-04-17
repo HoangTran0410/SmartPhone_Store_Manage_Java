@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class QuanLyHoaDonBUS {
 
     ArrayList<HoaDon> dshd = new ArrayList<>();
-    private QuanLyHoaDonDAO qlhd = new QuanLyHoaDonDAO();
+    private QuanLyHoaDonDAO qlhdDAO = new QuanLyHoaDonDAO();
 
     public QuanLyHoaDonBUS() {
-        dshd = qlhd.readDB();
+        dshd = qlhdDAO.readDB();
     }
 
     public ArrayList<HoaDon> getDshd() {
@@ -18,11 +18,11 @@ public class QuanLyHoaDonBUS {
     }
 
     public void readDB() {
-        dshd = qlhd.readDB();
+        dshd = qlhdDAO.readDB();
     }
 
     public Boolean add(HoaDon hd) {
-        Boolean success = qlhd.add(hd);
+        Boolean success = qlhdDAO.add(hd);
         if (success) {
             dshd.add(hd);
             return true;
@@ -41,7 +41,7 @@ public class QuanLyHoaDonBUS {
     }
 
     public Boolean update(HoaDon hd) {
-        Boolean success = qlhd.update(hd);
+        Boolean success = qlhdDAO.update(hd);
         if (success) {
             for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
@@ -54,7 +54,7 @@ public class QuanLyHoaDonBUS {
     }
     
     public Boolean updateTongTien(String _mahd,float _tongTien){
-        Boolean success = qlhd.updateTongTien(_mahd,_tongTien);
+        Boolean success = qlhdDAO.updateTongTien(_mahd,_tongTien);
         if (success) {
             for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(_mahd)) {
@@ -67,7 +67,7 @@ public class QuanLyHoaDonBUS {
     }
 
     public Boolean delete(String maHoaDon) {
-        Boolean success = qlhd.delete(maHoaDon);
+        Boolean success = qlhdDAO.delete(maHoaDon);
         if (success) {
             for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(maHoaDon)) {
