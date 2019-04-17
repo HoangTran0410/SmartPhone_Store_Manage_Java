@@ -63,7 +63,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "seperate", "1",
             "Quyền", "icons8_police_badge_30px.png",
             "Tài khoản", "icons8_key_30px.png",
-            "Chức vụ", "icons8_active_directory_30px.png",
+            "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_company_30px.png",
