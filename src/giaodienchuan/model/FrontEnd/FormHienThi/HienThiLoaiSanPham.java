@@ -37,7 +37,7 @@ public class HienThiLoaiSanPham extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Mã loại", "Tên loại", "Mô tả"});
         mtb.setColumnsWidth(new double[]{.5, 3, 4, 5});
         mtb.setAlignment(0, JLabel.CENTER);
-        setDataToTable(qllsp.getDssp(), mtb);
+        setDataToTable(qllsp.getDslsp(), mtb);
 
         // ======== search panel ===========
         cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã loại", "Tên loại", "Mô tả"});
@@ -89,7 +89,7 @@ public class HienThiLoaiSanPham extends JPanel {
 
     public void refresh() {
         qllsp.readDB();
-        setDataToTable(qllsp.getDssp(), mtb);
+        setDataToTable(qllsp.getDslsp(), mtb);
     }
     
     public String getSelectedSanPham() {

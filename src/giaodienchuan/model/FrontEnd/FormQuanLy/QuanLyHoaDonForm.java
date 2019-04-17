@@ -1,25 +1,25 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.FrontEnd.FormHienThi.HienThiSanPham;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 
-public class QuanLySanPhamForm extends JPanel {
+public class QuanLyHoaDonForm extends JPanel {
 
-    HienThiSanPham formHienThi = new HienThiSanPham();
-
+    HienThiHoaDon formHienThi = new HienThiHoaDon();
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-    public QuanLySanPhamForm() {
+    public QuanLyHoaDonForm() {
         setLayout(new BorderLayout());
 
         // buttons
@@ -44,33 +44,29 @@ public class QuanLySanPhamForm extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-            formHienThi.refresh();
         });
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham(1);
-        if (masp != null) {
-            ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", masp);
-
-            // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
-            suasp.addWindowListener(new java.awt.event.WindowAdapter() {
+        String mahd = formHienThi.getSelectedHoaDon();
+        if (mahd != null) {
+            ThemSuaHoaDonForm tshd = new ThemSuaHoaDonForm("Sửa", mahd);
+            tshd.addWindowListener(new WindowAdapter() {
                 @Override
-                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                public void windowClosed(WindowEvent e) {
                     formHienThi.refresh();
                 }
             });
-
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để sửa");
         }
     }
 
     private void btnXoaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham(1);
-        if (masp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLySanPhamBUS().delete(masp);
+        String mahd = formHienThi.getSelectedHoaDon();
+        if (mahd != null) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyHoaDonBUS().delete(mahd);
                 formHienThi.refresh();
             }
 
@@ -80,10 +76,10 @@ public class QuanLySanPhamForm extends JPanel {
     }
 
     private void btnThemMouseClicked() {
-        ThemSuaSanPhamForm themsp = new ThemSuaSanPhamForm("Thêm", "");
-        themsp.addWindowListener(new java.awt.event.WindowAdapter() {
+        ThemSuaHoaDonForm themhd = new ThemSuaHoaDonForm("Thêm", "");
+        themhd.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            public void windowClosed(WindowEvent e) {
                 formHienThi.refresh();
             }
         });

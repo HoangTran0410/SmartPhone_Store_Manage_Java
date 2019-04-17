@@ -1,29 +1,40 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+<<<<<<< HEAD
 
 import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
 import giaodienchuan.model.FrontEnd.FormQuanLy.HoaDon_ChiTietHoaDon_form;
+=======
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
+>>>>>>> master
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
+<<<<<<< HEAD
 
+=======
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
+>>>>>>> master
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarTitle;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
@@ -36,10 +47,15 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     EmptyPage emptypage = new EmptyPage();
     QuanLySanPhamForm qlsp;
     QuanLyLoaiSanPhamForm qllsp;
+    QuanLyTaiKhoanForm qltk;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
+
     NhaCungCapFORM qlncc;
     HoaDon_ChiTietHoaDon_form qlhd;
+
+    QuanLyHoaDonForm qlhd;
+
 
     public GiaoDienChuan() {
 
@@ -52,15 +68,19 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
         setIconImage(logo.getImage());
-
+        
+        // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
             "Hóa đơn", "icons8_agreement_30px.png",
+            "Phiếu nhập", "icons8_truck_30px.png",
             "seperate", "1",
-            "Tài khoản", "icons8_circled_user_male_30px.png",
-            "Nhân viên", "icons8_user_group_man_woman_30px.png",
+            "Quyền", "icons8_police_badge_30px.png",
+            "Tài khoản", "icons8_key_30px.png",
+            "Chức vụ", "icons8_flow_chart_30px_1.png",
+            "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_user_30px.png",
             "seperate", "1",
@@ -82,7 +102,18 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 menu.addItem(nb);
             }
         }
-
+        
+        //https://stackoverflow.com/questions/1385737/scrollable-jpanel
+        //https://stackoverflow.com/questions/5590242/how-to-hide-the-jscrollbars-in-a-jscrollpane
+        //https://stackoverflow.com/questions/5583495/how-do-i-speed-up-the-scroll-speed-in-a-jscrollpane-when-using-the-mouse-wheel
+        JScrollPane scrollMenu = new JScrollPane(menu, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        menu.setAutoscrolls(true);
+        menu.setPreferredSize(new Dimension(menuW, HEIGHT + 200));
+        scrollMenu.setPreferredSize(new Dimension(menuW, HEIGHT));
+        scrollMenu.setBorder(BorderFactory.createEmptyBorder());
+        scrollMenu.getVerticalScrollBar().setUnitIncrement(5);
+        
+        // ================ Header ===================
         int headerBg = 30;
         int headerH = 55;
         header = new NavBarContainer(new Rectangle(0, 0, WIDTH, headerH));
@@ -146,7 +177,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.setLayout(new BorderLayout());
 
         addMouseListener(this);
-        add(menu, BorderLayout.WEST);
+        add(scrollMenu, BorderLayout.WEST);
         add(header, BorderLayout.NORTH);
         add(plContent, BorderLayout.CENTER);
     }
@@ -169,8 +200,32 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
                 
-            case "Tài khoản": 
-                emptypage.setLabelText("Tài khoản đang bảo trì");
+            case "Hóa đơn":
+                if (qlhd == null) {
+                    qlhd = new QuanLyHoaDonForm();
+                }
+                plContent.add(qlhd, BorderLayout.CENTER);
+                break;
+            
+            case "Phiếu nhập":
+                emptypage.setLabelText("Quản lý phiếu nhập đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
+
+            case "Quyền":
+                emptypage.setLabelText("Quản lý quyền đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
+
+            case "Tài khoản":
+                if (qltk == null) {
+                    qltk = new QuanLyTaiKhoanForm();
+                }
+                plContent.add(qltk, BorderLayout.CENTER);
+                break;
+
+            case "Chức vụ":
+                emptypage.setLabelText("Quản lý chức vụ đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
@@ -187,19 +242,17 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
-            
+
             case "Nhà cung cấp":
+
                 if (qlncc == null) {
                     qlncc = new NhaCungCapFORM();
                 }
                 plContent.add(qlncc, BorderLayout.CENTER);
-                break;
 
-            case "Hóa đơn":
-                if (qlhd == null) {
-                    qlhd = new HoaDon_ChiTietHoaDon_form();
-                }
-                plContent.add(qlhd, BorderLayout.CENTER);
+//                emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
+//                plContent.add(emptypage, BorderLayout.CENTER);
+
                 break;
 
             case "Thống kê":

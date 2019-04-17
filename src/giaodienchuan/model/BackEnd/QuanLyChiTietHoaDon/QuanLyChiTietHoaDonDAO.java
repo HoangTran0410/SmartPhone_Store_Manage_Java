@@ -40,9 +40,16 @@ public class QuanLyChiTietHoaDonDAO {
         return success;
     }
 
-    public Boolean delelte(String mahd) {
+    public Boolean delete(String _mahd, String _masp) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + mahd + "';");
+        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd + "' AND MaSP='" + _masp + "';");
+        connection.closeConnect();
+        return success;
+    }
+    
+    public Boolean deleteAll(String _mahd) {
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd +"';");
         connection.closeConnect();
         return success;
     }

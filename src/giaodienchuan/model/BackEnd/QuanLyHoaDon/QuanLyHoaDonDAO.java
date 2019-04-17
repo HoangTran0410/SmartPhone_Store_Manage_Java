@@ -65,6 +65,13 @@ public class QuanLyHoaDonDAO {
         connection.closeConnect();
         return success;
     }
+    
+    public Boolean updateTongTien(String _mahd,float _tongTien){
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("UPDATE hoadon SET TongTien='" + _tongTien + "' WHERE MaHD='" +_mahd + "';");
+        connection.closeConnect();
+        return success;
+    }
 
     public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayLap, LocalTime gioLap, float tongTien) {
         HoaDon hd = new HoaDon();
