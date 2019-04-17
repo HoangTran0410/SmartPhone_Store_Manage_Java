@@ -1,60 +1,30 @@
 package giaodienchuan.model.FrontEnd.FormChon;
 
-import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
-import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
-import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
+
+import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhanVien;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class ChonNhanVienForm extends JFrame {
-
-    QuanLyNhanVienBUS qlnv = new QuanLyNhanVienBUS();
-    MyTable mtb;
-    JTextField txTarget;
-
-    JTextField txTim = new JTextField(15);
-    JComboBox<String> cbTypeSearch;
+    
+    HienThiNhanVien formHienThi = new HienThiNhanVien();
 
     JButton btnOK = new JButton("Chọn");
     JButton btnCancel = new JButton("Thoát");
-
-    final int MANV_I = 1;
+    JTextField txTarget;
 
     public ChonNhanVienForm(JTextField _txTarget) {
-        this.setTitle("Chọn Nhân Viên");
         this.setLayout(new BorderLayout());
+        this.setTitle("Chọn nhân viên");
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.txTarget = _txTarget;
-
-        mtb = new MyTable();
-        mtb.setPreferredSize(new Dimension(1200 - 250, 400));
-        mtb.setHeaders(new String[]{"STT", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
-        mtb.setColumnsWidth(new double[]{.5, 1.5, 1.5, 2, 1.5, 2, 1.5});
-        mtb.setAlignment(0, JLabel.CENTER);
-        setDataToTable(qlnv.getDsnv(), mtb);
-
-        // ======== search panel ===========
-        JPanel plTim = new JPanel();
-        plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
-        plTim.add(txTim);
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
-        plTim.add(cbTypeSearch);
 
         // ======= Buttons Panel ===========
         btnCancel.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -63,29 +33,14 @@ public class ChonNhanVienForm extends JFrame {
         JPanel plBtns = new JPanel();
         plBtns.add(btnOK);
         plBtns.add(btnCancel);
-
-        // add to this frame
-        JPanel plContainer = new JPanel();
-        plContainer.add(plTim);
-        plContainer.add(mtb);
-
         
-        this.add(plContainer, BorderLayout.CENTER);
+        this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtns, BorderLayout.SOUTH);
         this.setVisible(true);
 
-        // actionlistener
-        cbTypeSearch.addActionListener((ActionEvent e) -> {
-            txTim.requestFocus();
-            if (!txTim.getText().equals("")) {
-                txSearchOnChange();
-            }
-        });
-
         btnOK.addActionListener((ActionEvent ae) -> {
-            int i = mtb.getTable().getSelectedRow();
-            if (i >= 0) {
-                String manv = mtb.getModel().getValueAt(i, MANV_I).toString();
+            String manv = formHienThi.getSelectedNhanVien();
+            if (manv != null) {
                 this.txTarget.setText(manv);
                 this.dispose();
 
@@ -97,37 +52,5 @@ public class ChonNhanVienForm extends JFrame {
         btnCancel.addActionListener((ae) -> {
             this.dispose();
         });
-
-        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
-        txTim.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-        });
-    }
-
-    private void txSearchOnChange() {
-        setDataToTable(qlnv.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
-    }
-
-    private void setDataToTable(ArrayList<NhanVien> data, MyTable table) {
-        table.clear();
-        int stt = 1; // lưu số thứ tự dòng hiện tại
-        for (NhanVien nv : data) {
-            table.addRow(new String[]{String.valueOf(stt), nv.getMaNV(), nv.getMaCV(), nv.getTenNV(),
-                nv.getNgaySinh(),nv.getDiaChi(), nv.getSDT()});
-            stt++;
-        }
     }
 }
