@@ -1,19 +1,15 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
-
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
-
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
-import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChucVuForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
-
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
-
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -47,12 +43,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyTaiKhoanForm qltk;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
-
-    NhaCungCapFORM qlncc;
     QuanLyChiTietHoaDonForm qlcthd;
-
     QuanLyHoaDonForm qlhd;
     QuanLyChucVuForm qlcv;
+    NhaCungCapFORM qlncc;
 
     public GiaoDienChuan() {
 
@@ -79,7 +73,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
-            "Nhà cung cấp", "icons8_user_30px.png",
+            "Nhà cung cấp", "icons8_company_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
