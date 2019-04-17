@@ -52,9 +52,9 @@ public class QuanLyHoaDonBUS {
         }
         return false;
     }
-    
-    public Boolean updateTongTien(String _mahd,float _tongTien){
-        Boolean success = qlhdDAO.updateTongTien(_mahd,_tongTien);
+
+    public Boolean updateTongTien(String _mahd, float _tongTien) {
+        Boolean success = qlhdDAO.updateTongTien(_mahd, _tongTien);
         if (success) {
             for (HoaDon cthd : dshd) {
                 if (cthd.getMaHoaDon().equals(_mahd)) {
