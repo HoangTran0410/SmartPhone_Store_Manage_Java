@@ -4,6 +4,8 @@ import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +17,8 @@ import javax.swing.JTextField;
 public class ThemChiTietHoaDonForm extends JFrame {
 
     QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
+
+    int soLuongMax;
 
     JTextField txMasp = new JTextField(15);
     JTextField txMahd = new JTextField(15);
@@ -70,7 +74,7 @@ public class ThemChiTietHoaDonForm extends JFrame {
 
         // mouse listener
         btnThem.addActionListener((ae) -> {
-            btnThemHoaDonMouseClicked();
+            btnThemChiTietHoaDonMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
@@ -84,12 +88,18 @@ public class ThemChiTietHoaDonForm extends JFrame {
         this.setVisible(true);
     }
 
-    private void btnThemHoaDonMouseClicked() {
+    private void btnThemChiTietHoaDonMouseClicked() {
         if (checkEmpty()) {
             String mahd = txMahd.getText();
             String masp = txMasp.getText();
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
+
+            if (soluong > soLuongMax) {
+                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + soLuongMax + ")");
+                txSoLuong.setText(String.valueOf(soLuongMax));
+                return;
+            }
 
             if (qlcthdBUS.add(mahd, masp, soluong, dongia)) {
                 JOptionPane.showMessageDialog(this, "Thêm chi tiết cho " + mahd + " thành công!");
@@ -99,7 +109,15 @@ public class ThemChiTietHoaDonForm extends JFrame {
     }
 
     private void btnChonSanPhamMouseClicked() {
-        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp, null, null, txGia, null); // truyền vào textfield
+        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp, null, null, txGia, txSoLuong); // truyền vào textfield
+        
+        // lưu lại số lượng max từ txSoLuong
+        csp.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                soLuongMax = Integer.parseInt(txSoLuong.getText());
+            }
+        });
     }
 
     private Boolean checkEmpty() {
