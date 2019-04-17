@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
-import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon_ChiTietHoaDon;
+import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
 import java.awt.BorderLayout;
@@ -12,14 +12,14 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 
-public class HoaDon_ChiTietHoaDon_form extends JPanel {
+public class QuanLyHoaDon_ChiTietHoaDon_form extends JPanel {
 
-    HienThiHoaDon_ChiTietHoaDon formHienThi = new HienThiHoaDon_ChiTietHoaDon();
+    HienThiHoaDon formHienThi = new HienThiHoaDon();
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoaHoaDon = new JButton("Xóa");
 
-    public HoaDon_ChiTietHoaDon_form() {
+    public QuanLyHoaDon_ChiTietHoaDon_form(){
         setLayout(new BorderLayout());
 
         // buttons
