@@ -90,7 +90,7 @@ public class QuanLySanPhamBUS {
         }
         return ok;
     }
-
+    
     public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
         SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong, url);
         return add(sp);

@@ -1,13 +1,19 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
+
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
+
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChucVuForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
+
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
+
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -41,6 +47,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyTaiKhoanForm qltk;
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
+
+    NhaCungCapFORM qlncc;
+    QuanLyChiTietHoaDonForm qlcthd;
+
     QuanLyHoaDonForm qlhd;
     QuanLyChucVuForm qlcv;
 
@@ -55,7 +65,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
         setIconImage(logo.getImage());
-        
+
         // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
@@ -69,7 +79,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
-            "Nhà cung cấp", "icons8_company_30px.png",
+            "Nhà cung cấp", "icons8_user_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
@@ -89,7 +99,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 menu.addItem(nb);
             }
         }
-        
+
         //https://stackoverflow.com/questions/1385737/scrollable-jpanel
         //https://stackoverflow.com/questions/5590242/how-to-hide-the-jscrollbars-in-a-jscrollpane
         //https://stackoverflow.com/questions/5583495/how-do-i-speed-up-the-scroll-speed-in-a-jscrollpane-when-using-the-mouse-wheel
@@ -99,7 +109,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         scrollMenu.setPreferredSize(new Dimension(menuW, HEIGHT));
         scrollMenu.setBorder(BorderFactory.createEmptyBorder());
         scrollMenu.getVerticalScrollBar().setUnitIncrement(5);
-        
+
         // ================ Header ===================
         int headerBg = 30;
         int headerH = 55;
@@ -185,14 +195,14 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
-                
+
             case "Hóa đơn":
                 if (qlhd == null) {
                     qlhd = new QuanLyHoaDonForm();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;
-            
+
             case "Phiếu nhập":
                 emptypage.setLabelText("Quản lý phiếu nhập đang bảo trì");
                 plContent.add(emptypage, BorderLayout.CENTER);
@@ -232,8 +242,14 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Nhà cung cấp":
-                emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
-                plContent.add(emptypage, BorderLayout.CENTER);
+
+                if (qlncc == null) {
+                    qlncc = new NhaCungCapFORM();
+                }
+                plContent.add(qlncc, BorderLayout.CENTER);
+
+//                emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
+//                plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Thống kê":

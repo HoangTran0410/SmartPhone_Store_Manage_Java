@@ -29,7 +29,7 @@ public class QuanLySanPhamDAO {
                     float dongia = r.getFloat("DonGia");
                     int soluong = r.getInt("SoLuong");
                     String url = r.getString("HinhAnh");
-                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url));
+                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url)); 
                 }
             }
 
