@@ -1,22 +1,20 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-<<<<<<< HEAD
+
 
 import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
-import giaodienchuan.model.FrontEnd.FormQuanLy.HoaDon_ChiTietHoaDon_form;
-=======
+
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
->>>>>>> master
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
+
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
-<<<<<<< HEAD
 
-=======
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
->>>>>>> master
+
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -52,7 +50,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyKhachHangForm qlkh;
 
     NhaCungCapFORM qlncc;
-    HoaDon_ChiTietHoaDon_form qlhd;
+    QuanLyChiTietHoaDonForm qlcthd;
 
     QuanLyHoaDonForm qlhd;
 

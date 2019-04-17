@@ -56,6 +56,7 @@ public class HienThiNhaCungCap extends JPanel{
        
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        // nó k đọc dc database cho chut, t dang gap loi
         
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
@@ -94,7 +95,7 @@ public class HienThiNhaCungCap extends JPanel{
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
-                String mancc = getSelectedNhaCungCap();
+                String mancc = getSelectedNhaCungCap(1);
                 if (mancc != null) {
                     // show hình
                     for(NhaCungCap ncc : BUS.getDsncc()) {
@@ -131,10 +132,10 @@ public class HienThiNhaCungCap extends JPanel{
         setDataToTable(BUS.getDsncc(), mtb);
     }
 
-    public String getSelectedNhaCungCap() {
+    public String getSelectedNhaCungCap(int col) {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MANCC_I).toString();
+            return mtb.getModel().getValueAt(i, col).toString();
         }
         return null;
     }
