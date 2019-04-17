@@ -27,13 +27,6 @@ public class HienThiHoaDon extends JPanel {
     JTextField txtSearchbox = new JTextField();
     JComboBox timComboBox = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
 
-    JTextField txtMaHd2 = new JTextField();
-    JTextField txtMaSp = new JTextField();
-    JTextField txtSoLuong = new JTextField();
-    JTextField txtDonGia = new JTextField();
-
-    JTextField txtTim = new JTextField();
-
     JButton btnXoaHoaDon = new JButton("Xóa");
     JButton btnReadDB = new JButton("Đọc DB");
     JButton btnDetails = new JButton("Xem chi tiết");
