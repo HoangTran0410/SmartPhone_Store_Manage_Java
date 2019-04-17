@@ -43,7 +43,7 @@ public class ThemChiTietHoaDonForm extends JFrame {
         pnlChonHoaDon.add(txMahd);
 
         JPanel pnlChonSanPham = new JPanel();
-        pnlChonSanPham.setBorder(BorderFactory.createTitledBorder("Url Hình ảnh"));
+        pnlChonSanPham.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
         pnlChonSanPham.add(txMasp);
         pnlChonSanPham.add(btnChonSanPham);
 
@@ -96,14 +96,14 @@ public class ThemChiTietHoaDonForm extends JFrame {
             int soluong = Integer.parseInt(txSoLuong.getText());
 
             if (qlcthdBUS.add(mahd, masp, soluong, dongia)) {
-                JOptionPane.showMessageDialog(this, "Thêm " + mahd + " thành công!");
+                JOptionPane.showMessageDialog(this, "Thêm chi tiết cho " + mahd + " thành công!");
                 this.dispose();
             }
         }
     }
 
     private void btnChonSanPhamMouseClicked() {
-        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp); // truyền vào textfield
+        ChonSanPhamForm csp = new ChonSanPhamForm(txMasp,txGia,null,null,null); // truyền vào textfield
     }
 
     private Boolean checkEmpty() {
