@@ -33,7 +33,10 @@ public class HienThiChiTietHoaDon extends JPanel {
 
         mtb = new MyTable();
         mtb.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+        mtb.setColumnsWidth(new double[]{.5, 4, 4, 4, 4});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setAlignment(1, JLabel.CENTER);
+        mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(3, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.RIGHT);
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);

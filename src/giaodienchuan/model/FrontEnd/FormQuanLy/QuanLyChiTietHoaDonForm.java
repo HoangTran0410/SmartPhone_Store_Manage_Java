@@ -2,7 +2,7 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChiTietHoaDon;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemChiTietHoaDonForm;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaChiTietHoaDonForm;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -21,6 +21,7 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
     
     JButton btnThem = new JButton("Thêm");
     JButton btnXoa = new JButton("Xóa");
+    JButton btnSua = new JButton("Sửa");
 
     public QuanLyChiTietHoaDonForm(String _mahd) {
         setLayout(new BorderLayout());
@@ -32,10 +33,12 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
+        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
+        plBtn.add(btnSua);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -47,17 +50,31 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
         btnXoa.addActionListener((ActionEvent ae) -> {
             btnXoaMouseClicked();
         });
+        btnSua.addActionListener((ActionEvent ae) -> {
+            btnSuaMouseClicked();
+        });
         
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
+    
+    private void btnSuaMouseClicked() {
+        String masp = formHienThi.getSelectedChiTietHoaDon(2);
+        ThemSuaChiTietHoaDonForm themcthd = new ThemSuaChiTietHoaDonForm("Sửa", this.mahd, masp);
+        themcthd.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                formHienThi.refresh();
+            }
+        });
+    }
 
     private void btnXoaMouseClicked() {
         String masp = formHienThi.getSelectedChiTietHoaDon(2);
+        String soluong = formHienThi.getSelectedChiTietHoaDon(3);
         if (masp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " của hóa đơn "+ this.mahd +"?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa " + soluong + " sản phẩm " + masp + " của hóa đơn "+ this.mahd +"?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyChiTietHoaDonBUS().delete(this.mahd, masp);
                 formHienThi.refresh();
             }
@@ -68,7 +85,7 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
     }
 
     private void btnThemMouseClicked() {
-        ThemChiTietHoaDonForm themcthd = new ThemChiTietHoaDonForm(this.mahd);
+        ThemSuaChiTietHoaDonForm themcthd = new ThemSuaChiTietHoaDonForm("Thêm", this.mahd, "");
         themcthd.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

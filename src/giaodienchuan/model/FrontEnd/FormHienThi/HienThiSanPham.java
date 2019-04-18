@@ -112,7 +112,7 @@ public class HienThiSanPham extends JPanel {
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
-        this.add(plcenterImage, BorderLayout.SOUTH);
+        this.add(plcenterImage, BorderLayout.WEST);
     }
 
     public void refresh() {
