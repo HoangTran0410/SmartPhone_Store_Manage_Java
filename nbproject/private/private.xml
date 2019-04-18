@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormQuanLy/QuanLyLoaiSanPhamForm.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormQuanLy/QuanLySanPhamForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyChiTietPN/ChiTietPhieuNhapBUS.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiNhaCungCap.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormThemSua/ThemSuaNhaCungCapForm.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormQuanLy/NhaCungCapFORM.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiHoaDon.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/nbproject/private/private.xml</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiChiTietHoaDon.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyChiTietPN/ChiTietPhieuNhapDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/ConnectionDB/ConnectionDB.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormThemSua/ThemSuaSanPhamForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiSanPham.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNCC/NhaCungCapDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNCC/NhaCungCapBUS.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/Main.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/GiaoDienChuan.java</file>
         </group>
     </open-files>
 </project-private>
