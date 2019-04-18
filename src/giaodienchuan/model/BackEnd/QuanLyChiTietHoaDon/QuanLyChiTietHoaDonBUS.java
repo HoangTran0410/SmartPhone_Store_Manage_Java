@@ -46,9 +46,6 @@ public class QuanLyChiTietHoaDonBUS {
         Boolean success = qlcthdDAO.add(hd);
         if (success) {
             dscthd.add(hd);
-            dscthd.forEach((t) -> {
-                System.out.println(t.getMaHoaDon());
-            });
             updateTongTien(hd.getMaHoaDon());
             return true;
         }
