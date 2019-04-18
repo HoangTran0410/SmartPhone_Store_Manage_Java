@@ -213,13 +213,13 @@ public class ThemSuaHoaDonForm extends JFrame {
             try {
                 LocalDate ngay = java.time.LocalDate.parse(ngayLap);
             } catch (DateTimeParseException e) {
-                return showErrorTx(txtNgayLap, "Ngày lập không hợp lệ ( ví dụ: 2018-12-31)");
+                return showErrorTx(txtNgayLap, "Ngày lập không hợp lệ yyyy-mm-dd ( ví dụ: 2018-12-31)");
             }
 
             try {
                 LocalTime gio = java.time.LocalTime.parse(gioLap);
             } catch (DateTimeParseException e) {
-                return showErrorTx(txtGioLap, "Giờ lập không hợp lệ (ví dụ: 18:25)");
+                return showErrorTx(txtGioLap, "Giờ lập không hợp lệ hh:mm (ví dụ: 18:25)");
             }
         }
         return true;
