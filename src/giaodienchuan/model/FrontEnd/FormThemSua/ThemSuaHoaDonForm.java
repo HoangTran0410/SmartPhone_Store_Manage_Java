@@ -47,8 +47,8 @@ public class ThemSuaHoaDonForm extends JFrame {
 
         // inputs
         txtMaHd.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
-        txtMaNv.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
-        txtMaKh.setBorder(BorderFactory.createTitledBorder("Mã khách hàng"));
+        txtMaNv.setBorder(BorderFactory.createTitledBorder(" "));
+        txtMaKh.setBorder(BorderFactory.createTitledBorder(" "));
         txtNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập"));
         txtGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập"));
         txtTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền"));
