@@ -21,7 +21,7 @@ public class ChonChucVuForm extends JFrame {
     public ChonChucVuForm(JTextField _txTarget) {
         this.setTitle("Chọn chức vụ");
         this.setLayout(new BorderLayout());
-        this.setSize(1200 - 200, 600);
+        this.setSize(500, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.txTarget = _txTarget;
