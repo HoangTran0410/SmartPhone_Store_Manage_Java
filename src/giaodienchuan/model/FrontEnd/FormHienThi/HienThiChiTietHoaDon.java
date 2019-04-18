@@ -21,7 +21,7 @@ public class HienThiChiTietHoaDon extends JPanel {
     QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
 
     JTextField txTim = new JTextField(15);
-    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã sản phẩm", "Số lượng", "Đơn giá"});
     JButton btnRefresh = new JButton("Làm mới");
     String mahd;
 
@@ -48,7 +48,7 @@ public class HienThiChiTietHoaDon extends JPanel {
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
-        
+
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
 
@@ -73,31 +73,22 @@ public class HienThiChiTietHoaDon extends JPanel {
         this.add(mtb, BorderLayout.CENTER);
     }
 
-    private void btnXoaMouseClicked() {
-        int i = mtb.getTable().getSelectedRow();
-        String _masp = null;
-        String _mahd = null;
-        if (i >= 0) {
-            _mahd = mtb.getTable().getModel().getValueAt(i, 1).toString();
-            _masp = mtb.getTable().getModel().getValueAt(i, 2).toString();
-        }
-        if (_mahd != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa chi tiết này của hóa đơn " + _mahd + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyChiTietHoaDonBUS().delete(_mahd, _masp);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để xóa");
-        }
-        refresh();
-    }
-
     public void refresh() {
         qlcthd.readDB();
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText()), mtb);
+        ArrayList<ChiTietHoaDon> data = qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText());
+        // phải có tìm and ở đây
+        ArrayList<ChiTietHoaDon> result = new ArrayList<>();
+        for(ChiTietHoaDon ct : data) {
+            if(ct.getMaHoaDon().equals(this.mahd)) {
+                result.add(ct);
+            }
+        }
+        
+        setDataToTable(result, mtb);
     }
 
     public String getSelectedChiTietHoaDon(int col) {
