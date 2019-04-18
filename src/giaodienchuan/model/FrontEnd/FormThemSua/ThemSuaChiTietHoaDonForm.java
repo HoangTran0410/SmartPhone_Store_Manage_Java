@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -124,10 +125,11 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             if (soluong > soLuongMax) {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + soLuongMax + ")");
                 txSoLuong.setText(String.valueOf(soLuongMax));
-                return;
+                return;   
             }
 
             if (qlcthdBUS.add(mahd, masp, soluong, dongia)) {
+                new QuanLySanPhamBUS().updateSoLuong(masp, soLuongMax - soluong);
                 this.dispose();
             }
         }
@@ -141,6 +143,9 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 soLuongMax = Integer.parseInt(txSoLuong.getText());
+                if(soLuongMax == 0) {
+                    JOptionPane.showMessageDialog(null, "Sản phẩm đã hết hàng!");
+                }
             }
         });
     }
