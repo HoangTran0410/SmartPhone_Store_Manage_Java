@@ -23,7 +23,6 @@ public class ChonKhachHangForm extends JFrame {
         this.setLayout(new BorderLayout());
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.txTarget = _txTarget;
 
         // ======= Buttons Panel ===========
