@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,13 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Admin
- */
 public class ThemSuaNhaCungCapForm extends JFrame {
     NhaCungCapBUS BUS = new NhaCungCapBUS();
-//    MyTable mtb;
     String type;
     
     NhaCungCap nccSua;
@@ -147,15 +135,17 @@ public class ThemSuaNhaCungCapForm extends JFrame {
 
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
-            NhaCungCap ncc = new NhaCungCap(txMaNCC.getText(), txTenNCC.getText(), txDiaChi.getText(), txSDT.getText(), txFax.getText());
-            if(BUS.add(ncc)) {
+            String mancc=txMaNCC.getText();
+            String tenncc=txTenNCC.getText();
+            String diachi=txDiaChi.getText();
+            String sdt=txSDT.getText();
+            String fax=txFax.getText();
+           
+            
+            if(BUS.add(mancc,tenncc,diachi,sdt,fax)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + txTenNCC.getText() + " thành công!");
             }
-//            mtb.clear();
-//            BUS.dsncc.forEach((n) -> {
-//                mtb.addRow(new String[]{n.getMaNCC(), n.getTenNCC(), n.getDiaChi(), n.getSDT(), n.getFax()});
-//            });
-//        setDataToTable(BUS.getDsncc(), mtb);
+//            
         }
     }
         private Boolean checkEmpty() {

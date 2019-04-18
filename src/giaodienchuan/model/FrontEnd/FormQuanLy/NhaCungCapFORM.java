@@ -2,9 +2,8 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhaCungCap;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -54,7 +53,7 @@ public class NhaCungCapFORM extends JPanel {
         plBtn.add(btnSua);
 
          this.add(formHienThi, BorderLayout.CENTER);
-         this.add(plBtn, BorderLayout.SOUTH);
+         this.add(plBtn, BorderLayout.NORTH);
 
          btnThem.addActionListener((ActionEvent ae) -> {
             btnThemMouseClicked();
@@ -89,7 +88,7 @@ public class NhaCungCapFORM extends JPanel {
         String mancc = formHienThi.getSelectedNhaCungCap(1);
         if (mancc != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhà cung cấp " + mancc + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLySanPhamBUS().delete(mancc);
+                new NhaCungCapBUS().delete(mancc);
                 formHienThi.refresh();
             }
 

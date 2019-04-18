@@ -82,8 +82,7 @@ public class NhaCungCapDAO {
 
     public Boolean add(NhaCungCap ncc) {
         Boolean ok = qlnccConnection.sqlUpdate("INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`,`SDT`,`Fax`) VALUES ('"
-                + ncc.getMaNCC() + "', '" + ncc.getTenNCC() + "', '" + ncc.getDiaChi() + "','" + ncc.getSDT() + "','" + ncc.getFax() + "');");
-
+                + ncc.getMaNCC() + "','" + ncc.getTenNCC() + "','" + ncc.getDiaChi() + "','" + ncc.getSDT() + "','" + ncc.getFax() + "');");
         qlnccConnection.closeConnect();
 
         return ok;

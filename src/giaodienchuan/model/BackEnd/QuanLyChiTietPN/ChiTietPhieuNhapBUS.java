@@ -21,12 +21,6 @@ public class ChiTietPhieuNhapBUS {
         dsctpn=DAO.readDB();
     }
      public ArrayList<ChiTietPhieuNhap> search(String value, String type) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
-
-        // phương pháp tìm từ arraylist
         ArrayList<ChiTietPhieuNhap> result = new ArrayList<>();
 
         dsctpn.forEach((ctpn) -> {
@@ -40,12 +34,12 @@ public class ChiTietPhieuNhapBUS {
                 }
             } else {
                 switch (type) {
-                    case "Mã sản phẩm":
+                    case "Mã phiếu nhập":
                         if (ctpn.getMa().toLowerCase().contains(value.toLowerCase())) {
                             result.add(ctpn);
                         }
                         break;
-                    case "Mã loại":
+                    case "Mã sản phẩm":
                         if (ctpn.getMaSP().toLowerCase().contains(value.toLowerCase())) {
                             result.add(ctpn);
                         }

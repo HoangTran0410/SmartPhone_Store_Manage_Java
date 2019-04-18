@@ -7,7 +7,6 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -75,7 +74,6 @@ public class HienThiNhaCungCap extends JPanel{
             refresh();
         });
 
-        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
         txTim.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -97,12 +95,9 @@ public class HienThiNhaCungCap extends JPanel{
             public void mouseReleased(MouseEvent me) {
                 String mancc = getSelectedNhaCungCap(1);
                 if (mancc != null) {
-                    // show hình
                     for(NhaCungCap ncc : BUS.getDsncc()) {
                         if(ncc.getMaNCC().equals(mancc)) {
-                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-//                            lbImage.setIcon(new ImageIcon(new ImageIcon(.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
-                        }
+                                                    }
                     }
                     
                 }

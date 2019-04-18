@@ -24,19 +24,16 @@ public class NhaCungCapBUS {
             System.out.println(ncc.getFax());
         });
     }
-
+    public NhaCungCapBUS()
+    {
+        dsncc=qlnccDAO.readDB();
+    }
     public void readDB() {
         
         dsncc = qlnccDAO.readDB();
         
     }
     public ArrayList<NhaCungCap> search(String value, String type) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
-
-        // phương pháp tìm từ arraylist
         ArrayList<NhaCungCap> result = new ArrayList<>();
 
         dsncc.forEach((ncc) -> {
@@ -84,10 +81,8 @@ public class NhaCungCapBUS {
     }
 
     public Boolean add(NhaCungCap ncc) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.add(ncc);
-       
-
+        
+        Boolean ok = qlnccDAO.add(ncc);
         if (ok) {
             dsncc.add(ncc);
         }
@@ -95,13 +90,12 @@ public class NhaCungCapBUS {
     }
 
     public Boolean add(String ma, String ten, String diachi, String sdt, String fax) {
-        NhaCungCap sv = new NhaCungCap(ma, ten, diachi, sdt, fax);
-        return add(sv);
+        NhaCungCap ncc = new NhaCungCap(ma, ten, diachi, sdt, fax);
+        return add(ncc);
     }
 
     public Boolean delete(String mancc) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.delete(mancc);
+        Boolean ok = qlnccDAO.delete(mancc);
        
 
         if (ok) {
@@ -115,8 +109,8 @@ public class NhaCungCapBUS {
     }
 
     public Boolean update(String mancc, String tenncc, String diachi, String sdt, String fax) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.update(mancc, tenncc, diachi, sdt, fax);
+        
+        Boolean ok = qlnccDAO.update(mancc, tenncc, diachi, sdt, fax);
        
 
         if (ok) {
