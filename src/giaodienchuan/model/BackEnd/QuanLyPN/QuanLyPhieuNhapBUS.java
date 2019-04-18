@@ -23,6 +23,13 @@ public class QuanLyPhieuNhapBUS {
     {
         dspn=DAO.readDB();
     }
+    public void readDB()
+    {
+        dspn=DAO.readDB();
+    }
+    public ArrayList<PhieuNhap> getDspn() {
+        return this.dspn;
+    }
      public ArrayList<PhieuNhap> search(String value, String type) {
         // Phương pháp tìm từ database
 //        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
@@ -92,6 +99,35 @@ public class QuanLyPhieuNhapBUS {
          }
          return ok;
      }
+     public Boolean update(String maPN, String maNCC, String maNV, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
+        PhieuNhap pn = new PhieuNhap(maPN, maNCC, maNV, ngayNhap, gioNhap, tongTien);
+        return update(pn);
+    }
+
+    public Boolean update(PhieuNhap pn) {
+        Boolean success = DAO.update(pn);
+        if (success) {
+            for (PhieuNhap cthd : dspn) {
+                if (cthd.getMaPN().equals(pn.getMaPN())) {
+                    cthd = pn;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+     public Boolean updateTongTien(String _mapn, Float _tongTien) {
+        Boolean success = DAO.updateTongTien(_mapn, _tongTien);
+        if (success) {
+            for (PhieuNhap pn : dspn) {
+                if (pn.getMaPN().equals(_mapn)) {
+                    pn.setTongTien(_tongTien);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
      public boolean add(String maPN,String maNCC,String maNV,LocalDate ngayNhap,LocalTime gioNhap,Float tongTien)
      {
          PhieuNhap pn= new PhieuNhap(maPN,maNCC,maNV,ngayNhap,gioNhap,tongTien);

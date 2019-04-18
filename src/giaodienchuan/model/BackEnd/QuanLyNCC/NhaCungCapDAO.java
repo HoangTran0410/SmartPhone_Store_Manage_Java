@@ -81,6 +81,7 @@ public class NhaCungCapDAO {
     }
 
     public Boolean add(NhaCungCap ncc) {
+        qlnccConnection = new ConnectionDB();
         Boolean ok = qlnccConnection.sqlUpdate("INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`,`SDT`,`Fax`) VALUES ('"
                 + ncc.getMaNCC() + "','" + ncc.getTenNCC() + "','" + ncc.getDiaChi() + "','" + ncc.getSDT() + "','" + ncc.getFax() + "');");
         qlnccConnection.closeConnect();
@@ -89,12 +90,14 @@ public class NhaCungCapDAO {
     }
 
     public Boolean delete(String mancc) {
+        qlnccConnection = new ConnectionDB();
         Boolean ok = qlnccConnection.sqlUpdate("DELETE FROM `nhacungcap` WHERE `nhacungcap`.`MaNCC` = '" + mancc + "'");
         qlnccConnection.closeConnect();
         return ok;
     }
 
     public Boolean update(String ma, String ten, String diachi, String sdt, String fax) {
+        qlnccConnection = new ConnectionDB();
         Boolean ok = qlnccConnection.sqlUpdate("Update NhaCungCap Set MaNCC='" + ma + "',TenNCC='" + ten + "',DiaChi='" + diachi + "',SDT='" + sdt + "',Fax='" + fax + "' where MaNCC='" + ma + "'");
         qlnccConnection.closeConnect();
         return ok;

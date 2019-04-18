@@ -78,20 +78,41 @@ public class ChiTietPhieuNhapDAO {
     }
     public boolean add(ChiTietPhieuNhap ctpn)
     {
+        qlctpnConnection = new ConnectionDB();
         Boolean ok= qlctpnConnection.sqlUpdate("INSERT INTO `chitietphieunhap`(`MaPN`,`MaSP`,`SoLuong`,`DonGia`) VALUE('"
               +ctpn.getMa()+ "', '" + ctpn.getMaSP() + "','" + ctpn.getSoLuong() + "','" + ctpn.getDonGia() + "')");
         qlctpnConnection.closeConnect();
         return ok;
         
     }
+     public Boolean deleteAll(String _mapn) {
+        qlctpnConnection = new ConnectionDB();
+        Boolean success = qlctpnConnection.sqlUpdate("DELETE FROM chitietphieunhap WHERE MaPN='" + _mapn +"';");
+        qlctpnConnection.closeConnect();
+        return success;
+    }
     public boolean delete(String mactpn)
     {
+        qlctpnConnection = new ConnectionDB();
         Boolean ok= qlctpnConnection.sqlUpdate("DELETE *FROM `chitietphieunhap` WHERE `chitietphieunhap`.`MaPN`='"+mactpn+"'");
+        qlctpnConnection.closeConnect();
+        return ok;
+    }
+    public Boolean delete(String _mapn, String _masp) {
+        qlctpnConnection = new ConnectionDB();
+        Boolean ok = qlctpnConnection.sqlUpdate("DELETE FROM chitietphieunhap WHERE MaHD='" + _mapn + "' AND MaSP='" + _masp + "';");
+        qlctpnConnection.closeConnect();
+        return ok;
+    }
+    public Boolean update(ChiTietPhieuNhap ctpn) {
+        qlctpnConnection = new ConnectionDB();
+        Boolean ok = qlctpnConnection.sqlUpdate("UPDATE chitietphieunhap set MaSP='" + ctpn.getMa() + "', SoLuong='" + ctpn.getSoLuong() + "', DonGia='" + ctpn.getDonGia() + "' WHERE MaPN='" + ctpn.getMa() + "';");
         qlctpnConnection.closeConnect();
         return ok;
     }
     public boolean update(String mactpn,String masp,Integer soluong,Float dongia)
     {
+        qlctpnConnection = new ConnectionDB();
         Boolean ok= qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='"+mactpn+"',MaSP='"+masp+"',SoLuong='"+soluong+"',DonGia='"+dongia+"'");
         qlctpnConnection.closeConnect();
         return ok;

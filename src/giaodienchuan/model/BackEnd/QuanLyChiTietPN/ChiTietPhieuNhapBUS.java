@@ -5,6 +5,8 @@
  */
 package giaodienchuan.model.BackEnd.QuanLyChiTietPN;
 
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyPN.QuanLyPhieuNhapDAO;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
@@ -14,11 +16,15 @@ import java.util.ArrayList;
  */
 public class ChiTietPhieuNhapBUS {
     ChiTietPhieuNhapDAO DAO= new ChiTietPhieuNhapDAO();
+    QuanLyPhieuNhapDAO qlpnDAO=new QuanLyPhieuNhapDAO();
     ArrayList<ChiTietPhieuNhap> dsctpn = new ArrayList<>();
     
     public ChiTietPhieuNhapBUS()
     {
         dsctpn=DAO.readDB();
+    }
+    public void readDB() {
+        dsctpn = DAO.readDB();
     }
      public ArrayList<ChiTietPhieuNhap> search(String value, String type) {
         ArrayList<ChiTietPhieuNhap> result = new ArrayList<>();
@@ -70,6 +76,29 @@ public class ChiTietPhieuNhapBUS {
          }
          return ok;
      }
+     public Boolean update(ChiTietPhieuNhap ctpn) {
+        Boolean ok = DAO.update(ctpn);
+        if (ok) {
+            for (ChiTietPhieuNhap pn : dsctpn) {
+                if (pn.getMa().equals(ctpn.getMa())) {
+                    pn = ctpn;
+                }
+            }
+            updateTongTien(ctpn.getMa());
+        }
+
+        return ok;
+    }
+      private Boolean updateTongTien(String _mapn) {
+        float tong = 0;
+        for (ChiTietPhieuNhap ct : dsctpn) {
+            if (ct.getMa().equals(_mapn)) {
+                tong += ct.getSoLuong() * ct.getDonGia();
+            }
+        }
+        Boolean ok = qlpnDAO.updateTongTien(_mapn, tong);
+        return ok;
+    }
      public boolean add(String ma,String masp,Integer soluong,Float dongia)
      {
          ChiTietPhieuNhap ctpn= new ChiTietPhieuNhap(ma,masp,soluong,dongia);
@@ -85,5 +114,31 @@ public class ChiTietPhieuNhapBUS {
         }
           return ok;
      }
+     public Boolean deleteAll(String _maPhieuNhap) {
+        Boolean success = DAO.deleteAll(_maPhieuNhap);
+        if (success) {
+            for (ChiTietPhieuNhap ctpn : dsctpn) {
+                if (ctpn.getMa().equals(_maPhieuNhap)) {
+                    dsctpn.remove(ctpn);
+                }
+            }
+            updateTongTien(_maPhieuNhap);
+            return true;
+        }
+        return false;
+    }
+     public Boolean delete(String _maPhieuNhap, String _maSanPham) {
+        Boolean success = DAO.delete(_maPhieuNhap, _maSanPham);
+        if (success) {
+            for (ChiTietPhieuNhap ctpn : dsctpn) {
+                if (ctpn.getMa().equals(_maPhieuNhap) && ctpn.getMaSP().equals(_maSanPham)) {
+                    dsctpn.remove(ctpn);
+                    updateTongTien(_maPhieuNhap);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
      
