@@ -6,19 +6,28 @@ import java.util.ArrayList;
 public class QuanLyChiTietHoaDonBUS {
 
     ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
-    private QuanLyChiTietHoaDonDAO qlcthd = new QuanLyChiTietHoaDonDAO();
-    private QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
+    private QuanLyChiTietHoaDonDAO qlcthdDAO = new QuanLyChiTietHoaDonDAO();
+    private QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
 
     public QuanLyChiTietHoaDonBUS() {
-        dscthd = qlcthd.readDB();
+        dscthd = qlcthdDAO.readDB();
     }
 
-    public ArrayList<ChiTietHoaDon> getDshd() {
+    public ArrayList<ChiTietHoaDon> getDscthd() {
         return this.dscthd;
     }
 
     public void readDB() {
-        dscthd = qlcthd.readDB();
+        dscthd = qlcthdDAO.readDB();
+    }
+
+    public ChiTietHoaDon getChiTiet(String mahd, String masp) {
+        for (ChiTietHoaDon ct : dscthd) {
+            if (ct.getMaSanPham().equals(masp) && ct.getMaHoaDon().equals(mahd)) {
+                return ct;
+            }
+        }
+        return null;
     }
 
     public Boolean add(ChiTietHoaDon hd) {
@@ -33,8 +42,8 @@ public class QuanLyChiTietHoaDonBUS {
         dscthd.removeAll(toRemove);
         hd.setSoLuong(soLuong);
 
-        qlcthd.delete(hd.getMaHoaDon(), hd.getMaSanPham());
-        Boolean success = qlcthd.add(hd);
+        qlcthdDAO.delete(hd.getMaHoaDon(), hd.getMaSanPham());
+        Boolean success = qlcthdDAO.add(hd);
         if (success) {
             dscthd.add(hd);
             dscthd.forEach((t) -> {
@@ -57,7 +66,7 @@ public class QuanLyChiTietHoaDonBUS {
     }
 
     public Boolean update(ChiTietHoaDon hd) {
-        Boolean success = qlcthd.update(hd);
+        Boolean success = qlcthdDAO.update(hd);
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
@@ -77,12 +86,12 @@ public class QuanLyChiTietHoaDonBUS {
                 tong += ct.getSoLuong() * ct.getDonGia();
             }
         }
-        Boolean success = qlhd.updateTongTien(_mahd, tong);
+        Boolean success = qlhdBUS.updateTongTien(_mahd, tong);
         return success;
     }
 
     public Boolean delete(String _maHoaDon, String _maSanPham) {
-        Boolean success = qlcthd.delete(_maHoaDon, _maSanPham);
+        Boolean success = qlcthdDAO.delete(_maHoaDon, _maSanPham);
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon) && cthd.getMaSanPham().equals(_maSanPham)) {
@@ -96,7 +105,7 @@ public class QuanLyChiTietHoaDonBUS {
     }
 
     public Boolean deleteAll(String _maHoaDon) {
-        Boolean success = qlcthd.deleteAll(_maHoaDon);
+        Boolean success = qlcthdDAO.deleteAll(_maHoaDon);
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon)) {
