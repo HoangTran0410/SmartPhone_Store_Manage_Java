@@ -1,5 +1,6 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
@@ -65,8 +66,13 @@ public class QuanLyHoaDonForm extends JPanel {
     private void btnXoaMouseClicked() {
         String mahd = formHienThi.getSelectedHoaDon();
         if (mahd != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + 
+                    " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
+                    "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                
+                new QuanLyChiTietHoaDonBUS().deleteAll(mahd);
                 new QuanLyHoaDonBUS().delete(mahd);
+                
                 formHienThi.refresh();
             }
 

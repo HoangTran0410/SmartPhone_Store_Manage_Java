@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
@@ -116,6 +117,9 @@ public class ThemSuaTaiKhoanForm extends JFrame {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 this.dispose();
             }
+        });
+        btnChonNhanVien.addActionListener((ae) -> {
+            ChonNhanVienForm cnv = new ChonNhanVienForm(txMaNV);
         });
 
         this.setVisible(true);

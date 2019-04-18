@@ -56,7 +56,7 @@ public class QuanLyHoaDonDAO {
             return false;
         }
         connection.closeConnect();
-        return false;
+        return true;
     }
 
     public Boolean update(HoaDon hd) {
