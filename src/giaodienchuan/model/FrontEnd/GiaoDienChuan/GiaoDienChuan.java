@@ -73,7 +73,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
-            "Nhà cung cấp", "icons8_company_30px.png",
+            "Nhà cung cấp", "icons8_user_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
@@ -172,6 +172,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         add(header, BorderLayout.NORTH);
         add(plContent, BorderLayout.CENTER);
     }
+    
 
     public void doAction(String nameAction) {
         plContent.removeAll();
