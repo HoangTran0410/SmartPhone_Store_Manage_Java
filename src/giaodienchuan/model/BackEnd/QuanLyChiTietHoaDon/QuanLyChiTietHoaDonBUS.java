@@ -101,10 +101,10 @@ public class QuanLyChiTietHoaDonBUS {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon)) {
                     dscthd.remove(cthd);
-                    updateTongTien(_maHoaDon);
-                    return true;
                 }
             }
+            updateTongTien(_maHoaDon);
+            return true;
         }
         return false;
     }
