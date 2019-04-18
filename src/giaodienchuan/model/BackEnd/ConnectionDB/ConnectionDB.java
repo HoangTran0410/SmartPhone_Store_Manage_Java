@@ -45,7 +45,7 @@ public class ConnectionDB {
     // Kết nối tới DB
     private void setupConnect() {
         try {
-            String url = "jdbc:mysql://" + ipAddress + "/" + DB_Name;
+            String url = "jdbc:mysql://" + ipAddress + "/" + DB_Name + "?useUnicode=true&characterEncoding=UTF-8";
             conn = DriverManager.getConnection(url, user_Name, pass);
             stmt = conn.createStatement();
             System.out.println("**\nSuccess! Đã kết nối tới '" + DB_Name + "'");
