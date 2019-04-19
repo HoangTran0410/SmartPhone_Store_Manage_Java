@@ -110,7 +110,7 @@ public class ThemSuaChucVuForm extends JFrame {
             String macv = txMacv.getText();
             String tencv = txTencv.getText();
 
-            if (cvBUS.update(macv, tencv )) {
+            if (cvBUS.update(macv, tencv)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + macv + " thành công!");
                 this.dispose();
             }
