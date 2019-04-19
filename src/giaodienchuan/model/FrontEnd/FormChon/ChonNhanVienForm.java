@@ -17,14 +17,14 @@ public class ChonNhanVienForm extends JFrame {
 
     JButton btnOK = new JButton("Chọn");
     JButton btnCancel = new JButton("Thoát");
-    JTextField txTarget;
+    JTextField txMaNV;
 
-    public ChonNhanVienForm(JTextField _txTarget) {
+    public ChonNhanVienForm(JTextField _txMaNV) {
         this.setLayout(new BorderLayout());
         this.setTitle("Chọn nhân viên");
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
-        this.txTarget = _txTarget;
+        this.txMaNV = _txMaNV;
 
         // ======= Buttons Panel ===========
         btnCancel.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -41,7 +41,7 @@ public class ChonNhanVienForm extends JFrame {
         btnOK.addActionListener((ActionEvent ae) -> {
             String manv = formHienThi.getSelectedNhanVien();
             if (manv != null) {
-                this.txTarget.setText(manv);
+                this.txMaNV.setText(manv);
                 this.dispose();
 
             } else {

@@ -23,7 +23,7 @@ import javax.swing.event.DocumentListener;
 
 public class HienThiSanPham extends JPanel {
 
-    QuanLySanPhamBUS qlsp = new QuanLySanPhamBUS();
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
     MyTable mtb;
 
     JTextField txTim = new JTextField(15);
@@ -45,7 +45,7 @@ public class HienThiSanPham extends JPanel {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.RIGHT);
         mtb.setAlignment(5, JLabel.CENTER);
-        setDataToTable(qlsp.getDssp(), mtb);
+        setDataToTable(qlspBUS.getDssp(), mtb);
 
         // ======== search panel ===========
         cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
@@ -95,7 +95,7 @@ public class HienThiSanPham extends JPanel {
                 String masp = getSelectedSanPham(1);
                 if (masp != null) {
                     // show hình
-                    for (SanPham sp : qlsp.getDssp()) {
+                    for (SanPham sp : qlspBUS.getDssp()) {
                         if (sp.getMaSP().equals(masp)) {
                             // scale the product image
                             // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
@@ -123,8 +123,8 @@ public class HienThiSanPham extends JPanel {
     }
 
     public void refresh() {
-        qlsp.readDB();
-        setDataToTable(qlsp.getDssp(), mtb);
+        qlspBUS.readDB();
+        setDataToTable(qlspBUS.getDssp(), mtb);
     }
 
     public String getSelectedSanPham(int col) {
@@ -136,7 +136,7 @@ public class HienThiSanPham extends JPanel {
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+        setDataToTable(qlspBUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
