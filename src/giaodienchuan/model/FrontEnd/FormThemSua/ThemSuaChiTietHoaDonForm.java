@@ -88,6 +88,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             txMahd.setText(this.cthdSua.getMaHoaDon());
             txMahd.setEditable(false);
             txSoLuong.setText(String.valueOf(this.cthdSua.getSoLuong()));
+            txMasp.setText(this.masp);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
             plButton.add(btnSua);
