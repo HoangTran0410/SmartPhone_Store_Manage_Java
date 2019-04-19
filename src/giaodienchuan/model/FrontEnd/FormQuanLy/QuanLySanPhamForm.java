@@ -4,7 +4,6 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiSanPham;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaSanPhamForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
