@@ -109,8 +109,8 @@ public class QuanLySanPhamBUS {
         return ok;
     }
 
-    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
-        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong, url);
+    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong, String filename) {
+        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong, filename);
 
         if (ok) {
             dssp.forEach((sp) -> {
@@ -119,7 +119,7 @@ public class QuanLySanPhamBUS {
                     sp.setTenSP(tensp);
                     sp.setDonGia(dongia);
                     sp.setSoLuong(soluong);
-                    sp.setUrlHinhAnh(url);
+                    sp.setFileNameHinhAnh(filename);
                 }
             });
         }
