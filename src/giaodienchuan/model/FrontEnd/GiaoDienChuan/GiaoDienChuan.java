@@ -63,7 +63,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
-            "Bán hàng", "icons8_small_business_30px.png",
+            "Bán hàng", "icons8_small_business_30px_3.png",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
             "Hóa đơn", "icons8_agreement_30px.png",
@@ -90,7 +90,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
                 menu.addItem(s);
             } else {
-                System.out.println(navItemInfo[i + 1]);
                 NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], "/giaodienchuan/images/" + navItemInfo[i + 1]);
                 nb.addMouseListener(this);
                 menu.addItem(nb);
