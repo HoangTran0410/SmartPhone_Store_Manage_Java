@@ -56,6 +56,7 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
         
         this.setSize(900, 500);
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
     }
     

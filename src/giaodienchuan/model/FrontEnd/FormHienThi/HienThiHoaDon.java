@@ -5,8 +5,11 @@ import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,11 +26,15 @@ public class HienThiHoaDon extends JPanel {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
 
-    JTextField txTim = new JTextField(15);
-    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
+    JTextField txTim = new JTextField(10);
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng"/*, "Ngày lập", "Giờ lập", "Tổng tiền"*/});
 
     JButton btnRefresh = new JButton("Làm mới");
     JButton btnDetails = new JButton("Xem chi tiết");
+    JTextField txKhoangNgay1 = new JTextField(10);
+    JTextField txKhoangNgay2 = new JTextField(10);
+    JTextField txKhoangTien1 = new JTextField(10);
+    JTextField txKhoangTien2 = new JTextField(10);
 
     MyTable tbHoaDon;
 
@@ -42,13 +49,21 @@ public class HienThiHoaDon extends JPanel {
         tbHoaDon.setAlignment(5, JLabel.CENTER);
         tbHoaDon.setAlignment(6, JLabel.RIGHT);
         setDataToTable(qlhd.getDshd(), tbHoaDon);
-
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
+        JPanel plNangCao = new JPanel();
+        txKhoangNgay1.setBorder(BorderFactory.createTitledBorder("Từ ngày:"));
+        txKhoangNgay2.setBorder(BorderFactory.createTitledBorder("Đến ngày:"));
+        txKhoangTien1.setBorder(BorderFactory.createTitledBorder("Tổng tiền từ:"));
+        txKhoangTien2.setBorder(BorderFactory.createTitledBorder("Đến"));
+        plTim.add(txKhoangNgay1);
+        plTim.add(txKhoangNgay2);
+        plTim.add(txKhoangTien1);
+        plTim.add(txKhoangTien2);
         plHeader.add(plTim);
 
         btnDetails.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_show_property_30px.png")));
@@ -62,6 +77,10 @@ public class HienThiHoaDon extends JPanel {
 
         btnRefresh.addActionListener((ae) -> {
             refresh();
+        });
+        
+        cbTypeSearch.addActionListener((ae) -> {
+            txSearchOnChange();
         });
 
         btnDetails.addActionListener((ae) -> {
@@ -101,7 +120,39 @@ public class HienThiHoaDon extends JPanel {
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText()), tbHoaDon);
+//        if(txKhoangNgay1.getText().isEmpty())
+//            txKhoangNgay1.setText(txKhoangNgay2.getText().isEmpty()?"":txKhoangNgay2.getText());
+//        if(txKhoangNgay2.getText().isEmpty())
+//            txKhoangNgay2.setText(txKhoangNgay1.getText().isEmpty()?"":txKhoangNgay1.getText());
+//        if(txKhoangTien1.getText().isEmpty())
+//            txKhoangTien1.setText(txKhoangTien2.getText().isEmpty()?"":txKhoangTien2.getText());
+//        if(txKhoangTien2.getText().isEmpty())
+//            txKhoangTien2.setText(txKhoangTien1.getText().isEmpty()?"":txKhoangTien1.getText());
+        LocalDate ngay1;
+        LocalDate ngay2;
+        int tong1;
+        int tong2;
+        try{
+            ngay1 = java.time.LocalDate.parse(txKhoangNgay1.getText());
+        }catch(DateTimeParseException e){
+            ngay1=null;
+        }
+        try{
+            ngay2 = java.time.LocalDate.parse(txKhoangNgay2.getText());
+        }catch(DateTimeParseException e){
+            ngay2=null;
+        }
+        try{
+            tong1 = Integer.parseInt(txKhoangTien1.getText());
+        }catch(NumberFormatException e){
+            tong1=-1;
+        }
+        try{
+            tong2 = Integer.parseInt(txKhoangTien2.getText());
+        }catch(NumberFormatException e){
+            tong2=-1;
+        }
+        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(),ngay1,ngay2,tong1,tong2), tbHoaDon);
     }
 
     private void btnDetailsMouseClicked() {
