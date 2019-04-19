@@ -18,7 +18,7 @@ public class QuanLyQuyenDAO {
         qlqConnection = new ConnectionDB();
         ArrayList<Quyen> dsq = new ArrayList<>();
         try {
-            String qry = "SELECT * FROM sanpham";
+            String qry = "SELECT * FROM phanquyen";
             ResultSet r = qlqConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
@@ -65,7 +65,8 @@ public class QuanLyQuyenDAO {
     public Boolean add(Quyen q) {
         qlqConnection = new ConnectionDB();
         Boolean ok = qlqConnection.sqlUpdate("INSERT INTO `phanquyen` (`MaQuyen`, `ChiTietQuyen`) VALUES ('"
-                + q.getMaQuyen()+ "', '" + q.getChiTietQuyen()+ "');");
+                + q.getMaQuyen()+ "', '" 
+                + q.getChiTietQuyen()+ "');");
         qlqConnection.closeConnect();
         return ok;
     }
@@ -79,7 +80,9 @@ public class QuanLyQuyenDAO {
 
     public Boolean update(String maq, String chitietquyen) {
         qlqConnection = new ConnectionDB();
-        Boolean ok = qlqConnection.sqlUpdate("Update phanquyen Set ChiTietQuyen='" + chitietquyen + "' where MaQuyen='" + maq + "'");
+        Boolean ok = qlqConnection.sqlUpdate("Update phanquyen Set "
+                + "ChiTietQuyen='" + chitietquyen 
+                + "' where MaQuyen='" + maq + "'");
         qlqConnection.closeConnect();
         return ok;
     }

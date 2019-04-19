@@ -105,7 +105,7 @@ public class QuanLyQuyenBUS {
         return ok;
     }
 
-    public ArrayList<Quyen> getDssp() {
+    public ArrayList<Quyen> getDsq() {
         return dsq;
     }
 }

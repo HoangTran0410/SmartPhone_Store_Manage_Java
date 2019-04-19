@@ -3,6 +3,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonQuyenForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
@@ -120,6 +121,9 @@ public class ThemSuaTaiKhoanForm extends JFrame {
         });
         btnChonNhanVien.addActionListener((ae) -> {
             ChonNhanVienForm cnv = new ChonNhanVienForm(txMaNV);
+        });
+        btnChonQuyen.addActionListener((ae) -> {
+            ChonQuyenForm cq = new ChonQuyenForm(txMaQuyen, null);
         });
 
         this.setVisible(true);
