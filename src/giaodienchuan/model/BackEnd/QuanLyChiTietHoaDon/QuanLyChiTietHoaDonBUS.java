@@ -91,16 +91,6 @@ public class QuanLyChiTietHoaDonBUS {
         return success;
     }
     
-//    private int getSoLuongDaBan(String _masp){
-//        int tongSoLuongDaBan = 0;
-//        for (ChiTietHoaDon ct : dscthd) {
-//            if (ct.getMaSanPham().equals(_masp)) {
-//                tongSoLuongDaBan+=ct.getSoLuong();
-//            }
-//        }
-//        return tongSoLuongDaBan;
-//    }
-    
     private Boolean updateSoLuong(String _masp, int _soLuongThayDoi) {
         Boolean success = false;
         for (SanPham sp : qlspBUS.getDssp()){
@@ -110,8 +100,6 @@ public class QuanLyChiTietHoaDonBUS {
         }
         return success;
     }
-    
-    
 
     public Boolean delete(String _maHoaDon, String _maSanPham) {
         Boolean success = qlcthdDAO.delete(_maHoaDon, _maSanPham);

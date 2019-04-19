@@ -25,6 +25,14 @@ public class ChucVuBUS {
     public void readDB() { 
         dscv = qlcvDAO.readDB();
     }
+    
+    public ChucVu getChucVu(String macv) {
+        for(ChucVu cv : dscv) {
+            if(cv.getMaCV().equals(macv))
+                return cv;
+        }
+        return null;
+    }
 
     public ArrayList<ChucVu> search(String value, String type) {
         ArrayList<ChucVu> result = new ArrayList<>();

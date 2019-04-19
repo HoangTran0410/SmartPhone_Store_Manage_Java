@@ -25,6 +25,15 @@ public class QuanLyLoaiSanPhamBUS {
     public void readDB() {
         dslsp = qllspDAO.readDB();
     }
+    
+    public LoaiSanPham getLoaiSanPham(String maloai) {
+        for (LoaiSanPham lsp : dslsp) {
+            if (lsp.getMaLSP().equals(maloai)) {
+                return lsp;
+            }
+        }
+        return null;
+    }
 
     public ArrayList<LoaiSanPham> search(String value, String type) {
         // Phương pháp tìm từ database

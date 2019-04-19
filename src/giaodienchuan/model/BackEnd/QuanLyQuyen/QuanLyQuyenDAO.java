@@ -1,7 +1,6 @@
 package giaodienchuan.model.BackEnd.QuanLyQuyen;
 
 import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

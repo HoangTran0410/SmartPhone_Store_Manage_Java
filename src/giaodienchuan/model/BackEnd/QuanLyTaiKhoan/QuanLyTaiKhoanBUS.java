@@ -28,6 +28,15 @@ public class QuanLyTaiKhoanBUS {
         dstk = qltkDAO.readDB();
     }
 
+    public TaiKhoan getTaiKhoan(String tentk) {
+        for (TaiKhoan tk : dstk) {
+            if (tk.getUsername().equals(tentk)) {
+                return tk;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<TaiKhoan> search(String value, String type) {
         ArrayList<TaiKhoan> result = new ArrayList<>();
 

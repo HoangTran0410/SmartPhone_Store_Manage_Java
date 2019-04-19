@@ -29,13 +29,15 @@ public class QuanLySanPhamBUS {
         dssp = qlspDAO.readDB();
     }
 
-    public ArrayList<SanPham> search(String value, String type) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
+    public SanPham getSanPham(String masp) {
+        for (SanPham sp : dssp) {
+            if(sp.getMaSP().equals(masp))
+                return sp;
+        }
+        return null;
+    }
 
-        // phương pháp tìm từ arraylist
+    public ArrayList<SanPham> search(String value, String type) {
         ArrayList<SanPham> result = new ArrayList<>();
 
         dssp.forEach((sp) -> {
@@ -90,7 +92,7 @@ public class QuanLySanPhamBUS {
         }
         return ok;
     }
-    
+
     public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
         SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong, url);
         return add(sp);
@@ -126,7 +128,7 @@ public class QuanLySanPhamBUS {
 
         return ok;
     }
-    
+
     public Boolean updateSoLuong(String masp, int soluong) {
         Boolean ok = qlspDAO.updateSoLuong(masp, soluong);
 
@@ -139,8 +141,8 @@ public class QuanLySanPhamBUS {
         }
 
         return ok;
-    }   
-    
+    }
+
     public ArrayList<SanPham> getDssp() {
         return dssp;
     }

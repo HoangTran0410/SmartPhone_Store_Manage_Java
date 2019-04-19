@@ -28,6 +28,15 @@ public class QuanLyKhachHangBUS {
     public void readDB() {
         dskh = qlkhDAO.readDB();
     }
+    
+    public KhachHang getKhachHang(String makh) {
+        for (KhachHang kh : dskh) {
+            if (kh.getMaKH().equals(makh)) {
+                return kh;
+            }
+        }
+        return null;
+    }
 
     public ArrayList<KhachHang> search(String value, String type) {
 

@@ -29,6 +29,14 @@ public class QuanLyNhanVienBUS {
     public void readDB() {
         dsnv = qlnvDAO.readDB();
     }
+    
+    public NhanVien getNhanVien(String manv) {
+        for (NhanVien nv : dsnv) {
+            if(nv.getMaNV().equals(manv))
+                return nv;
+        }
+        return null;
+    }
 
     public ArrayList<NhanVien> search(String value, String type) {
         ArrayList<NhanVien> result = new ArrayList<>();

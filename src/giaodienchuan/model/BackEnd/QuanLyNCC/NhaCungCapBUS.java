@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package giaodienchuan.model.BackEnd.QuanLyNCC;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Admin
- */
 public class NhaCungCapBUS {
-    
+
     public ArrayList<NhaCungCap> dsncc = new ArrayList<>();
-    NhaCungCapDAO qlnccDAO= new NhaCungCapDAO();
+    NhaCungCapDAO qlnccDAO = new NhaCungCapDAO();
+
     public void show() {
         dsncc.forEach((ncc) -> {
             System.out.print(ncc.getMaNCC() + " ");
@@ -26,17 +18,18 @@ public class NhaCungCapBUS {
     }
 
     public void readDB() {
-        
         dsncc = qlnccDAO.readDB();
-        
     }
-    public ArrayList<NhaCungCap> search(String value, String type) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
+    
+    public NhaCungCap getNhaCungCap(String mancc) {
+        for(NhaCungCap ncc : dsncc) {
+            if(ncc.getMaNCC().equals(mancc))
+                return ncc;
+        }
+        return null;
+    }
 
-        // phương pháp tìm từ arraylist
+    public ArrayList<NhaCungCap> search(String value, String type) {
         ArrayList<NhaCungCap> result = new ArrayList<>();
 
         dsncc.forEach((ncc) -> {
@@ -84,9 +77,8 @@ public class NhaCungCapBUS {
     }
 
     public Boolean add(NhaCungCap ncc) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.add(ncc);
-       
+        qlnccDAO = new NhaCungCapDAO();
+        Boolean ok = qlnccDAO.add(ncc);
 
         if (ok) {
             dsncc.add(ncc);
@@ -95,14 +87,13 @@ public class NhaCungCapBUS {
     }
 
     public Boolean add(String ma, String ten, String diachi, String sdt, String fax) {
-        NhaCungCap sv = new NhaCungCap(ma, ten, diachi, sdt, fax);
-        return add(sv);
+        NhaCungCap ncc = new NhaCungCap(ma, ten, diachi, sdt, fax);
+        return add(ncc);
     }
 
     public Boolean delete(String mancc) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.delete(mancc);
-       
+        qlnccDAO = new NhaCungCapDAO();
+        Boolean ok = qlnccDAO.delete(mancc);
 
         if (ok) {
             for (int i = (dsncc.size() - 1); i >= 0; i--) {
@@ -115,9 +106,8 @@ public class NhaCungCapBUS {
     }
 
     public Boolean update(String mancc, String tenncc, String diachi, String sdt, String fax) {
-        NhaCungCapDAO DAO = new NhaCungCapDAO();
-        Boolean ok = DAO.update(mancc, tenncc, diachi, sdt, fax);
-       
+        qlnccDAO = new NhaCungCapDAO();
+        Boolean ok = qlnccDAO.update(mancc, tenncc, diachi, sdt, fax);
 
         if (ok) {
             dsncc.forEach((ncc) -> {
@@ -132,7 +122,8 @@ public class NhaCungCapBUS {
 
         return ok;
     }
-public ArrayList<NhaCungCap> getDsncc() {
+
+    public ArrayList<NhaCungCap> getDsncc() {
         return dsncc;
     }
 }

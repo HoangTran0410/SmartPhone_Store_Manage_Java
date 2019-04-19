@@ -13,7 +13,7 @@ public class QuanLyQuyenBUS {
 
     public void showConsole() {
         dsq.forEach((q) -> {
-            System.out.print(q.getMaQuyen()+ " ");
+            System.out.print(q.getMaQuyen() + " ");
             System.out.print(q.getChiTietQuyen());
         });
     }
@@ -24,6 +24,15 @@ public class QuanLyQuyenBUS {
 
     public void readDB() {
         dsq = qlqDAO.readDB();
+    }
+
+    public Quyen getQuyen(String maquyen) {
+        for (Quyen q : dsq) {
+            if (q.getMaQuyen().equals(maquyen)) {
+                return q;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Quyen> search(String value, String type) {

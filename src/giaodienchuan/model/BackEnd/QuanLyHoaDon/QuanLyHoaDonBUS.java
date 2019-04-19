@@ -2,7 +2,7 @@ package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 
 public class QuanLyHoaDonBUS {
@@ -20,6 +20,14 @@ public class QuanLyHoaDonBUS {
 
     public void readDB() {
         dshd = qlhdDAO.readDB();
+    }
+    
+    public HoaDon getHoaDon(String mahd) {
+        for(HoaDon hd : dshd) {
+            if(hd.getMaHoaDon().equals(mahd)) 
+                return hd;
+        }
+        return null;
     }
 
     public Boolean add(HoaDon hd) {
@@ -116,69 +124,60 @@ public class QuanLyHoaDonBUS {
                         tempResult.add(hd);
                     }
                     break;
-
-//                case "Ngày lập":
-//                    if (hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
-//                        result.add(hd);
-//                    }
-//                    break;
-//
-//                case "Giờ lập":
-//                    if (hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
-//                        result.add(hd);
-//                    }
-//                    break;
-//                case "Tổng tiền":
-//                    if (String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
-//                        result.add(hd);
-//                    }
-//                    break;
             }
         });
-        
+
         //Ngay lap
-        if(_ngay1 != null && _ngay2 != null){
+        if (_ngay1 != null && _ngay2 != null) {
             tempResult.forEach((hd) -> {
-                if((hd.getNgayLap().isAfter(_ngay1) || hd.getNgayLap().isEqual(_ngay1)) && (hd.getNgayLap().isBefore(_ngay2) || hd.getNgayLap().isEqual(_ngay2)))
+                LocalDate ngaylap = hd.getNgayLap();
+                if ((ngaylap.isAfter(_ngay1) || ngaylap.isEqual(_ngay1)) 
+                        && (ngaylap.isBefore(_ngay2) || ngaylap.isEqual(_ngay2))) {
                     tempResult2.add(hd);
+                }
             });
-        }else if(_ngay1 == null && _ngay2 == null){
+        } else if (_ngay1 == null && _ngay2 == null) {
             tempResult.forEach((t) -> {
                 tempResult2.add(t);
             });
-        }
-        else if(_ngay2 == null){
+        } else if (_ngay2 == null) {
             tempResult.forEach((hd) -> {
-                if(hd.getNgayLap().isAfter(_ngay1) || hd.getNgayLap().isEqual(_ngay1) )
+                LocalDate ngaylap = hd.getNgayLap();
+                if (ngaylap.isAfter(_ngay1) || ngaylap.isEqual(_ngay1)) {
                     tempResult2.add(hd);
+                }
             });
-        }else if(_ngay1 == null){
+        } else if (_ngay1 == null) {
             tempResult.forEach((hd) -> {
-                if(hd.getNgayLap().isBefore(_ngay2) || hd.getNgayLap().isEqual(_ngay2))
+                LocalDate ngaylap = hd.getNgayLap();
+                if (ngaylap.isBefore(_ngay2) || ngaylap.isEqual(_ngay2)) {
                     tempResult2.add(hd);
+                }
             });
         }
-        
+
         //Tong tien
-        if(_tong1 != -1 && _tong2 != -1){
+        if (_tong1 != -1 && _tong2 != -1) {
             tempResult2.forEach((hd) -> {
-                if(hd.getTongTien() >= _tong1 && hd.getTongTien() <= _tong2)
+                if (hd.getTongTien() >= _tong1 && hd.getTongTien() <= _tong2) {
                     finalResult.add(hd);
+                }
             });
-        }else if(_tong1 == -1 && _tong2 == -1){
+        } else if (_tong1 == -1 && _tong2 == -1) {
             tempResult2.forEach((t) -> {
                 finalResult.add(t);
             });
-        }
-        else if(_tong2 == -1){
+        } else if (_tong2 == -1) {
             tempResult2.forEach((hd) -> {
-                if(hd.getTongTien() >= _tong1)
+                if (hd.getTongTien() >= _tong1) {
                     finalResult.add(hd);
+                }
             });
-        }else if(_tong1 == -1){
+        } else if (_tong1 == -1) {
             tempResult2.forEach((hd) -> {
-                if(hd.getTongTien() <= _tong2)
+                if (hd.getTongTien() <= _tong2) {
                     finalResult.add(hd);
+                }
             });
         }
         return finalResult;
