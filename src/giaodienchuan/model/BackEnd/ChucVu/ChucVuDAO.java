@@ -79,7 +79,7 @@ public class ChucVuDAO {
 
     public Boolean update(String MaCV, String TenCV) {
         cvConnection = new ConnectionDB();
-        Boolean ok = cvConnection.sqlUpdate("Update ChucVu Set MaCV='" + MaCV + "',TenCV='" + TenCV + "'");
+        Boolean ok = cvConnection.sqlUpdate("Update ChucVu Set TenCV='" + TenCV + "' WHERE MaCV='" + MaCV + "'");
         cvConnection.closeConnect();
         return ok;
     }
