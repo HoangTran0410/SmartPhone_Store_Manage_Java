@@ -31,7 +31,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1200, HEIGHT = 800;
+    final int WIDTH = 1500, HEIGHT = 900;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -63,6 +63,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
+            "Bán hàng", "icons8_small_business_30px.png",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
             "Hóa đơn", "icons8_agreement_30px.png",
@@ -177,6 +178,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void doAction(String nameAction) {
         plContent.removeAll();
         switch (nameAction) {
+            case "Bán hàng":
+                emptypage.setLabelText("Bán hàng đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
+
             case "Sản phẩm":
                 if (qlsp == null) {
                     qlsp = new QuanLySanPhamForm();
@@ -272,14 +278,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         if (me.getSource() instanceof NavBarButton) {
 
             NavBarButton btn = (NavBarButton) me.getSource();
-            if (!btn.text.equals("Thoát") && !btn.text.equals("Thu nhỏ")) {
-                if (currentTab != null) {
-                    currentTab.setActive(false);
-                }
-
-                btn.setActive(true);
-                currentTab = btn;
+            if (currentTab != null) {
+                currentTab.setActive(false);
             }
+
+            btn.setActive(true);
+            currentTab = btn;
             doAction(btn.text);
         }
     }
