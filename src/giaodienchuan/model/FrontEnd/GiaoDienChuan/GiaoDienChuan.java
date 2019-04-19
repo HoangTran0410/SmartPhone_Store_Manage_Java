@@ -31,7 +31,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1500, HEIGHT = 900;
+    final int WIDTH = 1400, HEIGHT = 850;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -90,7 +90,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
                 menu.addItem(s);
             } else {
-                NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], "/giaodienchuan/images/" + navItemInfo[i + 1]);
+                NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
                 nb.addMouseListener(this);
                 menu.addItem(nb);
             }
@@ -121,7 +121,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // Close Button
         int btnWidth = 50;
         int iconSize = 30;
-        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "abc", "/giaodienchuan/images/icons8_shutdown_30px_1.png");
+        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "abc", "icons8_shutdown_30px_1.png");
         btnClose.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnClose.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnClose.setBgHover(new Color(190, 45, 45));
@@ -139,7 +139,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         header.addItem(btnClose, false);
 
         // Minimize Button
-        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "abc", "/giaodienchuan/images/icons8_angle_down_30px.png");
+        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "abc", "icons8_angle_down_30px.png");
         btnMinimize.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnMinimize.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnMinimize.setBgHover(new Color(49, 49, 49));
@@ -248,9 +248,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                     qlncc = new NhaCungCapFORM();
                 }
                 plContent.add(qlncc, BorderLayout.CENTER);
-
-//                emptypage.setLabelText("Quản lý nhà cung cấp đang bảo trì");
-//                plContent.add(emptypage, BorderLayout.CENTER);
                 break;
 
             case "Thống kê":

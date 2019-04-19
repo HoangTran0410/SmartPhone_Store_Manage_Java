@@ -61,7 +61,7 @@ public class NavBarButton extends NavBarItem {
     // ======== setup Icon ==========
     public void setIconFromString(String iconUrl) {
         lbIcon = new JLabel();
-        lbIcon.setIcon(new ImageIcon(getClass().getResource(iconUrl)));
+        lbIcon.setIcon(new ImageIcon(getClass().getResource("/giaodienchuan/images/" + iconUrl)));
         add(lbIcon);
     }
     
