@@ -21,7 +21,7 @@ public class HienThiChiTietHoaDon extends JPanel {
     QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
 
     JTextField txTim = new JTextField(15);
-    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả"/*, "Mã hóa đơn"*/, "Mã sản phẩm", "Số lượng", "Đơn giá"});
     JButton btnRefresh = new JButton("Làm mới");
     String mahd;
 
