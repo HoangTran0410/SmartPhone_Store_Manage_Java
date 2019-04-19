@@ -97,8 +97,13 @@ public class HienThiSanPham extends JPanel {
                     // show hình
                     for (SanPham sp : qlsp.getDssp()) {
                         if (sp.getMaSP().equals(masp)) {
+                            // scale the product image
                             // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-                            lbImage.setIcon(new ImageIcon(new ImageIcon(sp.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
+                            int w = lbImage.getWidth();
+                            int h = lbImage.getHeight();
+                            ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
+                            Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
+                            lbImage.setIcon(new ImageIcon(imgScaled));
                         }
                     }
 

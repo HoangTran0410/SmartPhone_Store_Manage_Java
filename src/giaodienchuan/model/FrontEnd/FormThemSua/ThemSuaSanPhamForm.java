@@ -60,7 +60,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         plChonLoai.add(btnChonLoai);
 
         JPanel plChonAnh = new JPanel();
-        plChonAnh.setBorder(BorderFactory.createTitledBorder("Url Hình ảnh"));
+        plChonAnh.setBorder(BorderFactory.createTitledBorder("Tên file ảnh"));
         plChonAnh.add(txHinhAnh);
         plChonAnh.add(btnChonAnh);
 
@@ -102,7 +102,7 @@ public class ThemSuaSanPhamForm extends JFrame {
             txTen.setText(this.spSua.getTenSP());
             txGia.setText(String.valueOf(this.spSua.getDonGia()));
             txSoLuong.setText(String.valueOf(this.spSua.getSoLuong()));
-            txHinhAnh.setText(this.spSua.getUrlHinhAnh().replace("\\", "\\\\"));
+            txHinhAnh.setText(this.spSua.getFileNameHinhAnh());
 
             txMasp.setEditable(false);
 
@@ -179,11 +179,9 @@ public class ThemSuaSanPhamForm extends JFrame {
 
     private void btnChonAnhMouseClicked() {
         fdChooseImg.setVisible(true);
-        String url = fdChooseImg.getDirectory() + fdChooseImg.getFile();
-        if (!url.equals("nullnull")) {
-            // https://stackoverflow.com/questions/2242417/how-to-remove-the-backslash-in-string-using-regex-in-java
-            url = url.replace("\\", "\\\\");
-            txHinhAnh.setText(url);
+        String filename = fdChooseImg.getFile();
+        if (filename != null) {
+            txHinhAnh.setText(filename);
         }
     }
 

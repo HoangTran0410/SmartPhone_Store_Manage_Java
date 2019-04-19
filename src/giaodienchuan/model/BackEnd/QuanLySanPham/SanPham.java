@@ -1,8 +1,8 @@
-
 package giaodienchuan.model.BackEnd.QuanLySanPham;
 
 public class SanPham {
-    String MaSP, MaLSP, TenSP, urlHinhAnh;
+
+    String MaSP, MaLSP, TenSP, fileNameHinhAnh;
     float DonGia;
     int SoLuong;
 
@@ -12,17 +12,17 @@ public class SanPham {
         this.TenSP = TenSP;
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
-        this.urlHinhAnh = url;
+        this.fileNameHinhAnh = url;
     }
 
-    public String getUrlHinhAnh() {
-        return urlHinhAnh;
+    public String getFileNameHinhAnh() {
+        return fileNameHinhAnh;
     }
 
-    public void setUrlHinhAnh(String urlHinhAnh) {
-        this.urlHinhAnh = urlHinhAnh;
+    public void setFileNameHinhAnh(String fileNameHinhAnh) {
+        this.fileNameHinhAnh = fileNameHinhAnh;
     }
-    
+
     // get set
     public String getMaSP() {
         return MaSP;
@@ -63,6 +63,5 @@ public class SanPham {
     public void setSoLuong(int SoLuong) {
         this.SoLuong = SoLuong;
     }
-    
-    
+
 }
