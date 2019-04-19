@@ -134,7 +134,7 @@ public class HienThiSanPham extends JPanel {
         }
         return null;
     }
-    
+
     private void txSearchOnChange() {
         setDataToTable(qlsp.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
