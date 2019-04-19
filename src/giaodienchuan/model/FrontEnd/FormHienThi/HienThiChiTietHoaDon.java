@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -22,7 +21,7 @@ public class HienThiChiTietHoaDon extends JPanel {
 
     JTextField txTim = new JTextField(15);
 
-    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả"/*, "Mã hóa đơn"*/, "Mã sản phẩm", "Số lượng", "Đơn giá"});
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã sản phẩm", "Số lượng", "Đơn giá"});
     JButton btnRefresh = new JButton("Làm mới");
     String mahd;
 
@@ -33,12 +32,12 @@ public class HienThiChiTietHoaDon extends JPanel {
         this.mahd = _mahd;
 
         mtb = new MyTable();
-        mtb.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã sản phẩm", "Số lượng", "Đơn giá"});
-        mtb.setColumnsWidth(new double[]{.5, 4, 4, 4, 4});
+        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
+        mtb.setColumnsWidth(new double[]{.5, 4, 4, 4, 4, 4});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(1, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
-        mtb.setAlignment(3, JLabel.CENTER);
+        mtb.setAlignment(3, JLabel.RIGHT);
         mtb.setAlignment(4, JLabel.RIGHT);
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);
 
@@ -103,9 +102,13 @@ public class HienThiChiTietHoaDon extends JPanel {
     private void setDataToTable(ArrayList<ChiTietHoaDon> data, MyTable mtb) {
         mtb.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        for (ChiTietHoaDon hd : data) {
-            mtb.addRow(new String[]{String.valueOf(stt), hd.getMaHoaDon(), hd.getMaSanPham(),
-                String.valueOf(hd.getSoLuong()), String.valueOf(hd.getDonGia())});
+        for (ChiTietHoaDon cthd : data) {
+            mtb.addRow(new String[]{
+                String.valueOf(stt),
+                cthd.getMaSanPham(),
+                String.valueOf(cthd.getSoLuong()), 
+                String.valueOf(cthd.getDonGia()), 
+                String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});
             stt++;
         }
     }
