@@ -5,6 +5,7 @@ import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
@@ -199,12 +200,16 @@ public class HienThiHoaDon extends JPanel {
         int tong2;
         try{
             ngay1 = java.time.LocalDate.parse(txKhoangNgay1.getText());
+            txKhoangNgay1.setForeground(Color.black);
         }catch(DateTimeParseException e){
+            txKhoangNgay1.setForeground(Color.red);
             ngay1=null;
         }
         try{
             ngay2 = java.time.LocalDate.parse(txKhoangNgay2.getText());
+            txKhoangNgay2.setForeground(Color.black);
         }catch(DateTimeParseException e){
+            txKhoangNgay2.setForeground(Color.red);
             ngay2=null;
         }
         try{
