@@ -51,6 +51,10 @@ public class HienThiChiTietHoaDon extends JPanel {
 
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
+        
+        btnRefresh.addActionListener((ae) -> {
+            refresh();
+        });
 
         txTim.getDocument().addDocumentListener(new DocumentListener() {
             @Override
