@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -107,12 +108,13 @@ public class HienThiSanPham extends JPanel {
 
         JPanel plcenterImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
+        lbImage.setBorder(BorderFactory.createLineBorder(Color.black));
         plcenterImage.add(lbImage);
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
-        this.add(plcenterImage, BorderLayout.SOUTH);
+        this.add(plcenterImage, BorderLayout.WEST);
     }
 
     public void refresh() {

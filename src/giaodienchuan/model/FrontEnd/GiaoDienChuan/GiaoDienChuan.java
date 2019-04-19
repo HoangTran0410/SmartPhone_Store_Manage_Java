@@ -32,7 +32,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1200, HEIGHT = 800;
+    final int WIDTH = 1500, HEIGHT = 900;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -65,17 +65,19 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2",
+            "Bán hàng", "icons8_small_business_30px_3.png",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png",
             "Hóa đơn", "icons8_agreement_30px.png",
             "Phiếu nhập", "icons8_truck_30px.png",
             "seperate", "1",
-            "Quyền", "icons8_police_badge_30px.png",
-            "Tài khoản", "icons8_key_30px.png",
-            "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Nhân viên", "icons8_assistant_30px.png",
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_company_30px.png",
+            "seperate", "1",
+            "Chức vụ", "icons8_flow_chart_30px_1.png",
+            "Tài khoản", "icons8_key_30px.png",
+            "Quyền", "icons8_police_badge_30px.png",
             "seperate", "1",
             "Thống kê", "icons8_bar_chart_30px.png",
             "Công cụ", "icons8_maintenance_30px.png",
@@ -178,6 +180,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void doAction(String nameAction) {
         plContent.removeAll();
         switch (nameAction) {
+            case "Bán hàng":
+                emptypage.setLabelText("Bán hàng đang bảo trì");
+                plContent.add(emptypage, BorderLayout.CENTER);
+                break;
+
             case "Sản phẩm":
                 if (qlsp == null) {
                     qlsp = new QuanLySanPhamForm();
@@ -274,14 +281,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         if (me.getSource() instanceof NavBarButton) {
 
             NavBarButton btn = (NavBarButton) me.getSource();
-            if (!btn.text.equals("Thoát") && !btn.text.equals("Thu nhỏ")) {
-                if (currentTab != null) {
-                    currentTab.setActive(false);
-                }
-
-                btn.setActive(true);
-                currentTab = btn;
+            if (currentTab != null) {
+                currentTab.setActive(false);
             }
+
+            btn.setActive(true);
+            currentTab = btn;
             doAction(btn.text);
         }
     }

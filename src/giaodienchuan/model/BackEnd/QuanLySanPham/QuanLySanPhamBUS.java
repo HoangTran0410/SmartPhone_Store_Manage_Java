@@ -126,7 +126,21 @@ public class QuanLySanPhamBUS {
 
         return ok;
     }
+    
+    public Boolean updateSoLuong(String masp, int soluong) {
+        Boolean ok = qlspDAO.updateSoLuong(masp, soluong);
 
+        if (ok) {
+            dssp.forEach((sp) -> {
+                if (sp.getMaSP().equals(masp)) {
+                    sp.setSoLuong(soluong);
+                }
+            });
+        }
+
+        return ok;
+    }   
+    
     public ArrayList<SanPham> getDssp() {
         return dssp;
     }

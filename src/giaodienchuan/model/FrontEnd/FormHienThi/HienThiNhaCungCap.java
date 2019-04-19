@@ -10,8 +10,6 @@ import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,46 +28,50 @@ import javax.swing.event.DocumentListener;
  *
  * @author Admin
  */
-public class HienThiNhaCungCap extends JPanel{
-    NhaCungCapBUS BUS= new NhaCungCapBUS();
+public class HienThiNhaCungCap extends JPanel {
+
+    NhaCungCapBUS BUS = new NhaCungCapBUS();
     MyTable mtb;
-    JTextField txTim=new JTextField(20);
+    JTextField txTim = new JTextField(20);
     JComboBox<String> cbTypeSearch;
     JLabel lbImage = new JLabel();
-    JButton btnRefresh=new JButton("Làm mới");
-    final int MANCC_I = 1,  TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
-     public HienThiNhaCungCap(){
+    JButton btnRefresh = new JButton("Làm mới");
+    final int MANCC_I = 1, TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
+
+    public HienThiNhaCungCap() {
+        setLayout(new BorderLayout());
+        
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT","Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
-        
+        mtb.setHeaders(new String[]{"STT", "Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
+
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.RIGHT);
         mtb.setAlignment(5, JLabel.CENTER);
         setDataToTable(BUS.getDsncc(), mtb);
-        
+
         cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã NCC", "Tên NCC", "Địa chỉ", "Điện thoại", "Fax"});
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
-       
+
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
         // nó k đọc dc database cho chut, t dang gap loi
-        
+
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
-        
+
         cbTypeSearch.addActionListener((ActionEvent e) -> {
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
                 txSearchOnChange();
             }
         });
-        
+
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -95,15 +97,18 @@ public class HienThiNhaCungCap extends JPanel{
             public void mouseReleased(MouseEvent me) {
                 String mancc = getSelectedNhaCungCap(1);
                 if (mancc != null) {
-                    for(NhaCungCap ncc : BUS.getDsncc()) {
-                        if(ncc.getMaNCC().equals(mancc)) {
-                                                    }
+                   // show hình
+                    for (NhaCungCap ncc : BUS.getDsncc()) {
+                        if (ncc.getMaNCC().equals(mancc)) {
+                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
+//                            lbImage.setIcon(new ImageIcon(new ImageIcon(.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
+                        }
                     }
-                    
+
                 }
             }
         });
-        
+
         JPanel plcenterImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
         plcenterImage.add(lbImage);
@@ -112,8 +117,9 @@ public class HienThiNhaCungCap extends JPanel{
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
         this.add(plcenterImage, BorderLayout.SOUTH);
-     }
-     private void setDataToTable(ArrayList<NhaCungCap> data, MyTable table) {
+    }
+
+    private void setDataToTable(ArrayList<NhaCungCap> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (NhaCungCap ncc : data) {
@@ -122,7 +128,8 @@ public class HienThiNhaCungCap extends JPanel{
             stt++;
         }
     }
-     public void refresh() {
+
+    public void refresh() {
         BUS.readDB();
         setDataToTable(BUS.getDsncc(), mtb);
     }
