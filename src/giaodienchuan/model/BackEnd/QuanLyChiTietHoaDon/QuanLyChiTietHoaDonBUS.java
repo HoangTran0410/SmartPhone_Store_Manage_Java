@@ -1,6 +1,8 @@
 package giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon;
 
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import java.util.ArrayList;
 
 public class QuanLyChiTietHoaDonBUS {
@@ -8,6 +10,7 @@ public class QuanLyChiTietHoaDonBUS {
     ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
     private QuanLyChiTietHoaDonDAO qlcthd = new QuanLyChiTietHoaDonDAO();
     private QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
+    private QuanLySanPhamBUS qlsp = new QuanLySanPhamBUS();
 
     public QuanLyChiTietHoaDonBUS() {
         dscthd = qlcthd.readDB();
@@ -30,6 +33,7 @@ public class QuanLyChiTietHoaDonBUS {
                 toRemove.add(cthd);
             }
         }
+        updateSoLuong(hd.getMaSanPham(), -hd.getSoLuong());
         dscthd.removeAll(toRemove);
         hd.setSoLuong(soLuong);
 
@@ -51,24 +55,25 @@ public class QuanLyChiTietHoaDonBUS {
         return add(hd);
     }
 
-    public Boolean update(String maHoaDon, String maSanPham, int soLuong, float donGia) {
-        ChiTietHoaDon hd = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia);
-        return update(hd);
-    }
+//    public Boolean update(String maHoaDon, String maSanPham, int soLuong, float donGia) {
+//        ChiTietHoaDon hd = new ChiTietHoaDon(maHoaDon, maSanPham, soLuong, donGia);
+//        return update(hd);
+//    }
 
-    public Boolean update(ChiTietHoaDon hd) {
-        Boolean success = qlcthd.update(hd);
-        if (success) {
-            for (ChiTietHoaDon cthd : dscthd) {
-                if (cthd.getMaHoaDon().equals(hd.getMaHoaDon())) {
-                    cthd = hd;
-                }
-            }
-            updateTongTien(hd.getMaHoaDon());
-        }
-
-        return success;
-    }
+//    public Boolean update(ChiTietHoaDon hd) {
+//        Boolean success = qlcthd.update(hd);
+//        if (success) {
+//            for (ChiTietHoaDon cthd : dscthd) {
+//                if (cthd.getMaHoaDon().equals(hd.getMaHoaDon()) && cthd.getMaSanPham().equals(hd.getMaSanPham())) {
+//                    updateSoLuong(cthd.getMaSanPham(), hd.getSoLuong()-cthd.getSoLuong());
+//                    cthd = hd;
+//                }
+//            }
+//            updateTongTien(hd.getMaHoaDon());
+//        }
+//
+//        return success;
+//    }
 
     private Boolean updateTongTien(String _mahd) {
         float tong = 0;
@@ -80,13 +85,36 @@ public class QuanLyChiTietHoaDonBUS {
         Boolean success = qlhd.updateTongTien(_mahd, tong);
         return success;
     }
+    
+//    private int getSoLuongDaBan(String _masp){
+//        int tongSoLuongDaBan = 0;
+//        for (ChiTietHoaDon ct : dscthd) {
+//            if (ct.getMaSanPham().equals(_masp)) {
+//                tongSoLuongDaBan+=ct.getSoLuong();
+//            }
+//        }
+//        return tongSoLuongDaBan;
+//    }
+    
+    private Boolean updateSoLuong(String _masp, int _soLuongThayDoi) {
+        Boolean success = false;
+        for (SanPham sp : qlsp.getDssp()){
+            if(sp.getMaSP().equals(_masp)){
+                success = qlsp.updateSoLuong(_masp,sp.getSoLuong() + _soLuongThayDoi);
+            }
+        }
+        return success;
+    }
+    
+    
 
     public Boolean delete(String _maHoaDon, String _maSanPham) {
         Boolean success = qlcthd.delete(_maHoaDon, _maSanPham);
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon) && cthd.getMaSanPham().equals(_maSanPham)) {
-                    dscthd.remove(cthd);
+                    updateSoLuong(_maSanPham, cthd.getSoLuong());
+                    dscthd.remove(cthd);   
                     updateTongTien(_maHoaDon);
                     return true;
                 }

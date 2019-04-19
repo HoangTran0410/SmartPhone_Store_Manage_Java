@@ -92,6 +92,13 @@ public class QuanLySanPhamDAO {
         qlspConnection.closeConnect();
         return ok;
     }
+    
+    public Boolean updateSoLuong(String _masp,int _soLuong){
+        qlspConnection = new ConnectionDB();
+        Boolean ok = qlspConnection.sqlUpdate("UPDATE SanPham SET SoLuong='"+_soLuong+"' WHERE MaSP='"+_masp+"'");
+        qlspConnection.closeConnect();
+        return ok;
+    }
 
     public void close() {
         qlspConnection.closeConnect();
