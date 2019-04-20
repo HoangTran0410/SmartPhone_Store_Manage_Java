@@ -2,16 +2,10 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -40,13 +34,13 @@ public class HienThiQuyen extends JPanel {
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã quyền", "Chi tiết quyền"});
-        mtb.setColumnsWidth(new double[]{.5, 2, 2});
+        mtb.setHeaders(new String[]{"STT", "Mã quyền", "Tên quyền", "Chi tiết quyền"});
+        mtb.setColumnsWidth(new double[]{.5, 2, 2, 2});
         mtb.setAlignment(0, JLabel.CENTER);
         setDataToTable(qlqBUS.getDsq(), mtb);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã quyền", "Chi tiết quyền"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã quyền", "Tên quyền", "Chi tiết quyền"});
 
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
@@ -115,8 +109,9 @@ public class HienThiQuyen extends JPanel {
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (Quyen q : data) {
             table.addRow(new String[]{
-                String.valueOf(stt), 
+                String.valueOf(stt),
                 q.getMaQuyen(),
+                q.getTenQuyen(),
                 q.getChiTietQuyen()});
             stt++;
         }

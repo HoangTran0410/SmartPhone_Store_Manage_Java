@@ -23,9 +23,10 @@ public class QuanLyQuyenDAO {
             if (r != null) {
                 while (r.next()) {
                     String maq = r.getString("MaQuyen");
+                    String tenq = r.getString("TenQuyen");
                     String chitietq = r.getString("ChiTietQuyen");
                     
-                    dsq.add(new Quyen(maq, chitietq));
+                    dsq.add(new Quyen(maq, tenq, chitietq));
                 }
             }
 
@@ -47,9 +48,10 @@ public class QuanLyQuyenDAO {
             if (r != null) {
                 while (r.next()) {
                     String maq = r.getString("MaQuyen");
+                    String tenq = r.getString("TenQuyen");
                     String chitietq = r.getString("ChiTietQuyen");
                     
-                    dsq.add(new Quyen(maq, chitietq));
+                    dsq.add(new Quyen(maq, tenq, chitietq));
                 }
             }
 
@@ -64,8 +66,9 @@ public class QuanLyQuyenDAO {
 
     public Boolean add(Quyen q) {
         qlqConnection = new ConnectionDB();
-        Boolean ok = qlqConnection.sqlUpdate("INSERT INTO `phanquyen` (`MaQuyen`, `ChiTietQuyen`) VALUES ('"
+        Boolean ok = qlqConnection.sqlUpdate("INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES ('"
                 + q.getMaQuyen()+ "', '" 
+                + q.getTenQuyen()+ "', '" 
                 + q.getChiTietQuyen()+ "');");
         qlqConnection.closeConnect();
         return ok;
@@ -78,10 +81,11 @@ public class QuanLyQuyenDAO {
         return ok;
     }
 
-    public Boolean update(String maq, String chitietquyen) {
+    public Boolean update(String maq, String tenquyen, String chitietquyen) {
         qlqConnection = new ConnectionDB();
         Boolean ok = qlqConnection.sqlUpdate("Update phanquyen Set "
-                + "ChiTietQuyen='" + chitietquyen 
+                + "TenQuyen='" + tenquyen 
+                + "' ChiTietQuyen='" + chitietquyen 
                 + "' where MaQuyen='" + maq + "'");
         qlqConnection.closeConnect();
         return ok;

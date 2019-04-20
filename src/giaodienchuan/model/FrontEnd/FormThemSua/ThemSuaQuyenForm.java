@@ -19,7 +19,8 @@ public class ThemSuaQuyenForm extends JFrame {
     Quyen qSua;
 
     JTextField txMaQuyen = new JTextField(15);
-    JTextField txChiTietQuyen = new JTextField(15);
+    JTextField txTenQuyen = new JTextField(15);
+    JTextArea txChiTietQuyen = new JTextArea(4, 15);
 
     JButton btnThem = new JButton("Thêm");
     JButton btnThoat = new JButton("Thoát");
@@ -36,10 +37,12 @@ public class ThemSuaQuyenForm extends JFrame {
 
         // inputs
         txMaQuyen.setBorder(BorderFactory.createTitledBorder("Mã quyền"));
+        txTenQuyen.setBorder(BorderFactory.createTitledBorder("Tên quyền"));
         txChiTietQuyen.setBorder(BorderFactory.createTitledBorder("Chi tiết quyền"));
 
         JPanel plInput = new JPanel();
         plInput.add(txMaQuyen);
+        plInput.add(txTenQuyen);
         plInput.add(txChiTietQuyen);
 
         // panel buttons
@@ -68,6 +71,7 @@ public class ThemSuaQuyenForm extends JFrame {
             }
 
             txMaQuyen.setText(this.qSua.getMaQuyen());
+            txTenQuyen.setText(this.qSua.getTenQuyen());
             txChiTietQuyen.setText(this.qSua.getChiTietQuyen());
 
             txMaQuyen.setEditable(false);
@@ -105,9 +109,10 @@ public class ThemSuaQuyenForm extends JFrame {
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
             String maquyen = txMaQuyen.getText();
+            String tenquyen = txTenQuyen.getText();
             String chitietquyen = txChiTietQuyen.getText();
 
-            if (qlqBUS.add(maquyen, chitietquyen)) {
+            if (qlqBUS.add(maquyen, tenquyen, chitietquyen)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + maquyen + " thành công!");
                 this.dispose();
             }
@@ -117,9 +122,10 @@ public class ThemSuaQuyenForm extends JFrame {
     private void btnSuaMouseClicked() {
         if (checkEmpty()) {
             String maquyen = txMaQuyen.getText();
+            String tenquyen = txTenQuyen.getText();
             String chitietquyen = txChiTietQuyen.getText();
 
-            if (qlqBUS.update(maquyen, chitietquyen)) {
+            if (qlqBUS.update(maquyen, tenquyen, chitietquyen)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + maquyen + " thành công!");
                 this.dispose();
             }
@@ -128,11 +134,15 @@ public class ThemSuaQuyenForm extends JFrame {
 
     private Boolean checkEmpty() {
         String maquyen = txMaQuyen.getText();
+        String tenquyen = txTenQuyen.getText();
         String chitietquyen = txChiTietQuyen.getText();
 
         if (maquyen.trim().equals("")) {
             return showErrorTx(txMaQuyen, "Mã quyền không được để trống");
-
+            
+        } else if(tenquyen.trim().equals("")) {
+            return showErrorTx(txMaQuyen, "Tên quyền không được để trống");
+            
         } else if (chitietquyen.trim().equals("")) {
             return showErrorTx(txChiTietQuyen, "Chi tiết quyền không được để trống");
         }
@@ -141,6 +151,12 @@ public class ThemSuaQuyenForm extends JFrame {
     }
 
     private Boolean showErrorTx(JTextField tx, String errorInfo) {
+        JOptionPane.showMessageDialog(tx, errorInfo);
+        tx.requestFocus();
+        return false;
+    }
+    
+    private Boolean showErrorTx(JTextArea tx, String errorInfo) {
         JOptionPane.showMessageDialog(tx, errorInfo);
         tx.requestFocus();
         return false;

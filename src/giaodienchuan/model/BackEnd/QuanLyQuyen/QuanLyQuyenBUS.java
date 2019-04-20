@@ -19,7 +19,7 @@ public class QuanLyQuyenBUS {
     }
 
     public String[] getHeaders() {
-        return new String[]{"Mã quyền", "Chi tiết quyền"};
+        return new String[]{"Mã quyền", "Tên quyền", "Chi tiết quyền"};
     }
 
     public void readDB() {
@@ -41,6 +41,7 @@ public class QuanLyQuyenBUS {
         dsq.forEach((q) -> {
             if (type.equals("Tất cả")) {
                 if (q.getMaQuyen().toLowerCase().contains(value.toLowerCase())
+                        || q.getTenQuyen().toLowerCase().contains(value.toLowerCase())
                         || q.getChiTietQuyen().toLowerCase().contains(value.toLowerCase())) {
                     result.add(q);
                 }
@@ -48,6 +49,11 @@ public class QuanLyQuyenBUS {
                 switch (type) {
                     case "Mã quyền":
                         if (q.getMaQuyen().toLowerCase().contains(value.toLowerCase())) {
+                            result.add(q);
+                        }
+                        break;
+                    case "Tên quyền":
+                        if (q.getTenQuyen().toLowerCase().contains(value.toLowerCase())) {
                             result.add(q);
                         }
                         break;
@@ -73,8 +79,8 @@ public class QuanLyQuyenBUS {
         return ok;
     }
 
-    public Boolean add(String maquyen, String chitiet) {
-        Quyen sp = new Quyen(maquyen, chitiet);
+    public Boolean add(String maquyen, String tenquyen, String chitiet) {
+        Quyen sp = new Quyen(maquyen, tenquyen, chitiet);
         return add(sp);
     }
 
@@ -91,8 +97,8 @@ public class QuanLyQuyenBUS {
         return ok;
     }
 
-    public Boolean update(String maquyen, String chitiet) {
-        Boolean ok = qlqDAO.update(maquyen, chitiet);
+    public Boolean update(String maquyen, String tenquyen, String chitiet) {
+        Boolean ok = qlqDAO.update(maquyen, tenquyen, chitiet);
 
         if (ok) {
             dsq.forEach((sp) -> {
