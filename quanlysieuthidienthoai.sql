@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 19, 2019 lúc 08:15 PM
+-- Thời gian đã tạo: Th4 20, 2019 lúc 01:05 PM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -45,8 +45,9 @@ INSERT INTO `chitiethoadon` (`MaHD`, `MaSP`, `SoLuong`, `DonGia`) VALUES
 ('HD1', 'SP1', 1, 20),
 ('HD3', 'SP4', 1, 15),
 ('HD3', 'SP6', 1, 20),
-('HD1', 'SP3', 11, 15),
-('HD1', 'SP2', 10, 8.2);
+('HD1', 'SP2', 10, 8.2),
+('HD3', 'SP3', 0, 15),
+('HD1', 'SP3', 11, 15);
 
 -- --------------------------------------------------------
 
@@ -177,6 +178,13 @@ CREATE TABLE `nhacungcap` (
   `Fax` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `nhacungcap`
+--
+
+INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`, `SDT`, `Fax`) VALUES
+('NCC1', 'Cty Samsung', 'tp hcm', '0123456789', '4598-8789-8789-7897');
+
 -- --------------------------------------------------------
 
 --
@@ -217,7 +225,9 @@ CREATE TABLE `phanquyen` (
 --
 
 INSERT INTO `phanquyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
-('Q001', 'admin');
+('Q1', 'Admin'),
+('Q2', 'Nhân viên'),
+('Q3', 'Seller');
 
 -- --------------------------------------------------------
 
@@ -280,9 +290,9 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('HIenCUTE', '04102015', 'NV00', 'Q001'),
-('Hoang016', 'abcde', 'NV002', 'Q001'),
-('HoangCUTE', '1213141516', 'NV003', 'Q001');
+('HIenCUTE', '04102015', 'NV00', 'Q2'),
+('Hoang016', 'abcde', 'NV002', 'Q2'),
+('HoangCUTE', '1213141516', 'NV003', 'Q2');
 
 --
 -- Chỉ mục cho các bảng đã đổ
