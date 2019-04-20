@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
-import giaodienchuan.model.FrontEnd.FormQuanLy.NhaCungCapFORM;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
@@ -48,7 +48,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
     QuanLyChucVuForm qlcv;
-    NhaCungCapFORM qlncc;
+    QuanLyNhaCungCapForm qlncc;
 
     public GiaoDienChuan() {
 
@@ -249,7 +249,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             case "Nhà cung cấp":
 
                 if (qlncc == null) {
-                    qlncc = new NhaCungCapFORM();
+                    qlncc = new QuanLyNhaCungCapForm();
                 }
                 plContent.add(qlncc, BorderLayout.CENTER);
                 break;

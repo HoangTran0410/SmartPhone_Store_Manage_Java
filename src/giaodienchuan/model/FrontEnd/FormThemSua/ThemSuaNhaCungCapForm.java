@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
@@ -16,10 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Admin
- */
 public class ThemSuaNhaCungCapForm extends JFrame {
 
     NhaCungCapBUS BUS = new NhaCungCapBUS();
@@ -40,6 +31,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
     JButton btnHuy = new JButton("Hủy");
 
     public ThemSuaNhaCungCapForm(String _type, String _mancc) {
+        
         this.setLayout(new BorderLayout());
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
@@ -77,7 +69,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
                 }
             }
             if (this.nccSua == null) {
-                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy sản phẩm");
+                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy nhà cung cấp");
                 this.dispose();
             }
 
@@ -86,7 +78,6 @@ public class ThemSuaNhaCungCapForm extends JFrame {
             txDiaChi.setText(this.nccSua.getDiaChi());
             txSDT.setText(String.valueOf(this.nccSua.getSDT()));
             txFax.setText(String.valueOf(this.nccSua.getFax()));
-//            txHinhAnh.setText(this.spSua.getUrlHinhAnh().replace("\\", "\\\\"));
 
             txMaNCC.setEditable(false);
 
@@ -119,18 +110,12 @@ public class ThemSuaNhaCungCapForm extends JFrame {
     }
 
     private void btnSuaMouseClicked() {
-//        int i = mtb.getTable().getSelectedRow();
         if (checkEmpty()) {
             String maNCC = txMaNCC.getText();
             String tenNCC = txTenNCC.getText();
             String diaChi = txDiaChi.getText();
             String SDT = txSDT.getText();
             String Fax = txFax.getText();
-
-            if (!txMaNCC.getText().equals(maNCC)) {
-                JOptionPane.showMessageDialog(null, "Mã số sinh viên là Khóa Chính nên không thể thay đổi, chỉ cập nhật Họ và Tên!");
-                txMaNCC.setText(maNCC);
-            }
 
             if (BUS.update(maNCC, tenNCC, diaChi, SDT, Fax)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + maNCC + " thành công!");
