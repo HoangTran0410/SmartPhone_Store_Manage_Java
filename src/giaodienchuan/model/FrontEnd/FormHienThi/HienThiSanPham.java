@@ -59,7 +59,7 @@ public class HienThiSanPham extends JPanel {
         cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" "));
+        txTim.setBorder(BorderFactory.createTitledBorder("Tất cả"));
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
