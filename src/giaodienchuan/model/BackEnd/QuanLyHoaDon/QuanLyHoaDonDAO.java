@@ -43,7 +43,13 @@ public class QuanLyHoaDonDAO {
 
     public Boolean add(HoaDon hd) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('" + hd.getMaHoaDon() + "','" + hd.getMaNhanVien() + "','" + hd.getMaKhachHang() + "','" + hd.getNgayLap() + "','" + hd.getGioLap() + "','" + hd.getTongTien() + "');");
+        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('" 
+                + hd.getMaHoaDon() + "','" 
+                + hd.getMaNhanVien() + "','" 
+                + hd.getMaKhachHang() + "','" 
+                + hd.getNgayLap() + "','" 
+                + hd.getGioLap() + "','" 
+                + hd.getTongTien() + "');");
         connection.closeConnect();
         return success;
     }

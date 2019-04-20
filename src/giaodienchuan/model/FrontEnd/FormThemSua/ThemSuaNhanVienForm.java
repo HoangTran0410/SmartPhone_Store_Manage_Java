@@ -1,17 +1,20 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonChucVuForm;
+import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
+import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ThemSuaNhanVienForm extends JFrame {
@@ -32,19 +35,33 @@ public class ThemSuaNhanVienForm extends JFrame {
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
+    
+    DatePicker dPickerNgaySinh;
 
     public ThemSuaNhanVienForm(String _type, String _manv) {
         this.setLayout(new BorderLayout());
-        this.setSize(450, 300);
+        this.setSize(450, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.type = _type;
+        
+        // date picker
+        DatePickerSettings pickerSettings = new DatePickerSettings();
+        pickerSettings.setVisibleDateTextField(false);
+        dPickerNgaySinh = new DatePicker(pickerSettings);
+        dPickerNgaySinh.setDateToToday();
+        DateButton db = new DateButton(dPickerNgaySinh);
+        
+        JPanel plNgaysinh = new JPanel();
+        plNgaysinh.setBorder(BorderFactory.createTitledBorder("Ngày sinh"));
+        plNgaysinh.add(txNgaysinh);
+        plNgaysinh.add(dPickerNgaySinh);
 
         // inputs
         txManv.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
         txMacv.setBorder(BorderFactory.createTitledBorder(" "));        
         txTennv.setBorder(BorderFactory.createTitledBorder("Tên nhân viên"));
-        txNgaysinh.setBorder(BorderFactory.createTitledBorder("Ngày sinh"));
+        txNgaysinh.setBorder(BorderFactory.createTitledBorder(" "));
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));        
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
         
@@ -57,7 +74,7 @@ public class ThemSuaNhanVienForm extends JFrame {
         plInput.add(txManv);
         plInput.add(plChonChucVu);
         plInput.add(txTennv);
-        plInput.add(txNgaysinh);
+        plInput.add(plNgaysinh);
         plInput.add(txDiachi);
         plInput.add(txSDT);
 
@@ -87,7 +104,7 @@ public class ThemSuaNhanVienForm extends JFrame {
             txManv.setText(this.nvSua.getMaNV());
             txMacv.setText(this.nvSua.getMaCV());
             txTennv.setText(this.nvSua.getTenNV());
-            txNgaysinh.setText(this.nvSua.getNgaySinh());
+            txNgaysinh.setText(this.nvSua.getNgaySinh().toString());
             txDiachi.setText(this.nvSua.getDiaChi());
             txSDT.setText(this.nvSua.getSDT());
 
@@ -118,6 +135,9 @@ public class ThemSuaNhanVienForm extends JFrame {
         btnChonChucVu.addActionListener((ae) -> {
             ChonChucVuForm clsp = new ChonChucVuForm(txMacv); // truyền vào textfield
         });
+        dPickerNgaySinh.addDateChangeListener((dce) -> {
+            txNgaysinh.setText(dPickerNgaySinh.getDateStringOrEmptyString());
+        });
 
         this.setVisible(true);
     }
@@ -127,7 +147,7 @@ public class ThemSuaNhanVienForm extends JFrame {
             String manv = txManv.getText();
             String macv = txMacv.getText();
             String tennv = txTennv.getText();
-            String ngaysinh = txNgaysinh.getText();
+            LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
 
@@ -143,7 +163,7 @@ public class ThemSuaNhanVienForm extends JFrame {
             String manv = txManv.getText();
             String macv = txMacv.getText();
             String tennv = txTennv.getText();
-            String ngaysinh = txNgaysinh.getText();
+            LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
 
@@ -178,18 +198,19 @@ public class ThemSuaNhanVienForm extends JFrame {
 
         } else if (sdt.trim().equals("")) {
             return showErrorTx(txTennv, "Số điện thoại không được để trống");
+            
+        } else {
+            try {
+                LocalDate.parse(ngaysinh);
+            } catch (Exception e) {
+                return showErrorTx(txTennv, "Ngày sinh không hợp lệ");
+            }
         }
 
         return true;
     }
 
     private Boolean showErrorTx(JTextField tx, String errorInfo) {
-        JOptionPane.showMessageDialog(tx, errorInfo);
-        tx.requestFocus();
-        return false;
-    }
-
-    private Boolean showErrorTx(JTextArea tx, String errorInfo) {
         JOptionPane.showMessageDialog(tx, errorInfo);
         tx.requestFocus();
         return false;

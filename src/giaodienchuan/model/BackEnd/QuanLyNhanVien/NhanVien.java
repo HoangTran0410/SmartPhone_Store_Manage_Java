@@ -1,11 +1,14 @@
 
 package giaodienchuan.model.BackEnd.QuanLyNhanVien;
 
+import java.time.LocalDate;
+
 public class NhanVien {
 
-    String MaNV, MaCV, TenNV, NgaySinh, DiaChi, SDT;
+    String MaNV, MaCV, TenNV, DiaChi, SDT;
+    LocalDate NgaySinh;
 
-    public NhanVien(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, String SDT) {
+    public NhanVien(String MaNV, String MaCV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
         this.MaNV = MaNV;
         this.MaCV = MaCV;
         this.TenNV = TenNV;
@@ -38,11 +41,11 @@ public class NhanVien {
         this.TenNV = TenNV;
     }
 
-    public String getNgaySinh() {
+    public LocalDate getNgaySinh() {
         return NgaySinh;
     }
 
-    public void setNgaySinh(String NgaySinh) {
+    public void setNgaySinh(LocalDate NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
 

@@ -1,5 +1,6 @@
 package giaodienchuan.model.BackEnd.QuanLyNhanVien;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QuanLyNhanVienBUS {
@@ -29,16 +30,17 @@ public class QuanLyNhanVienBUS {
     public void readDB() {
         dsnv = qlnvDAO.readDB();
     }
-    
+
     public NhanVien getNhanVien(String manv) {
         for (NhanVien nv : dsnv) {
-            if(nv.getMaNV().equals(manv))
+            if (nv.getMaNV().equals(manv)) {
                 return nv;
+            }
         }
         return null;
     }
 
-    public ArrayList<NhanVien> search(String value, String type) {
+    public ArrayList<NhanVien> search(String value, String type, LocalDate _ngay1, LocalDate _ngay2) {
         ArrayList<NhanVien> result = new ArrayList<>();
 
         dsnv.forEach((nv) -> {
@@ -46,7 +48,7 @@ public class QuanLyNhanVienBUS {
                 if (nv.getMaNV().toLowerCase().contains(value.toLowerCase())
                         || nv.getMaCV().toLowerCase().contains(value.toLowerCase())
                         || nv.getTenNV().toLowerCase().contains(value.toLowerCase())
-                        || nv.getNgaySinh().toLowerCase().contains(value.toLowerCase())
+                        || nv.getNgaySinh().toString().toLowerCase().contains(value.toLowerCase())
                         || nv.getDiaChi().toLowerCase().contains(value.toLowerCase())
                         || nv.getSDT().toLowerCase().contains(value.toLowerCase())) {
                     result.add(nv);
@@ -69,7 +71,7 @@ public class QuanLyNhanVienBUS {
                         }
                         break;
                     case "Ngày sinh":
-                        if (nv.getNgaySinh().toLowerCase().contains(value.toLowerCase())) {
+                        if (nv.getNgaySinh().toString().toLowerCase().contains(value.toLowerCase())) {
                             result.add(nv);
                         }
                         break;
@@ -85,8 +87,19 @@ public class QuanLyNhanVienBUS {
                         break;
                 }
             }
-
         });
+
+        //Ngay lap, tong tien
+        for (int i = result.size() - 1; i >= 0; i--) {
+            NhanVien nv = result.get(i);
+            LocalDate ngaysinh = nv.getNgaySinh();
+
+            Boolean ngayKhongThoa = (_ngay1 != null && ngaysinh.isBefore(_ngay1)) || (_ngay2 != null && ngaysinh.isAfter(_ngay2));
+
+            if (ngayKhongThoa) {
+                result.remove(nv);
+            }
+        }
 
         return result;
     }
@@ -100,7 +113,7 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean add(String manv, String macv, String tennv, String ngaysinh, String diachi, String sdt) {
+    public Boolean add(String manv, String macv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
         NhanVien nv = new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt);
         return add(nv);
     }
@@ -118,7 +131,7 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean update(String manv, String macv, String tennv, String ngaysinh, String diachi, String sdt) {
+    public Boolean update(String manv, String macv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
         Boolean ok = qlnvDAO.update(manv, macv, tennv, ngaysinh, diachi, sdt);
 
         if (ok) {

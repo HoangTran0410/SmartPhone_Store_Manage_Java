@@ -46,6 +46,7 @@ public class HienThiHoaDon extends JPanel {
     public HienThiHoaDon() {
         setLayout(new BorderLayout());
         
+        // khoang ngay
         DatePickerSettings pickerSettings = new DatePickerSettings();
         pickerSettings.setVisibleDateTextField(false);
         dPicker1 = new DatePicker(pickerSettings);
@@ -134,7 +135,7 @@ public class HienThiHoaDon extends JPanel {
             txKhoangNgay1.setText(dPicker1.getDateStringOrEmptyString());
         });
         dPicker2.addDateChangeListener((dce) -> {
-            txKhoangNgay1.setText(dPicker2.getDateStringOrEmptyString());
+            txKhoangNgay2.setText(dPicker2.getDateStringOrEmptyString());
         });
         addDocumentListener(txTim);
         addDocumentListener(txKhoangNgay1);

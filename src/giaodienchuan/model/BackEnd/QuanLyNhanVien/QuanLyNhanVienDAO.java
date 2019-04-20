@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.ConnectionDB.ConnectionDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -26,7 +27,7 @@ public class QuanLyNhanVienDAO {
                     String manv = r.getString(1);
                     String macv = r.getString(2);
                     String tennv = r.getString(3);
-                    String ngaysinh = r.getString(4);
+                    LocalDate ngaysinh = r.getDate(4).toLocalDate();
                     String diachi = r.getString(5);
                     String sdt = r.getString(6);
                     dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
@@ -53,7 +54,7 @@ public class QuanLyNhanVienDAO {
                     String manv = r.getString(1);
                     String macv = r.getString(2);
                     String tennv = r.getString(3);
-                    String ngaysinh = r.getString(4);
+                    LocalDate ngaysinh = r.getDate(4).toLocalDate();
                     String diachi = r.getString(5);
                     String sdt = r.getString(6);
                     dsnv.add(new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt));
@@ -72,8 +73,12 @@ public class QuanLyNhanVienDAO {
     public Boolean add(NhanVien nv) {
         qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("INSERT INTO `nhanvien` (`MaNV`,`MaCV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES ('"
-                + nv.getMaNV() + "', '" + nv.getMaCV() + "', '" + nv.getTenNV()
-                + "', '" + nv.getNgaySinh() + "', '" + nv.getDiaChi() + "', '" + nv.getSDT() + "');");
+                + nv.getMaNV() + "', '" 
+                + nv.getMaCV() + "', '" 
+                + nv.getTenNV() + "', '" 
+                + nv.getNgaySinh() + "', '" 
+                + nv.getDiaChi() + "', '" 
+                + nv.getSDT() + "');");
         qlnvConnection.closeConnect();
         return ok;
     }
@@ -85,7 +90,7 @@ public class QuanLyNhanVienDAO {
         return ok;
     }
 
-    public Boolean update(String MaNV, String MaCV, String TenNV, String NgaySinh, String DiaChi, String SDT) {
+    public Boolean update(String MaNV, String MaCV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
         qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set MaCV='" + MaCV + "',TenNV='" + TenNV
                 + "',NgaySinh='" + NgaySinh + "',DiaChi='" + DiaChi + "',SDT='" + SDT + "' where MaNV='" + MaNV + "'");
