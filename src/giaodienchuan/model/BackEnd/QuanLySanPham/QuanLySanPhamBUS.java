@@ -31,13 +31,14 @@ public class QuanLySanPhamBUS {
 
     public SanPham getSanPham(String masp) {
         for (SanPham sp : dssp) {
-            if(sp.getMaSP().equals(masp))
+            if (sp.getMaSP().equals(masp)) {
                 return sp;
+            }
         }
         return null;
     }
 
-    public ArrayList<SanPham> search(String value, String type) {
+    public ArrayList<SanPham> search(String value, String type, int soluong1, int soluong2, float gia1, float gia2) {
         ArrayList<SanPham> result = new ArrayList<>();
 
         dssp.forEach((sp) -> {
@@ -78,8 +79,18 @@ public class QuanLySanPhamBUS {
                         break;
                 }
             }
-
         });
+
+        for (int i = result.size() - 1; i >= 0; i--) {
+            SanPham sp = result.get(i);
+            int soluong = sp.getSoLuong();
+            float gia = sp.getDonGia();
+            Boolean soLuongKhongThoa = (soluong1 != -1 && soluong < soluong1) || (soluong2 != -1 && soluong > soluong2);
+            Boolean giaKhongThoa = (gia1 != -1 && gia < gia1) || (gia2 != -1 && gia > gia2);
+            
+            if(soLuongKhongThoa || giaKhongThoa) 
+                result.remove(i);
+        }
 
         return result;
     }

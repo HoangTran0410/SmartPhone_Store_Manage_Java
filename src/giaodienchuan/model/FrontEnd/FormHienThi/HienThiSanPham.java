@@ -31,6 +31,12 @@ public class HienThiSanPham extends JPanel {
     JButton btnRefresh = new JButton("Làm mới");
 
     JLabel lbImage = new JLabel();
+    
+    JTextField txSoLuong1 = new JTextField(5);
+    JTextField txSoLuong2 = new JTextField(5);
+    
+    JTextField txGia1 = new JTextField(6);
+    JTextField txGia2 = new JTextField(6);
 
     // index
     final int MASP_I = 1, MALSP_I = 2, TEN_I = 3, GIA_I = 4, SOLUONG_I = 5;
@@ -48,19 +54,39 @@ public class HienThiSanPham extends JPanel {
         setDataToTable(qlspBUS.getDssp(), mtb);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
-
         JPanel plHeader = new JPanel();
+        
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        txTim.setBorder(BorderFactory.createTitledBorder(" "));
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
-
+        
+        // so sánh số lượng
+        JPanel plSoSanhSoLuong = new JPanel();
+        plSoSanhSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
+        txSoLuong1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txSoLuong2.setBorder(BorderFactory.createTitledBorder("Tới:"));
+        plSoSanhSoLuong.add(txSoLuong1);
+        plSoSanhSoLuong.add(txSoLuong2);
+        plHeader.add(plSoSanhSoLuong);
+        
+        // so sánh giá
+        JPanel plSoSanhGia = new JPanel();
+        plSoSanhGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
+        txGia1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txGia2.setBorder(BorderFactory.createTitledBorder("Tới:"));
+        plSoSanhGia.add(txGia1);
+        plSoSanhGia.add(txGia2);
+        plHeader.add(plSoSanhGia);
+        
+        // btn refresh
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
 
+        // add action listener
         cbTypeSearch.addActionListener((ActionEvent e) -> {
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
@@ -71,24 +97,13 @@ public class HienThiSanPham extends JPanel {
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
-
-        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
-        txTim.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-        });
+        
+        addDocumentListener(txTim);
+        addDocumentListener(txSoLuong1);
+        addDocumentListener(txSoLuong2);
+        addDocumentListener(txGia1);
+        addDocumentListener(txGia2);
+        
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
@@ -110,7 +125,8 @@ public class HienThiSanPham extends JPanel {
                 }
             }
         });
-
+        
+        // panel image
         JPanel plcenterImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
         lbImage.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -121,10 +137,35 @@ public class HienThiSanPham extends JPanel {
         this.add(mtb, BorderLayout.CENTER);
         this.add(plcenterImage, BorderLayout.WEST);
     }
+    
+    private void addDocumentListener(JTextField tx) {
+        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
+        tx.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                txSearchOnChange();
+            }
+        });
+    }
 
     public void refresh() {
         qlspBUS.readDB();
         setDataToTable(qlspBUS.getDssp(), mtb);
+        txTim.setText("");
+        txSoLuong1.setText("");
+        txSoLuong2.setText("");
+        txGia1.setText("");
+        txGia2.setText("");
     }
 
     public String getSelectedSanPham(int col) {
@@ -136,7 +177,36 @@ public class HienThiSanPham extends JPanel {
     }
 
     private void txSearchOnChange() {
-        setDataToTable(qlspBUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+        int soluong1 = -1, soluong2 = -1;
+        float gia1 = -1, gia2 = -1;
+        
+        try {
+            soluong1 = Integer.parseInt(txSoLuong1.getText());
+            txSoLuong1.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txSoLuong1.setForeground(Color.red);
+        }
+        try {
+            soluong2 = Integer.parseInt(txSoLuong2.getText());
+            txSoLuong2.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txSoLuong2.setForeground(Color.red);
+        }
+        try {
+            gia1 = Integer.parseInt(txGia1.getText());
+            txGia1.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txGia1.setForeground(Color.red);
+        }
+        try {
+            gia2 = Integer.parseInt(txGia2.getText());
+            txGia2.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txGia2.setForeground(Color.red);
+        }
+        
+        setDataToTable(qlspBUS.search(txTim.getText(), 
+                cbTypeSearch.getSelectedItem().toString(), soluong1, soluong2, gia1, gia2), mtb);
     }
 
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {

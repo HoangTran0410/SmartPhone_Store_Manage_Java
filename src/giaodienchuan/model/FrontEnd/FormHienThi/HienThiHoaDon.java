@@ -211,31 +211,29 @@ public class HienThiHoaDon extends JPanel {
     }
 
     private void txSearchOnChange() {
-        LocalDate ngay1, ngay2;
-        int tong1, tong2;
+        LocalDate ngay1 = null, 
+                  ngay2 = null;
+        int tong1 = -1, 
+            tong2 = -1;
         try {
             ngay1 = java.time.LocalDate.parse(txKhoangNgay1.getText());
             txKhoangNgay1.setForeground(Color.black);
         } catch (DateTimeParseException e) {
             txKhoangNgay1.setForeground(Color.red);
-            ngay1 = null;
         }
         try {
             ngay2 = java.time.LocalDate.parse(txKhoangNgay2.getText());
             txKhoangNgay2.setForeground(Color.black);
         } catch (DateTimeParseException e) {
             txKhoangNgay2.setForeground(Color.red);
-            ngay2 = null;
         }
         try {
             tong1 = Integer.parseInt(txKhoangTien1.getText());
         } catch (NumberFormatException e) {
-            tong1 = -1;
         }
         try {
             tong2 = Integer.parseInt(txKhoangTien2.getText());
         } catch (NumberFormatException e) {
-            tong2 = -1;
         }
         setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), ngay1, ngay2, tong1, tong2), tbHoaDon);
     }
