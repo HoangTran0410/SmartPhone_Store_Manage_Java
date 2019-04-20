@@ -68,7 +68,7 @@ public class HienThiHoaDon extends JPanel {
         DatePickerSettings pickerSettings1 = new DatePickerSettings();
         pickerSettings1.setVisibleDateTextField(false);
         DatePickerSettings pickerSettings2 = pickerSettings1.copySettings();
-        
+
         dPicker1 = new DatePicker(pickerSettings1);
         dPicker2 = new DatePicker(pickerSettings2);
 
@@ -137,7 +137,7 @@ public class HienThiHoaDon extends JPanel {
             txKhoangNgay1.setText(dPicker1.getDateStringOrEmptyString());
         });
         dPicker2.addDateChangeListener((dce) -> {
-            txKhoangNgay1.setText(dPicker2.getDateStringOrEmptyString());
+            txKhoangNgay2.setText(dPicker2.getDateStringOrEmptyString());
         });
         txKhoangNgay2.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -198,6 +198,8 @@ public class HienThiHoaDon extends JPanel {
         txKhoangNgay2.setText("");
         txKhoangTien1.setText("");
         txKhoangTien2.setText("");
+        dPicker1.setDate(null);
+        dPicker2.setDate(null);
     }
 
     public String getSelectedHoaDon() {
@@ -209,10 +211,8 @@ public class HienThiHoaDon extends JPanel {
     }
 
     private void txSearchOnChange() {
-        LocalDate ngay1;
-        LocalDate ngay2;
-        int tong1;
-        int tong2;
+        LocalDate ngay1, ngay2;
+        int tong1, tong2;
         try {
             ngay1 = java.time.LocalDate.parse(txKhoangNgay1.getText());
             txKhoangNgay1.setForeground(Color.black);
