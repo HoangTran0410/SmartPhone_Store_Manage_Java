@@ -5,6 +5,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
+import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -51,13 +52,8 @@ public class HienThiNhanVien extends JPanel {
         dPicker2.setDateToToday();
         
         // calendar icon
-        ImageIcon dPickerIcon = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_calendar_31_30px.png"));
-        JButton datePickerButton1 = dPicker1.getComponentToggleCalendarButton();
-        datePickerButton1.setText("");
-        datePickerButton1.setIcon(dPickerIcon);
-        JButton datePickerButton2 = dPicker2.getComponentToggleCalendarButton();
-        datePickerButton2.setText("");
-        datePickerButton2.setIcon(dPickerIcon);
+        DateButton db = new DateButton(dPicker1);
+        DateButton db2 = new DateButton(dPicker2);
 
         txKhoangNgay1.setBorder(BorderFactory.createTitledBorder("Từ:"));
         txKhoangNgay2.setBorder(BorderFactory.createTitledBorder("Đến:"));
