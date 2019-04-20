@@ -173,6 +173,11 @@ public class HienThiHoaDon extends JPanel {
     public void refresh() {
         qlhd.readDB();
         setDataToTable(qlhd.getDshd(), tbHoaDon);
+        txTim.setText("");
+        txKhoangNgay1.setText("");
+        txKhoangNgay2.setText("");
+        txKhoangTien1.setText("");
+        txKhoangTien2.setText("");
     }
 
     public String getSelectedHoaDon() {
@@ -184,14 +189,6 @@ public class HienThiHoaDon extends JPanel {
     }
 
     private void txSearchOnChange() {
-//        if(txKhoangNgay1.getText().isEmpty())
-//            txKhoangNgay1.setText(txKhoangNgay2.getText().isEmpty()?"":txKhoangNgay2.getText());
-//        if(txKhoangNgay2.getText().isEmpty())
-//            txKhoangNgay2.setText(txKhoangNgay1.getText().isEmpty()?"":txKhoangNgay1.getText());
-//        if(txKhoangTien1.getText().isEmpty())
-//            txKhoangTien1.setText(txKhoangTien2.getText().isEmpty()?"":txKhoangTien2.getText());
-//        if(txKhoangTien2.getText().isEmpty())
-//            txKhoangTien2.setText(txKhoangTien1.getText().isEmpty()?"":txKhoangTien1.getText());
         LocalDate ngay1;
         LocalDate ngay2;
         int tong1;
