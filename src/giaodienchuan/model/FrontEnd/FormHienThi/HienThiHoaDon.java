@@ -115,8 +115,11 @@ public class HienThiHoaDon extends JPanel {
         });
 
         cbTypeSearch.addActionListener((ae) -> {
-            txSearchOnChange();
             txTim.setBorder(BorderFactory.createTitledBorder(String.valueOf(cbTypeSearch.getSelectedItem())));
+            txTim.requestFocus();
+            if(!txTim.equals("")){
+                txSearchOnChange();
+            }
         });
 
         btnDetails.addActionListener((ae) -> {
