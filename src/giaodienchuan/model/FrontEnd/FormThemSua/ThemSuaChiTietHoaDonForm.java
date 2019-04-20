@@ -118,19 +118,22 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
 
     private void btnThemChiTietHoaDonMouseClicked() {
         if (checkEmpty()) {
-            String mahd = txMahd.getText();
-            String masp = txMasp.getText();
+            String maspThem = txMasp.getText();
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
 
             if (soluong > soLuongMax) {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + soLuongMax + ")");
                 txSoLuong.setText(String.valueOf(soLuongMax));
-                return;   
+                return;
+                
+            } else if (soluong <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không hợp lệ");
+                txSoLuong.setText(String.valueOf(soLuongMax));
             }
 
-            if (qlcthdBUS.add(mahd, masp, soluong, dongia)) {
-                new QuanLySanPhamBUS().updateSoLuong(masp, soLuongMax - soluong);
+            if (qlcthdBUS.add(mahd, maspThem, soluong, dongia)) {
+                new QuanLySanPhamBUS().updateSoLuong(maspThem, soLuongMax - soluong);
                 this.dispose();
             }
         }
