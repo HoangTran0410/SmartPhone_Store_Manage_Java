@@ -130,6 +130,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             } else if (soluong <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không hợp lệ");
                 txSoLuong.setText(String.valueOf(soLuongMax));
+                return;
             }
 
             if (qlcthdBUS.add(mahd, maspThem, soluong, dongia)) {
