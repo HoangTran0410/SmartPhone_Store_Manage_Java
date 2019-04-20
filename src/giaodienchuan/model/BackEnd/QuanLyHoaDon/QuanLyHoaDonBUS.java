@@ -127,8 +127,8 @@ public class QuanLyHoaDonBUS {
         });
 
         //Ngay lap, tong tien
-        for(int i = dshd.size() - 1; i >= 0; i--) {
-            HoaDon hd = dshd.get(i);
+        for(int i = result.size() - 1; i >= 0; i--) {
+            HoaDon hd = result.get(i);
             LocalDate ngaylap = hd.getNgayLap();
             float tongtien = hd.getTongTien();
             
