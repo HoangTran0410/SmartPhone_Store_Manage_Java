@@ -109,48 +109,38 @@ public class ThemSuaQuyenForm extends JFrame {
 
             if (qlqBUS.add(maquyen, chitietquyen)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + maquyen + " thành công!");
+                this.dispose();
             }
         }
     }
 
     private void btnSuaMouseClicked() {
         if (checkEmpty()) {
-//            String maquyen = txMaQuyen.getText();
-//            String chitietquyen = txChiTietQuyen.getText();
-//            String mota = txMota.getText();
-//
-//            if (qlqBUS.update(maquyen, chitietquyen, mota)) {
-//                JOptionPane.showMessageDialog(this, "Sửa " + maquyen + " thành công!");
-//                this.dispose();
-//            }
+            String maquyen = txMaQuyen.getText();
+            String chitietquyen = txChiTietQuyen.getText();
+
+            if (qlqBUS.update(maquyen, chitietquyen)) {
+                JOptionPane.showMessageDialog(this, "Sửa " + maquyen + " thành công!");
+                this.dispose();
+            }
         }
     }
 
     private Boolean checkEmpty() {
-//        String maquyen = txMaQuyen.getText();
-//        String chitietquyen = txChiTietQuyen.getText();
-//        String mota = txMota.getText();
-//
-//        if (maquyen.trim().equals("")) {
-//            return showErrorTx(txMaQuyen, "Mã loại sp không được để trống");
-//
-//        } else if (chitietquyen.trim().equals("")) {
-//            return showErrorTx(txChiTietQuyen, "Tên loại không được để trống");
-//
-//        } else if (mota.trim().equals("")) {
-//            return showErrorTx(txMota, "Mô tả không được để trống");
-//        }
+        String maquyen = txMaQuyen.getText();
+        String chitietquyen = txChiTietQuyen.getText();
+
+        if (maquyen.trim().equals("")) {
+            return showErrorTx(txMaQuyen, "Mã quyền không được để trống");
+
+        } else if (chitietquyen.trim().equals("")) {
+            return showErrorTx(txChiTietQuyen, "Chi tiết quyền không được để trống");
+        }
 
         return true;
     }
 
     private Boolean showErrorTx(JTextField tx, String errorInfo) {
-        JOptionPane.showMessageDialog(tx, errorInfo);
-        tx.requestFocus();
-        return false;
-    }
-
-    private Boolean showErrorTx(JTextArea tx, String errorInfo) {
         JOptionPane.showMessageDialog(tx, errorInfo);
         tx.requestFocus();
         return false;

@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiQuyen;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaQuyenForm;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -49,15 +50,15 @@ public class QuanLyQuyenForm extends JPanel {
     private void btnSuaMouseClicked() {
         String maquyen = formHienThi.getSelectedSanPham(1);
         if (maquyen != null) {
-//            ThemSuaSanPhamForm suasp = new ThemSuaSanPhamForm("Sửa", maquyen);
-//
-//            // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
-//            suasp.addWindowListener(new java.awt.event.WindowAdapter() {
-//                @Override
-//                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                    formHienThi.refresh();
-//                }
-//            });
+            ThemSuaQuyenForm suaq = new ThemSuaQuyenForm("Sửa", maquyen);
+
+            // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
+            suaq.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                    formHienThi.refresh();
+                }
+            });
 
         } else {
             JOptionPane.showMessageDialog(null, "Chưa chọn quyền nào để sửa");
@@ -78,12 +79,12 @@ public class QuanLyQuyenForm extends JPanel {
     }
 
     private void btnThemMouseClicked() {
-//        ThemSuaSanPhamForm themsp = new ThemSuaSanPhamForm("Thêm", "");
-//        themsp.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                formHienThi.refresh();
-//            }
-//        });
+        ThemSuaQuyenForm themq = new ThemSuaQuyenForm("Thêm", "");
+        themq.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                formHienThi.refresh();
+            }
+        });
     }
 }
