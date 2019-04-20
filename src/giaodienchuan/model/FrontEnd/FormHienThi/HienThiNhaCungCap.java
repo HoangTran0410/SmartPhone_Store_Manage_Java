@@ -44,10 +44,8 @@ public class HienThiNhaCungCap extends JPanel {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
-
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setColumnsWidth(new double[]{.5, .5, 2, 3, 2, 2});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
         mtb.setAlignment(5, JLabel.CENTER);
         setDataToTable(BUS.getDsncc(), mtb);
 

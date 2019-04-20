@@ -6,6 +6,10 @@ public class NhaCungCapBUS {
 
     public ArrayList<NhaCungCap> dsncc = new ArrayList<>();
     NhaCungCapDAO qlnccDAO = new NhaCungCapDAO();
+    
+    public NhaCungCapBUS() {
+        dsncc = qlnccDAO.readDB();
+    }
 
     public void show() {
         dsncc.forEach((ncc) -> {
@@ -20,11 +24,12 @@ public class NhaCungCapBUS {
     public void readDB() {
         dsncc = qlnccDAO.readDB();
     }
-    
+
     public NhaCungCap getNhaCungCap(String mancc) {
-        for(NhaCungCap ncc : dsncc) {
-            if(ncc.getMaNCC().equals(mancc))
+        for (NhaCungCap ncc : dsncc) {
+            if (ncc.getMaNCC().equals(mancc)) {
                 return ncc;
+            }
         }
         return null;
     }
