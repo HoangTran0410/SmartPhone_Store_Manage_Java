@@ -45,11 +45,22 @@ public class HienThiHoaDon extends JPanel {
 
     public HienThiHoaDon() {
         setLayout(new BorderLayout());
-        DatePickerSettings pickerSettings1 = new DatePickerSettings();
-        pickerSettings1.setVisibleDateTextField(false);
-        DatePickerSettings pickerSettings2 = pickerSettings1.copySettings();
-        dPicker1 = new DatePicker(pickerSettings1);
-        dPicker2 = new DatePicker(pickerSettings2);
+        
+        DatePickerSettings pickerSettings = new DatePickerSettings();
+        pickerSettings.setVisibleDateTextField(false);
+        dPicker1 = new DatePicker(pickerSettings);
+        dPicker2 = new DatePicker(pickerSettings.copySettings());
+        dPicker1.setDateToToday();
+        dPicker2.setDateToToday();
+        
+        // calendar icon
+        ImageIcon dPickerIcon = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_calendar_31_30px.png"));
+        JButton datePickerButton1 = dPicker1.getComponentToggleCalendarButton();
+        datePickerButton1.setText("");
+        datePickerButton1.setIcon(dPickerIcon);
+        JButton datePickerButton2 = dPicker2.getComponentToggleCalendarButton();
+        datePickerButton2.setText("");
+        datePickerButton2.setIcon(dPickerIcon);
 
         txKhoangNgay1.setBorder(BorderFactory.createTitledBorder("Từ:"));
         txKhoangNgay2.setBorder(BorderFactory.createTitledBorder("Đến:"));
