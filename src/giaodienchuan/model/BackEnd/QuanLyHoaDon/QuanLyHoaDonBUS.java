@@ -2,8 +2,10 @@ package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class QuanLyHoaDonBUS {
 
@@ -123,14 +125,28 @@ public class QuanLyHoaDonBUS {
                         result.add(hd);
                     }
                     break;
+                case "Ngày lập":
+                    if (hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Giờ lập":
+                    if (hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Tổng tiền":
+                    if (String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
             }
         });
         for (int i = result.size() - 1; i >= 0; i--) {
             HoaDon hd = result.get(i);
-            if ((( _ngay1 != null && hd.getNgayLap().isBefore(_ngay1))
+            if (((_ngay1 != null && hd.getNgayLap().isBefore(_ngay1))
                     || (_ngay2 != null && hd.getNgayLap().isAfter(_ngay2)))
                     || ((_tong1 != -1 && hd.getTongTien() < _tong1)
-                    ||  (_tong2 != -1 && hd.getTongTien() > _tong2) )) {
+                    || (_tong2 != -1 && hd.getTongTien() > _tong2))) {
                 result.remove(hd);
             }
         }
