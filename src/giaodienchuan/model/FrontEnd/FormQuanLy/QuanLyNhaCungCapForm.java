@@ -1,6 +1,6 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhaCungCap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhaCungCapForm;
 import java.awt.BorderLayout;
@@ -66,7 +66,7 @@ public class QuanLyNhaCungCapForm extends JPanel {
         String mancc = formHienThi.getSelectedNhaCungCap(1);
         if (mancc != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhà cung cấp " + mancc + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new NhaCungCapBUS().delete(mancc);
+                new QuanLyNhaCungCapBUS().delete(mancc);
                 formHienThi.refresh();
             }
 

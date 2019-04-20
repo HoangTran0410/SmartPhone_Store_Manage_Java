@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
  */
 
 
-public class NhaCungCapDAO {
+public class QuanLyNhaCungCapDAO {
 
     ConnectionDB qlnccConnection;
 
-//    public NhaCungCapDAO(){
+//    public QuanLyNhaCungCapDAO(){
 //        nhaCungCapDB.logIn("root","");
 //    }
     public ArrayList<NhaCungCap> readDB() {

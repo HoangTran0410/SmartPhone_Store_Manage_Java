@@ -2,12 +2,12 @@ package giaodienchuan.model.BackEnd.QuanLyNCC;
 
 import java.util.ArrayList;
 
-public class NhaCungCapBUS {
+public class QuanLyNhaCungCapBUS {
 
     public ArrayList<NhaCungCap> dsncc = new ArrayList<>();
-    NhaCungCapDAO qlnccDAO = new NhaCungCapDAO();
+    QuanLyNhaCungCapDAO qlnccDAO = new QuanLyNhaCungCapDAO();
     
-    public NhaCungCapBUS() {
+    public QuanLyNhaCungCapBUS() {
         dsncc = qlnccDAO.readDB();
     }
 
@@ -82,7 +82,7 @@ public class NhaCungCapBUS {
     }
 
     public Boolean add(NhaCungCap ncc) {
-        qlnccDAO = new NhaCungCapDAO();
+        qlnccDAO = new QuanLyNhaCungCapDAO();
         Boolean ok = qlnccDAO.add(ncc);
 
         if (ok) {
@@ -97,7 +97,7 @@ public class NhaCungCapBUS {
     }
 
     public Boolean delete(String mancc) {
-        qlnccDAO = new NhaCungCapDAO();
+        qlnccDAO = new QuanLyNhaCungCapDAO();
         Boolean ok = qlnccDAO.delete(mancc);
 
         if (ok) {
@@ -111,7 +111,7 @@ public class NhaCungCapBUS {
     }
 
     public Boolean update(String mancc, String tenncc, String diachi, String sdt, String fax) {
-        qlnccDAO = new NhaCungCapDAO();
+        qlnccDAO = new QuanLyNhaCungCapDAO();
         Boolean ok = qlnccDAO.update(mancc, tenncc, diachi, sdt, fax);
 
         if (ok) {

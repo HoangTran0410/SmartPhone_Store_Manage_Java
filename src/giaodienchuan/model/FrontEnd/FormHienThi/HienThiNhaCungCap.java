@@ -6,7 +6,7 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -30,7 +30,7 @@ import javax.swing.event.DocumentListener;
  */
 public class HienThiNhaCungCap extends JPanel {
 
-    NhaCungCapBUS BUS = new NhaCungCapBUS();
+    QuanLyNhaCungCapBUS BUS = new QuanLyNhaCungCapBUS();
     MyTable mtb;
     JTextField txTim = new JTextField(20);
     JComboBox<String> cbTypeSearch;

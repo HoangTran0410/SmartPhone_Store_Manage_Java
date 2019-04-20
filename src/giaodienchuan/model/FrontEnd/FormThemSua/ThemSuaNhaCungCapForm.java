@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 public class ThemSuaNhaCungCapForm extends JFrame {
 
-    NhaCungCapBUS BUS = new NhaCungCapBUS();
+    QuanLyNhaCungCapBUS BUS = new QuanLyNhaCungCapBUS();
     String type;
 
     NhaCungCap nccSua;
