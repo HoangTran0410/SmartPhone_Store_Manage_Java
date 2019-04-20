@@ -23,11 +23,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
-import com.github.lgooddatepicker.components.DateTimePicker;
-import com.github.lgooddatepicker.components.TimePicker;
-import com.github.lgooddatepicker.components.TimePickerSettings;
-import com.github.lgooddatepicker.components.TimePickerSettings.TimeArea;
-import com.github.lgooddatepicker.zinternaltools.InternalUtilities;
 
 public class HienThiHoaDon extends JPanel {
 
@@ -74,13 +69,8 @@ public class HienThiHoaDon extends JPanel {
         pickerSettings1.setVisibleDateTextField(false);
         DatePickerSettings pickerSettings2 = pickerSettings1.copySettings();
         
-//        pickerSettings.g
-        
         dPicker1 = new DatePicker(pickerSettings1);
         dPicker2 = new DatePicker(pickerSettings2);
-//        date1.setDateToToday();
-        System.out.println(String.valueOf(dPicker1.getDate()));
-        
 
         plTim.add(txKhoangNgay1);
         plTim.add(dPicker1);
