@@ -2,7 +2,6 @@ package giaodienchuan.model.BackEnd.QuanLyHoaDon;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import java.util.ArrayList;
 
 public class QuanLyHoaDonBUS {
@@ -123,6 +122,20 @@ public class QuanLyHoaDonBUS {
                         result.add(hd);
                     }
                     break;
+                case "Ngày lập":
+                    if (hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Giờ lập":
+                    if (hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+                case "Tổng tiền":
+                    if (String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
             }
         });
 

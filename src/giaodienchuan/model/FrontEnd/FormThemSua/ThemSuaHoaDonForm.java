@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -69,6 +71,16 @@ public class ThemSuaHoaDonForm extends JFrame {
         plInput.add(plChonKhachHang);
         plInput.add(txtNgayLap);
         plInput.add(txtGioLap);
+        
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            @Override
+//            public void run() {
+//                txtGioLap.setText(String.valueOf(LocalTime.now()));
+//                txtNgayLap.setText(String.valueOf(LocalDate.now()));
+//            }
+//        };
+//        timer.schedule(task, 1000);
 
         // panel buttons
         JPanel plButton = new JPanel();
