@@ -21,6 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DateTimePicker;
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeArea;
+import com.github.lgooddatepicker.zinternaltools.InternalUtilities;
 
 public class HienThiHoaDon extends JPanel {
 
@@ -35,6 +42,9 @@ public class HienThiHoaDon extends JPanel {
     JTextField txKhoangNgay2 = new JTextField(10);
     JTextField txKhoangTien1 = new JTextField(10);
     JTextField txKhoangTien2 = new JTextField(10);
+
+    DatePicker dPicker1;
+    DatePicker dPicker2;
 
     MyTable tbHoaDon;
 
@@ -55,13 +65,27 @@ public class HienThiHoaDon extends JPanel {
         txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
-        JPanel plNangCao = new JPanel();
+
         txKhoangNgay1.setBorder(BorderFactory.createTitledBorder("Từ ngày:"));
         txKhoangNgay2.setBorder(BorderFactory.createTitledBorder("Đến ngày:"));
         txKhoangTien1.setBorder(BorderFactory.createTitledBorder("Tổng tiền từ:"));
         txKhoangTien2.setBorder(BorderFactory.createTitledBorder("Đến"));
+        DatePickerSettings pickerSettings1 = new DatePickerSettings();
+        pickerSettings1.setVisibleDateTextField(false);
+        DatePickerSettings pickerSettings2 = pickerSettings1.copySettings();
+        
+//        pickerSettings.g
+        
+        dPicker1 = new DatePicker(pickerSettings1);
+        dPicker2 = new DatePicker(pickerSettings2);
+//        date1.setDateToToday();
+        System.out.println(String.valueOf(dPicker1.getDate()));
+        
+
         plTim.add(txKhoangNgay1);
+        plTim.add(dPicker1);
         plTim.add(txKhoangNgay2);
+        plTim.add(dPicker2);
         plTim.add(txKhoangTien1);
         plTim.add(txKhoangTien2);
         plHeader.add(plTim);
@@ -118,6 +142,12 @@ public class HienThiHoaDon extends JPanel {
             public void insertUpdate(DocumentEvent e) {
                 txSearchOnChange();
             }
+        });
+        dPicker1.addDateChangeListener((dce) -> {
+            txKhoangNgay1.setText(dPicker1.getDateStringOrEmptyString());
+        });
+        dPicker2.addDateChangeListener((dce) -> {
+            txKhoangNgay1.setText(dPicker2.getDateStringOrEmptyString());
         });
         txKhoangNgay2.getDocument().addDocumentListener(new DocumentListener() {
             @Override
