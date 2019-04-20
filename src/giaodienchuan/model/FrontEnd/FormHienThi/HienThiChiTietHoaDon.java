@@ -1,13 +1,10 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -29,10 +26,10 @@ public class HienThiChiTietHoaDon extends JPanel {
     JButton btnRefresh = new JButton("Làm mới");
     String mahd;
 
-    JTextField txKhoangSoLuong1 = new JTextField(8);
-    JTextField txKhoangSoLuong = new JTextField(8);
-    JTextField txKhoangDonGia1 = new JTextField(5);
-    JTextField txKhoangDonGia2 = new JTextField(5);
+    JTextField txKhoangSoLuong1 = new JTextField(5);
+    JTextField txKhoangSoLuong = new JTextField(5);
+    JTextField txKhoangThanhTien1 = new JTextField(5);
+    JTextField txKhoangThanhTien2 = new JTextField(5);
     MyTable mtb;
 
     public HienThiChiTietHoaDon(String _mahd) {
@@ -62,20 +59,20 @@ public class HienThiChiTietHoaDon extends JPanel {
         plTim.add(txTim);
         plHeader.add(plTim);
 
-        // pl tim khoang ngay
+        // pl tim khoang so luong
         JPanel plTimKiemKhoangSoLuong = new JPanel();
         plTimKiemKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng:"));
         plTimKiemKhoangSoLuong.add(txKhoangSoLuong1);
         plTimKiemKhoangSoLuong.add(txKhoangSoLuong);
         plHeader.add(plTimKiemKhoangSoLuong);
 
-        // pl tim khoang tien
+        // pl tim khoang thanh tien
         JPanel plTimKiemKhoangDonGia = new JPanel();
-        plTimKiemKhoangDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
-        txKhoangDonGia1.setBorder(BorderFactory.createTitledBorder("Từ:"));
-        txKhoangDonGia2.setBorder(BorderFactory.createTitledBorder("Đến"));
-        plTimKiemKhoangDonGia.add(txKhoangDonGia1);
-        plTimKiemKhoangDonGia.add(txKhoangDonGia2);
+        plTimKiemKhoangDonGia.setBorder(BorderFactory.createTitledBorder("Thành tiền"));
+        txKhoangThanhTien1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txKhoangThanhTien2.setBorder(BorderFactory.createTitledBorder("Đến:"));
+        plTimKiemKhoangDonGia.add(txKhoangThanhTien1);
+        plTimKiemKhoangDonGia.add(txKhoangThanhTien2);
         plHeader.add(plTimKiemKhoangDonGia);
 
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
@@ -97,8 +94,8 @@ public class HienThiChiTietHoaDon extends JPanel {
         addDocumentListener(txTim);
         addDocumentListener(txKhoangSoLuong1);
         addDocumentListener(txKhoangSoLuong);
-        addDocumentListener(txKhoangDonGia1);
-        addDocumentListener(txKhoangDonGia2);
+        addDocumentListener(txKhoangThanhTien1);
+        addDocumentListener(txKhoangThanhTien2);
         
         //Add tat ca panel vao frame
         this.add(plHeader, BorderLayout.NORTH);
@@ -111,8 +108,8 @@ public class HienThiChiTietHoaDon extends JPanel {
         txTim.setText("");
         txKhoangSoLuong1.setText("");
         txKhoangSoLuong.setText("");
-        txKhoangDonGia1.setText("");
-        txKhoangDonGia2.setText("");
+        txKhoangThanhTien1.setText("");
+        txKhoangThanhTien2.setText("");
     }
     
     private void addDocumentListener(JTextField txField) {
@@ -136,7 +133,7 @@ public class HienThiChiTietHoaDon extends JPanel {
 
     private void txSearchOnChange() {
         int soLuong1 = -1, soLuong2 = -1;
-        float donGia1 = -1, donGia2 = -1;
+        float thanhTien1 = -1, thanhTien2 = -1;
         try {
             soLuong1 = Integer.parseInt(txKhoangSoLuong1.getText());
             txKhoangSoLuong1.setForeground(Color.black);
@@ -150,19 +147,19 @@ public class HienThiChiTietHoaDon extends JPanel {
             txKhoangSoLuong.setForeground(Color.red);
         }
         try {
-            donGia1 = Float.parseFloat(txKhoangDonGia1.getText());
-            txKhoangDonGia1.setForeground(Color.black);
+            thanhTien1 = Float.parseFloat(txKhoangThanhTien1.getText());
+            txKhoangThanhTien1.setForeground(Color.black);
         } catch (NumberFormatException e) {
-            txKhoangDonGia1.setForeground(Color.red);
+            txKhoangThanhTien1.setForeground(Color.red);
         }
         try {
-            donGia2 = Float.parseFloat(txKhoangDonGia2.getText());
-            txKhoangDonGia2.setForeground(Color.black);
+            thanhTien2 = Float.parseFloat(txKhoangThanhTien2.getText());
+            txKhoangThanhTien2.setForeground(Color.black);
         } catch (NumberFormatException e) {
-            txKhoangDonGia2.setForeground(Color.red);
+            txKhoangThanhTien2.setForeground(Color.red);
         }
         ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
-        qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), soLuong1, soLuong2, donGia1, donGia2).forEach((t) -> {
+        qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), soLuong1, soLuong2, thanhTien1, thanhTien2).forEach((t) -> {
             if(t.getMaHoaDon().equals(mahd)){
                 dscthd.add(t);
             }

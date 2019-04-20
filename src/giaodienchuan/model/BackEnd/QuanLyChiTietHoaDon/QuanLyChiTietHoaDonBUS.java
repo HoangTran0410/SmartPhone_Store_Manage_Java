@@ -92,12 +92,12 @@ public class QuanLyChiTietHoaDonBUS {
         Boolean success = qlhdBUS.updateTongTien(_mahd, tong);
         return success;
     }
-    
+
     private Boolean updateSoLuong(String _masp, int _soLuongThayDoi) {
         Boolean success = false;
-        for (SanPham sp : qlspBUS.getDssp()){
-            if(sp.getMaSP().equals(_masp)){
-                success = qlspBUS.updateSoLuong(_masp,sp.getSoLuong() + _soLuongThayDoi);
+        for (SanPham sp : qlspBUS.getDssp()) {
+            if (sp.getMaSP().equals(_masp)) {
+                success = qlspBUS.updateSoLuong(_masp, sp.getSoLuong() + _soLuongThayDoi);
             }
         }
         return success;
@@ -109,7 +109,7 @@ public class QuanLyChiTietHoaDonBUS {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon) && cthd.getMaSanPham().equals(_maSanPham)) {
                     updateSoLuong(_maSanPham, cthd.getSoLuong());
-                    dscthd.remove(cthd);   
+                    dscthd.remove(cthd);
                     updateTongTien(_maHoaDon);
                     return true;
                 }
@@ -132,7 +132,7 @@ public class QuanLyChiTietHoaDonBUS {
         return false;
     }
 
-    public ArrayList<ChiTietHoaDon> search(String type, String keyword,int soLuong1,int soLuong2,float donGia1,float donGia2) {
+    public ArrayList<ChiTietHoaDon> search(String type, String keyword, int soLuong1, int soLuong2, float thanhTien1, float thanhTien2) {
         ArrayList<ChiTietHoaDon> result = new ArrayList<>();
 
         dscthd.forEach((hd) -> {
@@ -172,15 +172,15 @@ public class QuanLyChiTietHoaDonBUS {
                     break;
             }
         });
-        
-        for(int i = result.size() - 1; i >= 0; i--) {
+
+        for (int i = result.size() - 1; i >= 0; i--) {
             ChiTietHoaDon ct = result.get(i);
             int sl = ct.getSoLuong();
-            float dg = ct.getDonGia();
-            
-            Boolean soLuongKhongThoa = (soLuong1 != -1 && sl < soLuong1 ) || (soLuong2 != -1 && sl > soLuong2);
-            Boolean donGiaKhongThoa = (donGia1 != -1 && dg < donGia1 ) || (donGia2 != -1 && dg > donGia2);
-            
+            float tt = ct.getDonGia() * sl;
+
+            Boolean soLuongKhongThoa = (soLuong1 != -1 && sl < soLuong1) || (soLuong2 != -1 && sl > soLuong2);
+            Boolean donGiaKhongThoa = (thanhTien1 != -1 && tt < thanhTien1) || (thanhTien2 != -1 && tt > thanhTien2);
+
             if (soLuongKhongThoa || donGiaKhongThoa) {
                 result.remove(ct);
             }
