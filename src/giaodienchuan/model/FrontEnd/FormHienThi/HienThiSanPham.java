@@ -195,13 +195,13 @@ public class HienThiSanPham extends JPanel {
             txSoLuong2.setForeground(Color.red);
         }
         try {
-            gia1 = Integer.parseInt(txGia1.getText());
+            gia1 = Float.parseFloat(txGia1.getText());
             txGia1.setForeground(Color.black);
         } catch (NumberFormatException e) {
             txGia1.setForeground(Color.red);
         }
         try {
-            gia2 = Integer.parseInt(txGia2.getText());
+            gia2 = Float.parseFloat(txGia2.getText());
             txGia2.setForeground(Color.black);
         } catch (NumberFormatException e) {
             txGia2.setForeground(Color.red);
