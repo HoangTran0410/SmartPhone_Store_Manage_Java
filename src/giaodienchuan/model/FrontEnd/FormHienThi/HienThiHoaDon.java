@@ -74,24 +74,16 @@ public class HienThiHoaDon extends JPanel {
         plTim.add(txTim);
         plHeader.add(plTim);
 
+        // pl tim khoang ngay
         JPanel plTimKiemKhoangNgay = new JPanel();
-        JPanel plKhoangNgay1 = new JPanel();
-        JPanel plKhoangNgay2 = new JPanel();
-
         plTimKiemKhoangNgay.setBorder(BorderFactory.createTitledBorder("Ngày lập:"));
-        plKhoangNgay1.setBorder(BorderFactory.createTitledBorder(""));
-        plKhoangNgay2.setBorder(BorderFactory.createTitledBorder(""));
-
-        plKhoangNgay1.add(txKhoangNgay1);
-        plKhoangNgay1.add(dPicker1);
-
-        plKhoangNgay2.add(txKhoangNgay2);
-        plKhoangNgay2.add(dPicker2);
-
-        plTimKiemKhoangNgay.add(plKhoangNgay1);
-        plTimKiemKhoangNgay.add(plKhoangNgay2);
+        plTimKiemKhoangNgay.add(txKhoangNgay1);
+        plTimKiemKhoangNgay.add(dPicker1);
+        plTimKiemKhoangNgay.add(txKhoangNgay2);
+        plTimKiemKhoangNgay.add(dPicker2);
         plHeader.add(plTimKiemKhoangNgay);
 
+        // pl tim khoang tien
         JPanel plKhoangTien = new JPanel();
         plKhoangTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền"));
         txKhoangTien1.setBorder(BorderFactory.createTitledBorder("Từ:"));
@@ -100,6 +92,7 @@ public class HienThiHoaDon extends JPanel {
         plKhoangTien.add(txKhoangTien2);
         plHeader.add(plKhoangTien);
 
+        // button detail refresh
         btnDetails.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_show_property_30px.png")));
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
@@ -109,6 +102,7 @@ public class HienThiHoaDon extends JPanel {
         this.add(plHeader, BorderLayout.NORTH);
         this.add(tbHoaDon, BorderLayout.CENTER);
 
+        // add action listener
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -136,7 +130,6 @@ public class HienThiHoaDon extends JPanel {
         addDocumentListener(txKhoangNgay2);
         addDocumentListener(txKhoangTien1);
         addDocumentListener(txKhoangTien2);
-
     }
 
     public void refresh() {
