@@ -88,6 +88,7 @@ public class HienThiSanPham extends JPanel {
 
         // add action listener
         cbTypeSearch.addActionListener((ActionEvent e) -> {
+            txTim.setBorder(BorderFactory.createTitledBorder(cbTypeSearch.getSelectedItem().toString()));
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
                 txSearchOnChange();
@@ -166,6 +167,7 @@ public class HienThiSanPham extends JPanel {
         txSoLuong2.setText("");
         txGia1.setText("");
         txGia2.setText("");
+        lbImage.setIcon(null);
     }
 
     public String getSelectedSanPham(int col) {
