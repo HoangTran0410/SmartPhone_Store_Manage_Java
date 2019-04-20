@@ -78,7 +78,7 @@ public class HienThiHoaDon extends JPanel {
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
-        
+
         cbTypeSearch.addActionListener((ae) -> {
             txSearchOnChange();
         });
@@ -86,9 +86,7 @@ public class HienThiHoaDon extends JPanel {
         btnDetails.addActionListener((ae) -> {
             btnDetailsMouseClicked();
         });
-        
-        
-        
+
         txTim.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -198,31 +196,31 @@ public class HienThiHoaDon extends JPanel {
         LocalDate ngay2;
         int tong1;
         int tong2;
-        try{
+        try {
             ngay1 = java.time.LocalDate.parse(txKhoangNgay1.getText());
             txKhoangNgay1.setForeground(Color.black);
-        }catch(DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             txKhoangNgay1.setForeground(Color.red);
-            ngay1=null;
+            ngay1 = null;
         }
-        try{
+        try {
             ngay2 = java.time.LocalDate.parse(txKhoangNgay2.getText());
             txKhoangNgay2.setForeground(Color.black);
-        }catch(DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             txKhoangNgay2.setForeground(Color.red);
-            ngay2=null;
+            ngay2 = null;
         }
-        try{
+        try {
             tong1 = Integer.parseInt(txKhoangTien1.getText());
-        }catch(NumberFormatException e){
-            tong1=-1;
+        } catch (NumberFormatException e) {
+            tong1 = -1;
         }
-        try{
+        try {
             tong2 = Integer.parseInt(txKhoangTien2.getText());
-        }catch(NumberFormatException e){
-            tong2=-1;
+        } catch (NumberFormatException e) {
+            tong2 = -1;
         }
-        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(),ngay1,ngay2,tong1,tong2), tbHoaDon);
+        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), ngay1, ngay2, tong1, tong2), tbHoaDon);
     }
 
     private void btnDetailsMouseClicked() {
