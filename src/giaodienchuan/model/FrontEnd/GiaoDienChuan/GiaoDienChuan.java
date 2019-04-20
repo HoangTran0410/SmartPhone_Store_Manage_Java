@@ -1,5 +1,6 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
@@ -39,6 +40,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
     JPanel plContent = new JPanel();
     EmptyPage emptypage = new EmptyPage();
+    BanHangForm banhang;
     QuanLySanPhamForm qlsp;
     QuanLyLoaiSanPhamForm qllsp;
     QuanLyTaiKhoanForm qltk;
@@ -181,8 +183,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         plContent.removeAll();
         switch (nameAction) {
             case "Bán hàng":
-                emptypage.setLabelText("Bán hàng đang bảo trì");
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if (banhang == null) {
+                    banhang = new BanHangForm();
+                }
+                plContent.add(banhang, BorderLayout.CENTER);
                 break;
 
             case "Sản phẩm":

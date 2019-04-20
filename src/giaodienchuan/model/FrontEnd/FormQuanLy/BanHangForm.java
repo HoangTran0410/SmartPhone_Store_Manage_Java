@@ -5,10 +5,12 @@
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
+import java.awt.BorderLayout;
 import java.time.LocalTime;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,13 +18,21 @@ import javax.swing.JPanel;
  */
 public class BanHangForm extends JPanel {
 
+    JTextField txTest = new JTextField(15);
+
     public BanHangForm() {
+        setLayout(new BorderLayout());
+        
+        JPanel plTime = new JPanel();
+        plTime.add(txTest);
+        this.add(plTime, BorderLayout.CENTER);
+        
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                System.out.println(LocalTime.now().toString());
+                txTest.setText(LocalTime.now().toString());
             }
         }, 0, 1000);
     }
-
 }
+
