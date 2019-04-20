@@ -43,7 +43,6 @@ public class QuanLySanPhamForm extends JPanel {
         });
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
-            formHienThi.refresh();
         });
     }
 
