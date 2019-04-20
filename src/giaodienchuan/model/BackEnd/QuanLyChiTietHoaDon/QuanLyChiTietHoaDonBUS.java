@@ -1,8 +1,10 @@
 package giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon;
 
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QuanLyChiTietHoaDonBUS {
@@ -130,9 +132,8 @@ public class QuanLyChiTietHoaDonBUS {
         return false;
     }
 
-    public ArrayList<ChiTietHoaDon> search(String type, String keyword) {
+    public ArrayList<ChiTietHoaDon> search(String type, String keyword,int soLuong1,int soLuong2,float donGia1,float donGia2) {
         ArrayList<ChiTietHoaDon> result = new ArrayList<>();
-        readDB();
 
         dscthd.forEach((hd) -> {
             switch (type) {
@@ -171,6 +172,19 @@ public class QuanLyChiTietHoaDonBUS {
                     break;
             }
         });
+        
+        for(int i = result.size() - 1; i >= 0; i--) {
+            ChiTietHoaDon ct = result.get(i);
+            int sl = ct.getSoLuong();
+            float dg = ct.getDonGia();
+            
+            Boolean soLuongKhongThoa = (soLuong1 != -1 && sl < soLuong1 ) || (soLuong2 != -1 && sl > soLuong2);
+            Boolean donGiaKhongThoa = (donGia1 != -1 && dg < donGia1 ) || (donGia2 != -1 && dg > donGia2);
+            
+            if (soLuongKhongThoa || donGiaKhongThoa) {
+                result.remove(ct);
+            }
+        }
         return result;
     }
 
