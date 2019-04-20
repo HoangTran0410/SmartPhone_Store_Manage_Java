@@ -1,9 +1,13 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -25,11 +29,19 @@ public class HienThiChiTietHoaDon extends JPanel {
     JButton btnRefresh = new JButton("Làm mới");
     String mahd;
 
+    JTextField txKhoangSoLuong1 = new JTextField(8);
+    JTextField txKhoangSoLuong = new JTextField(8);
+    JTextField txKhoangDonGia1 = new JTextField(5);
+    JTextField txKhoangDonGia2 = new JTextField(5);
     MyTable mtb;
 
     public HienThiChiTietHoaDon(String _mahd) {
         setLayout(new BorderLayout());
         this.mahd = _mahd;
+
+
+        txKhoangSoLuong1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Đến:"));
 
         mtb = new MyTable();
         mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
@@ -39,24 +51,72 @@ public class HienThiChiTietHoaDon extends JPanel {
         mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(3, JLabel.RIGHT);
         mtb.setAlignment(4, JLabel.RIGHT);
-        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);
+        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd,-1,-1,-1,-1), mtb);
 
         JPanel plHeader = new JPanel();
+
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        txTim.setBorder(BorderFactory.createTitledBorder("Tất cả")); // tạo border rỗng
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
 
+        // pl tim khoang ngay
+        JPanel plTimKiemKhoangSoLuong = new JPanel();
+        plTimKiemKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng:"));
+        plTimKiemKhoangSoLuong.add(txKhoangSoLuong1);
+        plTimKiemKhoangSoLuong.add(txKhoangSoLuong);
+        plHeader.add(plTimKiemKhoangSoLuong);
+
+        // pl tim khoang tien
+        JPanel plTimKiemKhoangDonGia = new JPanel();
+        plTimKiemKhoangDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
+        txKhoangDonGia1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txKhoangDonGia2.setBorder(BorderFactory.createTitledBorder("Đến"));
+        plTimKiemKhoangDonGia.add(txKhoangDonGia1);
+        plTimKiemKhoangDonGia.add(txKhoangDonGia2);
+        plHeader.add(plTimKiemKhoangDonGia);
+
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
-        
+
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
+        
+        cbTypeSearch.addActionListener((ae) -> {
+            txTim.setBorder(BorderFactory.createTitledBorder(String.valueOf(cbTypeSearch.getSelectedItem())));
+            txTim.requestFocus();
+            if (!txTim.getText().equals("")) {
+                txSearchOnChange();
+            }
+        });
+        
 
-        txTim.getDocument().addDocumentListener(new DocumentListener() {
+        addDocumentListener(txTim);
+        addDocumentListener(txKhoangSoLuong1);
+        addDocumentListener(txKhoangSoLuong);
+        addDocumentListener(txKhoangDonGia1);
+        addDocumentListener(txKhoangDonGia2);
+        
+        //Add tat ca panel vao frame
+        this.add(plHeader, BorderLayout.NORTH);
+        this.add(mtb, BorderLayout.CENTER);
+    }
+
+    public void refresh() {
+        qlcthd.readDB();
+        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd,-1,-1,-1,-1), mtb);
+        txTim.setText("");
+        txKhoangSoLuong1.setText("");
+        txKhoangSoLuong.setText("");
+        txKhoangDonGia1.setText("");
+        txKhoangDonGia2.setText("");
+    }
+    
+    private void addDocumentListener(JTextField txField) {
+        txField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
                 txSearchOnChange();
@@ -72,27 +132,42 @@ public class HienThiChiTietHoaDon extends JPanel {
                 txSearchOnChange();
             }
         });
-
-        this.add(plHeader, BorderLayout.NORTH);
-        this.add(mtb, BorderLayout.CENTER);
-    }
-
-    public void refresh() {
-        qlcthd.readDB();
-        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd), mtb);
     }
 
     private void txSearchOnChange() {
-        ArrayList<ChiTietHoaDon> data = qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText());
-        // phải có tìm and ở đây
-        ArrayList<ChiTietHoaDon> result = new ArrayList<>();
-        for(ChiTietHoaDon ct : data) {
-            if(ct.getMaHoaDon().equals(this.mahd)) {
-                result.add(ct);
-            }
+        int soLuong1 = -1, soLuong2 = -1;
+        float donGia1 = -1, donGia2 = -1;
+        try {
+            soLuong1 = Integer.parseInt(txKhoangSoLuong1.getText());
+            txKhoangSoLuong1.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txKhoangSoLuong1.setForeground(Color.red);
         }
-        
-        setDataToTable(result, mtb);
+        try {
+            soLuong2 = Integer.parseInt(txKhoangSoLuong.getText());
+            txKhoangSoLuong.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txKhoangSoLuong.setForeground(Color.red);
+        }
+        try {
+            donGia1 = Float.parseFloat(txKhoangDonGia1.getText());
+            txKhoangDonGia1.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txKhoangDonGia1.setForeground(Color.red);
+        }
+        try {
+            donGia2 = Float.parseFloat(txKhoangDonGia2.getText());
+            txKhoangDonGia2.setForeground(Color.black);
+        } catch (NumberFormatException e) {
+            txKhoangDonGia2.setForeground(Color.red);
+        }
+        ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
+        qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), soLuong1, soLuong2, donGia1, donGia2).forEach((t) -> {
+            if(t.getMaHoaDon().equals(mahd)){
+                dscthd.add(t);
+            }
+        });
+        setDataToTable(dscthd, mtb);
     }
 
     public String getSelectedChiTietHoaDon(int col) {
@@ -110,8 +185,8 @@ public class HienThiChiTietHoaDon extends JPanel {
             mtb.addRow(new String[]{
                 String.valueOf(stt),
                 cthd.getMaSanPham(),
-                String.valueOf(cthd.getSoLuong()), 
-                String.valueOf(cthd.getDonGia()), 
+                String.valueOf(cthd.getSoLuong()),
+                String.valueOf(cthd.getDonGia()),
                 String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});
             stt++;
         }
