@@ -30,6 +30,10 @@ public class QuanLyKhachHangBUS {
         dskh = qlkhDAO.readDB();
     }
     
+    public String getNextID() {
+        return "KH" + String.valueOf(this.dskh.size() + 1);
+    }
+    
     public KhachHang getKhachHang(String makh) {
         for (KhachHang kh : dskh) {
             if (kh.getMaKH().equals(makh)) {

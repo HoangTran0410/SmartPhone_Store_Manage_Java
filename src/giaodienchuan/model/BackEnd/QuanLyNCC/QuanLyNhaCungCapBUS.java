@@ -24,6 +24,10 @@ public class QuanLyNhaCungCapBUS {
     public void readDB() {
         dsncc = qlnccDAO.readDB();
     }
+    
+    public String getNextID() {
+        return "NCC" + String.valueOf(this.dsncc.size() + 1);
+    }
 
     public NhaCungCap getNhaCungCap(String mancc) {
         for (NhaCungCap ncc : dsncc) {

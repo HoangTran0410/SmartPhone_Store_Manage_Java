@@ -29,6 +29,10 @@ public class QuanLySanPhamBUS {
     public void readDB() {
         dssp = qlspDAO.readDB();
     }
+    
+    public String getNextID() {
+        return "KH" + String.valueOf(this.dssp.size() + 1);
+    }
 
     public SanPham getSanPham(String masp) {
         for (SanPham sp : dssp) {

@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ThemSuaKhachHangForm extends JFrame {
@@ -64,7 +63,7 @@ public class ThemSuaKhachHangForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm khách hàng");
-            txMakh.setText("KH" + String.valueOf(qlkhBUS.getDskh().size() + 1));
+            txMakh.setText(qlkhBUS.getNextID());
             
             cbChonTrangThai.setSelectedItem("Hiện");
 

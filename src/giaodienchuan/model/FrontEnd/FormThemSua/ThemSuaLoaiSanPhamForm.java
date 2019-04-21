@@ -51,7 +51,7 @@ public class ThemSuaLoaiSanPhamForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm loại sản phẩm");
-            txMalsp.setText("LSP" + String.valueOf(qllspBUS.getDslsp().size() + 1));
+            txMalsp.setText(qllspBUS.getNextID());
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));

@@ -85,7 +85,7 @@ public class ThemSuaHoaDonForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm hóa đơn");
-            txtMaHd.setText("HD" + String.valueOf(qlhdBUS.getDshd().size() + 1));
+            txtMaHd.setText(qlhdBUS.getNextID());
 
             LocalDate ngayLap = java.time.LocalDate.now();
             LocalTime gioLap = java.time.LocalTime.now();
