@@ -21,6 +21,10 @@ public class QuanLyLoaiSanPhamBUS {
     public String[] getHeaders() {
         return new String[]{"Mã loại", "Tên loại", "Mô tả"};
     }
+    
+    public String getNextID() {
+        return "LSP" + String.valueOf(this.dslsp.size() + 1);
+    }
 
     public void readDB() {
         dslsp = qllspDAO.readDB();

@@ -90,7 +90,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm sản phẩm");
-            txMasp.setText("SP" + String.valueOf(qlspBUS.getDssp().size() + 1));
+            txMasp.setText(qlspBUS.getNextID());
 
             cbChonTrangThai.setSelectedItem("Hiện");
             

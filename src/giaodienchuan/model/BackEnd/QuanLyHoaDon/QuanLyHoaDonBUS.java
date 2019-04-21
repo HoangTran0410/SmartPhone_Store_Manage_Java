@@ -24,6 +24,10 @@ public class QuanLyHoaDonBUS {
     public String[] getHeaders() {
         return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"};
     }
+    
+    public String getNextID() {
+        return "HD" + String.valueOf(this.dshd.size() + 1);
+    }
 
     public HoaDon getHoaDon(String mahd) {
         for (HoaDon hd : dshd) {

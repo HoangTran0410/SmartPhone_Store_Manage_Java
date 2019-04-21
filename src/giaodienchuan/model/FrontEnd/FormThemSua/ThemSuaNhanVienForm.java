@@ -84,7 +84,7 @@ public class ThemSuaNhanVienForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm nhân viên");
-            txManv.setText("NV" + String.valueOf(qlnvBUS.getDsnv().size() + 1));
+            txManv.setText(qlnvBUS.getNextID());
 
             cbChonTrangThai.setSelectedItem("Hiện");
             

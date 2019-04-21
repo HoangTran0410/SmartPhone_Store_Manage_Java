@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 
 public class ThemSuaNhaCungCapForm extends JFrame {
 
-    QuanLyNhaCungCapBUS BUS = new QuanLyNhaCungCapBUS();
+    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
     String type;
 
     NhaCungCap nccSua;
@@ -31,7 +31,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
     JButton btnHuy = new JButton("Hủy");
 
     public ThemSuaNhaCungCapForm(String _type, String _mancc) {
-        
+
         this.setLayout(new BorderLayout());
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
@@ -54,7 +54,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
         JPanel plButton = new JPanel();
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm nhà cung cấp");
-            txMaNCC.setText("NCC" + String.valueOf(BUS.getDsncc().size() + 1));
+            txMaNCC.setText(qlnccBUS.getNextID());
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -63,7 +63,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
 
         } else {
             this.setTitle("Sửa nhà cung cấp");
-            for (NhaCungCap ncc : BUS.getDsncc()) {
+            for (NhaCungCap ncc : qlnccBUS.getDsncc()) {
                 if (ncc.getMaNCC().equals(_mancc)) {
                     this.nccSua = ncc;
                 }
@@ -117,7 +117,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
             String SDT = txSDT.getText();
             String Fax = txFax.getText();
 
-            if (BUS.update(maNCC, tenNCC, diaChi, SDT, Fax)) {
+            if (qlnccBUS.update(maNCC, tenNCC, diaChi, SDT, Fax)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + maNCC + " thành công!");
                 this.dispose();
             }
@@ -127,7 +127,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
             NhaCungCap ncc = new NhaCungCap(txMaNCC.getText(), txTenNCC.getText(), txDiaChi.getText(), txSDT.getText(), txFax.getText());
-            if (BUS.add(ncc)) {
+            if (qlnccBUS.add(ncc)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + txTenNCC.getText() + " thành công!");
                 this.dispose();
             }

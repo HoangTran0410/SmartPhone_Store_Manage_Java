@@ -51,7 +51,7 @@ public class ThemSuaQuyenForm extends JFrame {
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm quyền");
-            txMaQuyen.setText("Q" + String.valueOf(qlqBUS.getDsq().size() + 1));
+            txMaQuyen.setText(qlqBUS.getNextID());
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));

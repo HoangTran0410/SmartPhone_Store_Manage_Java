@@ -25,6 +25,10 @@ public class QuanLyQuyenBUS {
     public void readDB() {
         dsq = qlqDAO.readDB();
     }
+    
+    public String getNextID() {
+        return "Q" + String.valueOf(this.dsq.size() + 1);
+    }
 
     public Quyen getQuyen(String maquyen) {
         for (Quyen q : dsq) {

@@ -30,6 +30,10 @@ public class QuanLyNhanVienBUS {
     public void readDB() {
         dsnv = qlnvDAO.readDB();
     }
+    
+    public String getNextID() {
+        return "NV" + String.valueOf(this.dsnv.size() + 1);
+    }
 
     public NhanVien getNhanVien(String manv) {
         for (NhanVien nv : dsnv) {
