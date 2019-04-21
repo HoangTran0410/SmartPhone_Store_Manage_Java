@@ -21,6 +21,10 @@ public class QuanLyHoaDonBUS {
         dshd = qlhdDAO.readDB();
     }
 
+    public String[] getHeaders() {
+        return new String[]{"Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"};
+    }
+
     public HoaDon getHoaDon(String mahd) {
         for (HoaDon hd : dshd) {
             if (hd.getMaHoaDon().equals(mahd)) {
@@ -39,13 +43,13 @@ public class QuanLyHoaDonBUS {
         return false;
     }
 
-    public Boolean add(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
-        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
+    public Boolean add(String maHoaDon, String maNhanVien, String maKhachHang, String makm, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
+        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, makm, ngayNhap, gioNhap, tongTien);
         return add(hd);
     }
 
-    public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
-        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, ngayNhap, gioNhap, tongTien);
+    public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, String makm, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
+        HoaDon hd = new HoaDon(maHoaDon, maNhanVien, maKhachHang, makm, ngayNhap, gioNhap, tongTien);
         return update(hd);
     }
 
@@ -97,6 +101,7 @@ public class QuanLyHoaDonBUS {
                     if (hd.getMaHoaDon().toLowerCase().contains(keyword.toLowerCase())
                             || hd.getMaNhanVien().toLowerCase().contains(keyword.toLowerCase())
                             || hd.getMaKhachHang().toLowerCase().contains(keyword.toLowerCase())
+                            || hd.getMaKhachHang().toLowerCase().contains(keyword.toLowerCase())
                             || hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())
                             || hd.getGioLap().toString().toLowerCase().contains(keyword.toLowerCase())
                             || String.valueOf(hd.getTongTien()).toLowerCase().contains(keyword.toLowerCase())) {
@@ -122,6 +127,13 @@ public class QuanLyHoaDonBUS {
                         result.add(hd);
                     }
                     break;
+
+                case "Mã khuyến mãi":
+                    if (hd.getMaKhuyenMai().toLowerCase().contains(keyword.toLowerCase())) {
+                        result.add(hd);
+                    }
+                    break;
+
                 case "Ngày lập":
                     if (hd.getNgayLap().toString().toLowerCase().contains(keyword.toLowerCase())) {
                         result.add(hd);
@@ -140,14 +152,14 @@ public class QuanLyHoaDonBUS {
         });
 
         //Ngay lap, tong tien
-        for(int i = result.size() - 1; i >= 0; i--) {
+        for (int i = result.size() - 1; i >= 0; i--) {
             HoaDon hd = result.get(i);
             LocalDate ngaylap = hd.getNgayLap();
             float tongtien = hd.getTongTien();
-            
+
             Boolean ngayKhongThoa = (_ngay1 != null && ngaylap.isBefore(_ngay1)) || (_ngay2 != null && ngaylap.isAfter(_ngay2));
             Boolean tienKhongThoa = (_tong1 != -1 && tongtien < _tong1) || (_tong2 != -1 && tongtien > _tong2);
-            
+
             if (ngayKhongThoa || tienKhongThoa) {
                 result.remove(hd);
             }

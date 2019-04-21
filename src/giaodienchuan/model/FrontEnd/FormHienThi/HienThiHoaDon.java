@@ -30,7 +30,7 @@ public class HienThiHoaDon extends JPanel {
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
 
     JTextField txTim = new JTextField(10);
-    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
+    JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khuyến mãi", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
 
     JButton btnRefresh = new JButton("Làm mới");
     JButton btnDetails = new JButton("Xem chi tiết");
@@ -64,8 +64,8 @@ public class HienThiHoaDon extends JPanel {
 
         //Tao taoble hien thi thong tin hoa don
         tbHoaDon = new MyTable();
-        tbHoaDon.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
-        tbHoaDon.setColumnsWidth(new double[]{.5, 1.6, 1.6, 1.6, 1.6, 1.5, 1.6});
+        tbHoaDon.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"});
+        tbHoaDon.setColumnsWidth(new double[]{.5, 1, 1, 1, 1, 1, 1, 1});
         tbHoaDon.setAlignment(0, JLabel.CENTER);
         tbHoaDon.setAlignment(4, JLabel.CENTER);
         tbHoaDon.setAlignment(5, JLabel.CENTER);
@@ -228,8 +228,15 @@ public class HienThiHoaDon extends JPanel {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (HoaDon hd : data) {
-            table.addRow(new String[]{String.valueOf(stt), hd.getMaHoaDon(), hd.getMaNhanVien(), hd.getMaKhachHang(),
-                String.valueOf(hd.getNgayLap()), String.valueOf(hd.getGioLap()), String.valueOf(hd.getTongTien())});
+            table.addRow(new String[]{
+                String.valueOf(stt), 
+                hd.getMaHoaDon(), 
+                hd.getMaNhanVien(), 
+                hd.getMaKhachHang(),
+                hd.getMaKhuyenMai(),
+                String.valueOf(hd.getNgayLap()), 
+                String.valueOf(hd.getGioLap()), 
+                String.valueOf(hd.getTongTien())});
             stt++;
         }
     }

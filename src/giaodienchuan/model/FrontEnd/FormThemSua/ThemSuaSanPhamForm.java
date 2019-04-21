@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,6 +34,7 @@ public class ThemSuaSanPhamForm extends JFrame {
     FileDialog fdChooseImg = new FileDialog(this);
     FileButton btnChonAnh = new FileButton();
     MoreButton btnChonLoai = new MoreButton();
+    JComboBox<String> cbChonTrangThai;
 
     JButton btnThem = new JButton("Thêm");
     JButton btnThoat = new JButton("Thoát");
@@ -53,6 +56,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         txGia.setBorder(BorderFactory.createTitledBorder("Đơn Giá (triệu)"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         txHinhAnh.setBorder(BorderFactory.createTitledBorder(" "));
+        cbChonTrangThai = new JComboBox<>(new String[]{"Ẩn", "Hiện"});
 
         JPanel plChonLoai = new JPanel();
         plChonLoai.setBorder(BorderFactory.createTitledBorder("Mã loại"));
@@ -105,6 +109,14 @@ public class ThemSuaSanPhamForm extends JFrame {
             txHinhAnh.setText(this.spSua.getFileNameHinhAnh());
 
             txMasp.setEditable(false);
+            cbChonTrangThai.setSelectedItem(this.spSua.getTrangThai()==0?"Hiện":"Ẩn");
+            
+            JPanel plChonTT = new JPanel();
+            plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
+            JLabel lbChonTT = new JLabel("Trạng thái: ");
+            plChonTT.add(lbChonTT);
+            plChonTT.add(cbChonTrangThai);
+            plInput.add(plChonTT);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
             btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -151,7 +163,7 @@ public class ThemSuaSanPhamForm extends JFrame {
             int soluong = Integer.parseInt(txSoLuong.getText());
             String url = txHinhAnh.getText();
 
-            if (qlspBUS.add(masp, maloai, ten, dongia, soluong, url)) {
+            if (qlspBUS.add(masp, maloai, ten, dongia, soluong, url, 0)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + ten + " thành công!");
             }
         }
@@ -165,8 +177,9 @@ public class ThemSuaSanPhamForm extends JFrame {
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
             String url = txHinhAnh.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện")?0:1);
 
-            if (qlspBUS.update(masp, maloai, ten, dongia, soluong, url)) {
+            if (qlspBUS.update(masp, maloai, ten, dongia, soluong, url, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + masp + " thành công!");
                 this.dispose();
             }
