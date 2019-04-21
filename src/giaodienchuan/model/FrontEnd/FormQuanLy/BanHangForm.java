@@ -192,7 +192,7 @@ public class BanHangForm extends JPanel {
         plTimKiemKhoangThanhTien.add(txKhoangThanhTien2);
         plTimKiem.add(plTimKiemKhoangThanhTien);
         
-        plTimKiem.add(txSearch);
+//        plTimKiem.add(txSearch);
         plChonSanPham.add(plTimKiem);
 
         //Panel table san pham
