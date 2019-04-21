@@ -9,7 +9,6 @@ import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.LoaiSanPham;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
@@ -18,7 +17,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -200,6 +200,12 @@ public class BanHangForm extends JPanel {
         tbSanPham.setBounds(10, HEIGHT / 8, WIDTH / 2 - 20, HEIGHT / 2);
         plChonSanPham.add(tbSanPham);
         setDataToTableSanPham(qlspBUS.getDssp(), tbSanPham);
+        tbSanPham.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                tbSanPhamClicked();
+            }
+        });
 
         //panel chi tiet san pham
         JPanel plChiTietSanPham = new JPanel();
@@ -227,6 +233,9 @@ public class BanHangForm extends JPanel {
         txSoluong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         plSl.add(txSoluong);
         plSl.add(btnThem);
+        btnThem.addActionListener((ae) -> {
+            btnThemMouseClicked(TOOL_TIP_TEXT_KEY, SOMEBITS);
+        });
         plChonSanPham.add(plSl);
 
         //Hinh anh san pham
@@ -247,13 +256,24 @@ public class BanHangForm extends JPanel {
         }
         return null;
     }
+    
+    public void tbSanPhamClicked(){
+        int i = tbSanPham.getTable().getSelectedRow();
+        if(i>=0){
+            txMasp.setText(tbSanPham.getModel().getValueAt(i, 0).toString());
+            txLoaisp.setText(tbSanPham.getModel().getValueAt(i, 1).toString());
+            txTensp.setText(tbSanPham.getModel().getValueAt(i, 2).toString());
+            txDonGia.setText(tbSanPham.getModel().getValueAt(i, 3).toString());
+            txSoluong.setText(tbSanPham.getModel().getValueAt(i, 0).toString());
+        }
+    }
 
     private void setDataToTableSanPham(ArrayList<SanPham> data, MyTable mtb) {
         mtb.clear();
         for (SanPham sp : data) {
             mtb.addRow(new String[]{
                 sp.getMaSP(),
-//                qllspBUS.getLoaiSanPham(sp.getMaSP()).getTenLSP(),
+                qllspBUS.getLoaiSanPham(sp.getMaLSP()).getTenLSP(),
                 sp.getTenSP(),
                 String.valueOf(sp.getDonGia()),
                 String.valueOf(sp.getSoLuong())});
@@ -263,7 +283,7 @@ public class BanHangForm extends JPanel {
     private void setDataToTableChiTiet(ArrayList<SanPham> data, MyTable mtb) {
         mtb.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        for(SanPham sp : data) {
+        for (SanPham sp : data) {
             mtb.addRow(new String[]{
                 String.valueOf(stt),
                 sp.getMaSP(),
