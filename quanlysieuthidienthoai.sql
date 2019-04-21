@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2019 lúc 10:27 AM
--- Phiên bản máy phục vụ: 10.1.37-MariaDB
--- Phiên bản PHP: 7.2.12
+-- Thời gian đã tạo: Th4 21, 2019 lúc 07:54 PM
+-- Phiên bản máy phục vụ: 10.1.38-MariaDB
+-- Phiên bản PHP: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -108,7 +108,27 @@ CREATE TABLE `khachhang` (
 
 INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('KH1', 'Trần Văn Hoàng', 'TP HCM', '0123456789', 0),
-('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 0);
+('KH10', 'Trần Ngọc Hải', 'Kiên Giang', '0905271941', 0),
+('KH11', 'Nguyễn Xuân Diệu', 'TP HCM', '0301279552', 0),
+('KH12', 'Trần Thanh Thiện', 'Hà Nội', '0123617389', 0),
+('KH13', 'Huỳnh Minh Mẫn', 'An Giang', '0389230581', 0),
+('KH14', 'Trần Xuân An', 'Long An', '0972136531', 0),
+('KH15', 'Nguyễn Thị Xuân', 'TP HCM', '0702571936', 0),
+('KH16', 'Huỳnh Anh Thư', 'Bến Tre', '0892383623', 0),
+('KH17', 'Trần Thanh Nhã', 'TP HCM', '0702397442', 0),
+('KH18', 'Huỳnh Nhựt Trường', 'TP HCM', '0120982736', 0),
+('KH19', 'Trần Ngọc Hà', 'TP HCM', '0702843627', 0),
+('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 0),
+('KH20', 'Trần Thị Hoài Anh', 'TP HCM', '0126729137', 0),
+('KH21', 'Nguyễn Văn Thắng', 'Kiên Giang', '0723812935', 0),
+('KH22', 'Huỳnh Lê Diệu Hân', 'Hà Nội', '0306279178', 0),
+('KH3', 'Phan Thanh Tùng', 'Hà Nội', '0952612771', 0),
+('KH4', 'Trần Thanh Sơn', 'Hải Phòng', '0120617231', 0),
+('KH5', 'Trần Thanh Thái', 'Bến Tre', '0912385524', 0),
+('KH6', 'Nguyễn Hồng Nhung', 'Huế', '0967263941', 0),
+('KH7', 'Từ Ngọc Cảnh', 'Sóc Trăng', '0306172915', 0),
+('KH8', 'Nguyễn Thiên Phụng', 'Vũng Tàu', '0703167293', 0),
+('KH9', 'Nguyễn Diệu Ái', 'TP HCM', '0805178293', 0);
 
 -- --------------------------------------------------------
 
@@ -199,9 +219,29 @@ CREATE TABLE `nhanvien` (
 
 INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('NV1', 'Phan Trí Dũng', '1978-04-05', 'Đà Nẵng', '0145647854', 0),
+('NV10', 'Nguyễn Thị Hồng Hạnh', '1993-11-29', 'Bến Tre', '01262368193', 0),
+('NV11', 'Phan Thị Hồng Trinh', '1993-12-11', 'Nghệ An', '0366227168', 0),
+('NV12', 'Phan Văn Tài', '1989-06-15', 'Kiên Giang', '0981578293', 0),
+('NV13', 'Lê Công Huynh', '1991-09-12', 'Sóc Trăng', '0977232173', 0),
+('NV14', 'Lê Hồng Hoa', '1992-08-13', 'TP HCM', '0805126735', 0),
+('NV15', 'Nguyễn Thị My', '1992-12-30', 'Hà Nội', '0703689147', 0),
+('NV16', 'Trương Thị Hồng Huệ', '1992-11-28', 'TP HCM', '0825719263', 0),
+('NV17', 'Nguyễn Thành Trung', '1992-01-16', 'Thanh Hoá', '0123691368', 0),
+('NV18', 'Nguyễn Thị Cẩm Duyên', '1995-11-03', 'TP HCM', '0120984178', 0),
+('NV19', 'Lê Thanh Quang', '1995-04-19', 'Huế', '0956146728', 0),
 ('NV2', 'Trần Văn Hi', '1999-04-05', 'TP HCM', '0123456489', 0),
+('NV20', 'Nguyễn Hùng Bá', '1997-02-14', 'Hải Phòng', '0702536184', 0),
+('NV21', 'Huỳnh Công Thành', '1996-11-20', 'Long An', '0709123175', 0),
+('NV22', 'Huỳnh Thị Hồng Hương', '1994-11-27', 'TP HCM', '0912635198', 0),
+('NV23', 'Phan Yến Hân', '1996-03-14', 'Bến Tre', '0123671823', 0),
+('NV24', 'Trương Thanh Dũng', '1997-10-28', 'Đồng Tháp', '0981237651', 0),
 ('NV3', 'Nguyễn Bá Được', '1998-04-05', 'Hà Nội', '0128456786', 1),
-('NV4', 'Trần Văn Hoàng', '1999-11-12', 'TP HCM', '01207764668', 0);
+('NV4', 'Trần Văn Hoàng', '1999-11-12', 'TP HCM', '01207764668', 0),
+('NV5', 'Lê Thanh Tú', '1991-04-11', 'Hải Phòng', '0367756753', 0),
+('NV6', 'Nguyễn Hải Âu', '1992-04-24', 'Huế', '0364198226', 0),
+('NV7', 'Hoàng Thanh Hùng', '1989-11-13', 'Long An', '0276886265', 0),
+('NV8', 'Trịnh Văn Công', '1990-07-16', 'Tiền Giang', '0392656931', 0),
+('NV9', 'Dương Thanh Hồng', '1991-12-03', 'Vũng Tàu', '0977268398', 0);
 
 -- --------------------------------------------------------
 
