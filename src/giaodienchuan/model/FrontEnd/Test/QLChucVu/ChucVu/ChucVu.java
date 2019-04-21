@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package giaodienchuan.model.BackEnd.ChucVu;
+package giaodienchuan.model.FrontEnd.Test.QLChucVu.ChucVu;
 
 /**
  *

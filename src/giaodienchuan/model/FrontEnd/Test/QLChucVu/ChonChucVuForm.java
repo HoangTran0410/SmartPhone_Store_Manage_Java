@@ -1,6 +1,6 @@
-package giaodienchuan.model.FrontEnd.FormChon;
+package giaodienchuan.model.FrontEnd.Test.QLChucVu;
 
-import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChucVu;
+import giaodienchuan.model.FrontEnd.Test.QLChucVu.HienThiChucVu;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;

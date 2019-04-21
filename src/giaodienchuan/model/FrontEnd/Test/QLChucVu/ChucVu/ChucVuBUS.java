@@ -1,4 +1,4 @@
-package giaodienchuan.model.BackEnd.ChucVu;
+package giaodienchuan.model.FrontEnd.Test.QLChucVu.ChucVu;
 
 import java.util.ArrayList;
 
