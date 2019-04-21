@@ -21,15 +21,17 @@ public class NavBarItem extends JPanel {
         setLayout(null);
         setBounds(rec);
         setBackground(this.bgDefault);
+        
+        lbLabel = new JLabel(text);
+        lbLabel.setForeground(this.colorDefault);
+        setFontSize(fontSize);
+        add(lbLabel);
 
         setLabel(text);
     }
     
     public void setLabel(String text) {
-        lbLabel = new JLabel(text);
-        lbLabel.setForeground(this.colorDefault);
-        setFontSize(fontSize);
-        add(lbLabel);
+        lbLabel.setText(text);
     }
     
     public void setFontSize(int size) {

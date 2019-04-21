@@ -7,7 +7,6 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
-import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChucVuForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyQuyenForm;
@@ -37,6 +36,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
+    NavBarTitle headerTitle;
 
     JPanel plContent = new JPanel();
     EmptyPage emptypage = new EmptyPage();
@@ -49,7 +49,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyQuyenForm qlq;
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
-//    QuanLyChucVuForm qlcv;
     QuanLyNhaCungCapForm qlncc;
 
     public GiaoDienChuan() {
@@ -77,7 +76,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_company_30px.png",
             "seperate", "1",
-//            "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Tài khoản", "icons8_key_30px.png",
             "Quyền", "icons8_police_badge_30px.png",
             "seperate", "1",
@@ -116,7 +114,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         header = new NavBarContainer(new Rectangle(0, 0, WIDTH, headerH));
         header.setBackground(new Color(headerBg, headerBg, headerBg));
 
-        NavBarTitle headerTitle = new NavBarTitle(new Rectangle((WIDTH - 400) / 2, 0, 400, headerH), "QUẢN LÝ SIÊU THỊ");
+        headerTitle = new NavBarTitle(new Rectangle((WIDTH - 400) / 2, 0, 400, headerH), "QUẢN LÝ SIÊU THỊ");
         headerTitle.setColorDefault(new Color(200, 200, 200));
         headerTitle.setBgDefault(new Color(headerBg, headerBg, headerBg));
         headerTitle.setFontSize(23);
@@ -229,13 +227,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 plContent.add(qltk, BorderLayout.CENTER);
                 break;
 
-//            case "Chức vụ":
-//                if (qlcv == null) {
-//                    qlcv = new QuanLyChucVuForm();
-//                }
-//                plContent.add(qlcv, BorderLayout.CENTER);
-//                break;
-
             case "Nhân viên":
                 if (qlnv == null) {
                     qlnv = new QuanLyNhanVienForm();
@@ -273,6 +264,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 plContent.add(emptypage, BorderLayout.CENTER);
                 break;
         }
+        headerTitle.setLabel(nameAction.toUpperCase());
         // https://stackoverflow.com/questions/12989388/switching-panels-with-menubar
         revalidate();//refresh ui and layout
         repaint();

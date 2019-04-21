@@ -13,5 +13,5 @@ public class NavBarTitle extends NavBarItem {
         
         setFontSize(20);
         lbLabel.setForeground(Color.WHITE);
-    }    
+    }
 }
