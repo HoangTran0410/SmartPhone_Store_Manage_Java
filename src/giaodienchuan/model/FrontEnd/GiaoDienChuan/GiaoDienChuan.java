@@ -32,7 +32,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1500, HEIGHT = 950;
+    final int WIDTH = 1400, HEIGHT = 800;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -185,7 +185,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         switch (nameAction) {
             case "Bán hàng":
                 if (banhang == null) {
-                    banhang = new BanHangForm();
+                    banhang = new BanHangForm(WIDTH - 250, HEIGHT - 55);
                 }
                 plContent.add(banhang, BorderLayout.CENTER);
                 break;
