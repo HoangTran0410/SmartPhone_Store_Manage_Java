@@ -67,9 +67,7 @@ public class HienThiHoaDon extends JPanel {
         tbHoaDon.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"});
         tbHoaDon.setColumnsWidth(new double[]{.5, 1, 1, 1, 1, 1, 1, 1});
         tbHoaDon.setAlignment(0, JLabel.CENTER);
-        tbHoaDon.setAlignment(4, JLabel.CENTER);
-        tbHoaDon.setAlignment(5, JLabel.CENTER);
-        tbHoaDon.setAlignment(6, JLabel.RIGHT);
+        tbHoaDon.setAlignment(7, JLabel.CENTER);
         setDataToTable(qlhd.getDshd(), tbHoaDon);
 
         // Tao panel header chuaw

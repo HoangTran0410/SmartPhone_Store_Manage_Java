@@ -49,8 +49,9 @@ public class HienThiSanPham extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng", "Trạng thái"});
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 2, 2, 1, 1.5});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
+        mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.CENTER);
+        mtb.setAlignment(6, JLabel.CENTER);
         setDataToTable(qlspBUS.getDssp(), mtb);
 
         // ======== search panel ===========
