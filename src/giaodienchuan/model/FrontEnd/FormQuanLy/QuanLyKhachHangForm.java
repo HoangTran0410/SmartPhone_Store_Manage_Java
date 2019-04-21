@@ -67,8 +67,8 @@ public class QuanLyKhachHangForm extends JPanel {
     private void btnXoaMouseClicked() {
         String makh = formHienThi.getSelectedKhachHang();
         if (makh != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + makh + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyKhachHangBUS().delete(makh);
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + makh + " ? Khách hàng sẽ được Ẩn", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyKhachHangBUS().updateTrangThai(makh, 1);
                 formHienThi.refresh();
             }
 
