@@ -24,12 +24,13 @@ public class QuanLyNhanVienDAO {
             ResultSet r = qlnvConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
-                    String manv = r.getString(1);
-                    String tennv = r.getString(2);
-                    LocalDate ngaysinh = r.getDate(3).toLocalDate();
-                    String diachi = r.getString(4);
-                    String sdt = r.getString(5);
-                    dsnv.add(new NhanVien(manv, tennv, ngaysinh, diachi, sdt));
+                    String manv = r.getString("MaNV");
+                    String tennv = r.getString("TenNV");
+                    LocalDate ngaysinh = r.getDate("NgaySinh").toLocalDate();
+                    String diachi = r.getString("DiaChi");
+                    String sdt = r.getString("SDT");
+                    int tt = r.getInt("TrangThai");
+                    dsnv.add(new NhanVien(manv, tennv, ngaysinh, diachi, sdt, tt));
                 }
             }
 
@@ -50,12 +51,13 @@ public class QuanLyNhanVienDAO {
             ResultSet r = qlnvConnection.sqlQuery(qry);
             if (r != null) {
                 while (r.next()) {
-                    String manv = r.getString(1);
-                    String tennv = r.getString(2);
-                    LocalDate ngaysinh = r.getDate(3).toLocalDate();
-                    String diachi = r.getString(4);
-                    String sdt = r.getString(5);
-                    dsnv.add(new NhanVien(manv, tennv, ngaysinh, diachi, sdt));
+                    String manv = r.getString("MaNV");
+                    String tennv = r.getString("TenNV");
+                    LocalDate ngaysinh = r.getDate("NgaySinh").toLocalDate();
+                    String diachi = r.getString("DiaChi");
+                    String sdt = r.getString("SDT");
+                    int tt = r.getInt("TrangThai");
+                    dsnv.add(new NhanVien(manv, tennv, ngaysinh, diachi, sdt, tt));
                 }
             }
 
@@ -70,12 +72,13 @@ public class QuanLyNhanVienDAO {
 
     public Boolean add(NhanVien nv) {
         qlnvConnection = new ConnectionDB();
-        Boolean ok = qlnvConnection.sqlUpdate("INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES ('"
+        Boolean ok = qlnvConnection.sqlUpdate("INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai`) VALUES ('"
                 + nv.getMaNV() + "', '"
                 + nv.getTenNV() + "', '" 
                 + nv.getNgaySinh() + "', '" 
                 + nv.getDiaChi() + "', '" 
-                + nv.getSDT() + "');");
+                + nv.getSDT() + "', '" 
+                + nv.getTrangThai() + "');");
         qlnvConnection.closeConnect();
         return ok;
     }
@@ -87,14 +90,24 @@ public class QuanLyNhanVienDAO {
         return ok;
     }
 
-    public Boolean update(String MaNV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
+    public Boolean update(String MaNV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT, int trangthai) {
         qlnvConnection = new ConnectionDB();
         Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set "
-                + "',TenNV='" + TenNV
+                + "TenNV='" + TenNV
                 + "',NgaySinh='" + NgaySinh 
                 + "',DiaChi='" + DiaChi 
                 + "',SDT='" + SDT 
+                + "',TrangThai='" + trangthai 
                 + "' where MaNV='" + MaNV + "'");
+        qlnvConnection.closeConnect();
+        return ok;
+    }
+    
+    public Boolean updateTrangThai(String manv, int trangthai) {
+        qlnvConnection = new ConnectionDB();
+        Boolean ok = qlnvConnection.sqlUpdate("Update NhanVien Set "
+                + "TrangThai='" + trangthai 
+                + "' where MaNV='" + manv + "'");
         qlnvConnection.closeConnect();
         return ok;
     }

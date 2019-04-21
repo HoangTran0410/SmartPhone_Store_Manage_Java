@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +28,7 @@ public class ThemSuaNhanVienForm extends JFrame {
     JTextField txNgaysinh = new JTextField(12);
     JTextField txDiachi = new JTextField(15);
     JTextField txSDT= new JTextField(12);
+    JComboBox<String> cbChonTrangThai;
 
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
@@ -58,6 +61,14 @@ public class ThemSuaNhanVienForm extends JFrame {
         txNgaysinh.setBorder(BorderFactory.createTitledBorder(" "));
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));        
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
+        cbChonTrangThai = new JComboBox<>(new String[]{"Ẩn", "Hiện"});
+        
+        // chon trang thai
+        JPanel plChonTT = new JPanel();
+        plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
+        JLabel lbChonTT = new JLabel("Trạng thái: ");
+        plChonTT.add(lbChonTT);
+        plChonTT.add(cbChonTrangThai);
 
         JPanel plInput = new JPanel();
         plInput.add(txManv);
@@ -65,6 +76,7 @@ public class ThemSuaNhanVienForm extends JFrame {
         plInput.add(plNgaysinh);
         plInput.add(txDiachi);
         plInput.add(txSDT);
+        plInput.add(plChonTT);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -74,6 +86,8 @@ public class ThemSuaNhanVienForm extends JFrame {
             this.setTitle("Thêm nhân viên");
             txManv.setText("NV" + String.valueOf(qlnvBUS.getDsnv().size() + 1));
 
+            cbChonTrangThai.setSelectedItem("Hiện");
+            
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             plButton.add(btnThem);
 
@@ -89,6 +103,7 @@ public class ThemSuaNhanVienForm extends JFrame {
                 this.dispose();
             }
 
+            cbChonTrangThai.setSelectedItem(this.nvSua.getTrangThai() == 0 ? "Hiện" : "Ẩn");
             txManv.setText(this.nvSua.getMaNV());
             txTennv.setText(this.nvSua.getTenNV());
             txNgaysinh.setText(this.nvSua.getNgaySinh().toString());
@@ -133,8 +148,9 @@ public class ThemSuaNhanVienForm extends JFrame {
             LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlnvBUS.add(manv, tennv, ngaysinh, diachi, sdt)) {
+            if (qlnvBUS.add(manv, tennv, ngaysinh, diachi, sdt, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + tennv + " thành công!");
                 this.dispose();
             }
@@ -148,8 +164,9 @@ public class ThemSuaNhanVienForm extends JFrame {
             LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlnvBUS.update(manv, tennv, ngaysinh, diachi, sdt)) {
+            if (qlnvBUS.update(manv, tennv, ngaysinh, diachi, sdt, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + manv + " thành công!");
                 this.dispose();
             }
