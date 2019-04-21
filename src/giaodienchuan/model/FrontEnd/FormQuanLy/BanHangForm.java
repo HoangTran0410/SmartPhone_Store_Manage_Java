@@ -42,7 +42,7 @@ public class BanHangForm extends JPanel {
 
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
     ArrayList<SanPham> listSanPham = new ArrayList<>();
-    
+
     QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
 
     final int WIDTH = 1250, HEIGHT = 900;
@@ -52,38 +52,37 @@ public class BanHangForm extends JPanel {
     JTextField txGioLap = new JTextField();
     JTextField txMaKhachHang = new JTextField();
     JTextField txTongTien = new JTextField();
-    
+
     JButton btnThanhToan = new JButton("Thanh toán");
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
     JTextField txSearch = new JTextField();
-    
+
     MyTable tbChiTietHoaDon;
-    MyTable tbSanPham ;
+    MyTable tbSanPham;
 
     public BanHangForm() {
 
         this.setLayout(new BorderLayout());
-        tbChiTietHoaDon = new MyTable();     
+        tbChiTietHoaDon = new MyTable();
         this.setBackground(Color.DARK_GRAY);
-        
+
         //Chia doi form thanh 2 panel
         JPanel plLapHoaDon = new JPanel();
         plLapHoaDon.setPreferredSize(new Dimension(WIDTH / 2, HEIGHT));
         plLapHoaDon.setLayout(null);
-        
-        
+
         //Panel lap hoa don gom panelText,panel table,panel nut thanh toan
         plLapHoaDon.setBackground(Color.green);
-        
+
         //panel text
         JPanel plTxt = new JPanel();
         plTxt.setLayout(null);
         plTxt.setBackground(Color.yellow);
         plTxt.setBounds(70, 50, 500, 160);
-        
-        txMaHoaDon.setBounds(0,0, 250, 50);
+
+        txMaHoaDon.setBounds(0, 0, 250, 50);
         txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
         txMaHoaDon.setEditable(false);
         plTxt.add(txMaHoaDon);
@@ -111,28 +110,28 @@ public class BanHangForm extends JPanel {
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền"));
         txTongTien.setEditable(false);
         plTxt.add(txTongTien);
-        
+
         plLapHoaDon.add(plTxt);
-        
+
         //panel chi tiet hoa don
         JPanel plChiTietHoaDon = new JPanel();
         plChiTietHoaDon.setLayout(null);
         plChiTietHoaDon.setBackground(Color.pink);
-        plChiTietHoaDon.setBounds(13, 250, WIDTH / 2 - 25, HEIGHT/2 + 50);
+        plChiTietHoaDon.setBounds(13, 250, WIDTH / 2 - 25, HEIGHT / 2 + 50);
         tbChiTietHoaDon.setHeaders(new String[]{"STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
-        tbChiTietHoaDon.setBounds(5, 5, WIDTH / 2 - 35 , HEIGHT/2);
-        tbChiTietHoaDon.setColumnsWidth(new double[]{10,20,20,15,15,15});
-        btnSua.setBounds(WIDTH/2 - 130, HEIGHT/2 +10, 100, 35);
+        tbChiTietHoaDon.setBounds(5, 5, WIDTH / 2 - 35, HEIGHT / 2);
+        tbChiTietHoaDon.setColumnsWidth(new double[]{10, 20, 20, 15, 15, 15});
+        btnSua.setBounds(WIDTH / 2 - 130, HEIGHT / 2 + 10, 100, 35);
         plChiTietHoaDon.add(tbChiTietHoaDon);
-        btnXoa.setBounds(WIDTH/2 - 215, HEIGHT/2 +10  , 75, 35);
+        btnXoa.setBounds(WIDTH / 2 - 215, HEIGHT / 2 + 10, 75, 35);
         plChiTietHoaDon.add(btnSua);
         plChiTietHoaDon.add(btnXoa);
         plLapHoaDon.add(plChiTietHoaDon);
-        
+
         //Lay du lieu test
         btnThemMouseClicked("SP001", 5);
         btnThemMouseClicked("SP002", 3);
-        
+
         //Tu lay gio moi giay cho textfield GioLap
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -141,10 +140,10 @@ public class BanHangForm extends JPanel {
                 txNgayLap.setText(LocalDate.now().toString());
             }
         }, 0, 1000);
-        
-        btnThanhToan.setBounds(WIDTH/2 - 175, 320+HEIGHT/2 , 150, 50);
+
+        btnThanhToan.setBounds(WIDTH / 2 - 175, 320 + HEIGHT / 2, 150, 50);
         plLapHoaDon.add(btnThanhToan);
-       
+
         this.add(plLapHoaDon, BorderLayout.EAST);
 
         //Panel chon san pham gom panel search sp , panel table san pham, panel hien thi thong tin san pham
@@ -153,23 +152,22 @@ public class BanHangForm extends JPanel {
         plChonSanPham.setBackground(Color.BLUE);
         plChonSanPham.setPreferredSize(new Dimension(WIDTH / 2, HEIGHT));
         this.add(plChonSanPham, BorderLayout.WEST);
-        
+
         //panel tim kiem san pham
         JPanel plTimKiem = new JPanel();
         plTimKiem.setLayout(new FlowLayout());
-        plTimKiem.setBounds(5, 10, WIDTH/2 - 10, 50);
+        plTimKiem.setBounds(5, 10, WIDTH / 2 - 10, 50);
         txSearch.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txSearch.setPreferredSize(new Dimension(WIDTH/2 -10,50));
+        txSearch.setPreferredSize(new Dimension(WIDTH / 2 - 10, 50));
         plTimKiem.add(txSearch);
         plChonSanPham.add(plTimKiem);
-        
 
         //Panel table san pham
         tbSanPham = new MyTable();
-        tbSanPham.setHeaders(new String[]{"Mã sản phẩm","Tên loại", "Tên", "Đơn giá", "Số lượng"});
-        tbSanPham.setBounds(10, HEIGHT/8, WIDTH/2-20, HEIGHT/2);
+        tbSanPham.setHeaders(new String[]{"Mã sản phẩm", "Tên loại", "Tên", "Đơn giá", "Số lượng"});
+        tbSanPham.setBounds(10, HEIGHT / 8, WIDTH / 2 - 20, HEIGHT / 2);
         plChonSanPham.add(tbSanPham);
-        
+
     }
 
 //    private
@@ -229,5 +227,14 @@ public class BanHangForm extends JPanel {
             }
 
         }
+    }
+}
+
+class HoaDonBanHang {
+    
+    ArrayList<SanPham> dssp;//code lai hay rinh tren xuong ? :V
+
+    public HoaDonBanHang() {
+
     }
 }
