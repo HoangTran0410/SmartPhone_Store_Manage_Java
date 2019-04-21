@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,7 +65,7 @@ public class BanHangForm extends JPanel {
     JTextField txKhoangSoLuong = new JTextField(5);
     JTextField txKhoangThanhTien1 = new JTextField(5);
     JTextField txKhoangThanhTien2 = new JTextField(5);
-    
+
     JTextField txMasp = new JTextField(10);
     JTextField txTensp = new JTextField(10);
     JTextField txLoaisp = new JTextField(10);
@@ -73,7 +74,7 @@ public class BanHangForm extends JPanel {
     JButton btnThem = new JButton("Thêm");
 
     JLabel lbImg = new JLabel("Hinh anh");
-    
+
     MyTable tbChiTietHoaDon;
     MyTable tbSanPham;
 
@@ -144,15 +145,14 @@ public class BanHangForm extends JPanel {
         plLapHoaDon.add(plChiTietHoaDon);
 
         //Lay du lieu test
-
         btnThemMouseClicked("SP1", 5);
         btnThemMouseClicked("SP2", 3);
-        
+
         //Tu lay gio moi giay cho textfield GioLap
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                txGioLap.setText(LocalTime.now().toString());
+                txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 txNgayLap.setText(LocalDate.now().toString());
             }
         }, 0, 1000);
@@ -175,7 +175,7 @@ public class BanHangForm extends JPanel {
         plTimKiem.setBounds(10, 10, WIDTH / 2 - 20, 85);
         txSearch.setBorder(BorderFactory.createTitledBorder("Từ khóa"));
         plTimKiem.add(txSearch);
-        
+
         txKhoangSoLuong1.setBorder(BorderFactory.createTitledBorder("Từ:"));
         txKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Đến:"));
         JPanel plTimKiemKhoangSoLuong = new JPanel();
@@ -183,7 +183,7 @@ public class BanHangForm extends JPanel {
         plTimKiemKhoangSoLuong.add(txKhoangSoLuong1);
         plTimKiemKhoangSoLuong.add(txKhoangSoLuong);
         plTimKiem.add(plTimKiemKhoangSoLuong);
-        
+
         JPanel plTimKiemKhoangThanhTien = new JPanel();
         plTimKiemKhoangThanhTien.setBorder(BorderFactory.createTitledBorder("Thành tiền"));
         txKhoangThanhTien1.setBorder(BorderFactory.createTitledBorder("Từ:"));
@@ -191,8 +191,7 @@ public class BanHangForm extends JPanel {
         plTimKiemKhoangThanhTien.add(txKhoangThanhTien1);
         plTimKiemKhoangThanhTien.add(txKhoangThanhTien2);
         plTimKiem.add(plTimKiemKhoangThanhTien);
-        
-//        plTimKiem.add(txSearch);
+
         plChonSanPham.add(plTimKiem);
 
         //Panel table san pham
@@ -200,10 +199,11 @@ public class BanHangForm extends JPanel {
         tbSanPham.setHeaders(new String[]{"Mã sản phẩm", "Tên loại", "Tên", "Đơn giá", "Số lượng"});
         tbSanPham.setBounds(10, HEIGHT / 8, WIDTH / 2 - 20, HEIGHT / 2);
         plChonSanPham.add(tbSanPham);
+        setDataToTableSanPham(qlspBUS.getDssp(), tbSanPham);
 
         //panel chi tiet san pham
         JPanel plChiTietSanPham = new JPanel();
-        plChiTietSanPham.setBounds(300,580,300,150);
+        plChiTietSanPham.setBounds(300, 580, 300, 150);
         plChiTietSanPham.setLayout(new BorderLayout());
         JPanel plSpText = new JPanel();
         plSpText.setBackground(Color.magenta);
@@ -217,32 +217,29 @@ public class BanHangForm extends JPanel {
         plSpText.add(txTensp);
         plSpText.add(txLoaisp);
         plSpText.add(txDonGia);
-        plChiTietSanPham.add(plSpText,BorderLayout.CENTER);
+        plChiTietSanPham.add(plSpText, BorderLayout.CENTER);
         plChonSanPham.add(plChiTietSanPham);
-        
+
         //panel so luong
         JPanel plSl = new JPanel();
         plSl.setLayout(new FlowLayout());
-        plSl.setBounds(410,740,180,50);
+        plSl.setBounds(410, 740, 180, 50);
         txSoluong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         plSl.add(txSoluong);
         plSl.add(btnThem);
         plChonSanPham.add(plSl);
-        
+
         //Hinh anh san pham
         JPanel plImg = new JPanel();
-        plImg.setBounds(20,580,250,250);
+        plImg.setBounds(20, 580, 250, 250);
         plImg.setLayout(null);
         lbImg.setText("Hinh anh");
-        lbImg.setBounds(0,0,250,250);
+        lbImg.setBounds(0, 0, 250, 250);
         plChonSanPham.add(plImg);
-        
+
         //
-        
-        
     }
 
-//    private
     public String getSelectedChiTietHoaDon(int col) {
         int i = tbChiTietHoaDon.getTable().getSelectedRow();
         if (i >= 0) {
@@ -253,40 +250,36 @@ public class BanHangForm extends JPanel {
 
     private void setDataToTableSanPham(ArrayList<SanPham> data, MyTable mtb) {
         mtb.clear();
-        int stt = 1;
-        ArrayList<LoaiSanPham> lsp = new ArrayList<>();
-//        lsp = qllspBUS.search(_maloai, "Mã loại");
-        // lưu số thứ tự dòng hiện tại
         for (SanPham sp : data) {
             mtb.addRow(new String[]{
                 sp.getMaSP(),
-                lsp.get(0).getTenLSP(),
-                String.valueOf(sp.getSoLuong()),
+//                qllspBUS.getLoaiSanPham(sp.getMaSP()).getTenLSP(),
+                sp.getTenSP(),
                 String.valueOf(sp.getDonGia()),
-                String.valueOf(sp.getSoLuong() * sp.getDonGia())});
-            stt++;
+                String.valueOf(sp.getSoLuong())});
         }
     }
 
     private void setDataToTableChiTiet(ArrayList<SanPham> data, MyTable mtb) {
         mtb.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
-        mtb.addRow(new String[]{
-            String.valueOf(1),
-            data.get(0).getMaSP(),
-            data.get(0).getTenSP(),
-            String.valueOf(data.get(0).getSoLuong()),
-            String.valueOf(data.get(0).getDonGia()),
-            String.valueOf(data.get(0).getSoLuong() * data.get(0).getDonGia())
-        });
+        for(SanPham sp : data) {
+            mtb.addRow(new String[]{
+                String.valueOf(stt),
+                sp.getMaSP(),
+                sp.getTenSP(),
+                String.valueOf(sp.getSoLuong()),
+                String.valueOf(sp.getDonGia()),
+                String.valueOf(sp.getSoLuong() * sp.getDonGia())
+            });
+            stt++;
+        }
     }
 
     private void btnThemMouseClicked(String _masp, int _soLuong) {
-//        listSanPham = qlspBUS.search(_masp, "Mã sản phẩm", -1, -1, -1, -1, 0);
         SanPham sp = qlspBUS.getSanPham(_masp);
-//        listSanPham.get(0).setSoLuong(_soLuong);
+        sp.setSoLuong(_soLuong);
         listSanPham.add(sp);
-//          ChiTietHoaDon ct = new ChiTietHoaDon(_masp, _masp, _soLuong, TOP_ALIGNMENT);
         setDataToTableChiTiet(listSanPham, tbChiTietHoaDon);
     }
 
@@ -306,7 +299,7 @@ public class BanHangForm extends JPanel {
 }
 
 class HoaDonBanHang {
-    
+
     ArrayList<SanPham> dssp;//code lai hay rinh tren xuong ? :V
 
     public HoaDonBanHang() {
