@@ -45,7 +45,7 @@ public class HienThiLoaiSanPham extends JPanel {
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        txTim.setBorder(BorderFactory.createTitledBorder("Tất cả")); // tạo border rỗng
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
@@ -54,6 +54,7 @@ public class HienThiLoaiSanPham extends JPanel {
         plHeader.add(btnRefresh);
 
         cbTypeSearch.addActionListener((ActionEvent e) -> {
+            txTim.setBorder(BorderFactory.createTitledBorder(cbTypeSearch.getSelectedItem().toString()));
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
                 txSearchOnChange();
