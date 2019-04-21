@@ -31,7 +31,7 @@ public class QuanLySanPhamBUS {
     }
     
     public String getNextID() {
-        return "KH" + String.valueOf(this.dssp.size() + 1);
+        return "SP" + String.valueOf(this.dssp.size() + 1);
     }
 
     public SanPham getSanPham(String masp) {
