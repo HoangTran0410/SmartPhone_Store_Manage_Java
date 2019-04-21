@@ -24,7 +24,7 @@ public class HoaDon {
         this.ngayLap = ngayNhap;
         this.gioLap = gioNhap;
         this.TongTien =tongTien;
-    }// lam di ong :v lam cai nay chi ??
+    }
 
     public String getMaHoaDon() {
         return maHoaDon;

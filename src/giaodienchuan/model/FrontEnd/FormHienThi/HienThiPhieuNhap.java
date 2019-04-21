@@ -5,8 +5,8 @@
  */
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import giaodienchuan.model.BackEnd.QuanLyPN.PhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyPN.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
@@ -116,7 +116,7 @@ public class HienThiPhieuNhap extends JPanel{
     private void btnDetailsMouseClicked() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            QuanLyChiTietPhieuNhapForm ctpn = new QuanLyChiTietPhieuNhapForm(mtb.getModel().getValueAt(i, 1).toString());
+            QuanLyChiTietPhieuNhapForm ctpn = new QuanLyChiTietPhieuNhapForm(mtb.getModel().getValueAt(i, 1).toString()); //truyen tham so cho qlctpn
             ctpn.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
@@ -124,7 +124,7 @@ public class HienThiPhieuNhap extends JPanel{
                 }
             });
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xem!");
+            JOptionPane.showMessageDialog(null, "Chưa chọn ??? nào để xem!");
         }
     }
 

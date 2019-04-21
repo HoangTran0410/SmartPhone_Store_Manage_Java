@@ -5,8 +5,8 @@
  */
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPhieuNhap.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPhieuNhap.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import javax.swing.event.DocumentListener;
  * @author Admin
  */
 public class HienThiChiTietPN extends JPanel{
-    ChiTietPhieuNhapBUS qlctpn=new ChiTietPhieuNhapBUS(); 
+    QuanLyChiTietPhieuNhapBUS qlctpn=new QuanLyChiTietPhieuNhapBUS(); 
     
     JTextField txTim = new JTextField(15);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã sản phẩm", "Số lượng", "Đơn giá"});
@@ -88,7 +88,7 @@ public class HienThiChiTietPN extends JPanel{
         }
         if (_mapn != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa chi tiết này của phiếu nhập " + _mapn + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new ChiTietPhieuNhapBUS().delete(_mapn, _masp);
+                new QuanLyChiTietPhieuNhapBUS().delete(_mapn, _masp);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để xóa");

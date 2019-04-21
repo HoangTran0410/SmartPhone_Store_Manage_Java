@@ -1,7 +1,7 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNhaCungCap.NhaCungCap;
+import giaodienchuan.model.BackEnd.QuanLyNhaCungCap.NhaCungCapBUS;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;

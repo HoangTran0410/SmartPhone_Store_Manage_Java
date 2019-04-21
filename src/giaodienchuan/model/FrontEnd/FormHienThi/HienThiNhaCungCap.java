@@ -5,8 +5,8 @@
  */
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
-import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNhaCungCap.NhaCungCap;
+import giaodienchuan.model.BackEnd.QuanLyNhaCungCap.NhaCungCapBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -144,5 +144,13 @@ public class HienThiNhaCungCap extends JPanel {
 
     private void txSearchOnChange() {
         setDataToTable(BUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
+    }
+
+    public String getSelectedNhaCungCap() {
+        int i = mtb.getTable().getSelectedRow();
+        if (i >= 0) {
+            return mtb.getModel().getValueAt(i, MANCC_I).toString();
+        }
+        return null;
     }
 }

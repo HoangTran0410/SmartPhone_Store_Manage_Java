@@ -5,8 +5,8 @@
  */
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
-import giaodienchuan.model.BackEnd.QuanLyPN.PhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyPN.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;

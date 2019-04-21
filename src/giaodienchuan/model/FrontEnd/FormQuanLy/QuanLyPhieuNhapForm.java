@@ -5,8 +5,8 @@
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
-import giaodienchuan.model.BackEnd.QuanLyPN.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPhieuNhap.QuanLyChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiPhieuNhap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaPhieuNhapForm;
 import java.awt.BorderLayout;
@@ -44,7 +44,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
 
-        // actionlistener
+        // s
         btnThem.addActionListener((ActionEvent ae) -> {
             btnThemMouseClicked();
         });
@@ -78,7 +78,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
                     " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 
-                new ChiTietPhieuNhapBUS().deleteAll(mapn);
+                new QuanLyChiTietPhieuNhapBUS().deleteAll(mapn);
                 new QuanLyPhieuNhapBUS().delete(mapn);
                 
                 formHienThi.refresh();
@@ -88,7 +88,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
             JOptionPane.showMessageDialog(null, "Chưa chọn sản phẩm nào để xóa");
         }
     }
-
+// cai nay k sai dau sai cai hienthichitiet ak
     private void btnThemMouseClicked() {
         ThemSuaPhieuNhapForm thempn = new ThemSuaPhieuNhapForm("Thêm", "");
         thempn.addWindowListener(new WindowAdapter() {

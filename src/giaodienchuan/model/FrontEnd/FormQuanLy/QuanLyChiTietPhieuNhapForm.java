@@ -4,13 +4,9 @@
  * and open the template in the editor.
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
-
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
-import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChiTietHoaDon;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPhieuNhap.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChiTietPN;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemChiTietHoaDonForm;
-import giaodienchuan.model.FrontEnd.FormThemSua.ThemChiTietPhieuNhapForm;
+import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaChiTietPhieuNhapForm;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -29,17 +25,18 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame{
     HienThiChiTietPN formHienThi;
     
     String mapn;
+    String masp;
     
     JButton btnThem = new JButton("Thêm");
     JButton btnXoa = new JButton("Xóa");
 
-    public QuanLyChiTietPhieuNhapForm(String _mapn) {
+    public QuanLyChiTietPhieuNhapForm(String _mapn) { // v cai tham so nay tren troi roi xuong a?
         setLayout(new BorderLayout());
         
         this.mapn = _mapn;
         this.setTitle("Chi tiết phiếu nhập " + this.mapn);
         formHienThi = new HienThiChiTietPN(this.mapn);
-
+        // day truyen tham so cho hien thi ch itiet ne
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
@@ -69,7 +66,7 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame{
         String masp = formHienThi.getSelectedChiTietPhieuNhap(2);
         if (masp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " của phiếu nhập "+ this.mapn +"?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new ChiTietPhieuNhapBUS().delete(this.mapn, masp);
+                new QuanLyChiTietPhieuNhapBUS().delete(this.mapn, masp);
                 formHienThi.refresh();
             }
 
@@ -77,9 +74,18 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame{
             JOptionPane.showMessageDialog(null, "Chưa chọn chi tiết nào để xóa");
         }
     }
-
+    private void btnSuaMouseClicked() {
+        String masp = formHienThi.getSelectedChiTietPhieuNhap(2);
+        ThemSuaChiTietPhieuNhapForm themctpn = new ThemSuaChiTietPhieuNhapForm("Sửa", this.mapn,this.masp);
+        themctpn.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                formHienThi.refresh();
+            }
+        });
+    }
     private void btnThemMouseClicked() {
-        ThemChiTietPhieuNhapForm themcthd = new ThemChiTietPhieuNhapForm(this.mapn);
+        ThemSuaChiTietPhieuNhapForm themcthd = new ThemSuaChiTietPhieuNhapForm("Thêm",this.mapn,"");
         themcthd.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
