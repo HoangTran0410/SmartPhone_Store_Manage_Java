@@ -8,23 +8,25 @@ public class HoaDon {
     private String maHoaDon = "";
     private String maNhanVien = "";
     private String maKhachHang = "";
-    private LocalDate ngayLap ;
-    private LocalTime gioLap ;
+    private String maKhuyenMai = "";
+    private LocalDate ngayLap;
+    private LocalTime gioLap;
     private float TongTien = 0;
 
     public HoaDon() {
         ngayLap = LocalDate.now();
         gioLap = LocalTime.now();
     }
-    
-    public HoaDon(String maHoaDon, String maNhanVien, String maKhachHang,LocalDate ngayNhap,LocalTime gioNhap,float tongTien) {
+
+    public HoaDon(String maHoaDon, String maNhanVien, String maKhachHang, String maKhuyenMai, LocalDate ngayNhap, LocalTime gioNhap, float tongTien) {
         this.maHoaDon = maHoaDon;
-        this.maNhanVien =maNhanVien;
-        this.maKhachHang =  maKhachHang;
+        this.maNhanVien = maNhanVien;
+        this.maKhachHang = maKhachHang;
+        this.maKhuyenMai = maKhuyenMai;
         this.ngayLap = ngayNhap;
         this.gioLap = gioNhap;
-        this.TongTien =tongTien;
-    }// lam di ong :v lam cai nay chi ??
+        this.TongTien = tongTien;
+    }
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -73,7 +75,12 @@ public class HoaDon {
     public void setTongTien(float TongTien) {
         this.TongTien = TongTien;
     }
-    
-    
-    
+
+    public String getMaKhuyenMai() {
+        return maKhuyenMai;
+    }
+
+    public void setMaKhuyenMai(String maKhuyenMai) {
+        this.maKhuyenMai = maKhuyenMai;
+    }
 }

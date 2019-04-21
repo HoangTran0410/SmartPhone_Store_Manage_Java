@@ -24,17 +24,18 @@ public class QuanLyHoaDonDAO {
             if (rs != null) {
                 while (rs.next()) {
                     HoaDon hd = new HoaDon();
-                    hd.setMaHoaDon(rs.getString(1));
-                    hd.setMaNhanVien(rs.getString(2));
-                    hd.setMaKhachHang(rs.getString(3));
-                    hd.setNgayLap(rs.getDate(4).toLocalDate());
-                    hd.setGioLap(rs.getTime(5).toLocalTime());
-                    hd.setTongTien(rs.getFloat(6));
+                    hd.setMaHoaDon(rs.getString("MaHD"));
+                    hd.setMaNhanVien(rs.getString("MaNV"));
+                    hd.setMaKhachHang(rs.getString("MaKH"));
+                    hd.setMaKhuyenMai(rs.getString("MaKM"));
+                    hd.setNgayLap(rs.getDate("NgayLap").toLocalDate());
+                    hd.setGioLap(rs.getTime("GioLap").toLocalTime());
+                    hd.setTongTien(rs.getFloat("TongTien"));
                     dshd.add(hd);
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Khong tim thay du lieu !!");
+            JOptionPane.showMessageDialog(null, "Không đọc được dữ liệu bảng hóa đơn !!");
         } finally {
             connection.closeConnect();
         }
@@ -43,10 +44,11 @@ public class QuanLyHoaDonDAO {
 
     public Boolean add(HoaDon hd) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,NgayLap,GioLap,TongTien) VALUES ('" 
+        Boolean success = connection.sqlUpdate("INSERT INTO hoadon(MaHD,MaNV,MaKH,MaKM,NgayLap,GioLap,TongTien) VALUES ('" 
                 + hd.getMaHoaDon() + "','" 
                 + hd.getMaNhanVien() + "','" 
                 + hd.getMaKhachHang() + "','" 
+                + hd.getMaKhuyenMai()+ "','" 
                 + hd.getNgayLap() + "','" 
                 + hd.getGioLap() + "','" 
                 + hd.getTongTien() + "');");
@@ -67,7 +69,14 @@ public class QuanLyHoaDonDAO {
 
     public Boolean update(HoaDon hd) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("UPDATE hoadon SET MaNV='" + hd.getMaNhanVien() + "', MaKH='" + hd.getMaKhachHang() + "', NgayLap='" + hd.getNgayLap() + "', GioLap='" + hd.getGioLap() + "', TongTien='" + hd.getTongTien() + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
+        Boolean success = connection.sqlUpdate("UPDATE hoadon SET "
+                + "MaNV='" + hd.getMaNhanVien() 
+                + "', MaKH='" + hd.getMaKhachHang() 
+                + "', MaKM='" + hd.getMaKhuyenMai()
+                + "', NgayLap='" + hd.getNgayLap() 
+                + "', GioLap='" + hd.getGioLap() 
+                + "', TongTien='" + hd.getTongTien() 
+                + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
         connection.closeConnect();
         return success;
     }
@@ -79,11 +88,12 @@ public class QuanLyHoaDonDAO {
         return success;
     }
 
-    public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, LocalDate ngayLap, LocalTime gioLap, float tongTien) {
+    public Boolean update(String maHoaDon, String maNhanVien, String maKhachHang, String makm, LocalDate ngayLap, LocalTime gioLap, float tongTien) {
         HoaDon hd = new HoaDon();
         hd.setMaHoaDon(maHoaDon);
         hd.setMaNhanVien(maNhanVien);
         hd.setMaKhachHang(maKhachHang);
+        hd.setMaKhuyenMai(makm);
         hd.setNgayLap(ngayLap);
         hd.setGioLap(gioLap);
         hd.setTongTien(tongTien);

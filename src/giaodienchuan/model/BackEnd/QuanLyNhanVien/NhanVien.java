@@ -7,13 +7,15 @@ public class NhanVien {
 
     String MaNV, TenNV, DiaChi, SDT;
     LocalDate NgaySinh;
+    int TrangThai;
 
-    public NhanVien(String MaNV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
+    public NhanVien(String MaNV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT, int trangthai) {
         this.MaNV = MaNV;
         this.TenNV = TenNV;
         this.NgaySinh = NgaySinh;
         this.DiaChi = DiaChi;
         this.SDT = SDT;
+        this.TrangThai = trangthai;
     }
 
     public String getMaNV() {
@@ -56,4 +58,11 @@ public class NhanVien {
         this.SDT = SDT;
     }
 
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
 }

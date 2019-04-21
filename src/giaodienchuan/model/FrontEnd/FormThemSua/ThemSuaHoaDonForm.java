@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,12 +27,14 @@ public class ThemSuaHoaDonForm extends JFrame {
     JTextField txtMaHd = new JTextField(15);
     JTextField txtMaNv = new JTextField(15);
     JTextField txtMaKh = new JTextField(15);
+    JTextField txtMaKm = new JTextField(15);
     JTextField txtNgayLap = new JTextField(15);
     JTextField txtGioLap = new JTextField(15);
     JTextField txtTongTien = new JTextField(15);
 
     MoreButton btnChonNhanVien = new MoreButton();
     MoreButton btnChonKhachHang = new MoreButton();
+    MoreButton btnChonKhuyenMai = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
@@ -51,6 +51,7 @@ public class ThemSuaHoaDonForm extends JFrame {
         txtMaHd.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
         txtMaNv.setBorder(BorderFactory.createTitledBorder(" "));
         txtMaKh.setBorder(BorderFactory.createTitledBorder(" "));
+        txtMaKm.setBorder(BorderFactory.createTitledBorder(" "));
         txtNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập"));
         txtGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập"));
         txtTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền"));
@@ -65,10 +66,16 @@ public class ThemSuaHoaDonForm extends JFrame {
         plChonKhachHang.add(txtMaKh);
         plChonKhachHang.add(btnChonKhachHang);
 
+        JPanel plChonKhuyenMai = new JPanel();
+        plChonKhuyenMai.setBorder(BorderFactory.createTitledBorder("Mã khuyến mãi"));
+        plChonKhuyenMai.add(txtMaKm);
+        plChonKhuyenMai.add(btnChonKhuyenMai);
+
         JPanel plInput = new JPanel();
         plInput.add(txtMaHd);
         plInput.add(plChonNhanVien);
         plInput.add(plChonKhachHang);
+        plInput.add(plChonKhuyenMai);
         plInput.add(txtNgayLap);
         plInput.add(txtGioLap);
 
@@ -104,12 +111,13 @@ public class ThemSuaHoaDonForm extends JFrame {
             txtMaHd.setText(this.hdSua.getMaHoaDon());
             txtMaNv.setText(this.hdSua.getMaNhanVien());
             txtMaKh.setText(this.hdSua.getMaKhachHang());
+            txtMaKm.setText(this.hdSua.getMaKhuyenMai());
             txtNgayLap.setText(String.valueOf(this.hdSua.getNgayLap()));
             txtGioLap.setText(String.valueOf(this.hdSua.getGioLap()));
             txtTongTien.setText(String.valueOf(this.hdSua.getTongTien()));
 
             txtMaHd.setEditable(false);
-            
+
             plInput.add(txtTongTien);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
@@ -140,7 +148,7 @@ public class ThemSuaHoaDonForm extends JFrame {
         btnChonKhachHang.addActionListener((ae) -> {
             btnChonKhachHangMouseClicked();
         });
-        
+
         txtTongTien.setEditable(false);
         this.setVisible(true);
     }
@@ -150,15 +158,16 @@ public class ThemSuaHoaDonForm extends JFrame {
             String mahd = txtMaHd.getText();
             String manv = txtMaNv.getText();
             String makh = txtMaKh.getText();
-            LocalDate ngayLap = java.time.LocalDate.now();
-            LocalTime gioLap = java.time.LocalTime.now();
+            String makm = txtMaKm.getText();
+            LocalDate ngayLap = LocalDate.now();
+            LocalTime gioLap = LocalTime.now();
             float tongTien = 0;
 
             this.txtNgayLap.setText(String.valueOf(ngayLap));
             this.txtGioLap.setText(String.valueOf(gioLap));
             this.txtTongTien.setText(String.valueOf(tongTien));
 
-            if (qlhdBUS.add(mahd, manv, makh, ngayLap, gioLap, tongTien)) {
+            if (qlhdBUS.add(mahd, manv, makh, makm, ngayLap, gioLap, tongTien)) {
                 JOptionPane.showMessageDialog(this, "Thêm hóa đơn " + mahd + " thành công!");
                 this.dispose();
             }
@@ -170,11 +179,13 @@ public class ThemSuaHoaDonForm extends JFrame {
             String mahd = txtMaHd.getText();
             String manv = txtMaNv.getText();
             String makh = txtMaKh.getText();
+            String makm = txtMaKm.getText();
+            System.out.println(makm);
             LocalDate ngayLap = java.time.LocalDate.parse(txtNgayLap.getText());
             LocalTime gioLap = java.time.LocalTime.parse(txtGioLap.getText());
             float tongTien = Float.parseFloat(txtTongTien.getText());
 
-            if (qlhdBUS.update(mahd, manv, makh, ngayLap, gioLap, tongTien)) {
+            if (qlhdBUS.update(mahd, manv, makh, makm, ngayLap, gioLap, tongTien)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + mahd + " thành công!");
                 this.dispose();
             }
@@ -193,6 +204,7 @@ public class ThemSuaHoaDonForm extends JFrame {
         String mahd = txtMaHd.getText();
         String manv = txtMaNv.getText();
         String makh = txtMaKh.getText();
+        String makm = txtMaKm.getText();
         String ngayLap = txtNgayLap.getText();
         String gioLap = txtGioLap.getText();
 
@@ -205,12 +217,15 @@ public class ThemSuaHoaDonForm extends JFrame {
         } else if (makh.trim().equals("")) {
             return showErrorTx(txtMaKh, "Mã khách hàng không được để trống");
 
+        } else if (makm.trim().equals("")) {
+            return showErrorTx(txtMaKh, "Mã khuyến mãi không được để trống");
+
         } else if (ngayLap.trim().equals("")) {
             return showErrorTx(txtNgayLap, "Ngày lập không được để trống");
 
         } else if (gioLap.trim().equals("")) {
             return showErrorTx(txtGioLap, "Giờ lập không được để trống");
-            
+
         } else {
             try {
                 LocalDate ngay = java.time.LocalDate.parse(ngayLap);

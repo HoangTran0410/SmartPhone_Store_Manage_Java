@@ -29,9 +29,13 @@ public class QuanLyHoaDonForm extends JPanel {
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
 
         JPanel plBtn = new JPanel();
+        // Không cho phép thêm sửa xóa trong quản lý, chỉ trong bán hàng mới được
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
+        btnThem.setEnabled(false);
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);

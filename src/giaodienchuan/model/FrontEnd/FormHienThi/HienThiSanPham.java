@@ -31,10 +31,10 @@ public class HienThiSanPham extends JPanel {
     JButton btnRefresh = new JButton("Làm mới");
 
     JLabel lbImage = new JLabel();
-    
+
     JTextField txSoLuong1 = new JTextField(5);
     JTextField txSoLuong2 = new JTextField(5);
-    
+
     JTextField txGia1 = new JTextField(6);
     JTextField txGia2 = new JTextField(6);
 
@@ -46,24 +46,25 @@ public class HienThiSanPham extends JPanel {
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng"});
-        mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2, 1});
+        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá (triệu)", "Số lượng", "Trạng thái"});
+        mtb.setColumnsWidth(new double[]{.5, 2, 2, 2, 2, 1, 1.5});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
+        mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.CENTER);
+        mtb.setAlignment(6, JLabel.CENTER);
         setDataToTable(qlspBUS.getDssp(), mtb);
 
         // ======== search panel ===========
         JPanel plHeader = new JPanel();
-        
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"});
+
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng", "Trạng thái"});
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTim.setBorder(BorderFactory.createTitledBorder("Tất cả"));
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
-        
+
         // so sánh số lượng
         JPanel plSoSanhSoLuong = new JPanel();
         plSoSanhSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
@@ -72,7 +73,7 @@ public class HienThiSanPham extends JPanel {
         plSoSanhSoLuong.add(txSoLuong1);
         plSoSanhSoLuong.add(txSoLuong2);
         plHeader.add(plSoSanhSoLuong);
-        
+
         // so sánh giá
         JPanel plSoSanhGia = new JPanel();
         plSoSanhGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
@@ -81,7 +82,7 @@ public class HienThiSanPham extends JPanel {
         plSoSanhGia.add(txGia1);
         plSoSanhGia.add(txGia2);
         plHeader.add(plSoSanhGia);
-        
+
         // btn refresh
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnRefresh);
@@ -98,13 +99,13 @@ public class HienThiSanPham extends JPanel {
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
-        
+
         addDocumentListener(txTim);
         addDocumentListener(txSoLuong1);
         addDocumentListener(txSoLuong2);
         addDocumentListener(txGia1);
         addDocumentListener(txGia2);
-        
+
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
@@ -126,7 +127,7 @@ public class HienThiSanPham extends JPanel {
                 }
             }
         });
-        
+
         // panel image
         JPanel plcenterImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
@@ -138,7 +139,7 @@ public class HienThiSanPham extends JPanel {
         this.add(mtb, BorderLayout.CENTER);
         this.add(plcenterImage, BorderLayout.WEST);
     }
-    
+
     private void addDocumentListener(JTextField tx) {
         // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
         tx.getDocument().addDocumentListener(new DocumentListener() {
@@ -181,7 +182,7 @@ public class HienThiSanPham extends JPanel {
     private void txSearchOnChange() {
         int soluong1 = -1, soluong2 = -1;
         float gia1 = -1, gia2 = -1;
-        
+
         try {
             soluong1 = Integer.parseInt(txSoLuong1.getText());
             txSoLuong1.setForeground(Color.black);
@@ -206,17 +207,24 @@ public class HienThiSanPham extends JPanel {
         } catch (NumberFormatException e) {
             txGia2.setForeground(Color.red);
         }
-        
-        setDataToTable(qlspBUS.search(txTim.getText(), 
-                cbTypeSearch.getSelectedItem().toString(), soluong1, soluong2, gia1, gia2), mtb);
+
+        setDataToTable(qlspBUS.search(txTim.getText(),
+                cbTypeSearch.getSelectedItem().toString(), soluong1, soluong2, gia1, gia2, -1), mtb);
     }
 
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (SanPham sp : data) {
-            table.addRow(new String[]{String.valueOf(stt), sp.getMaSP(), sp.getMaLSP(), sp.getTenSP(),
-                String.valueOf(sp.getDonGia()), String.valueOf(sp.getSoLuong())});
+            table.addRow(new String[]{
+                String.valueOf(stt), 
+                sp.getMaSP(), 
+                sp.getMaLSP(), 
+                sp.getTenSP(),
+                String.valueOf(sp.getDonGia()), 
+                String.valueOf(sp.getSoLuong()),
+                (sp.getTrangThai()==0?"Hiện":"Ẩn")
+            });
             stt++;
         }
     }

@@ -17,12 +17,13 @@ public class QuanLyKhachHangBUS {
             System.out.println(kh.getTenKH() + " ");
             System.out.println(kh.getDiaChi() + " ");
             System.out.println(kh.getSDT() + " ");
+            System.out.println(kh.getTrangThai());
         });
     }
 
     // headers của bảng sản phẩm
     public String[] getHeaders() {
-        return new String[]{"Mã khách hàng", "Tên khách hàng", "Địa chỉ", "SĐT"};
+        return new String[]{"Mã khách hàng", "Tên khách hàng", "Địa chỉ", "SĐT", "Trạng thái"};
     }
 
     public void readDB() {
@@ -47,7 +48,8 @@ public class QuanLyKhachHangBUS {
                 if (kh.getMaKH().toLowerCase().contains(value.toLowerCase())
                         || kh.getTenKH().toLowerCase().contains(value.toLowerCase())
                         || kh.getDiaChi().toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(kh.getSDT()).toLowerCase().contains(value.toLowerCase())) {
+                        || String.valueOf(kh.getSDT()).toLowerCase().contains(value.toLowerCase())
+                        || String.valueOf(kh.getTrangThai() == 1 ? "Ẩn" : "Hiện").toLowerCase().contains(value.toLowerCase())) {
                     result.add(kh);
                 }
             } else {
@@ -72,6 +74,11 @@ public class QuanLyKhachHangBUS {
                             result.add(kh);
                         }
                         break;
+                    case "Trạng thái":
+                        if (String.valueOf(kh.getTrangThai() == 1 ? "Ẩn" : "Hiện").toLowerCase().contains(value.toLowerCase())) {
+                            result.add(kh);
+                        }
+                        break;        
                 }
             }
 
@@ -89,8 +96,8 @@ public class QuanLyKhachHangBUS {
         return ok;
     }
 
-    public Boolean add(String makh, String tenkh, String diachi, String sdt) {
-        KhachHang kh = new KhachHang(makh, tenkh, diachi, sdt);
+    public Boolean add(String makh, String tenkh, String diachi, String sdt, int trangthai) {
+        KhachHang kh = new KhachHang(makh, tenkh, diachi, sdt, trangthai);
         return add(kh);
     }
 
@@ -107,8 +114,8 @@ public class QuanLyKhachHangBUS {
         return ok;
     }
 
-    public Boolean update(String makh, String tenkh, String diachi, String sdt) {
-        Boolean ok = qlkhDAO.update(makh, tenkh, diachi, sdt);
+    public Boolean update(String makh, String tenkh, String diachi, String sdt, int trangthai) {
+        Boolean ok = qlkhDAO.update(makh, tenkh, diachi, sdt, trangthai);
 
         if (ok) {
             dskh.forEach((kh) -> {
@@ -116,6 +123,20 @@ public class QuanLyKhachHangBUS {
                     kh.setTenKH(tenkh);
                     kh.setDiaChi(diachi);
                     kh.setSDT(sdt);
+                }
+            });
+        }
+
+        return ok;
+    }
+    
+    public Boolean updateTrangThai(String makh, int trangthai) {
+        Boolean ok = qlkhDAO.updateTrangThai(makh, trangthai);
+
+        if (ok) {
+            dskh.forEach((kh) -> {
+                if (kh.getMaKH().equals(makh)) {
+                    kh.setTrangThai(trangthai);
                 }
             });
         }

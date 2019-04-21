@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2019 lúc 03:32 AM
+-- Thời gian đã tạo: Th4 21, 2019 lúc 10:27 AM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -46,8 +46,8 @@ INSERT INTO `chitiethoadon` (`MaHD`, `MaSP`, `SoLuong`, `DonGia`) VALUES
 ('HD3', 'SP4', 1, 15),
 ('HD3', 'SP6', 1, 20),
 ('HD1', 'SP2', 10, 8.2),
-('HD3', 'SP3', 0, 15),
-('HD1', 'SP3', 11, 15);
+('HD1', 'SP3', 11, 15),
+('HD4', 'SP1', 3, 20);
 
 -- --------------------------------------------------------
 
@@ -72,6 +72,7 @@ CREATE TABLE `hoadon` (
   `MaHD` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `MaNV` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `MaKH` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `MaKM` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `NgayLap` date NOT NULL,
   `GioLap` time NOT NULL,
   `TongTien` float NOT NULL
@@ -81,10 +82,11 @@ CREATE TABLE `hoadon` (
 -- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
-INSERT INTO `hoadon` (`MaHD`, `MaNV`, `MaKH`, `NgayLap`, `GioLap`, `TongTien`) VALUES
-('HD1', 'NV002', 'KH003', '2019-04-18', '22:45:52', 267),
-('HD2', 'NV00', 'KH001', '2019-04-18', '23:15:36', 240),
-('HD3', 'NV00', 'KH001', '2019-04-19', '18:44:34', 35);
+INSERT INTO `hoadon` (`MaHD`, `MaNV`, `MaKH`, `MaKM`, `NgayLap`, `GioLap`, `TongTien`) VALUES
+('HD1', 'NV2', 'KH2', 'KM1', '2019-04-18', '22:45:52', 267),
+('HD2', 'NV1', 'KH1', 'Không', '2019-04-18', '23:15:36', 240),
+('HD3', 'NV1', 'KH1', 'Không', '2019-04-19', '18:44:34', 35),
+('HD4', 'NV1', 'KH1', 'Không', '2019-04-21', '12:13:48', 60);
 
 -- --------------------------------------------------------
 
@@ -96,16 +98,17 @@ CREATE TABLE `khachhang` (
   `MaKH` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `TenKH` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `DiaChi` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `SDT` varchar(15) COLLATE utf8_unicode_ci NOT NULL
+  `SDT` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `khachhang`
 --
 
-INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`) VALUES
-('KH001', 'Tran Van Hoang', 'TP HCM', '0123456789'),
-('KH003', 'Huu', 'Hue', '0126461589');
+INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `TrangThai`) VALUES
+('KH1', 'Trần Văn Hoàng', 'TP HCM', '0123456789', 0),
+('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 0);
 
 -- --------------------------------------------------------
 
@@ -116,9 +119,19 @@ INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`) VALUES
 CREATE TABLE `khuyenmai` (
   `MaKM` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `TenKM` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `NgayBD` date NOT NULL,
-  `NgayKT` date NOT NULL
+  `DieuKienKM` float NOT NULL,
+  `PhanTramKM` float NOT NULL,
+  `NgayBD` date DEFAULT NULL,
+  `NgayKT` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `khuyenmai`
+--
+
+INSERT INTO `khuyenmai` (`MaKM`, `TenKM`, `DieuKienKM`, `PhanTramKM`, `NgayBD`, `NgayKT`) VALUES
+('Không', 'Không khuyến mãi', 0, 0, '0000-00-00', '0000-00-00'),
+('KM1', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
 
 -- --------------------------------------------------------
 
@@ -137,10 +150,10 @@ CREATE TABLE `loaisanpham` (
 --
 
 INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`, `Mota`) VALUES
-('LSP001', 'Apple', 'Các sản phẩm của Apple'),
-('LSP002', 'Oppo', 'Camara Selphi cuc chat tu Oppo'),
-('LSP003', 'SamSung', 'Khuyen mai lon tu SamSung'),
-('LSP004', 'Phillip', 'Cac san pham tuyet dep tu Phillip'),
+('LSP1', 'Apple', 'Các sản phẩm của Apple'),
+('LSP2', 'Oppo', 'Camara Selphi cuc chat tu Oppo'),
+('LSP3', 'SamSung', 'Khuyen mai lon tu SamSung'),
+('LSP4', 'Phillip', 'Cac san pham tuyet dep tu Phillip'),
 ('LSP5', 'ahihi', 'Test ahihi 235456'),
 ('LSP6', 'Blackbery', 'BlackBery is the best');
 
@@ -176,18 +189,19 @@ CREATE TABLE `nhanvien` (
   `TenNV` text COLLATE utf8_unicode_ci NOT NULL,
   `NgaySinh` date NOT NULL,
   `DiaChi` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `SDT` varchar(15) COLLATE utf8_unicode_ci NOT NULL
+  `SDT` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES
-('NV00', 'Phan Trí Dũng', '1978-04-05', 'da nang', '0145647854'),
-('NV002', 'Trần Văn Hi', '1999-04-05', 'tp hcm', '0123456489'),
-('NV003', 'Nguyễn Bá Được', '1998-04-05', 'ha noi', '0128456786'),
-('NV4', 'Trần Văn Hoàng', '1999-11-12', 'tp hcm', '01207764668');
+INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai`) VALUES
+('NV1', 'Phan Trí Dũng', '1978-04-05', 'Đà Nẵng', '0145647854', 0),
+('NV2', 'Trần Văn Hi', '1999-04-05', 'TP HCM', '0123456489', 0),
+('NV3', 'Nguyễn Bá Được', '1998-04-05', 'Hà Nội', '0128456786', 1),
+('NV4', 'Trần Văn Hoàng', '1999-11-12', 'TP HCM', '01207764668', 0);
 
 -- --------------------------------------------------------
 
@@ -237,21 +251,22 @@ CREATE TABLE `sanpham` (
   `TenSP` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `DonGia` float NOT NULL,
   `SoLuong` int(10) UNSIGNED NOT NULL DEFAULT '1',
-  `HinhAnh` varchar(200) COLLATE utf8_unicode_ci NOT NULL
+  `HinhAnh` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `TrangThai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`) VALUES
-('SP1', 'LSP001', 'IPhone X', 20, 100, 'iphone-xr-128gb-red-400x400.jpg'),
-('SP2', 'LSP002', 'Oppo R5', 8.2, 70, 'iphone-xr-256gb-white-400x400.jpg'),
-('SP3', 'LSP003', 'Samsung Nokia', 15, 0, 'iphone-xr-black-400x400.jpg'),
-('SP4', 'LSP004', 'Phillip 756', 15, 149, 'oppo-f11-mtp-400x400.jpg'),
-('SP5', 'LSP001', 'Iphone 6', 12, 58, 'samsung-galaxy-a30-blue-400x400.jpg'),
-('SP6', 'LSP004', 'Phillip new 2015', 20, 55, 'samsung-galaxy-a50-128gb-blue-docquyen-400x400.jpg'),
-('SP7', 'LSP002', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg');
+INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`, `TrangThai`) VALUES
+('SP1', 'LSP1', 'IPhone X', 20, 97, 'iphone-xr-128gb-red-400x400.jpg', 0),
+('SP2', 'LSP2', 'Oppo R5', 8.2, 70, 'iphone-xr-256gb-white-400x400.jpg', 0),
+('SP3', 'LSP3', 'Samsung Nokia', 15, 0, 'iphone-xr-black-400x400.jpg', 0),
+('SP4', 'LSP4', 'Phillip 756', 15, 149, 'oppo-f11-mtp-400x400.jpg', 0),
+('SP5', 'LSP1', 'Iphone 6', 12, 58, 'samsung-galaxy-a30-blue-400x400.jpg', 0),
+('SP6', 'LSP4', 'Phillip new 2015', 20, 55, 'samsung-galaxy-a50-128gb-blue-docquyen-400x400.jpg', 0),
+('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -271,9 +286,9 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('HIenCUTE', '04102015', 'NV00', 'Q2'),
-('Hoang016', 'abcde', 'NV002', 'Q2'),
-('HoangCUTE', '1213141516', 'NV003', 'Q2');
+('HIenCUTE', '04102015', 'NV1', 'Q2'),
+('Hoang016', 'abcde', 'NV2', 'Q2'),
+('HoangCUTE', '1213141516', 'NV3', 'Q2');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -299,7 +314,8 @@ ALTER TABLE `chitietphieunhap`
 ALTER TABLE `hoadon`
   ADD PRIMARY KEY (`MaHD`),
   ADD KEY `MaNV` (`MaNV`),
-  ADD KEY `MaKH` (`MaKH`);
+  ADD KEY `MaKH` (`MaKH`),
+  ADD KEY `MaKM` (`MaKM`);
 
 --
 -- Chỉ mục cho bảng `khachhang`
@@ -402,8 +418,8 @@ ALTER TABLE `sanpham`
 -- Các ràng buộc cho bảng `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  ADD CONSTRAINT `taikhoan_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
-  ADD CONSTRAINT `taikhoan_ibfk_3` FOREIGN KEY (`MaQuyen`) REFERENCES `phanquyen` (`MaQuyen`);
+  ADD CONSTRAINT `taikhoan_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `taikhoan_ibfk_3` FOREIGN KEY (`MaQuyen`) REFERENCES `phanquyen` (`MaQuyen`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

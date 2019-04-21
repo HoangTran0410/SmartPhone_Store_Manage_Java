@@ -34,20 +34,20 @@ public class HienThiKhachHang extends JPanel {
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại"});
-        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 3, 2});
+        mtb.setHeaders(new String[]{"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", "Trạng thái"});
+        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 3, 2, 1.5});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
         setDataToTable(qlkh.getDskh(), mtb);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", "Trạng thái"});
 
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
         plTim.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTim.setBorder(BorderFactory.createTitledBorder(" ")); // tạo border rỗng
+        txTim.setBorder(BorderFactory.createTitledBorder("Tất cả")); // tạo border rỗng
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
@@ -56,6 +56,7 @@ public class HienThiKhachHang extends JPanel {
         plHeader.add(btnRefresh);
 
         cbTypeSearch.addActionListener((ActionEvent e) -> {
+            txTim.setBorder(BorderFactory.createTitledBorder(cbTypeSearch.getSelectedItem().toString()));
             txTim.requestFocus();
             if (!txTim.getText().equals("")) {
                 txSearchOnChange();
@@ -110,8 +111,14 @@ public class HienThiKhachHang extends JPanel {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (KhachHang kh : data) {
-            table.addRow(new String[]{String.valueOf(stt), kh.getMaKH(), kh.getTenKH(), kh.getDiaChi(),
-                 kh.getSDT()});
+            table.addRow(new String[]{
+                String.valueOf(stt), 
+                kh.getMaKH(), 
+                kh.getTenKH(), 
+                kh.getDiaChi(),
+                kh.getSDT(),
+                (kh.getTrangThai()==0?"Hiện":"Ẩn")
+            });
             stt++;
         }
     }

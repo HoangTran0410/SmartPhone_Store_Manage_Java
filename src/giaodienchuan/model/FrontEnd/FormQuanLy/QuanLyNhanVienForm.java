@@ -67,8 +67,8 @@ public class QuanLyNhanVienForm extends JPanel {
     private void btnXoaMouseClicked() {
         String manv = formHienThi.getSelectedNhanVien();
         if (manv != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyNhanVienBUS().delete(manv);
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? Nhân viên sẽ được Ẩn.", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLyNhanVienBUS().updateTrangThai(manv, 1);
                 formHienThi.refresh();
             }
 

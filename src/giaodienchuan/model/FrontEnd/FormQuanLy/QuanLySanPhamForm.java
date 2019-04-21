@@ -67,8 +67,9 @@ public class QuanLySanPhamForm extends JPanel {
     private void btnXoaMouseClicked() {
         String masp = formHienThi.getSelectedSanPham(1);
         if (masp != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLySanPhamBUS().delete(masp);
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " ? "
+                    + "Sản phẩm sẽ được Ẩn", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                new QuanLySanPhamBUS().updateTrangThai(masp, 1);
                 formHienThi.refresh();
             }
 

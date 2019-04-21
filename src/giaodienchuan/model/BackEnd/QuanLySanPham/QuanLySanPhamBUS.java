@@ -17,12 +17,13 @@ public class QuanLySanPhamBUS {
             System.out.print(sp.getMaLSP() + " ");
             System.out.println(sp.getTenSP() + " ");
             System.out.println(sp.getDonGia() + " ");
-            System.out.println(sp.getSoLuong());
+            System.out.println(sp.getSoLuong() + " ");
+            System.out.println(sp.getTrangThai());
         });
     }
 
     public String[] getHeaders() {
-        return new String[]{"Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng"};
+        return new String[]{"Mã sản phẩm", "Mã loại", "Tên", "Đơn giá", "Số lượng", "Trạng thái"};
     }
 
     public void readDB() {
@@ -38,7 +39,7 @@ public class QuanLySanPhamBUS {
         return null;
     }
 
-    public ArrayList<SanPham> search(String value, String type, int soluong1, int soluong2, float gia1, float gia2) {
+    public ArrayList<SanPham> search(String value, String type, int soluong1, int soluong2, float gia1, float gia2, int trangthai) {
         ArrayList<SanPham> result = new ArrayList<>();
 
         dssp.forEach((sp) -> {
@@ -47,7 +48,8 @@ public class QuanLySanPhamBUS {
                         || sp.getMaLSP().toLowerCase().contains(value.toLowerCase())
                         || sp.getTenSP().toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(sp.getDonGia()).toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(sp.getSoLuong()).toLowerCase().contains(value.toLowerCase())) {
+                        || String.valueOf(sp.getSoLuong()).toLowerCase().contains(value.toLowerCase())
+                        || String.valueOf((sp.getTrangThai() == 1 ? "Ẩn" : "Hiện")).toLowerCase().contains(value.toLowerCase())) {
                     result.add(sp);
                 }
             } else {
@@ -77,6 +79,12 @@ public class QuanLySanPhamBUS {
                             result.add(sp);
                         }
                         break;
+                    case "Trạng thái":
+                        String tt = (sp.getTrangThai() == 1 ? "Ẩn" : "Hiện");
+                        if (String.valueOf(tt).toLowerCase().contains(value.toLowerCase())) {
+                            result.add(sp);
+                        }
+                        break;
                 }
             }
         });
@@ -85,11 +93,14 @@ public class QuanLySanPhamBUS {
             SanPham sp = result.get(i);
             int soluong = sp.getSoLuong();
             float gia = sp.getDonGia();
+            int tt = sp.getTrangThai();
             Boolean soLuongKhongThoa = (soluong1 != -1 && soluong < soluong1) || (soluong2 != -1 && soluong > soluong2);
             Boolean giaKhongThoa = (gia1 != -1 && gia < gia1) || (gia2 != -1 && gia > gia2);
-            
-            if(soLuongKhongThoa || giaKhongThoa) 
+            Boolean trangThaiKhongThoa = (trangthai != -1) && tt != trangthai;
+
+            if (soLuongKhongThoa || giaKhongThoa || trangThaiKhongThoa) {
                 result.remove(i);
+            }
         }
 
         return result;
@@ -104,8 +115,8 @@ public class QuanLySanPhamBUS {
         return ok;
     }
 
-    public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong, String url) {
-        SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong, url);
+    public Boolean add(String masp, String malsp, String tensp, float dongia, int soluong, String filename, int trangthai) {
+        SanPham sp = new SanPham(masp, malsp, tensp, dongia, soluong, filename, trangthai);
         return add(sp);
     }
 
@@ -122,8 +133,8 @@ public class QuanLySanPhamBUS {
         return ok;
     }
 
-    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong, String filename) {
-        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong, filename);
+    public Boolean update(String masp, String malsp, String tensp, float dongia, int soluong, String filename, int trangthai) {
+        Boolean ok = qlspDAO.update(masp, malsp, tensp, dongia, soluong, filename, trangthai);
 
         if (ok) {
             dssp.forEach((sp) -> {
@@ -133,6 +144,7 @@ public class QuanLySanPhamBUS {
                     sp.setDonGia(dongia);
                     sp.setSoLuong(soluong);
                     sp.setFileNameHinhAnh(filename);
+                    sp.setTrangThai(trangthai);
                 }
             });
         }
@@ -147,6 +159,20 @@ public class QuanLySanPhamBUS {
             dssp.forEach((sp) -> {
                 if (sp.getMaSP().equals(masp)) {
                     sp.setSoLuong(soluong);
+                }
+            });
+        }
+
+        return ok;
+    }
+
+    public Boolean updateTrangThai(String masp, int trangthai) {
+        Boolean ok = qlspDAO.updateTrangThai(masp, trangthai);
+
+        if (ok) {
+            dssp.forEach((sp) -> {
+                if (sp.getMaSP().equals(masp)) {
+                    sp.setTrangThai(trangthai);
                 }
             });
         }

@@ -29,7 +29,8 @@ public class QuanLySanPhamDAO {
                     float dongia = r.getFloat("DonGia");
                     int soluong = r.getInt("SoLuong");
                     String url = r.getString("HinhAnh");
-                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url));
+                    int trangthai = r.getInt("TrangThai");
+                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url, trangthai));
                 }
             }
 
@@ -56,7 +57,8 @@ public class QuanLySanPhamDAO {
                     float dongia = r.getFloat("DonGia");
                     int soluong = r.getInt("SoLuong");
                     String url = r.getString("HinhAnh");
-                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url));
+                    int trangthai = r.getInt("TrangThai");
+                    dssp.add(new SanPham(masp, loaisp, tensp, dongia, soluong, url, trangthai));
                 }
             }
 
@@ -71,13 +73,14 @@ public class QuanLySanPhamDAO {
 
     public Boolean add(SanPham sp) {
         qlspConnection = new ConnectionDB();
-        Boolean ok = qlspConnection.sqlUpdate("INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`) VALUES ('"
+        Boolean ok = qlspConnection.sqlUpdate("INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`, `TrangThai`) VALUES ('"
                 + sp.getMaSP() + "', '"
                 + sp.getMaLSP() + "', '"
                 + sp.getTenSP() + "', '"
                 + sp.getDonGia() + "', '"
                 + sp.getSoLuong() + "', '"
-                + sp.getFileNameHinhAnh() + "');");
+                + sp.getFileNameHinhAnh() + "', '"
+                + sp.getTrangThai()+ "');");
         qlspConnection.closeConnect();
         return ok;
     }
@@ -89,7 +92,7 @@ public class QuanLySanPhamDAO {
         return ok;
     }
 
-    public Boolean update(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong, String filename) {
+    public Boolean update(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong, String filename, int trangthai) {
         qlspConnection = new ConnectionDB();
         Boolean ok = qlspConnection.sqlUpdate("Update SanPham Set "
                 + "MaLSP='" + MaLSP
@@ -97,6 +100,7 @@ public class QuanLySanPhamDAO {
                 + "',DonGia='" + DonGia
                 + "',SoLuong='" + SoLuong
                 + "',HinhAnh='" + filename
+                + "',TrangThai='" + trangthai
                 + "' where MaSP='" + MaSP + "'");
         qlspConnection.closeConnect();
         return ok;
@@ -106,6 +110,15 @@ public class QuanLySanPhamDAO {
         qlspConnection = new ConnectionDB();
         Boolean ok = qlspConnection.sqlUpdate("Update SanPham Set "
                 + "SoLuong='" + SoLuong
+                + "' where MaSP='" + MaSP + "'");
+        qlspConnection.closeConnect();
+        return ok;
+    }
+    
+    public Boolean updateTrangThai(String MaSP, int trangthai) {
+        qlspConnection = new ConnectionDB();
+        Boolean ok = qlspConnection.sqlUpdate("Update SanPham Set "
+                + "TrangThai='" + trangthai
                 + "' where MaSP='" + MaSP + "'");
         qlspConnection.closeConnect();
         return ok;

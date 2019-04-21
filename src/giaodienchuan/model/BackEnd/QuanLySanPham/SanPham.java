@@ -4,15 +4,16 @@ public class SanPham {
 
     String MaSP, MaLSP, TenSP, fileNameHinhAnh;
     float DonGia;
-    int SoLuong;
+    int SoLuong, TrangThai;
 
-    public SanPham(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong, String url) {
+    public SanPham(String MaSP, String MaLSP, String TenSP, float DonGia, int SoLuong, String url, int TrangThai) {
         this.MaSP = MaSP;
         this.MaLSP = MaLSP;
         this.TenSP = TenSP;
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
         this.fileNameHinhAnh = url;
+        this.TrangThai = TrangThai;
     }
 
     public String getFileNameHinhAnh() {
@@ -64,4 +65,11 @@ public class SanPham {
         this.SoLuong = SoLuong;
     }
 
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
+    }
 }

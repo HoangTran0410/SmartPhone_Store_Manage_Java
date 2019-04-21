@@ -6,7 +6,9 @@ import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -22,6 +24,7 @@ public class ThemSuaKhachHangForm extends JFrame {
     JTextField txTenkh = new JTextField(15);
     JTextField txDiachi = new JTextField(15);
     JTextField txSDT = new JTextField(15);
+    JComboBox<String> cbChonTrangThai;
 
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
@@ -39,12 +42,21 @@ public class ThemSuaKhachHangForm extends JFrame {
         txTenkh.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
+        cbChonTrangThai = new JComboBox<>(new String[]{"Ẩn", "Hiện"});
+        
+        // chon trang thai
+        JPanel plChonTT = new JPanel();
+        plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
+        JLabel lbChonTT = new JLabel("Trạng thái: ");
+        plChonTT.add(lbChonTT);
+        plChonTT.add(cbChonTrangThai);
 
         JPanel plInput = new JPanel();
         plInput.add(txMakh);
         plInput.add(txTenkh);
         plInput.add(txDiachi);
         plInput.add(txSDT);
+        plInput.add(plChonTT);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -53,6 +65,8 @@ public class ThemSuaKhachHangForm extends JFrame {
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm khách hàng");
             txMakh.setText("KH" + String.valueOf(qlkhBUS.getDskh().size() + 1));
+            
+            cbChonTrangThai.setSelectedItem("Hiện");
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             plButton.add(btnThem);
@@ -69,6 +83,7 @@ public class ThemSuaKhachHangForm extends JFrame {
                 this.dispose();
             }
 
+            cbChonTrangThai.setSelectedItem(this.khSua.getTrangThai() == 0 ? "Hiện" : "Ẩn");
             txMakh.setText(this.khSua.getMaKH());
             txTenkh.setText(this.khSua.getTenKH());
             txDiachi.setText(this.khSua.getDiaChi());
@@ -108,8 +123,9 @@ public class ThemSuaKhachHangForm extends JFrame {
             String tenkh = txTenkh.getText();
             String diachi = txDiachi.getText();
             String  sdt = txSDT.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlkhBUS.add(makh, tenkh, diachi, sdt)) {
+            if (qlkhBUS.add(makh, tenkh, diachi, sdt, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + tenkh + " thành công!");
                 this.dispose();
             }
@@ -122,8 +138,9 @@ public class ThemSuaKhachHangForm extends JFrame {
             String tenkh = txTenkh.getText();
             String diachi = txDiachi.getText();
             String  sdt = txSDT.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlkhBUS.update(makh, tenkh, diachi, sdt)) {
+            if (qlkhBUS.update(makh, tenkh, diachi, sdt, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + makh + " thành công!");
                 this.dispose();
             }
@@ -153,12 +170,6 @@ public class ThemSuaKhachHangForm extends JFrame {
     }
 
     private Boolean showErrorTx(JTextField tx, String errorInfo) {
-        JOptionPane.showMessageDialog(tx, errorInfo);
-        tx.requestFocus();
-        return false;
-    }
-
-    private Boolean showErrorTx(JTextArea tx, String errorInfo) {
         JOptionPane.showMessageDialog(tx, errorInfo);
         tx.requestFocus();
         return false;

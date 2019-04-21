@@ -129,9 +129,10 @@ public class BanHangForm extends JPanel {
         plLapHoaDon.add(plChiTietHoaDon);
 
         //Lay du lieu test
-        btnThemMouseClicked("SP001", 5);
-        btnThemMouseClicked("SP002", 3);
 
+        btnThemMouseClicked("SP1", 5);
+        btnThemMouseClicked("SP2", 3);
+        
         //Tu lay gio moi giay cho textfield GioLap
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -205,18 +206,20 @@ public class BanHangForm extends JPanel {
             data.get(0).getTenSP(),
             String.valueOf(data.get(0).getSoLuong()),
             String.valueOf(data.get(0).getDonGia()),
-            String.valueOf(data.get(0).getSoLuong() * data.get(0).getDonGia())});
+            String.valueOf(data.get(0).getSoLuong() * data.get(0).getDonGia())
+        });
     }
 
     private void btnThemMouseClicked(String _masp, int _soLuong) {
-        listSanPham = qlspBUS.search(_masp, "Mã sản phẩm", -1, -1, -1, -1);
+        listSanPham = qlspBUS.search(_masp, "Mã sản phẩm", -1, -1, -1, -1, 0);
+        SanPham sp = qlspBUS.getSanPham(_masp);
         listSanPham.get(0).setSoLuong(_soLuong);
 //          ChiTietHoaDon ct = new ChiTietHoaDon(_masp, _masp, _soLuong, TOP_ALIGNMENT);
         setDataToTableChiTiet(listSanPham, tbChiTietHoaDon);
     }
 
     private void btnThanhToan() {
-        HoaDon hd = new HoaDon(txMaHoaDon.getText(), txMaNhanVien.getText(), txMaKhachHang.getText(), LocalDate.parse(txNgayLap.getText()), LocalTime.parse(txGioLap.getText()), Integer.parseInt(txTongTien.getText()));
+        HoaDon hd = new HoaDon(txMaHoaDon.getText(), txMaNhanVien.getText(), txMaKhachHang.getText(), "Không", LocalDate.parse(txNgayLap.getText()), LocalTime.parse(txGioLap.getText()), Integer.parseInt(txTongTien.getText()));
         if (qlhdBUS.add(hd)) {
             for (int i = 0; i < tbChiTietHoaDon.getModel().getRowCount(); i++) {
                 int j = tbChiTietHoaDon.getTable().getSelectedRow();

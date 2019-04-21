@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,6 +34,7 @@ public class ThemSuaSanPhamForm extends JFrame {
     FileDialog fdChooseImg = new FileDialog(this);
     FileButton btnChonAnh = new FileButton();
     MoreButton btnChonLoai = new MoreButton();
+    JComboBox<String> cbChonTrangThai;
 
     JButton btnThem = new JButton("Thêm");
     JButton btnThoat = new JButton("Thoát");
@@ -53,6 +56,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         txGia.setBorder(BorderFactory.createTitledBorder("Đơn Giá (triệu)"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         txHinhAnh.setBorder(BorderFactory.createTitledBorder(" "));
+        cbChonTrangThai = new JComboBox<>(new String[]{"Ẩn", "Hiện"});
 
         JPanel plChonLoai = new JPanel();
         plChonLoai.setBorder(BorderFactory.createTitledBorder("Mã loại"));
@@ -63,6 +67,13 @@ public class ThemSuaSanPhamForm extends JFrame {
         plChonAnh.setBorder(BorderFactory.createTitledBorder("Tên file ảnh"));
         plChonAnh.add(txHinhAnh);
         plChonAnh.add(btnChonAnh);
+        
+        // chon trang thai
+        JPanel plChonTT = new JPanel();
+        plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
+        JLabel lbChonTT = new JLabel("Trạng thái: ");
+        plChonTT.add(lbChonTT);
+        plChonTT.add(cbChonTrangThai);
 
         JPanel plInput = new JPanel();
         plInput.add(txMasp);
@@ -71,6 +82,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         plInput.add(txGia);
         plInput.add(txSoLuong);
         plInput.add(plChonAnh);
+        plInput.add(plChonTT);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -80,6 +92,8 @@ public class ThemSuaSanPhamForm extends JFrame {
             this.setTitle("Thêm sản phẩm");
             txMasp.setText("SP" + String.valueOf(qlspBUS.getDssp().size() + 1));
 
+            cbChonTrangThai.setSelectedItem("Hiện");
+            
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
@@ -96,7 +110,8 @@ public class ThemSuaSanPhamForm extends JFrame {
                 JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy sản phẩm");
                 this.dispose();
             }
-
+            
+            cbChonTrangThai.setSelectedItem(this.spSua.getTrangThai() == 0 ? "Hiện" : "Ẩn");
             txMasp.setText(this.spSua.getMaSP());
             txMalsp.setText(this.spSua.getMaLSP());
             txTen.setText(this.spSua.getTenSP());
@@ -150,8 +165,9 @@ public class ThemSuaSanPhamForm extends JFrame {
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
             String url = txHinhAnh.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlspBUS.add(masp, maloai, ten, dongia, soluong, url)) {
+            if (qlspBUS.add(masp, maloai, ten, dongia, soluong, url, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + ten + " thành công!");
             }
         }
@@ -165,8 +181,9 @@ public class ThemSuaSanPhamForm extends JFrame {
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
             String url = txHinhAnh.getText();
+            int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
-            if (qlspBUS.update(masp, maloai, ten, dongia, soluong, url)) {
+            if (qlspBUS.update(masp, maloai, ten, dongia, soluong, url, trangthai)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + masp + " thành công!");
                 this.dispose();
             }
