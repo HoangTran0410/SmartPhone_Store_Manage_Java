@@ -49,7 +49,7 @@ public class QuanLySanPhamBUS {
                         || sp.getTenSP().toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(sp.getDonGia()).toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(sp.getSoLuong()).toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf((sp.getTrangThai()==1?"Ẩn":"Hiện")).toLowerCase().contains(value.toLowerCase())) {
+                        || String.valueOf((sp.getTrangThai() == 1 ? "Ẩn" : "Hiện")).toLowerCase().contains(value.toLowerCase())) {
                     result.add(sp);
                 }
             } else {
@@ -80,7 +80,7 @@ public class QuanLySanPhamBUS {
                         }
                         break;
                     case "Trạng thái":
-                        String tt = (sp.getTrangThai()==1?"Ẩn":"Hiện");
+                        String tt = (sp.getTrangThai() == 1 ? "Ẩn" : "Hiện");
                         if (String.valueOf(tt).toLowerCase().contains(value.toLowerCase())) {
                             result.add(sp);
                         }
@@ -97,9 +97,10 @@ public class QuanLySanPhamBUS {
             Boolean soLuongKhongThoa = (soluong1 != -1 && soluong < soluong1) || (soluong2 != -1 && soluong > soluong2);
             Boolean giaKhongThoa = (gia1 != -1 && gia < gia1) || (gia2 != -1 && gia > gia2);
             Boolean trangThaiKhongThoa = (trangthai != -1) && tt != trangthai;
-            
-            if(soLuongKhongThoa || giaKhongThoa || trangThaiKhongThoa) 
+
+            if (soLuongKhongThoa || giaKhongThoa || trangThaiKhongThoa) {
                 result.remove(i);
+            }
         }
 
         return result;
@@ -164,7 +165,7 @@ public class QuanLySanPhamBUS {
 
         return ok;
     }
-    
+
     public Boolean updateTrangThai(String masp, int trangthai) {
         Boolean ok = qlspDAO.updateTrangThai(masp, trangthai);
 
