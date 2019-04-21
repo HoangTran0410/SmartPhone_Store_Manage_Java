@@ -36,7 +36,6 @@ public class HienThiChiTietHoaDon extends JPanel {
         setLayout(new BorderLayout());
         this.mahd = _mahd;
 
-
         txKhoangSoLuong1.setBorder(BorderFactory.createTitledBorder("Từ:"));
         txKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Đến:"));
 
