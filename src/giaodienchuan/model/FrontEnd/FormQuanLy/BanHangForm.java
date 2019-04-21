@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -57,8 +59,21 @@ public class BanHangForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-    JTextField txSearch = new JTextField();
+    JTextField txSearch = new JTextField(10);
+    JTextField txKhoangSoLuong1 = new JTextField(5);
+    JTextField txKhoangSoLuong = new JTextField(5);
+    JTextField txKhoangThanhTien1 = new JTextField(5);
+    JTextField txKhoangThanhTien2 = new JTextField(5);
+    
+    JTextField txMasp = new JTextField(10);
+    JTextField txTensp = new JTextField(10);
+    JTextField txLoaisp = new JTextField(10);
+    JTextField txDonGia = new JTextField(10);
+    JTextField txSoluong = new JTextField(8);
+    JButton btnThem = new JButton("Thêm");
 
+    JLabel lbImg = new JLabel("Hinh anh");
+    
     MyTable tbChiTietHoaDon;
     MyTable tbSanPham;
 
@@ -77,41 +92,41 @@ public class BanHangForm extends JPanel {
         plLapHoaDon.setBackground(Color.green);
 
         //panel text
-        JPanel plTxt = new JPanel();
-        plTxt.setLayout(null);
-        plTxt.setBackground(Color.yellow);
-        plTxt.setBounds(70, 50, 500, 160);
+        JPanel plHdText = new JPanel();
+        plHdText.setLayout(null);
+        plHdText.setBackground(Color.yellow);
+        plHdText.setBounds(70, 50, 500, 160);
 
         txMaHoaDon.setBounds(0, 0, 250, 50);
         txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
         txMaHoaDon.setEditable(false);
-        plTxt.add(txMaHoaDon);
+        plHdText.add(txMaHoaDon);
 
         txMaNhanVien.setBounds(275, 0, 250, 50);
         txMaNhanVien.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
         txMaNhanVien.setEditable(false);
-        plTxt.add(txMaNhanVien);
+        plHdText.add(txMaNhanVien);
 
         txNgayLap.setBounds(0, 55, 250, 50);
         txNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập"));
         txNgayLap.setEditable(false);
-        plTxt.add(txNgayLap);
+        plHdText.add(txNgayLap);
 
         txGioLap.setBounds(275, 55, 250, 50);
         txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập"));
         txGioLap.setEditable(false);
-        plTxt.add(txGioLap);
+        plHdText.add(txGioLap);
 
         txMaKhachHang.setBounds(0, 110, 250, 50);
         txMaKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng"));
-        plTxt.add(txMaKhachHang);
+        plHdText.add(txMaKhachHang);
 
         txTongTien.setBounds(275, 110, 250, 50);
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền"));
         txTongTien.setEditable(false);
-        plTxt.add(txTongTien);
+        plHdText.add(txTongTien);
 
-        plLapHoaDon.add(plTxt);
+        plLapHoaDon.add(plHdText);
 
         //panel chi tiet hoa don
         JPanel plChiTietHoaDon = new JPanel();
@@ -157,9 +172,26 @@ public class BanHangForm extends JPanel {
         //panel tim kiem san pham
         JPanel plTimKiem = new JPanel();
         plTimKiem.setLayout(new FlowLayout());
-        plTimKiem.setBounds(5, 10, WIDTH / 2 - 10, 50);
-        txSearch.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txSearch.setPreferredSize(new Dimension(WIDTH / 2 - 10, 50));
+        plTimKiem.setBounds(10, 10, WIDTH / 2 - 20, 85);
+        txSearch.setBorder(BorderFactory.createTitledBorder("Từ khóa"));
+        plTimKiem.add(txSearch);
+        
+        txKhoangSoLuong1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Đến:"));
+        JPanel plTimKiemKhoangSoLuong = new JPanel();
+        plTimKiemKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng:"));
+        plTimKiemKhoangSoLuong.add(txKhoangSoLuong1);
+        plTimKiemKhoangSoLuong.add(txKhoangSoLuong);
+        plTimKiem.add(plTimKiemKhoangSoLuong);
+        
+        JPanel plTimKiemKhoangThanhTien = new JPanel();
+        plTimKiemKhoangThanhTien.setBorder(BorderFactory.createTitledBorder("Thành tiền"));
+        txKhoangThanhTien1.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        txKhoangThanhTien2.setBorder(BorderFactory.createTitledBorder("Đến:"));
+        plTimKiemKhoangThanhTien.add(txKhoangThanhTien1);
+        plTimKiemKhoangThanhTien.add(txKhoangThanhTien2);
+        plTimKiem.add(plTimKiemKhoangThanhTien);
+        
         plTimKiem.add(txSearch);
         plChonSanPham.add(plTimKiem);
 
@@ -169,6 +201,45 @@ public class BanHangForm extends JPanel {
         tbSanPham.setBounds(10, HEIGHT / 8, WIDTH / 2 - 20, HEIGHT / 2);
         plChonSanPham.add(tbSanPham);
 
+        //panel chi tiet san pham
+        JPanel plChiTietSanPham = new JPanel();
+        plChiTietSanPham.setBounds(300,580,300,150);
+        plChiTietSanPham.setLayout(new BorderLayout());
+        JPanel plSpText = new JPanel();
+        plSpText.setBackground(Color.magenta);
+        plSpText.setLayout(new FlowLayout());
+//        plSpText.setBounds(0,0,300,150);
+        txMasp.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
+        txTensp.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
+        txLoaisp.setBorder(BorderFactory.createTitledBorder("Loại sản phẩm"));
+        txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
+        plSpText.add(txMasp);
+        plSpText.add(txTensp);
+        plSpText.add(txLoaisp);
+        plSpText.add(txDonGia);
+        plChiTietSanPham.add(plSpText,BorderLayout.CENTER);
+        plChonSanPham.add(plChiTietSanPham);
+        
+        //panel so luong
+        JPanel plSl = new JPanel();
+        plSl.setLayout(new FlowLayout());
+        plSl.setBounds(410,740,180,50);
+        txSoluong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
+        plSl.add(txSoluong);
+        plSl.add(btnThem);
+        plChonSanPham.add(plSl);
+        
+        //Hinh anh san pham
+        JPanel plImg = new JPanel();
+        plImg.setBounds(20,580,250,250);
+        plImg.setLayout(null);
+        lbImg.setText("Hinh anh");
+        lbImg.setBounds(0,0,250,250);
+        plChonSanPham.add(plImg);
+        
+        //
+        
+        
     }
 
 //    private
@@ -211,9 +282,10 @@ public class BanHangForm extends JPanel {
     }
 
     private void btnThemMouseClicked(String _masp, int _soLuong) {
-        listSanPham = qlspBUS.search(_masp, "Mã sản phẩm", -1, -1, -1, -1, 0);
+//        listSanPham = qlspBUS.search(_masp, "Mã sản phẩm", -1, -1, -1, -1, 0);
         SanPham sp = qlspBUS.getSanPham(_masp);
-        listSanPham.get(0).setSoLuong(_soLuong);
+//        listSanPham.get(0).setSoLuong(_soLuong);
+        listSanPham.add(sp);
 //          ChiTietHoaDon ct = new ChiTietHoaDon(_masp, _masp, _soLuong, TOP_ALIGNMENT);
         setDataToTableChiTiet(listSanPham, tbChiTietHoaDon);
     }
