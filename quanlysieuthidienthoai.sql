@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 20, 2019 lúc 01:05 PM
+-- Thời gian đã tạo: Th4 21, 2019 lúc 03:32 AM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -61,26 +61,6 @@ CREATE TABLE `chitietphieunhap` (
   `SoLuong` int(10) UNSIGNED NOT NULL,
   `DonGia` float UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `chucvu`
---
-
-CREATE TABLE `chucvu` (
-  `MaCV` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `TenCV` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `chucvu`
---
-
-INSERT INTO `chucvu` (`MaCV`, `TenCV`) VALUES
-('CV001', 'Nhân viên'),
-('CV2', 'Admin'),
-('CV3', 'Quản lý');
 
 -- --------------------------------------------------------
 
@@ -193,7 +173,6 @@ INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`, `SDT`, `Fax`) VALUES
 
 CREATE TABLE `nhanvien` (
   `MaNV` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `MaCV` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ThuNgan',
   `TenNV` text COLLATE utf8_unicode_ci NOT NULL,
   `NgaySinh` date NOT NULL,
   `DiaChi` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
@@ -204,10 +183,11 @@ CREATE TABLE `nhanvien` (
 -- Đang đổ dữ liệu cho bảng `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MaNV`, `MaCV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES
-('NV00', 'CV2', 'Phan Tri Dung', '1978-04-05', 'da nang', '0145647854'),
-('NV002', 'CV001', 'Tran Van Hi', '1999-04-05', 'tp hcm', '0123456489'),
-('NV003', 'CV001', 'Nguyen Ba Duoc', '1998-04-05', 'ha noi', '0128456786');
+INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VALUES
+('NV00', 'Phan Trí Dũng', '1978-04-05', 'da nang', '0145647854'),
+('NV002', 'Trần Văn Hi', '1999-04-05', 'tp hcm', '0123456489'),
+('NV003', 'Nguyễn Bá Được', '1998-04-05', 'ha noi', '0128456786'),
+('NV4', 'Trần Văn Hoàng', '1999-11-12', 'tp hcm', '01207764668');
 
 -- --------------------------------------------------------
 
@@ -217,6 +197,7 @@ INSERT INTO `nhanvien` (`MaNV`, `MaCV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`) VA
 
 CREATE TABLE `phanquyen` (
   `MaQuyen` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `TenQuyen` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -224,10 +205,10 @@ CREATE TABLE `phanquyen` (
 -- Đang đổ dữ liệu cho bảng `phanquyen`
 --
 
-INSERT INTO `phanquyen` (`MaQuyen`, `ChiTietQuyen`) VALUES
-('Q1', 'Admin'),
-('Q2', 'Nhân viên'),
-('Q3', 'Seller');
+INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES
+('Q1', 'Admin', '1 2 3'),
+('Q2', 'Nhân viên', '2 3'),
+('Q3', 'Seller', '2 3 4');
 
 -- --------------------------------------------------------
 
@@ -313,12 +294,6 @@ ALTER TABLE `chitietphieunhap`
   ADD KEY `MaPN` (`MaPN`);
 
 --
--- Chỉ mục cho bảng `chucvu`
---
-ALTER TABLE `chucvu`
-  ADD PRIMARY KEY (`MaCV`) USING BTREE;
-
---
 -- Chỉ mục cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
@@ -354,8 +329,7 @@ ALTER TABLE `nhacungcap`
 -- Chỉ mục cho bảng `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  ADD PRIMARY KEY (`MaNV`),
-  ADD KEY `MaCV` (`MaCV`);
+  ADD PRIMARY KEY (`MaNV`);
 
 --
 -- Chỉ mục cho bảng `phanquyen`
@@ -410,12 +384,6 @@ ALTER TABLE `chitietphieunhap`
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`) ON UPDATE CASCADE,
   ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD CONSTRAINT `nhanvien_ibfk_1` FOREIGN KEY (`MaCV`) REFERENCES `chucvu` (`MaCV`) ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `phieunhap`
