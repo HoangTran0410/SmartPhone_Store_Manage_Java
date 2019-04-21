@@ -212,10 +212,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Phiếu nhập":
-                emptypage.setLabelText("Quản lý phiếu nhập đang bảo trì");
-                plContent.add(emptypage, BorderLayout.CENTER);
+                 if (qlpn == null) {
+                    qlpn = new QuanLyPhieuNhapForm();
+                }
+                plContent.add(qlq, BorderLayout.CENTER);
                 break;
-
             case "Quyền":
                 if (qlq == null) {
                     qlq = new QuanLyQuyenForm();
