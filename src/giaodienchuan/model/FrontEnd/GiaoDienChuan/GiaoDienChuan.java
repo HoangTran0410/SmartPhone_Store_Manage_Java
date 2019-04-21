@@ -32,7 +32,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1400, HEIGHT = 850;
+    final int WIDTH = 1500, HEIGHT = 950;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -85,16 +85,19 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         };
 
         int menuW = 250;
+        int menuH = 0;
         menu = new NavBarContainer(new Rectangle(0, 0, menuW, HEIGHT));
         menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
         for (int i = 0; i < navItemInfo.length; i += 2) {
             if (navItemInfo[i].equals("seperate")) {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
                 menu.addItem(s);
+                
             } else {
                 NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
                 nb.addMouseListener(this);
                 menu.addItem(nb);
+                menuH += 60;
             }
         }
 
@@ -103,7 +106,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         //https://stackoverflow.com/questions/5583495/how-do-i-speed-up-the-scroll-speed-in-a-jscrollpane-when-using-the-mouse-wheel
         JScrollPane scrollMenu = new JScrollPane(menu, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         menu.setAutoscrolls(true);
-        menu.setPreferredSize(new Dimension(menuW, HEIGHT + 200));
+        menu.setPreferredSize(new Dimension(menuW, menuH + 100));
         scrollMenu.setPreferredSize(new Dimension(menuW, HEIGHT));
         scrollMenu.setBorder(BorderFactory.createEmptyBorder());
         scrollMenu.getVerticalScrollBar().setUnitIncrement(5);
