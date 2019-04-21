@@ -15,7 +15,6 @@ public class QuanLyNhanVienBUS {
     public void showConsole() {
         dsnv.forEach((nv) -> {
             System.out.print(nv.getMaNV() + " ");
-            System.out.print(nv.getMaCV() + " ");
             System.out.println(nv.getTenNV() + " ");
             System.out.println(nv.getNgaySinh() + " ");
             System.out.println(nv.getDiaChi() + " ");
@@ -24,7 +23,7 @@ public class QuanLyNhanVienBUS {
     }
 
     public String[] getHeaders() {
-        return new String[]{"Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"};
+        return new String[]{"Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"};
     }
 
     public void readDB() {
@@ -46,7 +45,6 @@ public class QuanLyNhanVienBUS {
         dsnv.forEach((nv) -> {
             if (type.equals("Tất cả")) {
                 if (nv.getMaNV().toLowerCase().contains(value.toLowerCase())
-                        || nv.getMaCV().toLowerCase().contains(value.toLowerCase())
                         || nv.getTenNV().toLowerCase().contains(value.toLowerCase())
                         || nv.getNgaySinh().toString().toLowerCase().contains(value.toLowerCase())
                         || nv.getDiaChi().toLowerCase().contains(value.toLowerCase())
@@ -57,11 +55,6 @@ public class QuanLyNhanVienBUS {
                 switch (type) {
                     case "Mã nhân viên":
                         if (nv.getMaNV().toLowerCase().contains(value.toLowerCase())) {
-                            result.add(nv);
-                        }
-                        break;
-                    case "Mã chức vụ":
-                        if (nv.getMaCV().toLowerCase().contains(value.toLowerCase())) {
                             result.add(nv);
                         }
                         break;
@@ -113,8 +106,8 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean add(String manv, String macv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
-        NhanVien nv = new NhanVien(manv, macv, tennv, ngaysinh, diachi, sdt);
+    public Boolean add(String manv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
+        NhanVien nv = new NhanVien(manv, tennv, ngaysinh, diachi, sdt);
         return add(nv);
     }
 
@@ -131,13 +124,12 @@ public class QuanLyNhanVienBUS {
         return ok;
     }
 
-    public Boolean update(String manv, String macv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
-        Boolean ok = qlnvDAO.update(manv, macv, tennv, ngaysinh, diachi, sdt);
+    public Boolean update(String manv, String tennv, LocalDate ngaysinh, String diachi, String sdt) {
+        Boolean ok = qlnvDAO.update(manv, tennv, ngaysinh, diachi, sdt);
 
         if (ok) {
             dsnv.forEach((nv) -> {
                 if (nv.getMaNV().equals(manv)) {
-                    nv.setMaCV(macv);
                     nv.setTenNV(tennv);
                     nv.setNgaySinh(ngaysinh);
                     nv.setDiaChi(diachi);

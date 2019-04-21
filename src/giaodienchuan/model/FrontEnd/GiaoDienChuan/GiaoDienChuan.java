@@ -49,7 +49,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyQuyenForm qlq;
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
-    QuanLyChucVuForm qlcv;
+//    QuanLyChucVuForm qlcv;
     QuanLyNhaCungCapForm qlncc;
 
     public GiaoDienChuan() {
@@ -77,7 +77,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Khách hàng", "icons8_user_30px.png",
             "Nhà cung cấp", "icons8_company_30px.png",
             "seperate", "1",
-            "Chức vụ", "icons8_flow_chart_30px_1.png",
+//            "Chức vụ", "icons8_flow_chart_30px_1.png",
             "Tài khoản", "icons8_key_30px.png",
             "Quyền", "icons8_police_badge_30px.png",
             "seperate", "1",
@@ -229,12 +229,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 plContent.add(qltk, BorderLayout.CENTER);
                 break;
 
-            case "Chức vụ":
-                if (qlcv == null) {
-                    qlcv = new QuanLyChucVuForm();
-                }
-                plContent.add(qlcv, BorderLayout.CENTER);
-                break;
+//            case "Chức vụ":
+//                if (qlcv == null) {
+//                    qlcv = new QuanLyChucVuForm();
+//                }
+//                plContent.add(qlcv, BorderLayout.CENTER);
+//                break;
 
             case "Nhân viên":
                 if (qlnv == null) {

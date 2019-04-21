@@ -5,12 +5,11 @@ import java.time.LocalDate;
 
 public class NhanVien {
 
-    String MaNV, MaCV, TenNV, DiaChi, SDT;
+    String MaNV, TenNV, DiaChi, SDT;
     LocalDate NgaySinh;
 
-    public NhanVien(String MaNV, String MaCV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
+    public NhanVien(String MaNV, String TenNV, LocalDate NgaySinh, String DiaChi, String SDT) {
         this.MaNV = MaNV;
-        this.MaCV = MaCV;
         this.TenNV = TenNV;
         this.NgaySinh = NgaySinh;
         this.DiaChi = DiaChi;
@@ -23,14 +22,6 @@ public class NhanVien {
 
     public void setMaNV(String MaNV) {
         this.MaNV = MaNV;
-    }
-
-    public String getMaCV() {
-        return MaCV;
-    }
-
-    public void setMaCV(String MaCV) {
-        this.MaCV = MaCV;
     }
 
     public String getTenNV() {

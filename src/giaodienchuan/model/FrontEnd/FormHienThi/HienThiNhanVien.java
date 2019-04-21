@@ -38,7 +38,7 @@ public class HienThiNhanVien extends JPanel {
     DatePicker dPicker2;
 
     // index
-    final int MANV_I = 1, MACV_I = 2, TENNV_I = 3, NGAYSINH_I = 4, DIACHI_I = 5, SDT_I = 6;
+    final int MANV_I = 1, TENNV_I = 2, NGAYSINH_I = 3, DIACHI_I = 4, SDT_I = 5;
 
     public HienThiNhanVien() {
         setLayout(new BorderLayout());
@@ -60,13 +60,13 @@ public class HienThiNhanVien extends JPanel {
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
-        mtb.setColumnsWidth(new double[]{.5, 1.5, 1.5, 2.5, 1.3, 3, 1.5});
+        mtb.setHeaders(new String[]{"STT", "Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
+        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 1.3, 3, 1.5});
         mtb.setAlignment(0, JLabel.CENTER);
         setDataToTable(qlnv.getDsnv(), mtb);
 
         // ======== search panel ===========
-        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã nhân viên", "Mã chức vụ", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
+        cbTypeSearch = new JComboBox<>(new String[]{"Tất cả", "Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại"});
 
         JPanel plHeader = new JPanel();
         JPanel plTim = new JPanel();
@@ -173,8 +173,13 @@ public class HienThiNhanVien extends JPanel {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (NhanVien nv : data) {
-            table.addRow(new String[]{String.valueOf(stt), nv.getMaNV(), nv.getMaCV(), nv.getTenNV(),
-                nv.getNgaySinh().toString(), nv.getDiaChi(), nv.getSDT()});
+            table.addRow(new String[]{
+                String.valueOf(stt), 
+                nv.getMaNV(), 
+                nv.getTenNV(),
+                nv.getNgaySinh().toString(), 
+                nv.getDiaChi(), 
+                nv.getSDT()});
             stt++;
         }
     }

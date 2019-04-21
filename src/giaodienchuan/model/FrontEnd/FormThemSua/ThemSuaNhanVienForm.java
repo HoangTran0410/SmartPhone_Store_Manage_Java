@@ -24,13 +24,10 @@ public class ThemSuaNhanVienForm extends JFrame {
     NhanVien nvSua;
 
     JTextField txManv = new JTextField(12);
-    JTextField txMacv = new JTextField(12);
     JTextField txTennv = new JTextField(15);
     JTextField txNgaysinh = new JTextField(12);
     JTextField txDiachi = new JTextField(15);
     JTextField txSDT= new JTextField(12);
-    
-    MoreButton btnChonChucVu = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
@@ -59,20 +56,13 @@ public class ThemSuaNhanVienForm extends JFrame {
 
         // inputs
         txManv.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
-        txMacv.setBorder(BorderFactory.createTitledBorder(" "));        
         txTennv.setBorder(BorderFactory.createTitledBorder("Tên nhân viên"));
         txNgaysinh.setBorder(BorderFactory.createTitledBorder(" "));
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));        
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
-        
-        JPanel plChonChucVu = new JPanel();
-        plChonChucVu.setBorder(BorderFactory.createTitledBorder("Mã chức vụ"));
-        plChonChucVu.add(txMacv);
-        plChonChucVu.add(btnChonChucVu);
 
         JPanel plInput = new JPanel();
         plInput.add(txManv);
-        plInput.add(plChonChucVu);
         plInput.add(txTennv);
         plInput.add(plNgaysinh);
         plInput.add(txDiachi);
@@ -102,7 +92,6 @@ public class ThemSuaNhanVienForm extends JFrame {
             }
 
             txManv.setText(this.nvSua.getMaNV());
-            txMacv.setText(this.nvSua.getMaCV());
             txTennv.setText(this.nvSua.getTenNV());
             txNgaysinh.setText(this.nvSua.getNgaySinh().toString());
             txDiachi.setText(this.nvSua.getDiaChi());
@@ -132,9 +121,6 @@ public class ThemSuaNhanVienForm extends JFrame {
                 this.dispose();
             }
         });
-        btnChonChucVu.addActionListener((ae) -> {
-            ChonChucVuForm clsp = new ChonChucVuForm(txMacv); // truyền vào textfield
-        });
         dPickerNgaySinh.addDateChangeListener((dce) -> {
             txNgaysinh.setText(dPickerNgaySinh.getDateStringOrEmptyString());
         });
@@ -145,13 +131,12 @@ public class ThemSuaNhanVienForm extends JFrame {
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
             String manv = txManv.getText();
-            String macv = txMacv.getText();
             String tennv = txTennv.getText();
             LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
 
-            if (qlnvBUS.add(manv, macv, tennv, ngaysinh, diachi, sdt)) {
+            if (qlnvBUS.add(manv, tennv, ngaysinh, diachi, sdt)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + tennv + " thành công!");
                 this.dispose();
             }
@@ -161,13 +146,12 @@ public class ThemSuaNhanVienForm extends JFrame {
     private void btnSuaMouseClicked() {
         if (checkEmpty()) {
             String manv = txManv.getText();
-            String macv = txMacv.getText();
             String tennv = txTennv.getText();
             LocalDate ngaysinh = LocalDate.parse(txNgaysinh.getText());
             String diachi = txDiachi.getText();
             String sdt = txSDT.getText();
 
-            if (qlnvBUS.update(manv, macv, tennv, ngaysinh, diachi, sdt)) {
+            if (qlnvBUS.update(manv, tennv, ngaysinh, diachi, sdt)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + manv + " thành công!");
                 this.dispose();
             }
@@ -176,7 +160,6 @@ public class ThemSuaNhanVienForm extends JFrame {
 
     private Boolean checkEmpty() {
         String manv = txManv.getText();
-        String macv = txMacv.getText();
         String tennv = txTennv.getText();
         String ngaysinh = txNgaysinh.getText();
         String diachi = txDiachi.getText();
@@ -184,8 +167,6 @@ public class ThemSuaNhanVienForm extends JFrame {
 
         if (manv.trim().equals("")) {
             return showErrorTx(txManv, "Mã nhân viên không được để trống");
-        } else if (macv.trim().equals("")) {
-            return showErrorTx(txTennv, "Mã chức vụ không được để trống");
             
         } else if (tennv.trim().equals("")) {
             return showErrorTx(txTennv, "Tên nhân viên không được để trống");
