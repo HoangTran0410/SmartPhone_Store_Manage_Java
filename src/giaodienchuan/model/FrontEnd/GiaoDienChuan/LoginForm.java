@@ -45,7 +45,7 @@ public class LoginForm extends javax.swing.JFrame {
         txMatKhau = new javax.swing.JPasswordField();
         plHeader = new javax.swing.JPanel();
         lbHeader = new javax.swing.JLabel();
-        lbAvatar = new javax.swing.JLabel();
+        lbAva = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,22 +87,22 @@ public class LoginForm extends javax.swing.JFrame {
         plInput.setLayout(plInputLayout);
         plInputLayout.setHorizontalGroup(
             plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, plInputLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(plInputLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(lbImgPass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(plInputLayout.createSequentialGroup()
+                        .addComponent(rbNhoMatKhau)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txMatKhau))
                 .addContainerGap())
             .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(plInputLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(lbImgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(plInputLayout.createSequentialGroup()
-                            .addComponent(rbNhoMatKhau)
-                            .addGap(0, 158, Short.MAX_VALUE))
-                        .addComponent(txTenDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE))
+                    .addComponent(txTenDangNhap)
                     .addContainerGap()))
         );
         plInputLayout.setVerticalGroup(
@@ -112,16 +112,16 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbImgPass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48))
+                .addGap(14, 14, 14)
+                .addComponent(rbNhoMatKhau)
+                .addContainerGap())
             .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(plInputLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(plInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txTenDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbImgUser, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(75, 75, 75)
-                    .addComponent(rbNhoMatKhau)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(109, Short.MAX_VALUE)))
         );
 
         plHeader.setBackground(new java.awt.Color(0, 0, 0));
@@ -137,7 +137,7 @@ public class LoginForm extends javax.swing.JFrame {
             plHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(plHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
         plHeaderLayout.setVerticalGroup(
@@ -148,7 +148,8 @@ public class LoginForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lbAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_commercial_development_management_64px.png"))); // NOI18N
+        lbAva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_commercial_development_management_64px.png"))); // NOI18N
 
         javax.swing.GroupLayout plFormLayout = new javax.swing.GroupLayout(plForm);
         plForm.setLayout(plFormLayout);
@@ -156,24 +157,18 @@ public class LoginForm extends javax.swing.JFrame {
             plFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(plDangNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(plHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(plFormLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(plInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, plFormLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbAvatar)
-                .addGap(148, 148, 148))
+            .addComponent(plInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbAva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         plFormLayout.setVerticalGroup(
             plFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, plFormLayout.createSequentialGroup()
                 .addComponent(plHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbAvatar)
+                .addComponent(lbAva)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(plInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(plDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -185,7 +180,7 @@ public class LoginForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(plForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(plForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -227,7 +222,7 @@ public class LoginForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JLabel lbAvatar;
+    private javax.swing.JLabel lbAva;
     private javax.swing.JLabel lbHeader;
     private javax.swing.JLabel lbImgPass;
     private javax.swing.JLabel lbImgUser;
