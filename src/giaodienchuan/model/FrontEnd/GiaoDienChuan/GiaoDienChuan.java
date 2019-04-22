@@ -172,7 +172,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             NhanVien nvDangNhap = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
             String tenNhanVien = nvDangNhap.getTenNV();
             
-            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, 200, headerH), tenNhanVien, "icons8_exit_30px.png");
+            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW, headerH), tenNhanVien, "icons8_exit_30px.png");
             btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
             btnLogout.setBgHover(new Color(49, 49, 49));
