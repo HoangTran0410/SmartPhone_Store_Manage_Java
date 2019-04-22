@@ -33,6 +33,7 @@ import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -45,7 +46,15 @@ public class BanHangForm extends JPanel {
     
     public BanHangForm(int width, int height) {
         setLayout(null);
-        add(new HoaDonBanHang(width - 550, 0, 550, height));
+        
+        HoaDonBanHang hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
+        hdbh.addChiTiet("SP1", 2);
+        hdbh.addChiTiet("SP2", 3);
+        hdbh.addChiTiet("SP3", 1);
+        hdbh.addChiTiet("SP7", 5);
+        hdbh.addChiTiet("SP15", 4);
+        
+        this.add(hdbh);
     }
     
 }
@@ -79,7 +88,7 @@ class HoaDonBanHang extends JPanel {
         this.setLayout(new FlowLayout());
         
         // =============== panel input =================
-        int plIP_height = 170;
+        int plIP_height = 180;
         JPanel plInput = new JPanel();
         plInput.setPreferredSize(new Dimension(_width - 10, plIP_height));
         plInput.setBackground(new Color(181, 250, 29));
@@ -145,11 +154,19 @@ class HoaDonBanHang extends JPanel {
         
         // set Text
         txMaHoaDon.setText(new QuanLyHoaDonBUS().getNextID());
-        txNgayLap.setText(LocalDate.now().toString());
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                txNgayLap.setText(LocalDate.now().toString());
                 txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                if(txNhanVien.getText().equals("") 
+                        || txKhachHang.getText().equals("") 
+                        || txTongTien.getText().equals("")
+                        || txTongTien.getText().equals("0")) {
+                    btnThanhToan.setEnabled(false);
+                } else {
+                    btnThanhToan.setEnabled(true);
+                }
             }
         }, 0, 1000);
         
@@ -174,7 +191,7 @@ class HoaDonBanHang extends JPanel {
         this.add(plInput);
         
         // =============== panel chọn sản phẩm ==================
-        int plSP_height = 480;
+        int plSP_height = 495;
         JPanel plSanPham = new JPanel();
         plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
         plSanPham.setBackground(new Color(250, 250, 29));
@@ -191,10 +208,14 @@ class HoaDonBanHang extends JPanel {
         plButtonChiTiet.add(btnSua);
         
         tbChiTietHoaDon.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
-        tbChiTietHoaDon.setHeaders(new String[] {"Mã", "Tên", "Đơn giá", "Số lượng", "Thành tiền"});
+        tbChiTietHoaDon.setHeaders(new String[] {"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
+        tbChiTietHoaDon.setColumnsWidth(new double[] {1, 2, 4, 2.2, 2, 3});
+        tbChiTietHoaDon.setAlignment(0, JLabel.CENTER);
+        tbChiTietHoaDon.setAlignment(1, JLabel.CENTER);
+        tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
+        tbChiTietHoaDon.setAlignment(4, JLabel.RIGHT);
+        tbChiTietHoaDon.setAlignment(5, JLabel.RIGHT);
         
-        addChiTiet("SP1", 5);
-        addChiTiet("SP2", 10);
         
         plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -217,7 +238,7 @@ class HoaDonBanHang extends JPanel {
         this.add(plThanhToan);
     }
     
-    private void addChiTiet(String masp, int soluong) {
+    public void addChiTiet(String masp, int soluong) {
         SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
         if(soluong > sp.getSoLuong()) {
             JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
@@ -231,13 +252,27 @@ class HoaDonBanHang extends JPanel {
     
     public void setDataToTable(ArrayList<ChiTietHoaDon> arr, MyTable t) {
         t.clear();
+        float tongtien = 0;
+        int stt = 1;
         for (ChiTietHoaDon cthd : arr) {
+            String masp = cthd.getMaSanPham();
+            String tensp = new QuanLySanPhamBUS().getSanPham(masp).getTenSP();
+            int soluong = cthd.getSoLuong();
+            float dongia = cthd.getDonGia();
+            float thanhtien = soluong * dongia;
+            
             t.addRow(new String[]{
-                cthd.getMaSanPham(),
-                new QuanLySanPhamBUS().getSanPham(cthd.getMaSanPham()).getTenSP(),
-                String.valueOf(cthd.getSoLuong()),
-                String.valueOf(cthd.getDonGia()),
-                String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});
+                String.valueOf(stt),
+                masp,
+                tensp,
+                String.valueOf(soluong),
+                String.valueOf(dongia),
+                String.valueOf(thanhtien)
+            });
+            stt++;
+            tongtien += thanhtien;
         }
+        
+        txTongTien.setText(String.valueOf(tongtien));
     }
 }
