@@ -7,6 +7,10 @@ package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -22,6 +26,24 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
+        
+        this.setTitle("Quản Lý Điện Thoại");
+        ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
+        setIconImage(logo.getImage());
+        
+        this.setLocationRelativeTo(null);
+        
+        KeyAdapter ka = (new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    btnDangNhap.doClick();
+                }
+            }
+        });
+        
+        txMatKhau.addKeyListener(ka);
+        txTenDangNhap.addKeyListener(ka);
     }
 
     /**

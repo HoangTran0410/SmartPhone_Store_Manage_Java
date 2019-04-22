@@ -126,7 +126,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // Close Button
         int btnWidth = 50;
         int iconSize = 30;
-        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "abc", "icons8_shutdown_30px_1.png");
+        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "", "icons8_shutdown_30px_1.png");
         btnClose.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnClose.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnClose.setBgHover(new Color(190, 45, 45));
@@ -144,7 +144,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         header.addItem(btnClose, false);
 
         // Minimize Button
-        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "abc", "icons8_angle_down_30px.png");
+        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "", "icons8_angle_down_30px.png");
         btnMinimize.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnMinimize.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnMinimize.setBgHover(new Color(49, 49, 49));
@@ -155,6 +155,19 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             }
         });
         header.addItem(btnMinimize, false);
+        
+        // logout button
+        NavBarButton btnLogout = new NavBarButton(new Rectangle(WIDTH - btnWidth * 3, 0, btnWidth, headerH), "", "icons8_exit_30px.png");
+        btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
+        btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
+        btnLogout.setBgHover(new Color(49, 49, 49));
+        btnLogout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+                logout();
+            }
+        });
+        header.addItem(btnLogout, false);
 
         // ========= Draggable ===========
         header.addMouseListener(new MouseAdapter() {
@@ -178,6 +191,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         add(scrollMenu, BorderLayout.WEST);
         add(header, BorderLayout.NORTH);
         add(plContent, BorderLayout.CENTER);
+    }
+    
+    private void logout() {
+        new LoginForm().setVisible(true);
+        this.dispose();
     }
 
     public void doAction(String nameAction) {
