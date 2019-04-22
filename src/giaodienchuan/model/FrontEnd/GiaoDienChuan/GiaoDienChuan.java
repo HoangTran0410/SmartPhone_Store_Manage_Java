@@ -174,7 +174,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             String tenNhanVien = nvDangNhap.getTenNV();
 
             NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW - btnWidth, headerH), tenNhanVien, "icons8_exit_30px.png");
-//            btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
             btnLogout.setBgHover(new Color(49, 49, 49));
             btnLogout.relocate2();
@@ -196,7 +195,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             btnSettingUser.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent me) {
-                    
+                    new DoiMatKhauForm(LoginForm.taiKhoanLogin.getUsername()).setVisible(true);
                 }
             });
             header.addItem(btnSettingUser, false);
@@ -363,5 +362,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
-
+    
 }
