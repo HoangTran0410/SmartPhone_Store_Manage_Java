@@ -9,7 +9,6 @@ import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -214,9 +213,11 @@ public class LoginForm extends javax.swing.JFrame {
         QuanLyTaiKhoanBUS qltk = new QuanLyTaiKhoanBUS();
         TaiKhoan tk = qltk.getTaiKhoan(tentk);
 
-        if (tk != null) {
+        if (tk != null && tk.getPassword().equals(mk)) {
+            taiKhoanLogin = tk;
             new GiaoDienChuan().setVisible(true);
             this.dispose();
+            
         } else {
             JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu");
             txTenDangNhap.requestFocus();
@@ -240,7 +241,8 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public static TaiKhoan taiKhoanLogin;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
     private javax.swing.JScrollBar jScrollBar1;
