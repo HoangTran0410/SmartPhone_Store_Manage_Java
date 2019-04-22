@@ -20,13 +20,19 @@ public class QuanLyHoaDonForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-    public QuanLyHoaDonForm() {
+    public QuanLyHoaDonForm(String quyenHan) {
         setLayout(new BorderLayout());
 
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+        
+        if(!quyenHan.contains("qlHoaDon")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+        }
 
         JPanel plBtn = new JPanel();
         // Không cho phép thêm sửa xóa trong quản lý, chỉ trong bán hàng mới được

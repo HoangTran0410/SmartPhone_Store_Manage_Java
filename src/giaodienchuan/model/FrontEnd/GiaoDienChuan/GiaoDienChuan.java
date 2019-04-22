@@ -53,6 +53,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
     QuanLyNhaCungCapForm qlncc;
+    
+    String quyenCuaTaiKhoanDangNhap = new QuanLyQuyenBUS().getQuyen(LoginForm.taiKhoanLogin.getMaQuyen()).getChiTietQuyen();
 
     public GiaoDienChuan() {
 
@@ -97,9 +99,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 menu.addItem(s);
 
             } else {
-                String chitietquyen = new QuanLyQuyenBUS().getQuyen(LoginForm.taiKhoanLogin.getMaQuyen()).getChiTietQuyen();
 
-                if (chitietquyen.contains(navItemInfo[i + 2]) || chitietquyen.contains(navItemInfo[i + 3])) {
+                if (quyenCuaTaiKhoanDangNhap.contains(navItemInfo[i + 2]) || quyenCuaTaiKhoanDangNhap.contains(navItemInfo[i + 3])) {
                     NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
                     nb.addMouseListener(this);
                     menu.addItem(nb);
@@ -227,21 +228,21 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             case "Sản phẩm":
                 if (qlsp == null) {
-                    qlsp = new QuanLySanPhamForm();
+                    qlsp = new QuanLySanPhamForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlsp, BorderLayout.CENTER);
                 break;
 
             case "Loại sản phẩm":
                 if (qllsp == null) {
-                    qllsp = new QuanLyLoaiSanPhamForm();
+                    qllsp = new QuanLyLoaiSanPhamForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
 
             case "Hóa đơn":
                 if (qlhd == null) {
-                    qlhd = new QuanLyHoaDonForm();
+                    qlhd = new QuanLyHoaDonForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;
@@ -253,28 +254,28 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             case "Quyền":
                 if (qlq == null) {
-                    qlq = new QuanLyQuyenForm();
+                    qlq = new QuanLyQuyenForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlq, BorderLayout.CENTER);
                 break;
 
             case "Tài khoản":
                 if (qltk == null) {
-                    qltk = new QuanLyTaiKhoanForm();
+                    qltk = new QuanLyTaiKhoanForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qltk, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
                 if (qlnv == null) {
-                    qlnv = new QuanLyNhanVienForm();
+                    qlnv = new QuanLyNhanVienForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlnv, BorderLayout.CENTER);
                 break;
 
             case "Khách hàng":
                 if (qlkh == null) {
-                    qlkh = new QuanLyKhachHangForm();
+                    qlkh = new QuanLyKhachHangForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
@@ -282,7 +283,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             case "Nhà cung cấp":
 
                 if (qlncc == null) {
-                    qlncc = new QuanLyNhaCungCapForm();
+                    qlncc = new QuanLyNhaCungCapForm(quyenCuaTaiKhoanDangNhap);
                 }
                 plContent.add(qlncc, BorderLayout.CENTER);
                 break;

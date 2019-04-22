@@ -4,7 +4,6 @@ import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiTaiKhoan;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaTaiKhoanForm;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,13 +18,19 @@ public class QuanLyTaiKhoanForm extends JPanel {
     JButton btnThem = new JButton("Thêm");
     JButton btnSua = new JButton("Sửa");
 
-    public QuanLyTaiKhoanForm() {
+    public QuanLyTaiKhoanForm(String quyenHan) {
         setLayout(new BorderLayout());
 
         // buttons
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+        
+        if(!quyenHan.contains("qlTaiKhoan")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+        }
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
