@@ -1,5 +1,7 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
@@ -88,7 +90,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         int menuW = 250;
         int menuH = 0;
         menu = new NavBarContainer(new Rectangle(0, 0, menuW, HEIGHT));
-        menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
+//        menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
         for (int i = 0; i < navItemInfo.length; i += 4) {
             if (navItemInfo[i].equals("seperate")) {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
@@ -135,6 +137,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         btnClose.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnClose.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnClose.setBgHover(new Color(190, 45, 45));
+        btnClose.setToolTipText("Thoát");
         btnClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -153,6 +156,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         btnMinimize.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnMinimize.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnMinimize.setBgHover(new Color(49, 49, 49));
+        btnMinimize.setToolTipText("Thu nhỏ");
         btnMinimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -163,10 +167,16 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         // logout button
         if (LoginForm.taiKhoanLogin != null) {
-            NavBarButton btnLogout = new NavBarButton(new Rectangle(WIDTH - btnWidth * 3, 0, btnWidth, headerH), "", "icons8_exit_30px.png");
+            
+            NhanVien nvDangNhap = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
+            String tenNhanVien = nvDangNhap.getTenNV();
+            
+            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, 200, headerH), tenNhanVien, "icons8_exit_30px.png");
             btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
             btnLogout.setBgHover(new Color(49, 49, 49));
+            btnLogout.relocate2();
+            btnLogout.setToolTipText("Đăng xuất (" + tenNhanVien + ")");
             btnLogout.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent me) {

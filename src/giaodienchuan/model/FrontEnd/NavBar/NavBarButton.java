@@ -75,6 +75,13 @@ public class NavBarButton extends NavBarItem {
         lbIcon.setBounds(rec.width / 10, rec.height / 4, rec.width / 4, (int) (rec.height / 1.75));
         lbLabel.setBounds(rec.width / 4, rec.height / 4, rec.width * 3 / 4, (int) (rec.height / 1.75));
     }
+    
+    // dùng cho nút logout
+    public void relocate2() {
+        Rectangle rec = getBounds();
+        lbIcon.setBounds(5, rec.height / 4, rec.width / 4, (int) (rec.height / 1.75));
+        lbLabel.setBounds(rec.width / 4, rec.height / 4, rec.width * 3 / 4, (int) (rec.height / 1.75));
+    }
 
     // ======== active ==========
     public void setActive(Boolean stage) {
