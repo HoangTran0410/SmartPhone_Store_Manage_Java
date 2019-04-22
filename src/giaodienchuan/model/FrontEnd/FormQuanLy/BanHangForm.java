@@ -5,11 +5,14 @@
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
+import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -24,11 +27,13 @@ import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -65,6 +70,8 @@ class HoaDonBanHang extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnThanhToan = new JButton("Thanh toán");
     JButton btnHuy = new JButton("Hủy");
+    
+    ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
 
     public HoaDonBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
@@ -148,8 +155,11 @@ class HoaDonBanHang extends JPanel {
         
         // set editable
         txMaHoaDon.setEditable(false);
+        txNhanVien.setEditable(false);
+        txKhachHang.setEditable(false);
         txNgayLap.setEditable(false);
         txGioLap.setEditable(false);
+        txTongTien.setEditable(false);
         
         // add to panel
         plInput.add(txMaHoaDon);
@@ -182,8 +192,9 @@ class HoaDonBanHang extends JPanel {
         
         tbChiTietHoaDon.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
         tbChiTietHoaDon.setHeaders(new String[] {"Mã", "Tên", "Đơn giá", "Số lượng", "Thành tiền"});
-        tbChiTietHoaDon.addRow(new String[] {"SP1","Iphone X", "15", "2", "30"});
-        tbChiTietHoaDon.addRow(new String[] {"SP1","Samsung", "12", "3", "36"});
+        
+        addChiTiet("SP1", 5);
+        addChiTiet("SP2", 10);
         
         plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -205,5 +216,28 @@ class HoaDonBanHang extends JPanel {
         
         this.add(plThanhToan);
     }
-
+    
+    private void addChiTiet(String masp, int soluong) {
+        SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
+        if(soluong > sp.getSoLuong()) {
+            JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
+            return;
+        }
+        ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
+        dscthd.add(cthd);
+        
+        setDataToTable(dscthd, tbChiTietHoaDon);
+    }
+    
+    public void setDataToTable(ArrayList<ChiTietHoaDon> arr, MyTable t) {
+        t.clear();
+        for (ChiTietHoaDon cthd : arr) {
+            t.addRow(new String[]{
+                cthd.getMaSanPham(),
+                new QuanLySanPhamBUS().getSanPham(cthd.getMaSanPham()).getTenSP(),
+                String.valueOf(cthd.getSoLuong()),
+                String.valueOf(cthd.getDonGia()),
+                String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});
+        }
+    }
 }
