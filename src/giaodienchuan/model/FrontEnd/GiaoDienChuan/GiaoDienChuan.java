@@ -9,6 +9,7 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyQuyenForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
@@ -32,7 +33,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1500, HEIGHT = 950;
+    final int WIDTH = 1200, HEIGHT = 950;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -50,6 +51,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
     QuanLyNhaCungCapForm qlncc;
+    QuanLyPhieuNhapForm qlpn;
 
     public GiaoDienChuan() {
 
@@ -215,7 +217,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                  if (qlpn == null) {
                     qlpn = new QuanLyPhieuNhapForm();
                 }
-                plContent.add(qlq, BorderLayout.CENTER);
+                plContent.add(qlpn, BorderLayout.CENTER);
                 break;
             case "Quyền":
                 if (qlq == null) {

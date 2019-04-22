@@ -1,5 +1,4 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
-
 import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import java.awt.BorderLayout;
@@ -12,10 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ThemSuaNhaCungCapForm extends JFrame {
-
-    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
+    QuanLyNhaCungCapBUS BUS = new QuanLyNhaCungCapBUS();
     String type;
-
+    
     NhaCungCap nccSua;
     JTextField txMaNCC = new JTextField(10);
     JTextField txTenNCC = new JTextField(10);
@@ -23,21 +21,20 @@ public class ThemSuaNhaCungCapForm extends JFrame {
     JTextField txSDT = new JTextField(10);
     JTextField txFax = new JTextField(10);
     JTextField txTim = new JTextField(15);
-
+    
     JButton btnThem = new JButton("Thêm");
     JButton btnThoat = new JButton("Thoát");
 
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
-
-    public ThemSuaNhaCungCapForm(String _type, String _mancc) {
-
+    public ThemSuaNhaCungCapForm(String _type, String _mancc)
+    {
         this.setLayout(new BorderLayout());
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.type = _type;
-
+       
         txMaNCC.setBorder(BorderFactory.createTitledBorder("Mã nhà cung cấp"));
         txTenNCC.setBorder(BorderFactory.createTitledBorder("Tên nhà cung cấp"));
         txDiaChi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
@@ -50,11 +47,11 @@ public class ThemSuaNhaCungCapForm extends JFrame {
         plInput.add(txDiaChi);
         plInput.add(txSDT);
         plInput.add(txFax);
-
+        
         JPanel plButton = new JPanel();
-        if (this.type.equals("Thêm")) {
+         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm nhà cung cấp");
-            txMaNCC.setText(qlnccBUS.getNextID());
+            txMaNCC.setText("NCC" + String.valueOf(BUS.getDsncc().size() + 1));
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
@@ -63,13 +60,13 @@ public class ThemSuaNhaCungCapForm extends JFrame {
 
         } else {
             this.setTitle("Sửa nhà cung cấp");
-            for (NhaCungCap ncc : qlnccBUS.getDsncc()) {
+            for (NhaCungCap ncc : BUS.getDsncc()) {
                 if (ncc.getMaNCC().equals(_mancc)) {
                     this.nccSua = ncc;
                 }
             }
             if (this.nccSua == null) {
-                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy nhà cung cấp");
+                JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy sản phẩm");
                 this.dispose();
             }
 
@@ -78,6 +75,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
             txDiaChi.setText(this.nccSua.getDiaChi());
             txSDT.setText(String.valueOf(this.nccSua.getSDT()));
             txFax.setText(String.valueOf(this.nccSua.getFax()));
+//            txHinhAnh.setText(this.spSua.getUrlHinhAnh().replace("\\", "\\\\"));
 
             txMaNCC.setEditable(false);
 
@@ -89,7 +87,7 @@ public class ThemSuaNhaCungCapForm extends JFrame {
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
-
+        
         btnThem.addActionListener((ae) -> {
             btnThemMouseClicked();
         });
@@ -108,56 +106,71 @@ public class ThemSuaNhaCungCapForm extends JFrame {
         });
         this.setVisible(true);
     }
-
-    private void btnSuaMouseClicked() {
+        private void btnSuaMouseClicked() {
+//        int i = mtb.getTable().getSelectedRow();
         if (checkEmpty()) {
-            String maNCC = txMaNCC.getText();
+            String maNCC =txMaNCC.getText();
             String tenNCC = txTenNCC.getText();
             String diaChi = txDiaChi.getText();
             String SDT = txSDT.getText();
             String Fax = txFax.getText();
 
-            if (qlnccBUS.update(maNCC, tenNCC, diaChi, SDT, Fax)) {
+            if (!txMaNCC.getText().equals(maNCC)) {
+                JOptionPane.showMessageDialog(null, "Mã số sinh viên là Khóa Chính nên không thể thay đổi, chỉ cập nhật Họ và Tên!");
+                txMaNCC.setText(maNCC);
+            }
+
+            
+            
+             if (BUS.update(maNCC, tenNCC, diaChi, SDT, Fax)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + maNCC + " thành công!");
                 this.dispose();
             }
         }
     }
 
+   
+
+
     private void btnThemMouseClicked() {
         if (checkEmpty()) {
-            NhaCungCap ncc = new NhaCungCap(txMaNCC.getText(), txTenNCC.getText(), txDiaChi.getText(), txSDT.getText(), txFax.getText());
-            if (qlnccBUS.add(ncc)) {
+            String mancc=txMaNCC.getText();
+            String tenncc=txTenNCC.getText();
+            String diachi=txDiaChi.getText();
+            String sdt=txSDT.getText();
+            String fax=txFax.getText();
+           
+            
+            if(BUS.add(mancc,tenncc,diachi,sdt,fax)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + txTenNCC.getText() + " thành công!");
-                this.dispose();
             }
+//            
         }
     }
-
-    private Boolean checkEmpty() {
+        private Boolean checkEmpty() {
         String ma = txMaNCC.getText();
         String ten = txTenNCC.getText();
         String diachi = txDiaChi.getText();
         String sdt = txSDT.getText();
         String fax = txFax.getText();
         if (ma.trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Mã nhà cung cấp không được để trống");
+            JOptionPane.showMessageDialog(null, "Mã sinh viên không được để trống");
             txMaNCC.requestFocus();
             return false;
         } else if (ten.trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Tên nhà cung cấp không được để trống");
+            JOptionPane.showMessageDialog(null, "Họ sinh viên không được để trống");
             txTenNCC.requestFocus();
             return false;
         } else if (diachi.trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Địa chỉ nhà cung cấp không được để trống");
+            JOptionPane.showMessageDialog(null, "Tên sinh viên không được để trống");
             txDiaChi.requestFocus();
             return false;
         } else if (sdt.trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại nhà cung cấp không được để trống");
+            JOptionPane.showMessageDialog(null, "Tên sinh viên không được để trống");
             txSDT.requestFocus();
             return false;
         } else if (fax.trim().equals("")) {
-            JOptionPane.showMessageDialog(null, "Số fax nhà cung cấp không được để trống");
+            JOptionPane.showMessageDialog(null, "Tên sinh viên không được để trống");
             txFax.requestFocus();
             return false;
         }

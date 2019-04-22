@@ -1,8 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -16,43 +20,42 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ThemSuaChiTietHoaDonForm extends JFrame {
-
-    QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
-
-    String type, mahd, masp;
-    int soLuongMax;
-    ChiTietHoaDon cthdSua;
-
+/**
+ *
+ * @author Admin
+ */
+public class ThemSuaChiTietPhieuNhapForm extends JFrame {
+    ChiTietPhieuNhapBUS qlctpnBUS = new ChiTietPhieuNhapBUS();
+    String type, mapn, masp;
     JTextField txMasp = new JTextField(15);
-    JTextField txMahd = new JTextField(15);
+    JTextField txMapn = new JTextField(15);
     JTextField txGia = new JTextField(15);
     JTextField txSoLuong = new JTextField(15);
+    ChiTietPhieuNhap ctpnSua;
 
     MoreButton btnChonSanPham = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
-    JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
+    JButton btnSua = new JButton("Sửa");
 
-    public ThemSuaChiTietHoaDonForm(String _type, String _mahd, String _masp) {
+    public ThemSuaChiTietPhieuNhapForm(String _type,String _mapn,String _masp) {
         this.setLayout(new BorderLayout());
         this.setSize(600, 500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
+        
         this.type = _type;
-        this.mahd = _mahd;
+        this.mapn = _mapn;
         this.masp = _masp;
-
         // inputs
-        txMahd.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn"));
+        txMapn.setBorder(BorderFactory.createTitledBorder("Mã phiếu nhập"));
         txMasp.setBorder(BorderFactory.createTitledBorder(" "));
         txGia.setBorder(BorderFactory.createTitledBorder("Đơn Giá (triệu)"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
 
-        txMahd.setEditable(false);
-        txGia.setEditable(false);
+        txMapn.setEditable(false);
+//        txGia.setEditable(false);
 
         JPanel pnlChonSanPham = new JPanel();
         pnlChonSanPham.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
@@ -60,7 +63,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
         pnlChonSanPham.add(btnChonSanPham);
 
         JPanel plInput = new JPanel();
-        plInput.add(txMahd);
+        plInput.add(txMapn);
         plInput.add(pnlChonSanPham);
         plInput.add(txGia);
         plInput.add(txSoLuong);
@@ -70,25 +73,24 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
 
         // 2 case Thêm - Sửa
         if (this.type.equals("Thêm")) {
-            this.setTitle("Thêm chi tiết hóa đơn " + this.mahd);
-            txMahd.setText(this.mahd);
+            this.setTitle("Thêm chi tiết phiếu nhập " + this.mapn);
+            txMapn.setText(this.mapn);
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
             plButton.add(btnThem);
-            
 
         } else {
-            this.setTitle("Sửa chi tiết " + this.masp + " hóa đơn " + this.mahd);
+            this.setTitle("Sửa chi tiết " + this.masp + " phiếu nhập " + this.mapn);
 
-            this.cthdSua = qlcthdBUS.getChiTiet(this.mahd, this.masp);
-
-            if (this.cthdSua == null) {
+            this.ctpnSua = qlctpnBUS.getChiTiet(this.mapn,this.masp); //cai này sao bằng null ??
+            
+            if (this.ctpnSua == null) {
                 JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy chi tiết hóa đơn");
                 this.dispose();
             }
-            txMahd.setText(this.cthdSua.getMaHoaDon());
-            txMahd.setEditable(false);
-            txSoLuong.setText(String.valueOf(this.cthdSua.getSoLuong()));
+            txMapn.setText(this.ctpnSua.getMa());
+            txMapn.setEditable(false);
+            txSoLuong.setText(String.valueOf(this.ctpnSua.getSoLuong()));
             txMasp.setText(this.masp);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
@@ -102,6 +104,12 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
         this.add(plButton, BorderLayout.SOUTH);
 
         // mouse listener
+        btnThem.addActionListener((ae) -> {
+            btnThemChiTietPhieuNhapMouseClicked();
+        });
+        btnSua.addActionListener((ae) -> {
+            btnSuaChiTietPhieuNhapMouseClicked();
+        });
         btnHuy.addActionListener((ae) -> {
             if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 this.dispose();
@@ -113,57 +121,62 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
 
         this.setVisible(true);
     }
-
-    private void btnThemChiTietHoaDonMouseClicked() {
+    
+    private void btnThemChiTietPhieuNhapMouseClicked() {
         if (checkEmpty()) {
-            String maspThem = txMasp.getText();
+            String mapn = txMapn.getText();
+            String masp = txMasp.getText();
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
 
-            if (soluong > soLuongMax) {
-                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + soLuongMax + ")");
-                txSoLuong.setText(String.valueOf(soLuongMax));
-                return;
-                
-            } else if (soluong <= 0) {
-                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không hợp lệ");
-                txSoLuong.setText(String.valueOf(soLuongMax));
-                return;
-            }
-
-            if (qlcthdBUS.add(mahd, maspThem, soluong, dongia)) {
-                new QuanLySanPhamBUS().updateSoLuong(maspThem, soLuongMax - soluong);
+            if (qlctpnBUS.add(mapn, masp, soluong, dongia)) {
+                JOptionPane.showMessageDialog(this, "Thêm chi tiết cho " + mapn+ " thành công!");
                 this.dispose();
+            }
+        }
+    }
+     private void btnSuaChiTietPhieuNhapMouseClicked() {
+//         
+          
+        if (checkEmpty()) {
+            
+            String mapn = txMapn.getText();
+            String masp = txMasp.getText();           
+            float dongia = Float.parseFloat(txGia.getText());
+            int soluong = Integer.parseInt(txSoLuong.getText());
+            
+
+            if (qlctpnBUS.update(this.mapn,this.masp,mapn, masp, soluong, dongia)) {
+                JOptionPane.showMessageDialog(this, "Sửa " + mapn + " thành công!");
+                this.dispose();
+            
             }
         }
     }
 
     private void btnChonSanPhamMouseClicked() {
         ChonSanPhamForm csp = new ChonSanPhamForm(txMasp, null, null, txGia, txSoLuong); // truyền vào textfield
-
+        
         // lưu lại số lượng max từ txSoLuong
         csp.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                soLuongMax = Integer.parseInt(txSoLuong.getText());
-                if(soLuongMax == 0) {
-                    JOptionPane.showMessageDialog(null, "Sản phẩm đã hết hàng!");
-                }
+//                soLuongMax = Integer.parseInt(txSoLuong.getText());
             }
         });
     }
 
     private Boolean checkEmpty() {
         String mssp = txMasp.getText();
-        String mahd = txMahd.getText();
+        String mapn = txMapn.getText();
         String dongia = txGia.getText();
         String soluong = txSoLuong.getText();
 
         if (mssp.trim().equals("")) {
             return showErrorTx(txMasp, "Mã sp không được để trống");
 
-        } else if (mahd.trim().equals("")) {
-            return showErrorTx(txMahd, "Mã loại không được để trống");
+        } else if (mapn.trim().equals("")) {
+            return showErrorTx(txMapn, "Mã loại không được để trống");
 
         } else if (dongia.trim().equals("")) {
             return showErrorTx(txGia, "Đơn giá không được để trống");
@@ -195,4 +208,5 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
         tx.requestFocus();
         return false;
     }
+    
 }

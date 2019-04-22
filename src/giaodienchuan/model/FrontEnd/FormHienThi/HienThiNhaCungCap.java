@@ -144,4 +144,8 @@ public class HienThiNhaCungCap extends JPanel {
     private void txSearchOnChange() {
         setDataToTable(BUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
+
+    public String getSelectedNhaCungCap() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

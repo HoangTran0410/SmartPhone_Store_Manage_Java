@@ -26,17 +26,16 @@ public class ChiTietPhieuNhapDAO {
 
             String query = "SELECT * FROM chitietphieunhap";
             ResultSet r = qlctpnConnection.sqlQuery(query);
-            if(r!=null){
-            while(r.next())
-            {
-             String ma=r.getString(1);
-             String maSP=r.getString(2);
-             Integer soLuong=r.getInt(3);
-             Float donGia=r.getFloat(4);
-             
-             ChiTietPhieuNhap ctpn= new ChiTietPhieuNhap(ma,maSP,soLuong,donGia);
-             dsctpn.add(ctpn);
-            }
+            if (r != null) {
+                while (r.next()) {
+                    String ma = r.getString(1);
+                    String maSP = r.getString(2);
+                    Integer soLuong = r.getInt(3);
+                    Float donGia = r.getFloat(4);
+
+                    ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(ma, maSP, soLuong, donGia);
+                    dsctpn.add(ctpn);
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Không thấy data cần tìm trong ResultSet");
@@ -47,24 +46,24 @@ public class ChiTietPhieuNhapDAO {
         return dsctpn;
 
     }
-    public ArrayList<ChiTietPhieuNhap> search(String columName,String value) {
+
+    public ArrayList<ChiTietPhieuNhap> search(String columName, String value) {
         ArrayList<ChiTietPhieuNhap> dsctpn = new ArrayList<>();
         qlctpnConnection = new ConnectionDB();
         try {
 
-            String query = "SELECT * FROM chitietphieunhap WHERE"+columName+"LIKE '%"+value+"%'";
+            String query = "SELECT * FROM chitietphieunhap WHERE" + columName + "LIKE '%" + value + "%'";
             ResultSet r = qlctpnConnection.sqlQuery(query);
-            if(r!=null){
-            while(r.next())
-            {
-             String ma=r.getString(1);
-             String maSP=r.getString(2);
-             Integer soLuong=r.getInt(3);
-             Float donGia=r.getFloat(4);
-             
-             ChiTietPhieuNhap ctpn= new ChiTietPhieuNhap(ma,maSP,soLuong,donGia);
-             dsctpn.add(ctpn);
-            }
+            if (r != null) {
+                while (r.next()) {
+                    String ma = r.getString(1);
+                    String maSP = r.getString(2);
+                    Integer soLuong = r.getInt(3);
+                    Float donGia = r.getFloat(4);
+
+                    ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(ma, maSP, soLuong, donGia);
+                    dsctpn.add(ctpn);
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Không thấy data cần tìm trong ResultSet");
@@ -74,25 +73,42 @@ public class ChiTietPhieuNhapDAO {
         }
         return dsctpn;
 
-    
     }
-    public boolean add(ChiTietPhieuNhap ctpn)
-    {
-        Boolean ok= qlctpnConnection.sqlUpdate("INSERT INTO `chitietphieunhap`(`MaPN`,`MaSP`,`SoLuong`,`DonGia`) VALUE('"
-              +ctpn.getMa()+ "', '" + ctpn.getMaSP() + "','" + ctpn.getSoLuong() + "','" + ctpn.getDonGia() + "')");
+
+    public boolean add(ChiTietPhieuNhap ctpn) {
+        qlctpnConnection = new ConnectionDB();
+        Boolean ok = qlctpnConnection.sqlUpdate("INSERT INTO `chitietphieunhap`(`MaPN`,`MaSP`,`SoLuong`,`DonGia`) VALUE('"
+                + ctpn.getMa() + "', '" + ctpn.getMaSP() + "','" + ctpn.getSoLuong() + "','" + ctpn.getDonGia() + "')");
         qlctpnConnection.closeConnect();
         return ok;
-        
+
     }
-    public boolean delete(String mactpn)
+
+    public boolean delete(String mactpn) // đây là hàm xóa tất cả chi tiết thuộc phiếu có mã mactpn mẹ rồi
     {
-        Boolean ok= qlctpnConnection.sqlUpdate("DELETE *FROM `chitietphieunhap` WHERE `chitietphieunhap`.`MaPN`='"+mactpn+"'");
+        qlctpnConnection = new ConnectionDB();
+        Boolean ok = qlctpnConnection.sqlUpdate("DELETE *FROM `chitietphieunhap` WHERE `chitietphieunhap`.`MaPN`='" + mactpn + "'");
         qlctpnConnection.closeConnect();
         return ok;
     }
-    public boolean update(String mactpn,String masp,Integer soluong,Float dongia)
-    {
-        Boolean ok= qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='"+mactpn+"',MaSP='"+masp+"',SoLuong='"+soluong+"',DonGia='"+dongia+"'");
+
+    public Boolean deleteAll(String _mapn) { // 2 câu query éo khác gì nhau
+        qlctpnConnection = new ConnectionDB();
+        Boolean success = qlctpnConnection.sqlUpdate("DELETE FROM chitietphieunhap WHERE MaPN='" + _mapn + "';");
+        qlctpnConnection.closeConnect();
+        return success;
+    }
+
+    public Boolean delete(String _mapn, String _masp) {// đây mới đúng là xóa 1 chi tiết
+        qlctpnConnection = new ConnectionDB();
+        Boolean success = qlctpnConnection.sqlUpdate("DELETE FROM chitietphieunhap WHERE MaPN='" + _mapn + "' AND MaSP='" + _masp + "';");
+        qlctpnConnection.closeConnect();
+        return success;
+    }
+
+    public boolean update(String _mapn,String _masp,String mapn, String masp, int soluong, float dongia) {// thua :)) hom qua t update no bi mat
+        qlctpnConnection = new ConnectionDB();
+        Boolean ok = qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='" + mapn + "',MaSP='" + masp + "',SoLuong='" + soluong + "',DonGia='" + dongia + "' WHERE MaPN='"+ _mapn + "' AND MaSP='" + _masp + "';");
         qlctpnConnection.closeConnect();
         return ok;
     }
