@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -24,16 +24,16 @@ public class DoiMatKhauForm extends JFrame {
 
     TaiKhoan tk;
 
-    JTextField txMatKhauCu = new JTextField(15);
-    JTextField txMatKhauMoi = new JTextField(15);
-    JTextField txXacNhanMatKhau = new JTextField(15);
+    JPasswordField txMatKhauCu = new JPasswordField(15);
+    JPasswordField txMatKhauMoi = new JPasswordField(15);
+    JPasswordField txXacNhanMatKhau = new JPasswordField(15);
 
     JButton btnDongY = new JButton("Đồng ý");
     JButton btnHuy = new JButton("Hủy");
 
     public DoiMatKhauForm(String matk) {
         setLayout(new BorderLayout());
-        setSize(250, 400);
+        setSize(350, 350);
         setTitle("Đổi mật khẩu");
         setLocationRelativeTo(null);
         tk = new QuanLyTaiKhoanBUS().getTaiKhoan(matk);
@@ -85,7 +85,7 @@ public class DoiMatKhauForm extends JFrame {
             txMatKhauMoi.requestFocus();
             return false;
             
-        } else if (mkmoi.equals(xnmk)) {
+        } else if (!mkmoi.equals(xnmk)) {
             JOptionPane.showMessageDialog(txMatKhauCu, "Mật khẩu mới không khớp!");
             txXacNhanMatKhau.requestFocus();
             return false;
