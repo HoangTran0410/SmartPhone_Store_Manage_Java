@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2019 lúc 07:54 PM
+-- Thời gian đã tạo: Th4 22, 2019 lúc 06:36 AM
 -- Phiên bản máy phục vụ: 10.1.38-MariaDB
 -- Phiên bản PHP: 7.3.3
 
@@ -174,8 +174,11 @@ INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`, `Mota`) VALUES
 ('LSP2', 'Oppo', 'Camara Selphi cuc chat tu Oppo'),
 ('LSP3', 'SamSung', 'Khuyen mai lon tu SamSung'),
 ('LSP4', 'Phillip', 'Cac san pham tuyet dep tu Phillip'),
-('LSP5', 'ahihi', 'Test ahihi 235456'),
-('LSP6', 'Blackbery', 'BlackBery is the best');
+('LSP5', 'Nokia', 'Các sản phẩm đến từ thương hiệu Nokia'),
+('LSP6', 'Blackbery', 'BlackBery is the best'),
+('LSP7', 'Huawei', 'Các sản phẩm đến từ thương hiệu Huawei'),
+('LSP8', 'Vivo', 'Các sản phẩm đến từ Vivo'),
+('LSP9', 'Xiaomi', 'Các sản phẩm đến từ thương hiệu Xiaomi');
 
 -- --------------------------------------------------------
 
@@ -196,7 +199,14 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`, `SDT`, `Fax`) VALUES
-('NCC1', 'Cty Samsung', 'tp hcm', '0123456789', '4598-8789-8789-7897');
+('NCC1', 'Cty Samsung', 'TP HCM', '0123456789', '4598-8789-8789-7897'),
+('NCC2', 'Cty Thương Mại Công Nghệ', 'Hà Nội', '0120728815', '3672-1782-3923-6091'),
+('NCC3', 'Cty Di Động Trường Sơn', 'TP HCM', '0703192738', '2364-2974-2384-2394'),
+('NCC4', 'Cty Viễn Thông Thành Đạt', 'TP HCM', '0501239237', '9823-6738-6739-6766'),
+('NCC5', 'Thế Giới Công Nghệ', 'Bình Dương', '0801729329', '1830-7288-8900-7712'),
+('NCC6', 'Cty TNHH Hoàng Bá', 'Long An', '0303676818', '7623-9812-3876-2834'),
+('NCC7', 'Cty Di Động Thành Tiến', 'Hà Nội', '0989140736', '1873-1738-8736-4761'),
+('NCC8', 'Cty Toàn Thắng', 'TP HCM', '0120628918', '8127-9382-1974-2983');
 
 -- --------------------------------------------------------
 
@@ -301,12 +311,28 @@ CREATE TABLE `sanpham` (
 
 INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`, `TrangThai`) VALUES
 ('SP1', 'LSP1', 'IPhone X', 20, 97, 'iphone-xr-128gb-red-400x400.jpg', 0),
-('SP2', 'LSP2', 'Oppo R5', 8.2, 70, 'iphone-xr-256gb-white-400x400.jpg', 0),
-('SP3', 'LSP3', 'Samsung Nokia', 15, 0, 'iphone-xr-black-400x400.jpg', 0),
-('SP4', 'LSP4', 'Phillip 756', 15, 149, 'oppo-f11-mtp-400x400.jpg', 0),
-('SP5', 'LSP1', 'Iphone 6', 12, 58, 'samsung-galaxy-a30-blue-400x400.jpg', 0),
-('SP6', 'LSP4', 'Phillip new 2015', 20, 55, 'samsung-galaxy-a50-128gb-blue-docquyen-400x400.jpg', 0),
-('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0);
+('SP10', 'LSP1', 'iPhone Xr 256GB', 23.9, 80, 'iphone-xr-256gb-white-400x400.jpg', 0),
+('SP11', 'LSP2', 'OPPO R17 Pro', 15.9, 76, 'oppo-r17-pro-2-400x460.jpg', 0),
+('SP12', 'LSP8', 'Vivo V15', 7.9, 40, 'vivo-v15-quanghai-400x460.jpg', 0),
+('SP13', 'LSP6', 'Blackberry Evolve', 7.9, 30, 'blackberry-evolve6xvk3-640.jpg', 0),
+('SP14', 'LSP7', 'Huawei Y9 (2019)', 5.5, 35, 'huawei-y9-2019-blue-400x460.jpg', 0),
+('SP15', 'LSP2', 'OPPO F7', 5.5, 60, 'oppo-f7-red-mtp-400x460.jpg', 0),
+('SP16', 'LSP9', 'Xiaomi Mi 8', 11.9, 50, 'xiaomi-mi-8-1-400x460-400x460.jpg', 0),
+('SP17', 'LSP9', 'Xiaomi Redmi Note 6 Pro 64GB', 5.6, 70, 'xiaomi-redmi-note-6-pro-black-1-400x460.jpg', 0),
+('SP18', 'LSP3', 'Samsung Galaxy Note 9 512GB', 24, 60, 'samsung-galaxy-note-9-512gb-blue-400x460.jpg', 0),
+('SP19', 'LSP7', 'Huawei Mate 20', 13, 45, 'huawei-mate-20-black-400x460.jpg', 0),
+('SP2', 'LSP2', 'Oppo A7', 8.2, 70, 'oppo-a7-400x460.jpg', 0),
+('SP20', 'LSP8', 'Vivo Y85', 5, 36, 'vivo-y85-red-docquyen-400x460.jpg', 0),
+('SP21', 'LSP8', 'Vivo V11', 8, 30, 'vivo-v11-400x460.jpg', 0),
+('SP22', 'LSP1', 'iPhone Xs Max 512GB', 39, 45, 'iphone-xs-max-512gb-gold-400x460.jpg', 0),
+('SP23', 'LSP2', 'OPPO Fid X', 19.9, 50, 'oppo-find-x-1-400x460-400x460.jpg', 0),
+('SP3', 'LSP5', 'Nokia 8.1', 7.9, 35, 'nokia-81-silver-400x460.jpg', 0),
+('SP4', 'LSP4', 'Philips S327', 3.9, 60, 'philips-s327-400-400x460.jpg', 0),
+('SP5', 'LSP1', 'iPhone 8 Plus 256GB', 25.7, 58, 'iphone-8-plus-256gb-gold-400x460.jpg', 0),
+('SP6', 'LSP5', 'Nokia 6.1 Plus', 6.5, 55, 'nokia-61-plus-3-400x460.jpg', 0),
+('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0),
+('SP8', 'LSP7', 'Huawei P30 Pro', 23, 75, 'huawei-p30-pro-1-400x460.jpg', 0),
+('SP9', 'LSP3', 'Samsung Galaxy S10+ (512GB)', 29, 57, 'samsung-galaxy-s10-plus-512gb-ceramic-black-400x460.jpg', 0);
 
 -- --------------------------------------------------------
 
