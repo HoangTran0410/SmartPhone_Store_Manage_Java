@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 22, 2019 lúc 06:36 AM
--- Phiên bản máy phục vụ: 10.1.38-MariaDB
--- Phiên bản PHP: 7.3.3
+-- Thời gian đã tạo: Th4 22, 2019 lúc 09:18 PM
+-- Phiên bản máy phục vụ: 10.1.37-MariaDB
+-- Phiên bản PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -262,7 +262,7 @@ INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai
 CREATE TABLE `phanquyen` (
   `MaQuyen` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `TenQuyen` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `ChiTietQuyen` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -270,9 +270,11 @@ CREATE TABLE `phanquyen` (
 --
 
 INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES
-('Q1', 'Admin', '1 2 3'),
-('Q2', 'Nhân viên', '2 3'),
-('Q3', 'Seller', '2 3 4');
+('Q1', 'Quản lý', 'xemSanPham xemLoaiSanPham qlHoaDon qlNhanVien qlKhachHang xemPhieuNhap xemNCC qlTaiKhoan qlQuyen'),
+('Q2', 'Nhân viên Bán hàng', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
+('Q3', 'Seller', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
+('Q4', 'Admin', 'qlBanHang qlSanPham qlLoaiSanPham qlHoaDon qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
+('Q5', 'Nhân viên Nhập hàng', 'xemSanPham xemLoaiSanPham xemNhanVien qlPhieuNhap qlNCC');
 
 -- --------------------------------------------------------
 
@@ -326,6 +328,7 @@ INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`,
 ('SP21', 'LSP8', 'Vivo V11', 8, 30, 'vivo-v11-400x460.jpg', 0),
 ('SP22', 'LSP1', 'iPhone Xs Max 512GB', 39, 45, 'iphone-xs-max-512gb-gold-400x460.jpg', 0),
 ('SP23', 'LSP2', 'OPPO Fid X', 19.9, 50, 'oppo-find-x-1-400x460-400x460.jpg', 0),
+('SP24', 'LSP1', 'Iphone abc', 25, 10, 'iphone-xr-256gb-white-400x400.jpg', 1),
 ('SP3', 'LSP5', 'Nokia 8.1', 7.9, 35, 'nokia-81-silver-400x460.jpg', 0),
 ('SP4', 'LSP4', 'Philips S327', 3.9, 60, 'philips-s327-400-400x460.jpg', 0),
 ('SP5', 'LSP1', 'iPhone 8 Plus 256GB', 25.7, 58, 'iphone-8-plus-256gb-gold-400x460.jpg', 0),
@@ -352,9 +355,12 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('HIenCUTE', '04102015', 'NV1', 'Q2'),
-('Hoang016', 'abcde', 'NV2', 'Q2'),
-('HoangCUTE', '1213141516', 'NV3', 'Q2');
+('admin', 'admin', 'NV13', 'Q4'),
+('BaDuocSeller', 'baduoc', 'NV3', 'Q2'),
+('ThanhTuNH', 'thanhtu', 'NV5', 'Q5'),
+('TriDungSeller', 'tridung', 'NV1', 'Q2'),
+('VanHiSeller', 'vanhi', 'NV2', 'Q2'),
+('VanHoangAdmin', 'vanhoang', 'NV4', 'Q1');
 
 --
 -- Chỉ mục cho các bảng đã đổ
