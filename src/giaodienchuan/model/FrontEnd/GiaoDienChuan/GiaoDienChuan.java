@@ -32,7 +32,7 @@ import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
-    final int WIDTH = 1500, HEIGHT = 950;
+    final int WIDTH = 1200, HEIGHT = 750;
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
