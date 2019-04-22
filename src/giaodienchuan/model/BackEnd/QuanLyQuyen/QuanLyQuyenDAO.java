@@ -85,8 +85,8 @@ public class QuanLyQuyenDAO {
         qlqConnection = new ConnectionDB();
         Boolean ok = qlqConnection.sqlUpdate("Update phanquyen Set "
                 + "TenQuyen='" + tenquyen 
-                + "' ChiTietQuyen='" + chitietquyen 
-                + "' where MaQuyen='" + maq + "'");
+                + "',ChiTietQuyen='" + chitietquyen 
+                + "' where MaQuyen='" + maq + "';");
         qlqConnection.closeConnect();
         return ok;
     }

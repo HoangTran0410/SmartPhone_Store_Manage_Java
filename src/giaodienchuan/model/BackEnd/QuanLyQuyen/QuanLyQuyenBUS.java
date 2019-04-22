@@ -105,9 +105,10 @@ public class QuanLyQuyenBUS {
         Boolean ok = qlqDAO.update(maquyen, tenquyen, chitiet);
 
         if (ok) {
-            dsq.forEach((sp) -> {
-                if (sp.getMaQuyen().equals(maquyen)) {
-                    sp.setChiTietQuyen(chitiet);
+            dsq.forEach((q) -> {
+                if (q.getMaQuyen().equals(maquyen)) {
+                    q.setTenQuyen(tenquyen);
+                    q.setChiTietQuyen(chitiet);
                 }
             });
         }

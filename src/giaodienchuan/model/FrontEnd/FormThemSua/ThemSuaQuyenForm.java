@@ -3,12 +3,19 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -20,7 +27,7 @@ public class ThemSuaQuyenForm extends JFrame {
 
     JTextField txMaQuyen = new JTextField(15);
     JTextField txTenQuyen = new JTextField(15);
-    JTextArea txChiTietQuyen = new JTextArea(4, 15);
+    ChiTietQuyenForm chitietForm = new ChiTietQuyenForm();
 
     JButton btnThem = new JButton("Thêm");
     JButton btnThoat = new JButton("Thoát");
@@ -30,7 +37,7 @@ public class ThemSuaQuyenForm extends JFrame {
 
     public ThemSuaQuyenForm(String _type, String _maq) {
         this.setLayout(new BorderLayout());
-        this.setSize(450, 300);
+        this.setSize(450, 750);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.type = _type;
@@ -38,12 +45,11 @@ public class ThemSuaQuyenForm extends JFrame {
         // inputs
         txMaQuyen.setBorder(BorderFactory.createTitledBorder("Mã quyền"));
         txTenQuyen.setBorder(BorderFactory.createTitledBorder("Tên quyền"));
-        txChiTietQuyen.setBorder(BorderFactory.createTitledBorder("Chi tiết quyền"));
 
         JPanel plInput = new JPanel();
         plInput.add(txMaQuyen);
         plInput.add(txTenQuyen);
-        plInput.add(txChiTietQuyen);
+        plInput.add(chitietForm);
 
         // panel buttons
         JPanel plButton = new JPanel();
@@ -72,7 +78,7 @@ public class ThemSuaQuyenForm extends JFrame {
 
             txMaQuyen.setText(this.qSua.getMaQuyen());
             txTenQuyen.setText(this.qSua.getTenQuyen());
-            txChiTietQuyen.setText(this.qSua.getChiTietQuyen());
+            chitietForm.setQuyen(this.qSua.getChiTietQuyen());
 
             txMaQuyen.setEditable(false);
 
@@ -110,7 +116,7 @@ public class ThemSuaQuyenForm extends JFrame {
         if (checkEmpty()) {
             String maquyen = txMaQuyen.getText();
             String tenquyen = txTenQuyen.getText();
-            String chitietquyen = txChiTietQuyen.getText();
+            String chitietquyen = chitietForm.getQuyen();
 
             if (qlqBUS.add(maquyen, tenquyen, chitietquyen)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + maquyen + " thành công!");
@@ -123,7 +129,8 @@ public class ThemSuaQuyenForm extends JFrame {
         if (checkEmpty()) {
             String maquyen = txMaQuyen.getText();
             String tenquyen = txTenQuyen.getText();
-            String chitietquyen = txChiTietQuyen.getText();
+            String chitietquyen = chitietForm.getQuyen();
+            System.out.println(chitietquyen);
 
             if (qlqBUS.update(maquyen, tenquyen, chitietquyen)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + maquyen + " thành công!");
@@ -135,16 +142,16 @@ public class ThemSuaQuyenForm extends JFrame {
     private Boolean checkEmpty() {
         String maquyen = txMaQuyen.getText();
         String tenquyen = txTenQuyen.getText();
-        String chitietquyen = txChiTietQuyen.getText();
+        String chitietquyen = chitietForm.getQuyen();
 
         if (maquyen.trim().equals("")) {
             return showErrorTx(txMaQuyen, "Mã quyền không được để trống");
-            
-        } else if(tenquyen.trim().equals("")) {
+
+        } else if (tenquyen.trim().equals("")) {
             return showErrorTx(txMaQuyen, "Tên quyền không được để trống");
-            
+
         } else if (chitietquyen.trim().equals("")) {
-            return showErrorTx(txChiTietQuyen, "Chi tiết quyền không được để trống");
+            return showErrorTx(txMaQuyen, "Bạn chưa chọn quyền nào cả !!");
         }
 
         return true;
@@ -155,10 +162,103 @@ public class ThemSuaQuyenForm extends JFrame {
         tx.requestFocus();
         return false;
     }
+}
+
+class ChiTietQuyenForm extends JPanel {
     
-    private Boolean showErrorTx(JTextArea tx, String errorInfo) {
-        JOptionPane.showMessageDialog(tx, errorInfo);
-        tx.requestFocus();
-        return false;
+    final String[] type = {"Chỉ xem", "Xem và Quản lý"};
+    ArrayList<PanelChooseQuyen> dsPanel = new ArrayList<>();
+    
+    public ChiTietQuyenForm() {
+        setPreferredSize(new Dimension(500, 600));
+        setLayout(new FlowLayout());
+        
+        dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"},  new String[] {"qlBanHang"}));
+        dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type,                      new String[]{"xemSanPham", "qlSanPham"}));
+        dsPanel.add(new PanelChooseQuyen("Loại Sản Phẩm", type,                 new String[]{"xemLoaiSanPham", "qlLoaiSanPham"}));
+        dsPanel.add(new PanelChooseQuyen("Hóa Đơn", type,                       new String[]{"xemHoaDon", "qlHoaDon"}));
+        dsPanel.add(new PanelChooseQuyen("Nhân Viên", type,                     new String[]{"xemNhanVien", "qlNhanVien"}));
+        dsPanel.add(new PanelChooseQuyen("Khách Hàng", type,                    new String[]{"xemKhachHang", "qlKhachHang"}));
+        dsPanel.add(new PanelChooseQuyen("Phiếu Nhập", type,                    new String[]{"xemPhieuNhap", "qlPhieuNhap"}));
+        dsPanel.add(new PanelChooseQuyen("Nhà Cung Cấp", type,                  new String[]{"xemNCC", "qlNCC"}));
+        dsPanel.add(new PanelChooseQuyen("Tài Khoản", type,                     new String[]{"xemTaiKhoan", "qlTaiKhoan"}));
+        dsPanel.add(new PanelChooseQuyen("Quyền", type,                         new String[]{"xemQuyen", "qlQuyen"}));
+        
+        for(PanelChooseQuyen p : dsPanel) {
+            this.add(p);
+        }
+    }
+    
+    public String getQuyen() {
+        String result = "";
+        for(PanelChooseQuyen p : dsPanel) {
+            result += p.getValue();
+        }
+        return result.trim();
+    }
+
+    public void setQuyen(String quyen) {
+        for(PanelChooseQuyen p : dsPanel) {
+            p.setValue(quyen);
+        }
+    }
+}
+
+
+class PanelChooseQuyen extends JPanel {
+    
+    String name;
+    String[] type, value;
+    
+    JCheckBox chb;
+    JComboBox<String> cb;
+    
+    public PanelChooseQuyen(String name, String[] type, String[] value) {
+        this.setPreferredSize(new Dimension(250, 50));
+        this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        
+        this.name = name;
+        this.type = type;
+        this.value = value;
+        
+        this.chb = new JCheckBox(this.name);
+        this.add(this.chb);
+        
+        this.cb = new JComboBox<>(this.type);
+        this.cb.setEnabled(false);
+        this.add(this.cb);
+        
+        chb.addActionListener((ae) -> {
+            if(chb.isSelected()) {
+                this.cb.setEnabled(true);
+            } else {
+                this.cb.setEnabled(false);
+            }
+        });
+    }
+    
+    public String getValue() {
+        String result = "";
+        
+        if(chb.isSelected()) {
+            result += " " + value[cb.getSelectedIndex()];
+        }
+        
+        return result;
+    }
+    
+    public void setValue(String s) {
+        if(s.equals("")) {
+            chb.setSelected(false);
+            return;
+        }
+        
+        for(int i = 0; i < value.length; i++) {
+            if(s.contains(value[i])) {
+                cb.setSelectedIndex(i);
+                cb.setEnabled(true);
+                chb.setSelected(true);
+            }
+        }
     }
 }
