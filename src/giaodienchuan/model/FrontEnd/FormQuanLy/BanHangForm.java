@@ -15,6 +15,7 @@ import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -43,24 +44,24 @@ import javax.swing.JTextField;
  * @author DELL
  */
 public class BanHangForm extends JPanel {
-    
+
     public BanHangForm(int width, int height) {
         setLayout(null);
-        
+
         HoaDonBanHang hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
         hdbh.addChiTiet("SP1", 2);
         hdbh.addChiTiet("SP2", 3);
         hdbh.addChiTiet("SP3", 1);
         hdbh.addChiTiet("SP7", 5);
         hdbh.addChiTiet("SP15", 4);
-        
+
         this.add(hdbh);
     }
-    
+
 }
 
 class HoaDonBanHang extends JPanel {
-    
+
     NhanVien nhanVien;
     KhachHang khachHang;
 
@@ -70,30 +71,30 @@ class HoaDonBanHang extends JPanel {
     JTextField txGioLap = new JTextField(20);
     JTextField txKhachHang = new JTextField(17);
     JTextField txTongTien = new JTextField(20);
-    
+
     MoreButton btnChonNhanVien = new MoreButton();
     MoreButton btnChonKhachHang = new MoreButton();
-    
+
     MyTable tbChiTietHoaDon = new MyTable();
     JButton btnXoa = new JButton("Xóa");
     JButton btnSua = new JButton("Sửa");
     JButton btnThanhToan = new JButton("Thanh toán");
     JButton btnHuy = new JButton("Hủy");
-    
+
     ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
 
     public HoaDonBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
         this.setBackground(new Color(181, 230, 29));
         this.setLayout(new FlowLayout());
-        
+
         // =============== panel input =================
         int plIP_height = 180;
         JPanel plInput = new JPanel();
         plInput.setPreferredSize(new Dimension(_width - 10, plIP_height));
         plInput.setBackground(new Color(181, 250, 29));
         plInput.setLayout(new FlowLayout());
-        
+
         // btn
         btnChonKhachHang.setPreferredSize(new Dimension(30, 30));
         btnChonKhachHang.addActionListener((ae) -> {
@@ -103,13 +104,13 @@ class HoaDonBanHang extends JPanel {
                 public void windowClosed(WindowEvent e) {
                     String makh = txKhachHang.getText();
                     khachHang = new QuanLyKhachHangBUS().getKhachHang(makh);
-                    if(khachHang != null) {
+                    if (khachHang != null) {
                         txKhachHang.setText(khachHang.getTenKH() + " (" + khachHang.getMaKH() + ")");
                     }
                 }
             });
         });
-        
+
         btnChonNhanVien.setPreferredSize(new Dimension(30, 30));
         btnChonNhanVien.addActionListener((ae) -> {
             ChonNhanVienForm cnv = new ChonNhanVienForm(txNhanVien);
@@ -118,13 +119,13 @@ class HoaDonBanHang extends JPanel {
                 public void windowClosed(WindowEvent e) {
                     String mavn = txNhanVien.getText();
                     nhanVien = new QuanLyNhanVienBUS().getNhanVien(mavn);
-                    if(nhanVien != null) {
-                        txNhanVien.setText(nhanVien.getTenNV()+ " (" + nhanVien.getMaNV()+ ")");
+                    if (nhanVien != null) {
+                        txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
                     }
                 }
             });
         });
-        
+
         // set border
         txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn:"));
         txNhanVien.setBorder(BorderFactory.createTitledBorder("Nhân viên:"));
@@ -132,7 +133,7 @@ class HoaDonBanHang extends JPanel {
         txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập:"));
         txKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng:"));
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
-        
+
         // alignment
 //        txMaHoaDon.setHorizontalAlignment(0);
 //        txNhanVien.setHorizontalAlignment(0);
@@ -141,7 +142,6 @@ class HoaDonBanHang extends JPanel {
 //        txKhachHang.setHorizontalAlignment(0);
 //        txMaHoaDon.setHorizontalAlignment(0);
 //        txTongTien.setHorizontalAlignment(0);
-
         // font
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
         txMaHoaDon.setFont(f);
@@ -151,16 +151,21 @@ class HoaDonBanHang extends JPanel {
         txKhachHang.setFont(f);
         txMaHoaDon.setFont(f);
         txTongTien.setFont(f);
-        
+
         // set Text
+        if (LoginForm.taiKhoanLogin != null) {
+            nhanVien = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
+            txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
+        }
+
         txMaHoaDon.setText(new QuanLyHoaDonBUS().getNextID());
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 txNgayLap.setText(LocalDate.now().toString());
                 txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                if(txNhanVien.getText().equals("") 
-                        || txKhachHang.getText().equals("") 
+                if (txNhanVien.getText().equals("")
+                        || txKhachHang.getText().equals("")
                         || txTongTien.getText().equals("")
                         || txTongTien.getText().equals("0")) {
                     btnThanhToan.setEnabled(false);
@@ -169,7 +174,7 @@ class HoaDonBanHang extends JPanel {
                 }
             }
         }, 0, 1000);
-        
+
         // set editable
         txMaHoaDon.setEditable(false);
         txNhanVien.setEditable(false);
@@ -177,7 +182,7 @@ class HoaDonBanHang extends JPanel {
         txNgayLap.setEditable(false);
         txGioLap.setEditable(false);
         txTongTien.setEditable(false);
-        
+
         // add to panel
         plInput.add(txMaHoaDon);
         plInput.add(txNhanVien);
@@ -187,16 +192,16 @@ class HoaDonBanHang extends JPanel {
         plInput.add(txKhachHang);
         plInput.add(btnChonKhachHang);
         plInput.add(txTongTien);
-        
+
         this.add(plInput);
-        
+
         // =============== panel chọn sản phẩm ==================
         int plSP_height = 495;
         JPanel plSanPham = new JPanel();
         plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
         plSanPham.setBackground(new Color(250, 250, 29));
         plSanPham.setLayout(new BorderLayout());
-        
+
         int plBtn_height = 50;
         JPanel plButtonChiTiet = new JPanel();
         plButtonChiTiet.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -206,50 +211,49 @@ class HoaDonBanHang extends JPanel {
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_wrench_30px.png")));
         plButtonChiTiet.add(btnXoa);
         plButtonChiTiet.add(btnSua);
-        
+
         tbChiTietHoaDon.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
-        tbChiTietHoaDon.setHeaders(new String[] {"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
-        tbChiTietHoaDon.setColumnsWidth(new double[] {1, 2, 4, 2.2, 2, 3});
+        tbChiTietHoaDon.setHeaders(new String[]{"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
+        tbChiTietHoaDon.setColumnsWidth(new double[]{1, 2, 4, 2.2, 2, 3});
         tbChiTietHoaDon.setAlignment(0, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(1, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(4, JLabel.RIGHT);
         tbChiTietHoaDon.setAlignment(5, JLabel.RIGHT);
-        
-        
+
         plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
-        
+
         this.add(plSanPham);
-        
+
         // ============= panel Thanh toán ==============
         int plTT_height = _height - plIP_height - plSP_height - 20;
         JPanel plThanhToan = new JPanel();
         plThanhToan.setLayout(new FlowLayout(FlowLayout.RIGHT));
         plThanhToan.setPreferredSize(new Dimension(_width - 10, plTT_height));
         plThanhToan.setBackground(new Color(50, 60, 70));
-        
+
         btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
         btnThanhToan.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_us_dollar_30px.png")));
-        
+
         plThanhToan.add(btnHuy);
         plThanhToan.add(btnThanhToan);
-        
+
         this.add(plThanhToan);
     }
-    
+
     public void addChiTiet(String masp, int soluong) {
         SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
-        if(soluong > sp.getSoLuong()) {
+        if (soluong > sp.getSoLuong()) {
             JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
             return;
         }
         ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
         dscthd.add(cthd);
-        
+
         setDataToTable(dscthd, tbChiTietHoaDon);
     }
-    
+
     public void setDataToTable(ArrayList<ChiTietHoaDon> arr, MyTable t) {
         t.clear();
         float tongtien = 0;
@@ -260,7 +264,7 @@ class HoaDonBanHang extends JPanel {
             int soluong = cthd.getSoLuong();
             float dongia = cthd.getDonGia();
             float thanhtien = soluong * dongia;
-            
+
             t.addRow(new String[]{
                 String.valueOf(stt),
                 masp,
@@ -272,7 +276,7 @@ class HoaDonBanHang extends JPanel {
             stt++;
             tongtien += thanhtien;
         }
-        
+
         txTongTien.setText(String.valueOf(tongtien));
     }
 }
