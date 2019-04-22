@@ -3,7 +3,6 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class ThemSuaQuyenForm extends JFrame {
@@ -170,8 +167,9 @@ class ChiTietQuyenForm extends JPanel {
     ArrayList<PanelChooseQuyen> dsPanel = new ArrayList<>();
     
     public ChiTietQuyenForm() {
-        setPreferredSize(new Dimension(500, 600));
+        setPreferredSize(new Dimension(300, 600));
         setLayout(new FlowLayout());
+        setBorder(BorderFactory.createTitledBorder("Chi tiết quyền: "));
         
         dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"},  new String[] {"qlBanHang"}));
         dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type,                      new String[]{"xemSanPham", "qlSanPham"}));
