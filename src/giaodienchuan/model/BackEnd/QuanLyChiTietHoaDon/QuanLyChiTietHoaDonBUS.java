@@ -35,24 +35,32 @@ public class QuanLyChiTietHoaDonBUS {
         return null;
     }
 
-    public Boolean add(ChiTietHoaDon hd) {
+    public Boolean add(ChiTietHoaDon ct) {
+        int soLuongChiTietMoi = ct.getSoLuong();
+
+        // tìm các chi tiết cùng mã, và tính tổng số lượng
         ArrayList<ChiTietHoaDon> toRemove = new ArrayList<>();
-        int soLuong = hd.getSoLuong();
+        int tongSoLuong = ct.getSoLuong();
+
         for (ChiTietHoaDon cthd : dscthd) {
-            if (cthd.getMaHoaDon().equals(hd.getMaHoaDon()) && cthd.getMaSanPham().equals(hd.getMaSanPham())) {
-                soLuong += cthd.getSoLuong();
+            if (cthd.getMaHoaDon().equals(ct.getMaHoaDon()) && cthd.getMaSanPham().equals(ct.getMaSanPham())) {
+                tongSoLuong += cthd.getSoLuong();
                 toRemove.add(cthd);
             }
         }
-        updateSoLuong(hd.getMaSanPham(), -hd.getSoLuong());
+        // xóa chi tiết cũ cùng mã
         dscthd.removeAll(toRemove);
-        hd.setSoLuong(soLuong);
+        qlcthdDAO.delete(ct.getMaHoaDon(), ct.getMaSanPham());
 
-        qlcthdDAO.delete(hd.getMaHoaDon(), hd.getMaSanPham());
-        Boolean success = qlcthdDAO.add(hd);
+        // thêm chi tiết mới có số lượng = tổng số lượng tìm ở trên
+        ct.setSoLuong(tongSoLuong);
+        Boolean success = qlcthdDAO.add(ct);
         if (success) {
-            dscthd.add(hd);
-            updateTongTien(hd.getMaHoaDon());
+            dscthd.add(ct);
+            // update số lượng bên bảng sản phẩm
+            updateSoLuongSanPham(ct.getMaSanPham(), -soLuongChiTietMoi);
+            // update tổng tiền hóa đơn
+            updateTongTien(ct.getMaHoaDon());
             return true;
         }
         return false;
@@ -93,14 +101,13 @@ public class QuanLyChiTietHoaDonBUS {
         return success;
     }
 
-    private Boolean updateSoLuong(String _masp, int _soLuongThayDoi) {
-        Boolean success = false;
+    private Boolean updateSoLuongSanPham(String _masp, int _soLuongThayDoi) {
         for (SanPham sp : qlspBUS.getDssp()) {
             if (sp.getMaSP().equals(_masp)) {
-                success = qlspBUS.updateSoLuong(_masp, sp.getSoLuong() + _soLuongThayDoi);
+                return qlspBUS.updateSoLuong(_masp, sp.getSoLuong() + _soLuongThayDoi);
             }
         }
-        return success;
+        return false;
     }
 
     public Boolean delete(String _maHoaDon, String _maSanPham) {
@@ -108,7 +115,7 @@ public class QuanLyChiTietHoaDonBUS {
         if (success) {
             for (ChiTietHoaDon cthd : dscthd) {
                 if (cthd.getMaHoaDon().equals(_maHoaDon) && cthd.getMaSanPham().equals(_maSanPham)) {
-                    updateSoLuong(_maSanPham, cthd.getSoLuong());
+                    updateSoLuongSanPham(_maSanPham, cthd.getSoLuong());
                     dscthd.remove(cthd);
                     updateTongTien(_maHoaDon);
                     return true;
