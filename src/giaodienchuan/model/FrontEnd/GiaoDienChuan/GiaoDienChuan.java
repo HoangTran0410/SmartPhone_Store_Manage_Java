@@ -53,8 +53,9 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
     QuanLyNhaCungCapForm qlncc;
-    
+
     String quyenCuaTaiKhoanDangNhap = new QuanLyQuyenBUS().getQuyen(LoginForm.taiKhoanLogin.getMaQuyen()).getChiTietQuyen();
+    NhanVien nvDangNhap;
 
     public GiaoDienChuan() {
 
@@ -168,12 +169,12 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         // logout button
         if (LoginForm.taiKhoanLogin != null) {
-            
-            NhanVien nvDangNhap = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
+
+            nvDangNhap = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
             String tenNhanVien = nvDangNhap.getTenNV();
-            
-            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW, headerH), tenNhanVien, "icons8_exit_30px.png");
-            btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
+
+            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW - btnWidth, headerH), tenNhanVien, "icons8_exit_30px.png");
+//            btnLogout.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
             btnLogout.setBgHover(new Color(49, 49, 49));
             btnLogout.relocate2();
@@ -185,6 +186,20 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
             });
             header.addItem(btnLogout, false);
+
+            // btn Xem tài khoản đăng nhập
+            NavBarButton btnSettingUser = new NavBarButton(new Rectangle(menuW - btnWidth, 0, btnWidth, headerH), "", "icons8_settings_30px_1.png");
+            btnSettingUser.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
+            btnSettingUser.setBgDefault(new Color(headerBg, headerBg, headerBg));
+            btnSettingUser.setBgHover(new Color(49, 49, 49));
+            btnSettingUser.setToolTipText("Tài khoản");
+            btnSettingUser.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent me) {
+                    
+                }
+            });
+            header.addItem(btnSettingUser, false);
         }
 
         // ========= Draggable ===========
@@ -212,8 +227,14 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     }
 
     private void logout() {
-        new LoginForm().setVisible(true);
-        this.dispose();
+        int reply = JOptionPane.showConfirmDialog(getRootPane(),
+                "Bạn có chắc muốn đăng xuất khỏi " + nvDangNhap.getTenNV() + "?", "Chú ý",
+                JOptionPane.YES_NO_OPTION);
+        
+        if (reply == JOptionPane.YES_OPTION) {
+            new LoginForm().setVisible(true);
+            this.dispose();
+        }
     }
 
     public void doAction(String nameAction) {
