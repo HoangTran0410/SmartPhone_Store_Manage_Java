@@ -63,7 +63,11 @@ public class DoiMatKhauForm extends JFrame {
         });
         btnDongY.addActionListener((ae) -> {
             if(checkPass()) {
-                new QuanLyTaiKhoanBUS().update(tk.getUsername(), txMatKhauMoi.getText(), tk.getMaNV(), tk.getMaQuyen());
+                if(new QuanLyTaiKhoanBUS().update(tk.getUsername(), txMatKhauMoi.getText(), tk.getMaNV(), tk.getMaQuyen())) {
+                    JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
+                    this.dispose();
+                }
+                
             }
         });
 
