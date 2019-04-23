@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 23, 2019 lúc 08:44 AM
+-- Thời gian đã tạo: Th4 23, 2019 lúc 01:11 PM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -83,10 +83,10 @@ CREATE TABLE `hoadon` (
 --
 
 INSERT INTO `hoadon` (`MaHD`, `MaNV`, `MaKH`, `MaKM`, `NgayLap`, `GioLap`, `TongTien`) VALUES
-('HD1', 'NV2', 'KH2', 'KM1', '2019-04-18', '22:45:52', 267),
-('HD2', 'NV1', 'KH1', 'Không', '2019-04-18', '23:15:36', 240),
-('HD3', 'NV1', 'KH1', 'Không', '2019-04-19', '18:44:34', 35),
-('HD4', 'NV1', 'KH1', 'Không', '2019-04-21', '12:13:48', 60);
+('HD1', 'NV2', 'KH2', 'KM2', '2019-04-18', '22:45:52', 267),
+('HD2', 'NV1', 'KH1', 'KM1', '2019-04-18', '23:15:36', 240),
+('HD3', 'NV1', 'KH1', 'KM1', '2019-04-19', '18:44:34', 35),
+('HD4', 'NV1', 'KH1', 'KM1', '2019-04-21', '12:13:48', 60);
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,7 @@ INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('KH1', 'Trần Văn Hoàng', 'TP HCM', '0123456789', 0),
 ('KH10', 'Trần Ngọc Hải', 'Kiên Giang', '0905271941', 0),
 ('KH11', 'Nguyễn Xuân Diệu', 'TP HCM', '0301279552', 0),
-('KH12', 'Trần Thanh Thiện', 'Hà Nội', '0123617389', 0),
+('KH12', 'Trần Thanh Thiện', 'Hà Nội', '0123617389', 1),
 ('KH13', 'Huỳnh Minh Mẫn', 'An Giang', '0389230581', 0),
 ('KH14', 'Trần Xuân An', 'Long An', '0972136531', 0),
 ('KH15', 'Nguyễn Thị Xuân', 'TP HCM', '0702571936', 0),
@@ -118,13 +118,13 @@ INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('KH17', 'Trần Thanh Nhã', 'TP HCM', '0702397442', 0),
 ('KH18', 'Huỳnh Nhựt Trường', 'TP HCM', '0120982736', 0),
 ('KH19', 'Trần Ngọc Hà', 'TP HCM', '0702843627', 0),
-('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 0),
+('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 1),
 ('KH20', 'Trần Thị Hoài Anh', 'TP HCM', '0126729137', 0),
 ('KH21', 'Nguyễn Văn Thắng', 'Kiên Giang', '0723812935', 0),
-('KH22', 'Huỳnh Lê Diệu Hân', 'Hà Nội', '0306279178', 0),
+('KH22', 'Huỳnh Lê Diệu Hân', 'Hà Nội', '0306279178', 1),
 ('KH3', 'Phan Thanh Tùng', 'Hà Nội', '0952612771', 0),
 ('KH4', 'Trần Thanh Sơn', 'Hải Phòng', '0120617231', 0),
-('KH5', 'Trần Thanh Thái', 'Bến Tre', '0912385524', 0),
+('KH5', 'Trần Thanh Thái', 'Bến Tre', '0912385524', 1),
 ('KH6', 'Nguyễn Hồng Nhung', 'Huế', '0967263941', 0),
 ('KH7', 'Từ Ngọc Cảnh', 'Sóc Trăng', '0306172915', 0),
 ('KH8', 'Nguyễn Thiên Phụng', 'Vũng Tàu', '0703167293', 0),
@@ -150,8 +150,8 @@ CREATE TABLE `khuyenmai` (
 --
 
 INSERT INTO `khuyenmai` (`MaKM`, `TenKM`, `DieuKienKM`, `PhanTramKM`, `NgayBD`, `NgayKT`) VALUES
-('Không', 'Không khuyến mãi', 0, 0, '0000-00-00', '0000-00-00'),
-('KM1', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
+('KM1', 'Không khuyến mãi', 0, 0, '2019-04-01', '2021-04-30'),
+('KM2', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
 
 -- --------------------------------------------------------
 
@@ -272,8 +272,8 @@ CREATE TABLE `phanquyen` (
 INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES
 ('Q1', 'Quản lý', 'xemSanPham xemLoaiSanPham qlHoaDon qlNhanVien qlKhachHang xemPhieuNhap xemNCC qlTaiKhoan qlQuyen'),
 ('Q2', 'Nhân viên Bán hàng', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
-('Q3', 'Seller', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
-('Q4', 'Admin', 'qlBanHang qlSanPham qlLoaiSanPham qlHoaDon qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
+('Q3', 'Phụ Bán Hàng', 'qlBanHang'),
+('Q4', 'Admin', 'qlBanHang qlSanPham qlLoaiSanPham qlHoaDon qlKhuyenMai qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
 ('Q5', 'Nhân viên Nhập hàng', 'xemSanPham xemLoaiSanPham xemNhanVien qlPhieuNhap qlNCC');
 
 -- --------------------------------------------------------
@@ -355,12 +355,13 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('admin', 'admin', 'NV8', 'Q4'),
+('admin', 'admin', 'NV11', 'Q4'),
 ('BaDuocSeller', 'baduoc', 'NV3', 'Q2'),
 ('ThanhTuNH', 'thanhtu', 'NV5', 'Q5'),
 ('TriDungSeller', 'tridung', 'NV1', 'Q2'),
-('VanHiSeller', 'vanhi', 'NV2', 'Q2'),
-('VanHoangAdmin', 'vanhoang', 'NV4', 'Q1');
+('VanHoangAdmin', 'vanhoang', 'NV4', 'Q1'),
+('VanTaiNH', 'vantai', 'NV12', 'Q5'),
+('YenHanPhuBH', 'yenhan', 'NV23', 'Q3');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -471,7 +472,8 @@ ALTER TABLE `chitietphieunhap`
 --
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `khuyenmai_ibfk_3` FOREIGN KEY (`MaKM`) REFERENCES `khuyenmai` (`MaKM`) ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `phieunhap`
