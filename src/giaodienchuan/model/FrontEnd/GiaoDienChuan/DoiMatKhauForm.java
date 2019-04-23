@@ -85,12 +85,12 @@ public class DoiMatKhauForm extends JFrame {
             return false;
 
         } else if (mkmoi.equals("") || xnmk.equals("")) {
-            JOptionPane.showMessageDialog(txMatKhauCu, "Mật khẩu mới không được để trống!");
+            JOptionPane.showMessageDialog(txMatKhauMoi, "Mật khẩu mới không được để trống!");
             txMatKhauMoi.requestFocus();
             return false;
             
         } else if (!mkmoi.equals(xnmk)) {
-            JOptionPane.showMessageDialog(txMatKhauCu, "Mật khẩu mới không khớp!");
+            JOptionPane.showMessageDialog(txXacNhanMatKhau, "Mật khẩu mới không khớp!");
             txXacNhanMatKhau.requestFocus();
             return false;
         }
