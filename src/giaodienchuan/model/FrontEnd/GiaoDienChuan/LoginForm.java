@@ -5,6 +5,10 @@
  */
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
+import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
 import java.awt.event.KeyAdapter;
@@ -215,6 +219,8 @@ public class LoginForm extends javax.swing.JFrame {
 
         if (tk != null && tk.getPassword().equals(mk)) {
             taiKhoanLogin = tk;
+            quyenLogin = new QuanLyQuyenBUS().getQuyen(taiKhoanLogin.getMaQuyen());
+            nhanVienLogin = new QuanLyNhanVienBUS().getNhanVien(taiKhoanLogin.getMaNV());
             new GiaoDienChuan().setVisible(true);
             this.dispose();
             
@@ -242,6 +248,8 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }
     
+    public static Quyen quyenLogin;
+    public static NhanVien nhanVienLogin;
     public static TaiKhoan taiKhoanLogin;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;

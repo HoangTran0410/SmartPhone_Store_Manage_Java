@@ -3,6 +3,7 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhachHang;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhachHangForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -18,7 +19,7 @@ public class QuanLyKhachHangForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-    public QuanLyKhachHangForm(String quyenHan) {
+    public QuanLyKhachHangForm() {
         setLayout(new BorderLayout());
 
         // buttons
@@ -26,7 +27,7 @@ public class QuanLyKhachHangForm extends JPanel {
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
         
-        if(!quyenHan.contains("qlKhachHang")) {
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlKhachHang")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);

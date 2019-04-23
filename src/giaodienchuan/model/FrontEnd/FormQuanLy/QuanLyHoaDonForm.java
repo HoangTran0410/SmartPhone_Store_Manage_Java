@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ public class QuanLyHoaDonForm extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnXoa = new JButton("Xóa");
 
-    public QuanLyHoaDonForm(String quyenHan) {
+    public QuanLyHoaDonForm() {
         setLayout(new BorderLayout());
 
         // buttons
@@ -28,7 +29,7 @@ public class QuanLyHoaDonForm extends JPanel {
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
         
-        if(!quyenHan.contains("qlHoaDon")) {
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);

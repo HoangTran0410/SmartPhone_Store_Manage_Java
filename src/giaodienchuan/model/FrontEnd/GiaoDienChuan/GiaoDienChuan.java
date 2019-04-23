@@ -54,9 +54,6 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyHoaDonForm qlhd;
     QuanLyNhaCungCapForm qlncc;
 
-    String quyenCuaTaiKhoanDangNhap = new QuanLyQuyenBUS().getQuyen(LoginForm.taiKhoanLogin.getMaQuyen()).getChiTietQuyen();
-    NhanVien nvDangNhap;
-
     public GiaoDienChuan() {
 
         setLayout(new BorderLayout());
@@ -101,7 +98,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             } else {
 
-                if (quyenCuaTaiKhoanDangNhap.contains(navItemInfo[i + 2]) || quyenCuaTaiKhoanDangNhap.contains(navItemInfo[i + 3])) {
+                String chitietquyen = LoginForm.quyenLogin.getChiTietQuyen();
+                if (chitietquyen.contains(navItemInfo[i + 2]) || chitietquyen.contains(navItemInfo[i + 3])) {
                     NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
                     nb.addMouseListener(this);
                     menu.addItem(nb);
@@ -169,9 +167,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         // logout button
         if (LoginForm.taiKhoanLogin != null) {
-
-            nvDangNhap = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
-            String tenNhanVien = nvDangNhap.getTenNV();
+            
+            String tenNhanVien = LoginForm.nhanVienLogin.getTenNV();
 
             NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW - btnWidth, headerH), tenNhanVien, "icons8_exit_30px.png");
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
@@ -227,7 +224,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
     private void logout() {
         int reply = JOptionPane.showConfirmDialog(getRootPane(),
-                "Bạn có chắc muốn đăng xuất khỏi " + nvDangNhap.getTenNV() + "?", "Chú ý",
+                "Bạn có chắc muốn đăng xuất khỏi " + LoginForm.nhanVienLogin.getTenNV() + "?", "Chú ý",
                 JOptionPane.YES_NO_OPTION);
         
         if (reply == JOptionPane.YES_OPTION) {
@@ -248,21 +245,21 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             case "Sản phẩm":
                 if (qlsp == null) {
-                    qlsp = new QuanLySanPhamForm(quyenCuaTaiKhoanDangNhap);
+                    qlsp = new QuanLySanPhamForm();
                 }
                 plContent.add(qlsp, BorderLayout.CENTER);
                 break;
 
             case "Loại sản phẩm":
                 if (qllsp == null) {
-                    qllsp = new QuanLyLoaiSanPhamForm(quyenCuaTaiKhoanDangNhap);
+                    qllsp = new QuanLyLoaiSanPhamForm();
                 }
                 plContent.add(qllsp, BorderLayout.CENTER);
                 break;
 
             case "Hóa đơn":
                 if (qlhd == null) {
-                    qlhd = new QuanLyHoaDonForm(quyenCuaTaiKhoanDangNhap);
+                    qlhd = new QuanLyHoaDonForm();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;
@@ -274,28 +271,28 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
             case "Quyền":
                 if (qlq == null) {
-                    qlq = new QuanLyQuyenForm(quyenCuaTaiKhoanDangNhap);
+                    qlq = new QuanLyQuyenForm();
                 }
                 plContent.add(qlq, BorderLayout.CENTER);
                 break;
 
             case "Tài khoản":
                 if (qltk == null) {
-                    qltk = new QuanLyTaiKhoanForm(quyenCuaTaiKhoanDangNhap);
+                    qltk = new QuanLyTaiKhoanForm();
                 }
                 plContent.add(qltk, BorderLayout.CENTER);
                 break;
 
             case "Nhân viên":
                 if (qlnv == null) {
-                    qlnv = new QuanLyNhanVienForm(quyenCuaTaiKhoanDangNhap);
+                    qlnv = new QuanLyNhanVienForm();
                 }
                 plContent.add(qlnv, BorderLayout.CENTER);
                 break;
 
             case "Khách hàng":
                 if (qlkh == null) {
-                    qlkh = new QuanLyKhachHangForm(quyenCuaTaiKhoanDangNhap);
+                    qlkh = new QuanLyKhachHangForm();
                 }
                 plContent.add(qlkh, BorderLayout.CENTER);
                 break;
@@ -303,7 +300,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             case "Nhà cung cấp":
 
                 if (qlncc == null) {
-                    qlncc = new QuanLyNhaCungCapForm(quyenCuaTaiKhoanDangNhap);
+                    qlncc = new QuanLyNhaCungCapForm();
                 }
                 plContent.add(qlncc, BorderLayout.CENTER);
                 break;
