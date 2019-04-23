@@ -29,25 +29,25 @@ public class LoginForm extends javax.swing.JFrame {
      */
     public LoginForm() {
         initComponents();
-        
+
         this.setTitle("Quản Lý Điện Thoại");
         ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
         setIconImage(logo.getImage());
-        
+
         this.setLocationRelativeTo(null);
-        
+
         KeyAdapter ka = (new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
-                if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                     btnDangNhap.doClick();
                 }
             }
         });
-        
+
         txMatKhau.addKeyListener(ka);
         txTenDangNhap.addKeyListener(ka);
-        
+
         txTenDangNhap.requestFocus();
     }
 
@@ -219,15 +219,31 @@ public class LoginForm extends javax.swing.JFrame {
         QuanLyTaiKhoanBUS qltk = new QuanLyTaiKhoanBUS();
         TaiKhoan tk = qltk.getTaiKhoan(tentk);
 
-        if (tk != null && tk.getPassword().equals(mk)) {
-            taiKhoanLogin = tk;
-            quyenLogin = new QuanLyQuyenBUS().getQuyen(taiKhoanLogin.getMaQuyen());
-            nhanVienLogin = new QuanLyNhanVienBUS().getNhanVien(taiKhoanLogin.getMaNV());
-            new GiaoDienChuan().setVisible(true);
-            this.dispose();
+        if (tk != null) {
+            // check xem nhân viên của tài khoản này có bị khóa (Ẩn) hay không
+            NhanVien nv = new QuanLyNhanVienBUS().getNhanVien(tk.getMaNV());
+            if (nv.getTrangThai() == 1) {
+                JOptionPane.showMessageDialog(this, "Tài khoản này đã bị khóa, do chủ nhân tài khoản này đã bị ẨN khỏi hệ thống!");
+                return;
+            }
+
+            // check password
+            if (tk.getPassword().equals(mk)) {
+                taiKhoanLogin = tk;
+                nhanVienLogin = nv;
+                quyenLogin = new QuanLyQuyenBUS().getQuyen(taiKhoanLogin.getMaQuyen());
+
+                // Đăng nhập thành công
+                new GiaoDienChuan().setVisible(true);
+                this.dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Sai mật khẩu!");
+                txMatKhau.requestFocus();
+            }
             
         } else {
-            JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu");
+            JOptionPane.showMessageDialog(this, "Sai tên đăng nhập!");
             txTenDangNhap.requestFocus();
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
@@ -249,7 +265,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public static Quyen quyenLogin;
     public static NhanVien nhanVienLogin;
     public static TaiKhoan taiKhoanLogin;
