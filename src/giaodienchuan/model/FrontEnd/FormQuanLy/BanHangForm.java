@@ -446,6 +446,13 @@ class HoaDonBanHang extends JPanel {
             qlcthd.add(ct);
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+        refresh();
+    }
+    
+    public void refresh() {
+        txKhachHang.setText("");
+        txTongTien.setText("");
+        setDataToTable(new ArrayList<>(), tbChiTietHoaDon);
     }
 
     private void btnXoaOnClick() {
