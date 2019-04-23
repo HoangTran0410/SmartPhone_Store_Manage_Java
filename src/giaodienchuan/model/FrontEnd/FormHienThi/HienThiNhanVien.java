@@ -4,6 +4,7 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.BorderLayout;
@@ -31,7 +32,7 @@ public class HienThiNhanVien extends JPanel {
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
     JButton btnRefresh = new JButton("Làm mới");
-    
+
     JTextField txKhoangNgay1 = new JTextField(8);
     JTextField txKhoangNgay2 = new JTextField(8);
     DatePicker dPicker1;
@@ -42,7 +43,7 @@ public class HienThiNhanVien extends JPanel {
 
     public HienThiNhanVien() {
         setLayout(new BorderLayout());
-        
+
         // khoang ngay
         DatePickerSettings pickerSettings = new DatePickerSettings();
         pickerSettings.setVisibleDateTextField(false);
@@ -50,7 +51,7 @@ public class HienThiNhanVien extends JPanel {
         dPicker2 = new DatePicker(pickerSettings.copySettings());
         dPicker1.setDateToToday();
         dPicker2.setDateToToday();
-        
+
         // calendar icon
         DateButton db = new DateButton(dPicker1);
         DateButton db2 = new DateButton(dPicker2);
@@ -75,7 +76,7 @@ public class HienThiNhanVien extends JPanel {
         plTim.add(cbTypeSearch);
         plTim.add(txTim);
         plHeader.add(plTim);
-        
+
         // pl tim khoang ngay
         JPanel plTimKiemKhoangNgay = new JPanel();
         plTimKiemKhoangNgay.setBorder(BorderFactory.createTitledBorder("Ngày sinh:"));
@@ -99,7 +100,7 @@ public class HienThiNhanVien extends JPanel {
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
-        
+
         dPicker1.addDateChangeListener((dce) -> {
             txKhoangNgay1.setText(dPicker1.getDateStringOrEmptyString());
         });
@@ -132,7 +133,7 @@ public class HienThiNhanVien extends JPanel {
         }
         return null;
     }
-    
+
     private void addDocumentListener(JTextField txField) {
         txField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -172,17 +173,21 @@ public class HienThiNhanVien extends JPanel {
     private void setDataToTable(ArrayList<NhanVien> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
+        Boolean hienNhanVienAn = LoginForm.quyenLogin.getChiTietQuyen().contains("qlNhanVien");
         for (NhanVien nv : data) {
-            table.addRow(new String[]{
-                String.valueOf(stt), 
-                nv.getMaNV(), 
-                nv.getTenNV(),
-                nv.getNgaySinh().toString(), 
-                nv.getDiaChi(), 
-                nv.getSDT(),
-                (nv.getTrangThai()==0?"Hiện":"Ẩn")
-            });
-            stt++;
+            if (hienNhanVienAn || nv.getTrangThai() == 0) {
+                table.addRow(new String[]{
+                    String.valueOf(stt),
+                    nv.getMaNV(),
+                    nv.getTenNV(),
+                    nv.getNgaySinh().toString(),
+                    nv.getDiaChi(),
+                    nv.getSDT(),
+                    (nv.getTrangThai() == 0 ? "Hiện" : "Ẩn")
+                });
+                stt++;
+            }
+
         }
     }
 }
