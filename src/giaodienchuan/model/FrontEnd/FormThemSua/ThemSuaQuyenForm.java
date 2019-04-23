@@ -175,6 +175,7 @@ class ChiTietQuyenForm extends JPanel {
         dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type,                      new String[]{"xemSanPham", "qlSanPham"}));
         dsPanel.add(new PanelChooseQuyen("Loại Sản Phẩm", type,                 new String[]{"xemLoaiSanPham", "qlLoaiSanPham"}));
         dsPanel.add(new PanelChooseQuyen("Hóa Đơn", type,                       new String[]{"xemHoaDon", "qlHoaDon"}));
+        dsPanel.add(new PanelChooseQuyen("Khuyến Mãi", type,                    new String[]{"xemKhuyenMai", "qlKhuyenMai"}));
         dsPanel.add(new PanelChooseQuyen("Nhân Viên", type,                     new String[]{"xemNhanVien", "qlNhanVien"}));
         dsPanel.add(new PanelChooseQuyen("Khách Hàng", type,                    new String[]{"xemKhachHang", "qlKhachHang"}));
         dsPanel.add(new PanelChooseQuyen("Phiếu Nhập", type,                    new String[]{"xemPhieuNhap", "qlPhieuNhap"}));

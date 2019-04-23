@@ -8,6 +8,7 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyQuyenForm;
@@ -48,8 +49,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
     QuanLyQuyenForm qlq;
-    QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
+    QuanLyKhuyenMaiForm qlkm;
     QuanLyNhaCungCapForm qlncc;
 
     public GiaoDienChuan() {
@@ -71,6 +72,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Sản phẩm", "icons8_multiple_smartphones_30px.png", "xemSanPham", "qlSanPham",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png", "xemLoaiSanPham", "qlLoaiSanPham",
             "Hóa đơn", "icons8_agreement_30px.png", "xemHoaDon", "qlHoaDon",
+            "Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
             "Phiếu nhập", "icons8_truck_30px.png", "xemPheuNhap", "qlPhieuNhap",
             "seperate", "1", "", "",
             "Nhân viên", "icons8_assistant_30px.png", "xemNhanVien", "qlNhanVien",
@@ -261,6 +263,13 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                     qlhd = new QuanLyHoaDonForm();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
+                break;
+                
+            case "Khuyến mãi":
+                if (qlkm == null) {
+                    qlkm = new QuanLyKhuyenMaiForm();
+                }
+                plContent.add(qlkm, BorderLayout.CENTER);
                 break;
 
             case "Phiếu nhập":
