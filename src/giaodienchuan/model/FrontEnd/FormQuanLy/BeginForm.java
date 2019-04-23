@@ -24,7 +24,7 @@ public class BeginForm extends JPanel {
 
         lbInfo = new JLabel(text);
         lbInfo.setFont(new Font("Arial", Font.BOLD, 40));
-        lbInfo.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_system_information_99px.png")));
+        lbInfo.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_thumb_up_99px.png")));
 
         add(lbInfo);
     }
