@@ -3,6 +3,7 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiQuyen;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaQuyenForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -25,6 +26,12 @@ public class QuanLyQuyenForm extends JPanel {
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+        
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlQuyen")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+        }
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);

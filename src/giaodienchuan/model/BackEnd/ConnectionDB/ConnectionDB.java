@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 
 public class ConnectionDB {
 
+    static int countConection = 0;
+    static int countQuery = 0;
+    static int countUpdate = 0;
+
     Connection conn = null;
     Statement stmt = null;
     ResultSet rset = null;
@@ -48,7 +52,8 @@ public class ConnectionDB {
             String url = "jdbc:mysql://" + ipAddress + "/" + DB_Name + "?useUnicode=true&characterEncoding=UTF-8";
             conn = DriverManager.getConnection(url, user_Name, pass);
             stmt = conn.createStatement();
-            System.out.println("**\nSuccess! Đã kết nối tới '" + DB_Name + "'");
+            countConection++;
+            System.out.println("**\n" + countConection + ": Success! Đã kết nối tới '" + DB_Name + "'");
 
         } catch (SQLException e) {
             System.err.println("-- ERROR! Không thể kết nối tới '" + DB_Name + "'");
@@ -68,7 +73,8 @@ public class ConnectionDB {
         if (checkConnect()) {
             try {
                 rset = stmt.executeQuery(qry);
-                System.out.println("Success Query! " + qry);
+                countQuery++;
+                System.out.println(countQuery + ": Success Query! " + qry);
                 return rset;
 
             } catch (SQLException ex) {
@@ -84,7 +90,8 @@ public class ConnectionDB {
         if (checkConnect()) {
             try {
                 stmt.executeUpdate(qry);
-                System.out.println("Success Update! " + qry);
+                countUpdate++;
+                System.out.println(countUpdate + ": Success Update! " + qry);
                 return true;
 
             } catch (SQLException ex) {

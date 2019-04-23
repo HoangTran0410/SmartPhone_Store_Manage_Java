@@ -1,12 +1,14 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.BackEnd.ReadWriteFile.WorkWithFile;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.BeginForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
-import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyPhieuNhapForm;
@@ -34,6 +36,7 @@ import javax.swing.JScrollPane;
 public class GiaoDienChuan extends JFrame implements MouseListener {
 
     final int WIDTH = 1200, HEIGHT = 950;
+
     int px, py;
     NavBarContainer menu, header;
     NavBarButton currentTab;
@@ -48,8 +51,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyNhanVienForm qlnv;
     QuanLyKhachHangForm qlkh;
     QuanLyQuyenForm qlq;
-    QuanLyChiTietHoaDonForm qlcthd;
     QuanLyHoaDonForm qlhd;
+    QuanLyKhuyenMaiForm qlkm;
     QuanLyNhaCungCapForm qlncc;
     QuanLyPhieuNhapForm qlpn;
 
@@ -67,39 +70,44 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         // ======================== Menu =======================
         String[] navItemInfo = {
-            "seperate", "2",
-            "Bán hàng", "icons8_small_business_30px_3.png",
-            "Sản phẩm", "icons8_multiple_smartphones_30px.png",
-            "Loại sản phẩm", "icons8_dossier_folder_30px.png",
-            "Hóa đơn", "icons8_agreement_30px.png",
-            "Phiếu nhập", "icons8_truck_30px.png",
-            "seperate", "1",
-            "Nhân viên", "icons8_assistant_30px.png",
-            "Khách hàng", "icons8_user_30px.png",
-            "Nhà cung cấp", "icons8_company_30px.png",
-            "seperate", "1",
-            "Tài khoản", "icons8_key_30px.png",
-            "Quyền", "icons8_police_badge_30px.png",
-            "seperate", "1",
-            "Thống kê", "icons8_bar_chart_30px.png",
-            "Công cụ", "icons8_maintenance_30px.png",
-            "Cài đặt", "icons8_settings_30px.png"
+            "seperate", "2", "", "",
+            "Bán hàng", "icons8_small_business_30px_3.png", "qlBanHang", "",
+            "Sản phẩm", "icons8_multiple_smartphones_30px.png", "xemSanPham", "qlSanPham",
+            "Loại sản phẩm", "icons8_dossier_folder_30px.png", "xemLoaiSanPham", "qlLoaiSanPham",
+            "Hóa đơn", "icons8_agreement_30px.png", "xemHoaDon", "qlHoaDon",
+            "Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
+            "Phiếu nhập", "icons8_truck_30px.png", "xemPheuNhap", "qlPhieuNhap",
+            "seperate", "1", "", "",
+            "Nhân viên", "icons8_assistant_30px.png", "xemNhanVien", "qlNhanVien",
+            "Khách hàng", "icons8_user_30px.png", "xemKhachHang", "qlKhachHang",
+            "Nhà cung cấp", "icons8_company_30px.png", "xemNCC", "qlNCC",
+            "seperate", "1", "", "",
+            "Tài khoản", "icons8_key_30px.png", "xemTaiKhoan", "qlTaiKhoan",
+            "Quyền", "icons8_police_badge_30px.png", "xemQuyen", "qlQuyen",
+            "seperate", "1", "", "",
+            "Thống kê", "icons8_bar_chart_30px.png", "", "",
+            "Công cụ", "icons8_maintenance_30px.png", "", "",
+            "Cài đặt", "icons8_settings_30px.png", "", ""
         };
 
         int menuW = 250;
         int menuH = 0;
         menu = new NavBarContainer(new Rectangle(0, 0, menuW, HEIGHT));
-        menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
-        for (int i = 0; i < navItemInfo.length; i += 2) {
+//        menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
+        for (int i = 0; i < navItemInfo.length; i += 4) {
             if (navItemInfo[i].equals("seperate")) {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
                 menu.addItem(s);
-                
+
             } else {
-                NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
-                nb.addMouseListener(this);
-                menu.addItem(nb);
-                menuH += 60;
+
+                String chitietquyen = LoginForm.quyenLogin.getChiTietQuyen();
+                if (chitietquyen.contains(navItemInfo[i + 2]) || chitietquyen.contains(navItemInfo[i + 3])) {
+                    NavBarButton nb = new NavBarButton(new Rectangle(0, 0, 0, 60), navItemInfo[i], navItemInfo[i + 1]);
+                    nb.addMouseListener(this);
+                    menu.addItem(nb);
+                    menuH += 60;
+                }
             }
         }
 
@@ -128,10 +136,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // Close Button
         int btnWidth = 50;
         int iconSize = 30;
-        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "abc", "icons8_shutdown_30px_1.png");
+        NavBarButton btnClose = new NavBarButton(new Rectangle(WIDTH - btnWidth, 0, btnWidth, headerH), "", "icons8_shutdown_30px_1.png");
         btnClose.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnClose.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnClose.setBgHover(new Color(190, 45, 45));
+        btnClose.setToolTipText("Thoát");
         btnClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -146,10 +155,11 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         header.addItem(btnClose, false);
 
         // Minimize Button
-        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "abc", "icons8_angle_down_30px.png");
+        NavBarButton btnMinimize = new NavBarButton(new Rectangle(WIDTH - btnWidth * 2, 0, btnWidth, headerH), "", "icons8_angle_down_30px.png");
         btnMinimize.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
         btnMinimize.setBgDefault(new Color(headerBg, headerBg, headerBg));
         btnMinimize.setBgHover(new Color(49, 49, 49));
+        btnMinimize.setToolTipText("Thu nhỏ");
         btnMinimize.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
@@ -157,6 +167,39 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             }
         });
         header.addItem(btnMinimize, false);
+
+        // logout button
+        if (LoginForm.taiKhoanLogin != null) {
+            
+            String tenNhanVien = LoginForm.nhanVienLogin.getTenNV();
+
+            NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW - btnWidth, headerH), tenNhanVien, "icons8_exit_30px.png");
+            btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
+            btnLogout.setBgHover(new Color(49, 49, 49));
+            btnLogout.relocate2();
+            btnLogout.setToolTipText("Đăng xuất (" + tenNhanVien + ")");
+            btnLogout.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent me) {
+                    logout();
+                }
+            });
+            header.addItem(btnLogout, false);
+
+            // btn Xem tài khoản đăng nhập
+            NavBarButton btnSettingUser = new NavBarButton(new Rectangle(menuW - btnWidth, 0, btnWidth, headerH), "", "icons8_settings_30px_1.png");
+            btnSettingUser.setIconLocation(new Rectangle((btnWidth - iconSize) / 2, (headerH - iconSize) / 2, iconSize, iconSize));
+            btnSettingUser.setBgDefault(new Color(headerBg, headerBg, headerBg));
+            btnSettingUser.setBgHover(new Color(49, 49, 49));
+            btnSettingUser.setToolTipText("Tài khoản");
+            btnSettingUser.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent me) {
+                    new DoiMatKhauForm(LoginForm.taiKhoanLogin.getUsername()).setVisible(true);
+                }
+            });
+            header.addItem(btnSettingUser, false);
+        }
 
         // ========= Draggable ===========
         header.addMouseListener(new MouseAdapter() {
@@ -175,6 +218,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         });
 
         plContent.setLayout(new BorderLayout());
+        plContent.add(new BeginForm("Chào " + LoginForm.nhanVienLogin.getTenNV()), BorderLayout.CENTER);
 
         addMouseListener(this);
         add(scrollMenu, BorderLayout.WEST);
@@ -182,12 +226,24 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         add(plContent, BorderLayout.CENTER);
     }
 
+    private void logout() {
+        int reply = JOptionPane.showConfirmDialog(getRootPane(),
+                "Bạn có chắc muốn đăng xuất khỏi " + LoginForm.nhanVienLogin.getTenNV() + "?", "Chú ý",
+                JOptionPane.YES_NO_OPTION);
+        
+        if (reply == JOptionPane.YES_OPTION) {
+            new LoginForm().setVisible(true);
+            new WorkWithFile(LoginForm.saveFileName).write(""); // xóa dữ liệu đăng nhập
+            this.dispose();
+        }
+    }
+
     public void doAction(String nameAction) {
         plContent.removeAll();
         switch (nameAction) {
             case "Bán hàng":
                 if (banhang == null) {
-                    banhang = new BanHangForm();
+                    banhang = new BanHangForm(WIDTH - 250, HEIGHT - 55);
                 }
                 plContent.add(banhang, BorderLayout.CENTER);
                 break;
@@ -211,6 +267,13 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                     qlhd = new QuanLyHoaDonForm();
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
+                break;
+                
+            case "Khuyến mãi":
+                if (qlkm == null) {
+                    qlkm = new QuanLyKhuyenMaiForm();
+                }
+                plContent.add(qlkm, BorderLayout.CENTER);
                 break;
 
             case "Phiếu nhập":
@@ -309,5 +372,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
-
+    
 }

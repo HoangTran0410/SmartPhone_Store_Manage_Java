@@ -4,7 +4,11 @@ import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
 import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhaCungCap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhaCungCapForm;
+
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
+
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -44,9 +48,18 @@ public class QuanLyNhaCungCapForm extends JPanel {
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
+
 //        btnNhaplai.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_replay_30px.png")));
 //        btnReadDB.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_database_restore_30px.png")));
         
+        
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNCC")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+        }
+
+
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);

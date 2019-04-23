@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -215,17 +216,20 @@ public class HienThiSanPham extends JPanel {
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
+        Boolean hienSanPhamAn = LoginForm.quyenLogin.getChiTietQuyen().contains("qlSanPham");
         for (SanPham sp : data) {
-            table.addRow(new String[]{
-                String.valueOf(stt), 
-                sp.getMaSP(), 
-                sp.getMaLSP(), 
-                sp.getTenSP(),
-                String.valueOf(sp.getDonGia()), 
-                String.valueOf(sp.getSoLuong()),
-                (sp.getTrangThai()==0?"Hiện":"Ẩn")
-            });
-            stt++;
+            if (hienSanPhamAn || sp.getTrangThai() == 0) {
+                table.addRow(new String[]{
+                    String.valueOf(stt),
+                    sp.getMaSP(),
+                    sp.getMaLSP(),
+                    sp.getTenSP(),
+                    String.valueOf(sp.getDonGia()),
+                    String.valueOf(sp.getSoLuong()),
+                    (sp.getTrangThai() == 0 ? "Hiện" : "Ẩn")
+                });
+                stt++;
+            }
         }
     }
 }
