@@ -1,9 +1,7 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
-import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
-import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
-import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.BeginForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
@@ -215,6 +213,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         });
 
         plContent.setLayout(new BorderLayout());
+        plContent.add(new BeginForm("Chào " + LoginForm.nhanVienLogin.getTenNV()), BorderLayout.CENTER);
 
         addMouseListener(this);
         add(scrollMenu, BorderLayout.WEST);
