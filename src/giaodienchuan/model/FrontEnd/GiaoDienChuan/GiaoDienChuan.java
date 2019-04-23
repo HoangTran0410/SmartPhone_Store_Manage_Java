@@ -1,11 +1,11 @@
 package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
+import giaodienchuan.model.BackEnd.ReadWriteFile.WorkWithFile;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BeginForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
-import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyKhuyenMaiForm;
@@ -230,6 +230,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         
         if (reply == JOptionPane.YES_OPTION) {
             new LoginForm().setVisible(true);
+            new WorkWithFile(LoginForm.saveFileName).write(""); // xóa dữ liệu đăng nhập
             this.dispose();
         }
     }

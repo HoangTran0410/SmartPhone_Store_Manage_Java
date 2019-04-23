@@ -11,6 +11,7 @@ import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
+import giaodienchuan.model.BackEnd.ReadWriteFile.WorkWithFile;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
@@ -83,6 +84,13 @@ public class LoginForm extends javax.swing.JFrame {
 
         // auto focus to tenDangNhap
         txTenDangNhap.requestFocus();
+        
+        // check lần đăng nhập cũ
+        String text = new WorkWithFile(saveFileName).read();
+        if(!text.equals("")) {
+            
+        }
+        
     }
 
     /**
@@ -268,6 +276,8 @@ public class LoginForm extends javax.swing.JFrame {
                 quyenLogin = new QuanLyQuyenBUS().getQuyen(taiKhoanLogin.getMaQuyen());
 
                 // Đăng nhập thành công
+                new WorkWithFile(saveFileName).write(taiKhoanLogin.getUsername() + " " + taiKhoanLogin.getPassword());
+                
                 new GiaoDienChuan().setVisible(true);
                 this.dispose();
 
@@ -282,6 +292,7 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
+    public static String saveFileName = "temp.bin";
     public static Quyen quyenLogin;
     public static NhanVien nhanVienLogin;
     public static TaiKhoan taiKhoanLogin;
