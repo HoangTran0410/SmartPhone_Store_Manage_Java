@@ -47,6 +47,10 @@ public class BanHangForm extends JPanel {
 
     public BanHangForm(int width, int height) {
         setLayout(null);
+        
+        ChonSanPhamBanHang csp = new ChonSanPhamBanHang(0, 0, width - 555, height);
+        
+        this.add(csp);
 
         HoaDonBanHang hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
         hdbh.addChiTiet("SP1", 2);
@@ -58,6 +62,43 @@ public class BanHangForm extends JPanel {
         this.add(hdbh);
     }
 
+}
+
+class ChonSanPhamBanHang extends JPanel {
+    
+    MyTable tbSanPham = new MyTable();
+    JTextField txTimKiem = new JTextField(30);
+    
+    JTextField txMaSP = new JTextField(15);
+    JTextField txLoaiSP = new JTextField(15);
+    JTextField txTenSP = new JTextField(15);
+    JTextField txDonGia = new JTextField(15);
+    JTextField txSoLuong = new JTextField(3);
+    
+    JButton btnThem = new JButton("Thêm");
+
+    public ChonSanPhamBanHang(int _x, int _y, int _width, int _height) {
+        this.setBounds(_x, _y, _width, _height);
+        this.setBackground(new Color(59, 68, 75));
+        this.setLayout(new FlowLayout());
+        
+        // panel hiển thị sản phẩm
+        int plSP_height = _height - 250;
+        JPanel plSanPham = new JPanel();
+        plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
+        plSanPham.setBackground(new Color(49, 49, 49));
+        plSanPham.setLayout(new FlowLayout());
+        
+        this.add(plSanPham);
+        
+        // panel chi tiết sản phẩm chọn
+        JPanel plChiTiet = new JPanel();
+        plChiTiet.setPreferredSize(new Dimension(_width - 10, 235));
+        plChiTiet.setBackground(new Color(100, 100, 100));
+        plChiTiet.setLayout(new FlowLayout());
+        
+        this.add(plChiTiet);
+    }
 }
 
 class HoaDonBanHang extends JPanel {
@@ -85,14 +126,14 @@ class HoaDonBanHang extends JPanel {
 
     public HoaDonBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
-        this.setBackground(new Color(181, 230, 29));
+        this.setBackground(new Color(59, 68, 75));
         this.setLayout(new FlowLayout());
 
         // =============== panel input =================
         int plIP_height = 180;
         JPanel plInput = new JPanel();
         plInput.setPreferredSize(new Dimension(_width - 10, plIP_height));
-        plInput.setBackground(new Color(181, 250, 29));
+        plInput.setBackground(new Color(49, 49, 49));
         plInput.setLayout(new FlowLayout());
 
         // btn
@@ -187,7 +228,7 @@ class HoaDonBanHang extends JPanel {
 
         this.add(plInput);
 
-        // =============== panel chọn sản phẩm ==================
+        // =============== panel các sản phẩm đã chọn ==================
         int plSP_height = 495;
         JPanel plSanPham = new JPanel();
         plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
@@ -197,10 +238,18 @@ class HoaDonBanHang extends JPanel {
         int plBtn_height = 50;
         JPanel plButtonChiTiet = new JPanel();
         plButtonChiTiet.setLayout(new FlowLayout(FlowLayout.CENTER));
-        plButtonChiTiet.setBackground(Color.yellow);
+        plButtonChiTiet.setBackground(new Color(220, 220, 220));
         plButtonChiTiet.setPreferredSize(new Dimension(_width - 10, plBtn_height));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_wrench_30px.png")));
+
+        btnXoa.addActionListener((ae) -> {
+            btnXoaOnClick();
+        });
+        btnSua.addActionListener((ae) -> {
+            btnSuaOnClick();
+        });
+
         plButtonChiTiet.add(btnXoa);
         plButtonChiTiet.add(btnSua);
 
@@ -223,15 +272,42 @@ class HoaDonBanHang extends JPanel {
         JPanel plThanhToan = new JPanel();
         plThanhToan.setLayout(new FlowLayout(FlowLayout.RIGHT));
         plThanhToan.setPreferredSize(new Dimension(_width - 10, plTT_height));
-        plThanhToan.setBackground(new Color(50, 60, 70));
+        plThanhToan.setBackground(new Color(59, 68, 75));
 
         btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
         btnThanhToan.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_us_dollar_30px.png")));
+
+        btnHuy.addActionListener((ae) -> {
+            btnHuyOnClick();
+        });
+        btnThanhToan.addActionListener((ae) -> {
+            btnThanhToanOnClick();
+        });
 
         plThanhToan.add(btnHuy);
         plThanhToan.add(btnThanhToan);
 
         this.add(plThanhToan);
+    }
+
+    private void btnHuyOnClick() {
+
+    }
+
+    private void btnThanhToanOnClick() {
+
+    }
+
+    private void btnXoaOnClick() {
+        int i = tbChiTietHoaDon.getTable().getSelectedRow();
+        if(i >= 0) {
+            dscthd.remove(i);
+            setDataToTable(dscthd, tbChiTietHoaDon);
+        }
+    }
+
+    private void btnSuaOnClick() {
+
     }
 
     public void addChiTiet(String masp, int soluong) {
