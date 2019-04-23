@@ -314,7 +314,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbNhoMatKhauActionPerformed
 
-    public static String saveFileName = "temp.bin";
+    public static String saveFileName = "temp";
     public static Quyen quyenLogin;
     public static NhanVien nhanVienLogin;
     public static TaiKhoan taiKhoanLogin;
