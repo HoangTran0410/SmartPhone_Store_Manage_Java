@@ -83,6 +83,7 @@ public class LoginForm extends javax.swing.JFrame {
         txTenDangNhap.addFocusListener(fl);
         txMatKhau.addFocusListener(fl);
 
+        // auto focus to tenDangNhap
         txTenDangNhap.requestFocus();
     }
 
@@ -282,24 +283,6 @@ public class LoginForm extends javax.swing.JFrame {
             txTenDangNhap.requestFocus();
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
-
-        }
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginForm().setVisible(true);
-            }
-        });
-    }
 
     public static Quyen quyenLogin;
     public static NhanVien nhanVienLogin;
