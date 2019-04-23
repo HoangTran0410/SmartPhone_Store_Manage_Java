@@ -47,6 +47,8 @@ public class LoginForm extends javax.swing.JFrame {
         
         txMatKhau.addKeyListener(ka);
         txTenDangNhap.addKeyListener(ka);
+        
+        txTenDangNhap.requestFocus();
     }
 
     /**

@@ -134,14 +134,6 @@ class HoaDonBanHang extends JPanel {
         txKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng:"));
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
 
-        // alignment
-//        txMaHoaDon.setHorizontalAlignment(0);
-//        txNhanVien.setHorizontalAlignment(0);
-//        txNgayLap.setHorizontalAlignment(0);
-//        txGioLap.setHorizontalAlignment(0);
-//        txKhachHang.setHorizontalAlignment(0);
-//        txMaHoaDon.setHorizontalAlignment(0);
-//        txTongTien.setHorizontalAlignment(0);
         // font
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
         txMaHoaDon.setFont(f);
@@ -153,8 +145,8 @@ class HoaDonBanHang extends JPanel {
         txTongTien.setFont(f);
 
         // set Text
-        if (LoginForm.taiKhoanLogin != null) {
-            nhanVien = new QuanLyNhanVienBUS().getNhanVien(LoginForm.taiKhoanLogin.getMaNV());
+        if (LoginForm.nhanVienLogin != null) {
+            nhanVien = LoginForm.nhanVienLogin;
             txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
         }
 
