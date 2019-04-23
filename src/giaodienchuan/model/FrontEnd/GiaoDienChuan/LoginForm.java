@@ -11,10 +11,14 @@ import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
 import giaodienchuan.model.BackEnd.QuanLyQuyen.Quyen;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -30,23 +34,54 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
 
-        this.setTitle("Quản Lý Điện Thoại");
+        this.setTitle("Đăng nhập");
         ImageIcon logo = new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_windows_phone_store_30px.png"));
         setIconImage(logo.getImage());
 
         this.setLocationRelativeTo(null);
 
-        KeyAdapter ka = (new KeyAdapter() {
+        // add event Enter
+        KeyAdapter ka = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                     btnDangNhap.doClick();
                 }
             }
-        });
-
-        txMatKhau.addKeyListener(ka);
+        };
         txTenDangNhap.addKeyListener(ka);
+        txMatKhau.addKeyListener(ka);
+
+        // add auto select text on focus
+        // https://stackoverflow.com/questions/7361291/select-all-on-focus-in-lots-of-jtextfield
+        FocusListener fl = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if (fe.getSource() instanceof JTextField) {
+                    JTextField tx = (JTextField) fe.getSource();
+                    tx.select(0, tx.getText().length());
+                    
+                } else if (fe.getSource() instanceof JPasswordField) {
+                    JPasswordField tx = (JPasswordField) fe.getSource();
+                    tx.select(0, tx.getText().length());
+                }
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (fe.getSource() instanceof JTextField) {
+                    JTextField tx = (JTextField) fe.getSource();
+                    tx.select(0, 0);
+                    
+                } else if (fe.getSource() instanceof JPasswordField) {
+                    JPasswordField tx = (JPasswordField) fe.getSource();
+                    tx.select(0, 0);
+                }
+            }
+        };
+        txTenDangNhap.addFocusListener(fl);
+        txMatKhau.addFocusListener(fl);
 
         txTenDangNhap.requestFocus();
     }
@@ -241,7 +276,7 @@ public class LoginForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Sai mật khẩu!");
                 txMatKhau.requestFocus();
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Sai tên đăng nhập!");
             txTenDangNhap.requestFocus();
