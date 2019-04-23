@@ -81,7 +81,7 @@ public class QuanLyNhaCungCapForm extends JPanel {
 
     }
      private void btnSuaMouseClicked() {
-        String mancc = formHienThi.getSelectedNhaCungCap(1);
+        String mancc = formHienThi.getSelectedNhaCungCap();
         if (mancc != null) {
             ThemSuaNhaCungCapForm suancc = new ThemSuaNhaCungCapForm("Sửa", mancc);
 
@@ -98,7 +98,7 @@ public class QuanLyNhaCungCapForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String mancc = formHienThi.getSelectedNhaCungCap(1);
+        String mancc = formHienThi.getSelectedNhaCungCap();
         if (mancc != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhà cung cấp " + mancc + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyNhaCungCapBUS().delete(mancc);

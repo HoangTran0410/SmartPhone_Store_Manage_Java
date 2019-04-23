@@ -7,6 +7,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -32,6 +33,8 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
     JTextField txGia = new JTextField(15);
     JTextField txSoLuong = new JTextField(15);
     ChiTietPhieuNhap ctpnSua;
+    
+    int soLuongMax;
 
     MoreButton btnChonSanPham = new MoreButton();
 
@@ -128,9 +131,10 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
             String masp = txMasp.getText();
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
-
+           
             if (qlctpnBUS.add(mapn, masp, soluong, dongia)) {
                 JOptionPane.showMessageDialog(this, "Thêm chi tiết cho " + mapn+ " thành công!");
+                new QuanLySanPhamBUS().updateSoLuong(masp,soLuongMax+soluong);
                 this.dispose();
             }
         }
@@ -161,7 +165,7 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
         csp.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-//                soLuongMax = Integer.parseInt(txSoLuong.getText());
+                soLuongMax = Integer.parseInt(txSoLuong.getText());
             }
         });
     }

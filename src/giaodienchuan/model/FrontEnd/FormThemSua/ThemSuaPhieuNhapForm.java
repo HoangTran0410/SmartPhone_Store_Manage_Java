@@ -7,6 +7,7 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -142,9 +143,9 @@ public class ThemSuaPhieuNhapForm extends JFrame {
         btnChonNhanVien.addActionListener((ActionEvent ae) -> {
             btnChonNhanVienMouseClicked();
         });
-//        btnChonNhaCungCap.addActionListener((ae) -> {
-//            btnChonKhachHangMouseClicked();
-//        });
+        btnChonNhaCungCap.addActionListener((ae) -> {
+            btnChonNhaCungCapMouseClicked();
+        });
         
         txtTongTien.setEditable(false);
         this.setVisible(true);
@@ -190,9 +191,9 @@ public class ThemSuaPhieuNhapForm extends JFrame {
         ChonNhanVienForm cnv = new ChonNhanVienForm(txtMaNV);
     }
 
-//    private void btnChonNhaCungCapMouseClicked() {
-//        ChonNhaCungCapForm ckh = new ChonNhaCungCapForm(txtMaNCC);
-//    }
+    private void btnChonNhaCungCapMouseClicked() {
+        ChonNhaCungCapForm cncc = new ChonNhaCungCapForm(txtMaNCC);
+    }
 
     private Boolean checkEmpty() {
         String mapn = txtMaPN.getText();

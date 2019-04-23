@@ -113,14 +113,6 @@ public class HienThiHoaDon extends JPanel {
             refresh();
         });
 
-        cbTypeSearch.addActionListener((ae) -> {
-            txTim.setBorder(BorderFactory.createTitledBorder(String.valueOf(cbTypeSearch.getSelectedItem())));
-            txTim.requestFocus();
-            if (!txTim.getText().equals("")) {
-                txSearchOnChange();
-            }
-        });
-
         btnDetails.addActionListener((ae) -> {
             btnDetailsMouseClicked();
         });
@@ -136,6 +128,14 @@ public class HienThiHoaDon extends JPanel {
         addDocumentListener(txKhoangNgay2);
         addDocumentListener(txKhoangTien1);
         addDocumentListener(txKhoangTien2);
+        
+        cbTypeSearch.addActionListener((ae) -> {
+            txTim.setBorder(BorderFactory.createTitledBorder(String.valueOf(cbTypeSearch.getSelectedItem())));
+            txTim.requestFocus();
+            if (!txTim.getText().equals("")) {
+                txSearchOnChange();
+            }
+        });
     }
 
     public void refresh() {

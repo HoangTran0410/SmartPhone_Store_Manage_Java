@@ -88,15 +88,15 @@ public class ChiTietPhieuNhapBUS {
         }
         return false;
     }
-     public boolean add(ChiTietPhieuNhap ctpn)
-     {
-         Boolean ok=DAO.add(ctpn);
-         if(ok)
-         {
-            dsctpn.add(ctpn);
-         }
-         return ok;
-     }
+//     public boolean add(ChiTietPhieuNhap ctpn)
+//     {
+//         Boolean ok=DAO.add(ctpn);
+//         if(ok)
+//         {
+//            dsctpn.add(ctpn);
+//         }
+//         return ok;
+//     }
      public ChiTietPhieuNhap getChiTiet(String mapn, String masp) {
         for (ChiTietPhieuNhap ct : dsctpn) {
             if (ct.getMaSP().equals(masp) && ct.getMa().equals(mapn)) {
@@ -110,7 +110,7 @@ public class ChiTietPhieuNhapBUS {
         if (success) {
             for (ChiTietPhieuNhap ctpn : dsctpn) {
                 if (ctpn.getMa().equals(_maPhieuNhap) && ctpn.getMaSP().equals(_maSanPham)) {
-                    updateSoLuong(_maSanPham, ctpn.getSoLuong());
+                    updateSoLuongSanPham(_maSanPham, ctpn.getSoLuong());
                     dsctpn.remove(ctpn);
                     updateTongTien(_maPhieuNhap);
                     return true;
@@ -119,7 +119,35 @@ public class ChiTietPhieuNhapBUS {
         }
         return false;
     }
-       private Boolean updateSoLuong(String _masp, int _soLuongThayDoi) {
+      public Boolean add(ChiTietPhieuNhap ct) {
+        int soLuongChiTietMoi = ct.getSoLuong();
+
+        // tìm các chi tiết cùng mã, và tính tổng số lượng
+        ArrayList<ChiTietPhieuNhap> toRemove = new ArrayList<>();
+        int tongSoLuong = ct.getSoLuong();
+
+        for (ChiTietPhieuNhap ctpn : dsctpn) {
+            if (ctpn.getMa().equals(ct.getMa()) && ctpn.getMaSP().equals(ct.getMaSP())) {
+                tongSoLuong += ctpn.getSoLuong();
+                toRemove.add(ctpn);
+            }
+        }
+        // xóa chi tiết cũ cùng mã
+        dsctpn.removeAll(toRemove);
+        DAO.delete(ct.getMa(), ct.getMaSP());
+
+        // thêm chi tiết mới có số lượng = tổng số lượng tìm ở trên
+        ct.setSoLuong(tongSoLuong);
+        Boolean success = DAO.add(ct);
+        if (success) {
+            dsctpn.add(ct);
+            updateSoLuongSanPham(ct.getMaSP(), -soLuongChiTietMoi);
+            updateTongTien(ct.getMa());
+            return true;
+        }
+        return false;
+    }
+       private Boolean updateSoLuongSanPham(String _masp, int _soLuongThayDoi) {
         Boolean success = false;
         for (SanPham sp : qlspBUS.getDssp()) {
             if (sp.getMaSP().equals(_masp)) {
@@ -167,6 +195,7 @@ public class ChiTietPhieuNhapBUS {
             }
         }
         Boolean success = qlpnBUS.updateTongTien(_mapn, tong);
+       
         return success;
     }
 }

@@ -94,7 +94,7 @@ public class HienThiNhaCungCap extends JPanel {
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
-                String mancc = getSelectedNhaCungCap(1);
+                String mancc = getSelectedNhaCungCap();
                 if (mancc != null) {
                     // show hình
                     for (NhaCungCap ncc : BUS.getDsncc()) {
@@ -133,10 +133,10 @@ public class HienThiNhaCungCap extends JPanel {
         setDataToTable(BUS.getDsncc(), mtb);
     }
 
-    public String getSelectedNhaCungCap(int col) {
+    public String getSelectedNhaCungCap() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
+            return mtb.getModel().getValueAt(i, MANCC_I).toString();
         }
         return null;
     }
@@ -145,7 +145,4 @@ public class HienThiNhaCungCap extends JPanel {
         setDataToTable(BUS.search(txTim.getText(), cbTypeSearch.getSelectedItem().toString()), mtb);
     }
 
-    public String getSelectedNhaCungCap() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

@@ -30,13 +30,7 @@ public class QuanLyPhieuNhapBUS {
     public ArrayList<PhieuNhap> getDspn() {
         return this.dspn;
     }
-     public ArrayList<PhieuNhap> search(String value, String type) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamDAO qlspDB = new QuanLySanPhamDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
-
-        // phương pháp tìm từ arraylist
+     public ArrayList<PhieuNhap> search(String type, String value, LocalDate _ngay1, LocalDate _ngay2, int _tong1, int _tong2) {
         ArrayList<PhieuNhap> result = new ArrayList<>();
 
         dspn.forEach((pn) -> {
@@ -87,6 +81,19 @@ public class QuanLyPhieuNhapBUS {
             }
 
         });
+         //Ngay lap, tong tien
+        for (int i = result.size() - 1; i >= 0; i--) {
+            PhieuNhap pn = result.get(i);
+            LocalDate ngaynhap = pn.getNgayNhap();
+            float tongtien = pn.getTongTien();
+
+            Boolean ngayKhongThoa = (_ngay1 != null && ngaynhap.isBefore(_ngay1)) || (_ngay2 != null && ngaynhap.isAfter(_ngay2));
+            Boolean tienKhongThoa = (_tong1 != -1 && tongtien < _tong1) || (_tong2 != -1 && tongtien > _tong2);
+
+            if (ngayKhongThoa || tienKhongThoa) {
+                result.remove(pn);
+            }
+        }
 
         return result;
     }
