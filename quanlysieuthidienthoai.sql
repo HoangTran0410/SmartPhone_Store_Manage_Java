@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 22, 2019 lúc 09:18 PM
+-- Thời gian đã tạo: Th4 23, 2019 lúc 08:44 AM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -355,7 +355,7 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('admin', 'admin', 'NV13', 'Q4'),
+('admin', 'admin', 'NV8', 'Q4'),
 ('BaDuocSeller', 'baduoc', 'NV3', 'Q2'),
 ('ThanhTuNH', 'thanhtu', 'NV5', 'Q5'),
 ('TriDungSeller', 'tridung', 'NV1', 'Q2'),
