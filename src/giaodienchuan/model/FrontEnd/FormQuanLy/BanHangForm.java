@@ -6,6 +6,8 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
@@ -50,7 +52,7 @@ import javax.swing.event.DocumentListener;
  * @author DELL
  */
 public class BanHangForm extends JPanel {
-    
+
     public static HoaDonBanHang hdbh;
     public static ChonSanPhamBanHang csp;
 
@@ -95,12 +97,12 @@ class ChonSanPhamBanHang extends JPanel {
         plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
         plSanPham.setBackground(new Color(49, 49, 49));
         plSanPham.setLayout(new BorderLayout());
-        
+
         txTimKiem.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTimKiem.setHorizontalAlignment(JLabel.CENTER);
         addDocumentListener(txTimKiem);
         plSanPham.add(txTimKiem, BorderLayout.NORTH);
-        
+
         tbSanPham.setHeaders(new String[]{"Mã", "Loại", "Tên", "Đơn giá", "Số lượng"});
         tbSanPham.setColumnsWidth(new double[]{.5, .5, 3, 1, .5});
         tbSanPham.setAlignment(3, JLabel.RIGHT);
@@ -114,11 +116,11 @@ class ChonSanPhamBanHang extends JPanel {
         plChiTiet.setPreferredSize(new Dimension(_width - 10, 258));
         plChiTiet.setBackground(new Color(100, 100, 100));
         plChiTiet.setLayout(new BorderLayout());
-        
+
         lbImage.setBackground(Color.yellow);
         lbImage.setPreferredSize(new Dimension(200, 200));
         plChiTiet.add(lbImage, BorderLayout.WEST);
-        
+
         JPanel plTextField = new JPanel();
         plTextField.setLayout(new FlowLayout());
         txMaSP.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
@@ -132,19 +134,19 @@ class ChonSanPhamBanHang extends JPanel {
         plTextField.add(txTenSP);
         plTextField.add(txDonGia);
         plTextField.add(txSoLuong);
-        
+
         btnThem.addActionListener((ae) -> {
             try {
                 String masp = txMaSP.getText();
                 int soluong = Integer.parseInt(txSoLuong.getText());
                 BanHangForm.hdbh.addChiTiet(masp, soluong);
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(txSoLuong, "Số lượng phải là số nguyên!");
                 txSoLuong.requestFocus();
             }
         });
-        
+
         plChiTiet.add(plTextField, BorderLayout.CENTER);
         plChiTiet.add(btnThem, BorderLayout.SOUTH);
 
@@ -156,33 +158,38 @@ class ChonSanPhamBanHang extends JPanel {
             public void mouseReleased(MouseEvent me) {
                 String masp = getSelectedSanPham(0);
                 if (masp != null) {
-                    // show hình
-                    for (SanPham sp : qlspBUS.getDssp()) {
-                        if (sp.getMaSP().equals(masp)) {
-                            // scale the product image
-                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-                            int w = lbImage.getWidth();
-                            int h = lbImage.getHeight();
-                            ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
-                            Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
-                            lbImage.setIcon(new ImageIcon(imgScaled));
-                            
-                            String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
-                            txMaSP.setText(sp.getMaSP());
-                            txTenSP.setText(sp.getTenSP());
-                            txLoaiSP.setText(loai + " - " + sp.getMaLSP());
-                            txDonGia.setText(String.valueOf(sp.getDonGia()));
-                            txSoLuong.setText("1");
-                        }
-                    }
-
+                    showInfo(masp, 1);
                 }
             }
         });
-        
+
         setDataToTable(qlspBUS.getDssp(), tbSanPham);
     }
-    
+
+    public void showInfo(String masp, int soluong) {
+        // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
+        if (masp != null) {
+            // show hình
+            for (SanPham sp : qlspBUS.getDssp()) {
+                if (sp.getMaSP().equals(masp)) {
+                    int w = lbImage.getWidth();
+                    int h = lbImage.getHeight();
+                    ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
+                    Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
+                    lbImage.setIcon(new ImageIcon(imgScaled));
+                    
+                    // show info
+                    String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
+                    txMaSP.setText(sp.getMaSP());
+                    txTenSP.setText(sp.getTenSP());
+                    txLoaiSP.setText(loai + " - " + sp.getMaLSP());
+                    txDonGia.setText(String.valueOf(sp.getDonGia()));
+                    txSoLuong.setText(String.valueOf(soluong));
+                }
+            }
+        }
+    }
+
     private void addDocumentListener(JTextField tx) {
         // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
         tx.getDocument().addDocumentListener(new DocumentListener() {
@@ -202,7 +209,7 @@ class ChonSanPhamBanHang extends JPanel {
             }
         });
     }
-    
+
     public void txSearchOnChange() {
         setDataToTable(qlspBUS.search(txTimKiem.getText(), "Tất cả", -1, -1, -1, -1, 0), tbSanPham);
     }
@@ -214,7 +221,7 @@ class ChonSanPhamBanHang extends JPanel {
         }
         return null;
     }
-    
+
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
         table.clear();
         for (SanPham sp : data) {
@@ -224,8 +231,7 @@ class ChonSanPhamBanHang extends JPanel {
                     sp.getMaLSP(),
                     sp.getTenSP(),
                     String.valueOf(sp.getDonGia()),
-                    String.valueOf(sp.getSoLuong()),
-                });
+                    String.valueOf(sp.getSoLuong()),});
             }
         }
     }
@@ -425,7 +431,21 @@ class HoaDonBanHang extends JPanel {
     }
 
     private void btnThanhToanOnClick() {
-
+        HoaDon hd = new HoaDon(
+                txMaHoaDon.getText(), 
+                nhanVien.getMaNV(), 
+                khachHang.getMaKH(), 
+                "KM1", 
+                LocalDate.parse(txNgayLap.getText()), 
+                LocalTime.parse(txGioLap.getText()), 
+                Float.parseFloat(txTongTien.getText()));
+        new QuanLyHoaDonBUS().add(hd);
+        
+        QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
+        for(ChiTietHoaDon ct : dscthd) {
+            qlcthd.add(ct);
+        }
+        JOptionPane.showMessageDialog(this, "Thanh toán thành công");
     }
 
     private void btnXoaOnClick() {
@@ -437,7 +457,14 @@ class HoaDonBanHang extends JPanel {
     }
 
     private void btnSuaOnClick() {
-
+        int i = tbChiTietHoaDon.getTable().getSelectedRow();
+        if (i >= 0) {
+            ChiTietHoaDon ct = dscthd.get(i);
+            BanHangForm.csp.showInfo(ct.getMaSanPham(), ct.getSoLuong());
+            
+            dscthd.remove(i);
+            setDataToTable(dscthd, tbChiTietHoaDon);
+        }
     }
 
     public void addChiTiet(String masp, int soluong) {
