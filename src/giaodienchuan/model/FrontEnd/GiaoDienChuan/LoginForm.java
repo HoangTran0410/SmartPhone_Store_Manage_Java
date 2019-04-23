@@ -59,7 +59,7 @@ public class LoginForm extends javax.swing.JFrame {
                 if (fe.getSource() instanceof JTextField) {
                     JTextField tx = (JTextField) fe.getSource();
                     tx.select(0, tx.getText().length());
-                    
+
                 } else if (fe.getSource() instanceof JPasswordField) {
                     JPasswordField tx = (JPasswordField) fe.getSource();
                     tx.select(0, tx.getText().length());
@@ -72,7 +72,7 @@ public class LoginForm extends javax.swing.JFrame {
                 if (fe.getSource() instanceof JTextField) {
                     JTextField tx = (JTextField) fe.getSource();
                     tx.select(0, 0);
-                    
+
                 } else if (fe.getSource() instanceof JPasswordField) {
                     JPasswordField tx = (JPasswordField) fe.getSource();
                     tx.select(0, 0);
@@ -84,13 +84,20 @@ public class LoginForm extends javax.swing.JFrame {
 
         // auto focus to tenDangNhap
         txTenDangNhap.requestFocus();
-        
+
         // check lần đăng nhập cũ
         String text = new WorkWithFile(saveFileName).read();
-        if(!text.equals("")) {
-            
+        if (!text.equals("")) {
+            try {
+                txTenDangNhap.setText(text.split(" ")[0]);
+                txMatKhau.setText(text.split(" ")[1]);
+                rbNhoMatKhau.setSelected(true);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lỗi Giữ đăng nhập");
+            }
         }
-        
+
     }
 
     /**
@@ -142,7 +149,7 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         rbNhoMatKhau.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        rbNhoMatKhau.setText("Nhớ mật khẩu");
+        rbNhoMatKhau.setText("Giữ đăng nhập");
 
         txTenDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -276,8 +283,11 @@ public class LoginForm extends javax.swing.JFrame {
                 quyenLogin = new QuanLyQuyenBUS().getQuyen(taiKhoanLogin.getMaQuyen());
 
                 // Đăng nhập thành công
-                new WorkWithFile(saveFileName).write(taiKhoanLogin.getUsername() + " " + taiKhoanLogin.getPassword());
-                
+                if (rbNhoMatKhau.isSelected()) {
+                    // nếu giữ đăng nhập thì lưu tài khoản đăng nhập vào file
+                    new WorkWithFile(saveFileName).write(taiKhoanLogin.getUsername() + " " + taiKhoanLogin.getPassword());
+                }
+
                 new GiaoDienChuan().setVisible(true);
                 this.dispose();
 

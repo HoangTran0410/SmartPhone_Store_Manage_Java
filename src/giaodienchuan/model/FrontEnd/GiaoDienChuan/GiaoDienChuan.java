@@ -229,8 +229,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 JOptionPane.YES_NO_OPTION);
         
         if (reply == JOptionPane.YES_OPTION) {
-            new LoginForm().setVisible(true);
             new WorkWithFile(LoginForm.saveFileName).write(""); // xóa dữ liệu đăng nhập
+            new LoginForm().setVisible(true);
             this.dispose();
         }
     }
