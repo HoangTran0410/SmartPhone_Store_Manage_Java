@@ -150,6 +150,11 @@ public class LoginForm extends javax.swing.JFrame {
 
         rbNhoMatKhau.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         rbNhoMatKhau.setText("Giữ đăng nhập");
+        rbNhoMatKhau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNhoMatKhauActionPerformed(evt);
+            }
+        });
 
         txTenDangNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -286,6 +291,9 @@ public class LoginForm extends javax.swing.JFrame {
                 if (rbNhoMatKhau.isSelected()) {
                     // nếu giữ đăng nhập thì lưu tài khoản đăng nhập vào file
                     new WorkWithFile(saveFileName).write(taiKhoanLogin.getUsername() + " " + taiKhoanLogin.getPassword());
+                } else {
+                    // nếu không thì xóa mọi dữ liệu trong file
+                    new WorkWithFile(saveFileName).write("");
                 }
 
                 new GiaoDienChuan().setVisible(true);
@@ -301,6 +309,10 @@ public class LoginForm extends javax.swing.JFrame {
             txTenDangNhap.requestFocus();
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
+
+    private void rbNhoMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNhoMatKhauActionPerformed
+
+    }//GEN-LAST:event_rbNhoMatKhauActionPerformed
 
     public static String saveFileName = "temp.bin";
     public static Quyen quyenLogin;

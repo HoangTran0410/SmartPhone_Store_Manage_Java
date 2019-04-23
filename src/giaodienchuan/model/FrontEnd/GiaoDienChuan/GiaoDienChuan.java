@@ -90,7 +90,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         int menuW = 250;
         int menuH = 0;
         menu = new NavBarContainer(new Rectangle(0, 0, menuW, HEIGHT));
-//        menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
+        // menu.addItem(new NavBarTitle(new Rectangle(0, 0, 0, 55), "CHỨC NĂNG"));
         for (int i = 0; i < navItemInfo.length; i += 4) {
             if (navItemInfo[i].equals("seperate")) {
                 NavBarSeperator s = new NavBarSeperator(new Rectangle(0, 0, 0, Integer.parseInt(navItemInfo[i + 1])));
@@ -167,14 +167,14 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
 
         // logout button
         if (LoginForm.taiKhoanLogin != null) {
-            
+
             String tenNhanVien = LoginForm.nhanVienLogin.getTenNV();
 
             NavBarButton btnLogout = new NavBarButton(new Rectangle(0, 0, menuW - btnWidth, headerH), tenNhanVien, "icons8_exit_30px.png");
             btnLogout.setBgDefault(new Color(headerBg, headerBg, headerBg));
             btnLogout.setBgHover(new Color(49, 49, 49));
             btnLogout.relocate2();
-            btnLogout.setToolTipText("Đăng xuất (" + tenNhanVien + ")");
+            btnLogout.setToolTipText("Đăng xuất (" + tenNhanVien + " - " + LoginForm.nhanVienLogin.getMaNV() + ")");
             btnLogout.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent me) {
@@ -215,7 +215,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         });
 
         plContent.setLayout(new BorderLayout());
-        plContent.add(new BeginForm("Chào " + LoginForm.nhanVienLogin.getTenNV()), BorderLayout.CENTER);
+        plContent.add(new BeginForm("Chào " + LoginForm.nhanVienLogin.getTenNV() + " - " + LoginForm.nhanVienLogin.getMaNV()), BorderLayout.CENTER);
 
         addMouseListener(this);
         add(scrollMenu, BorderLayout.WEST);
@@ -227,7 +227,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         int reply = JOptionPane.showConfirmDialog(getRootPane(),
                 "Bạn có chắc muốn đăng xuất khỏi " + LoginForm.nhanVienLogin.getTenNV() + "?", "Chú ý",
                 JOptionPane.YES_NO_OPTION);
-        
+
         if (reply == JOptionPane.YES_OPTION) {
             new WorkWithFile(LoginForm.saveFileName).write(""); // xóa dữ liệu đăng nhập
             new LoginForm().setVisible(true);
@@ -265,7 +265,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 }
                 plContent.add(qlhd, BorderLayout.CENTER);
                 break;
-                
+
             case "Khuyến mãi":
                 if (qlkm == null) {
                     qlkm = new QuanLyKhuyenMaiForm();
@@ -368,5 +368,5 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     public void mouseExited(MouseEvent me) {
 
     }
-    
+
 }
