@@ -21,7 +21,6 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -29,6 +28,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,23 +44,31 @@ import javax.swing.event.DocumentListener;
 public class ThongKeForm extends JPanel {
 
     public ThongKeForm() {
+        this.setBackground(Color.darkGray);
+
         ThongKeSanPham tksp = new ThongKeSanPham();
         ThongKeNhanVien tknv = new ThongKeNhanVien();
         ThongKeKhachHang tkkh = new ThongKeKhachHang();
         ThongKeNhaCungCap tkncc = new ThongKeNhaCungCap();
         ThongKeThuNhap tktn = new ThongKeThuNhap();
-        this.setBackground(Color.darkGray);
+        ThongKe_Hoang tkH = new ThongKe_Hoang();
+
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
         tabs.setPreferredSize(new Dimension(1100, 720));
 
         //add tab thong ke san pham
-        tabs.addTab("Sản phẩm", tksp);
-        tabs.addTab("Nhân viên", tknv);
-        tabs.addTab("Khách hàng", tkkh);
-        tabs.addTab("Nhà cung cấp", tkncc);
-        tabs.addTab("Thu nhập", tktn);
+        tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), tksp);
+        tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), tknv);
+        tabs.addTab("Khách hàng", getIcon("icons8_user_30px.png"), tkkh);
+        tabs.addTab("Nhà cung cấp", getIcon("icons8_company_30px.png"), tkncc);
+        tabs.addTab("Thu nhập", getIcon("icons8_us_dollar_30px.png"), tktn);
+        tabs.addTab("Hoàng's Thống kê", getIcon("icons8_pie_chart_30px.png"), tkH);
         this.add(tabs);
         this.setVisible(true);
+    }
+
+    private ImageIcon getIcon(String filename) {
+        return new ImageIcon(getClass().getResource("/giaodienchuan/images/" + filename));
     }
 }
 
@@ -549,7 +557,11 @@ class ThongKeKhachHang extends JPanel {
             for (HoaDon hd : dshd) {
                 if (kh.getMaKH().equals(hd.getMaKhachHang())) {
                     for (HoaDon hhd : qlhdBUS.search("Mã hóa đơn", hd.getMaHoaDon(), ngay1, ngay2, -1, -1)) {
-                        tb.addRow(new String[]{"", "", hd.getMaHoaDon(), String.valueOf(hhd.getNgayLap()), String.valueOf(hhd.getTongTien())});
+                        tb.addRow(new String[]{"", "", 
+                            hd.getMaHoaDon(), 
+                            String.valueOf(hhd.getNgayLap()), 
+                            String.valueOf(hhd.getTongTien())
+                        });
                         tong += hhd.getTongTien();
                     }
                 }
@@ -642,4 +654,11 @@ class ThongKeThuNhap extends JPanel {
     public ThongKeThuNhap() {
     }
 
+}
+
+class ThongKe_Hoang extends JPanel {
+
+    public ThongKe_Hoang() {
+
+    }
 }
