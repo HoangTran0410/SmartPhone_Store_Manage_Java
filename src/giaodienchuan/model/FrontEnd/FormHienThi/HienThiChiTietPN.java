@@ -7,6 +7,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 public class HienThiChiTietPN extends JPanel {
 
     ChiTietPhieuNhapBUS qlctpn = new ChiTietPhieuNhapBUS();
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
 
     JTextField txTim = new JTextField(15);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã sản phẩm", "Số lượng", "Đơn giá"});
@@ -42,10 +43,10 @@ public class HienThiChiTietPN extends JPanel {
         this.mapn = _mapn;
 
         mtb = new MyTable();
-        mtb.setHeaders(new String[]{"STT", "Mã phiếu nhập", "Mã sản phẩm", "Số lượng", "Đơn giá"});
+        mtb.setHeaders(new String[]{"STT", "Mã phiếu nhập", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá"});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(3, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.RIGHT);
+        mtb.setAlignment(4, JLabel.CENTER);
+        mtb.setAlignment(5, JLabel.RIGHT);
         setDataToTable(qlctpn.search("Mã phiếu nhập", this.mapn), mtb);
 
         JPanel plHeader = new JPanel();
@@ -103,8 +104,13 @@ public class HienThiChiTietPN extends JPanel {
         mtb.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (ChiTietPhieuNhap pn : data) {
-            mtb.addRow(new String[]{String.valueOf(stt), pn.getMa(), pn.getMaSP(),
-                String.valueOf(pn.getSoLuong()), String.valueOf(pn.getDonGia())});
+            mtb.addRow(new String[]{
+                String.valueOf(stt), 
+                pn.getMa(), 
+                pn.getMaSP(),
+                qlspBUS.getSanPham(pn.getMaSP()).getTenSP(),
+                String.valueOf(pn.getSoLuong()), 
+                String.valueOf(pn.getDonGia())});
             stt++;
         }
     }

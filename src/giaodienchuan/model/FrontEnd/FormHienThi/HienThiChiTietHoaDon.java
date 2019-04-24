@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import javax.swing.event.DocumentListener;
 public class HienThiChiTietHoaDon extends JPanel {
 
     QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
 
     JTextField txTim = new JTextField(15);
 
@@ -40,14 +42,14 @@ public class HienThiChiTietHoaDon extends JPanel {
         txKhoangSoLuong.setBorder(BorderFactory.createTitledBorder("Đến:"));
 
         mtb = new MyTable();
-        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
+        mtb.setHeaders(new String[]{"STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
         mtb.setColumnsWidth(new double[]{.5, 4, 4, 4, 4, 4});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(1, JLabel.CENTER);
-        mtb.setAlignment(2, JLabel.CENTER);
-        mtb.setAlignment(3, JLabel.RIGHT);
+        mtb.setAlignment(3, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.RIGHT);
-        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd,-1,-1,-1,-1), mtb);
+        mtb.setAlignment(5, JLabel.RIGHT);
+        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd, -1, -1, -1, -1), mtb);
 
         JPanel plHeader = new JPanel();
 
@@ -80,7 +82,7 @@ public class HienThiChiTietHoaDon extends JPanel {
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
-        
+
         cbTypeSearch.addActionListener((ae) -> {
             txTim.setBorder(BorderFactory.createTitledBorder(String.valueOf(cbTypeSearch.getSelectedItem())));
             txTim.requestFocus();
@@ -88,14 +90,13 @@ public class HienThiChiTietHoaDon extends JPanel {
                 txSearchOnChange();
             }
         });
-        
 
         addDocumentListener(txTim);
         addDocumentListener(txKhoangSoLuong1);
         addDocumentListener(txKhoangSoLuong);
         addDocumentListener(txKhoangThanhTien1);
         addDocumentListener(txKhoangThanhTien2);
-        
+
         //Add tat ca panel vao frame
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
@@ -103,14 +104,14 @@ public class HienThiChiTietHoaDon extends JPanel {
 
     public void refresh() {
         qlcthd.readDB();
-        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd,-1,-1,-1,-1), mtb);
+        setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd, -1, -1, -1, -1), mtb);
         txTim.setText("");
         txKhoangSoLuong1.setText("");
         txKhoangSoLuong.setText("");
         txKhoangThanhTien1.setText("");
         txKhoangThanhTien2.setText("");
     }
-    
+
     private void addDocumentListener(JTextField txField) {
         txField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -159,7 +160,7 @@ public class HienThiChiTietHoaDon extends JPanel {
         }
         ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
         qlcthd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), soLuong1, soLuong2, thanhTien1, thanhTien2).forEach((t) -> {
-            if(t.getMaHoaDon().equals(mahd)){
+            if (t.getMaHoaDon().equals(mahd)) {
                 dscthd.add(t);
             }
         });
@@ -181,6 +182,7 @@ public class HienThiChiTietHoaDon extends JPanel {
             mtb.addRow(new String[]{
                 String.valueOf(stt),
                 cthd.getMaSanPham(),
+                qlspBUS.getSanPham(cthd.getMaSanPham()).getTenSP(),
                 String.valueOf(cthd.getSoLuong()),
                 String.valueOf(cthd.getDonGia()),
                 String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});

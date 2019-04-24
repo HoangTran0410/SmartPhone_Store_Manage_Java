@@ -7,6 +7,8 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietPhieuNhapForm;
@@ -14,6 +16,10 @@ import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
@@ -40,6 +46,13 @@ public class HienThiPhieuNhap extends JPanel {
 
     JTextField txTim = new JTextField(15);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã nhà cung cấp", "Mã nhân viên", "Ngày lập", "Giờ lập", "Tổng tiền"});
+    
+    JTextField txMaPhieuNhap = new JTextField(15);
+    JTextField txNhaCC = new JTextField(15);
+    JTextField txNhanVien = new JTextField(15);
+    JTextField txNgayLap = new JTextField(15);
+    JTextField txGioLap = new JTextField(15);
+    JTextField txTongTien = new JTextField(15);
 
     JButton btnRefresh = new JButton("Làm mới");
     JButton btnDetails = new JButton("Xem chi tiết");
@@ -112,11 +125,51 @@ public class HienThiPhieuNhap extends JPanel {
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
         plHeader.add(btnRefresh);
+        
+        // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
+        JPanel plThongTin = new JPanel();
+        plThongTin.setPreferredSize(new Dimension(300, 170));
+        // set border
+        txMaPhieuNhap.setBorder(BorderFactory.createTitledBorder("Mã phiếu nhập:"));
+        txNhanVien.setBorder(BorderFactory.createTitledBorder("Nhân viên:"));
+        txNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập:"));
+        txNhaCC.setBorder(BorderFactory.createTitledBorder("Nhà cung cấp:"));
+        txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập:"));
+        txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
+
+        // font
+        Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        txMaPhieuNhap.setFont(f);
+        txNhanVien.setFont(f);
+        txNgayLap.setFont(f);
+        txGioLap.setFont(f);
+        txNhaCC.setFont(f);
+        txTongTien.setFont(f);
+        
+        // add to panel
+        plThongTin.add(txMaPhieuNhap);
+        plThongTin.add(txNhaCC);
+        plThongTin.add(txNhanVien);
+        plThongTin.add(txNgayLap);
+        plThongTin.add(txGioLap);
+        plThongTin.add(txTongTien);
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
+        this.add(plThongTin, BorderLayout.SOUTH);
 
+        // action listoner
+        // event
+        mtb.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                String mapn = getSelectedPhieuNhap();
+                if (mapn != null) {
+                    showInfo(mapn);
+                }
+            }
+        });
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -143,7 +196,27 @@ public class HienThiPhieuNhap extends JPanel {
                 txSearchOnChange();
             }
         });
-
+    }
+    
+    public void showInfo(String mapn) {
+        if (mapn != null) {
+            // show hình
+            for (PhieuNhap pn : qlpn.getDspn()) {
+                if (pn.getMaPN().equals(mapn)) {
+                    // show info
+                    String tennhanvien = new QuanLyNhanVienBUS().getNhanVien(pn.getMaNV()).getTenNV();
+                    String tenncc = new QuanLyNhaCungCapBUS().getNhaCungCap(pn.getMaNCC()).getTenNCC();
+                    
+                    txMaPhieuNhap.setText(pn.getMaPN());
+                    txNhaCC.setText(tenncc + " - " + pn.getMaNCC());
+                    txNhanVien.setText(tennhanvien + " - " + pn.getMaNV());
+                    txNgayLap.setText(pn.getNgayNhap().toString());
+                    txGioLap.setText(pn.getGioNhap().toString());
+                    txTongTien.setText(String.valueOf(pn.getTongTien()));
+                    return;
+                }
+            }
+        }
     }
 
     public void refresh() {

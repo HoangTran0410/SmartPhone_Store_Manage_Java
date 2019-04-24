@@ -149,7 +149,6 @@ public class HienThiHoaDon extends JPanel {
         plThongTin.add(txTongTien);
         plThongTin.add(txNgayLap);
         plThongTin.add(txGioLap);
-        
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
