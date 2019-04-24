@@ -25,6 +25,10 @@ public class WorkWithExcel {
     public WorkWithExcel() {
 
     }
+    
+    public void writeFileExcel() {
+        
+    }
 
     public void createFileExcel(String filename) {
         HSSFWorkbook workbook = new HSSFWorkbook();
