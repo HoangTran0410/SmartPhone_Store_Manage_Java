@@ -2,6 +2,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -94,7 +95,7 @@ public class HienThiKhachHang extends JPanel {
         qlkh.readDB();
         setDataToTable(qlkh.getDskh(), mtb);
     }
-    
+
     public String getSelectedKhachHang() {
         int i = mtb.getTable().getSelectedRow();
         if (i >= 0) {
@@ -110,16 +111,19 @@ public class HienThiKhachHang extends JPanel {
     private void setDataToTable(ArrayList<KhachHang> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
+        Boolean hienKhachHangAn = LoginForm.quyenLogin.getChiTietQuyen().contains("qlKhachHang");
         for (KhachHang kh : data) {
-            table.addRow(new String[]{
-                String.valueOf(stt), 
-                kh.getMaKH(), 
-                kh.getTenKH(), 
-                kh.getDiaChi(),
-                kh.getSDT(),
-                (kh.getTrangThai()==0?"Hiện":"Ẩn")
-            });
-            stt++;
+            if (hienKhachHangAn || kh.getTrangThai() == 0) {
+                table.addRow(new String[]{
+                    String.valueOf(stt),
+                    kh.getMaKH(),
+                    kh.getTenKH(),
+                    kh.getDiaChi(),
+                    kh.getSDT(),
+                    (kh.getTrangThai() == 0 ? "Hiện" : "Ẩn")
+                });
+                stt++;
+            }
         }
     }
 }

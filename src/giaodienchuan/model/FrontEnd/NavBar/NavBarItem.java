@@ -36,7 +36,7 @@ public class NavBarItem extends JPanel {
     
     public void setFontSize(int size) {
         fontSize = size;
-        lbLabel.setFont(new Font("cubanoregular", Font.BOLD, fontSize));
+        lbLabel.setFont(new Font(Font.DIALOG, Font.BOLD, fontSize));
     }
 
     public void setBgDefault(Color bgDefault) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 21, 2019 lúc 10:27 AM
+-- Thời gian đã tạo: Th4 23, 2019 lúc 01:11 PM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -83,10 +83,10 @@ CREATE TABLE `hoadon` (
 --
 
 INSERT INTO `hoadon` (`MaHD`, `MaNV`, `MaKH`, `MaKM`, `NgayLap`, `GioLap`, `TongTien`) VALUES
-('HD1', 'NV2', 'KH2', 'KM1', '2019-04-18', '22:45:52', 267),
-('HD2', 'NV1', 'KH1', 'Không', '2019-04-18', '23:15:36', 240),
-('HD3', 'NV1', 'KH1', 'Không', '2019-04-19', '18:44:34', 35),
-('HD4', 'NV1', 'KH1', 'Không', '2019-04-21', '12:13:48', 60);
+('HD1', 'NV2', 'KH2', 'KM2', '2019-04-18', '22:45:52', 267),
+('HD2', 'NV1', 'KH1', 'KM1', '2019-04-18', '23:15:36', 240),
+('HD3', 'NV1', 'KH1', 'KM1', '2019-04-19', '18:44:34', 35),
+('HD4', 'NV1', 'KH1', 'KM1', '2019-04-21', '12:13:48', 60);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,27 @@ CREATE TABLE `khachhang` (
 
 INSERT INTO `khachhang` (`MaKH`, `TenKH`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('KH1', 'Trần Văn Hoàng', 'TP HCM', '0123456789', 0),
-('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 0);
+('KH10', 'Trần Ngọc Hải', 'Kiên Giang', '0905271941', 0),
+('KH11', 'Nguyễn Xuân Diệu', 'TP HCM', '0301279552', 0),
+('KH12', 'Trần Thanh Thiện', 'Hà Nội', '0123617389', 1),
+('KH13', 'Huỳnh Minh Mẫn', 'An Giang', '0389230581', 0),
+('KH14', 'Trần Xuân An', 'Long An', '0972136531', 0),
+('KH15', 'Nguyễn Thị Xuân', 'TP HCM', '0702571936', 0),
+('KH16', 'Huỳnh Anh Thư', 'Bến Tre', '0892383623', 0),
+('KH17', 'Trần Thanh Nhã', 'TP HCM', '0702397442', 0),
+('KH18', 'Huỳnh Nhựt Trường', 'TP HCM', '0120982736', 0),
+('KH19', 'Trần Ngọc Hà', 'TP HCM', '0702843627', 0),
+('KH2', 'Nguyễn Thiên Hữu', 'Huế', '0126461589', 1),
+('KH20', 'Trần Thị Hoài Anh', 'TP HCM', '0126729137', 0),
+('KH21', 'Nguyễn Văn Thắng', 'Kiên Giang', '0723812935', 0),
+('KH22', 'Huỳnh Lê Diệu Hân', 'Hà Nội', '0306279178', 1),
+('KH3', 'Phan Thanh Tùng', 'Hà Nội', '0952612771', 0),
+('KH4', 'Trần Thanh Sơn', 'Hải Phòng', '0120617231', 0),
+('KH5', 'Trần Thanh Thái', 'Bến Tre', '0912385524', 1),
+('KH6', 'Nguyễn Hồng Nhung', 'Huế', '0967263941', 0),
+('KH7', 'Từ Ngọc Cảnh', 'Sóc Trăng', '0306172915', 0),
+('KH8', 'Nguyễn Thiên Phụng', 'Vũng Tàu', '0703167293', 0),
+('KH9', 'Nguyễn Diệu Ái', 'TP HCM', '0805178293', 0);
 
 -- --------------------------------------------------------
 
@@ -130,8 +150,8 @@ CREATE TABLE `khuyenmai` (
 --
 
 INSERT INTO `khuyenmai` (`MaKM`, `TenKM`, `DieuKienKM`, `PhanTramKM`, `NgayBD`, `NgayKT`) VALUES
-('Không', 'Không khuyến mãi', 0, 0, '0000-00-00', '0000-00-00'),
-('KM1', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
+('KM1', 'Không khuyến mãi', 0, 0, '2019-04-01', '2021-04-30'),
+('KM2', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
 
 -- --------------------------------------------------------
 
@@ -154,8 +174,11 @@ INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`, `Mota`) VALUES
 ('LSP2', 'Oppo', 'Camara Selphi cuc chat tu Oppo'),
 ('LSP3', 'SamSung', 'Khuyen mai lon tu SamSung'),
 ('LSP4', 'Phillip', 'Cac san pham tuyet dep tu Phillip'),
-('LSP5', 'ahihi', 'Test ahihi 235456'),
-('LSP6', 'Blackbery', 'BlackBery is the best');
+('LSP5', 'Nokia', 'Các sản phẩm đến từ thương hiệu Nokia'),
+('LSP6', 'Blackbery', 'BlackBery is the best'),
+('LSP7', 'Huawei', 'Các sản phẩm đến từ thương hiệu Huawei'),
+('LSP8', 'Vivo', 'Các sản phẩm đến từ Vivo'),
+('LSP9', 'Xiaomi', 'Các sản phẩm đến từ thương hiệu Xiaomi');
 
 -- --------------------------------------------------------
 
@@ -176,7 +199,14 @@ CREATE TABLE `nhacungcap` (
 --
 
 INSERT INTO `nhacungcap` (`MaNCC`, `TenNCC`, `DiaChi`, `SDT`, `Fax`) VALUES
-('NCC1', 'Cty Samsung', 'tp hcm', '0123456789', '4598-8789-8789-7897');
+('NCC1', 'Cty Samsung', 'TP HCM', '0123456789', '4598-8789-8789-7897'),
+('NCC2', 'Cty Thương Mại Công Nghệ', 'Hà Nội', '0120728815', '3672-1782-3923-6091'),
+('NCC3', 'Cty Di Động Trường Sơn', 'TP HCM', '0703192738', '2364-2974-2384-2394'),
+('NCC4', 'Cty Viễn Thông Thành Đạt', 'TP HCM', '0501239237', '9823-6738-6739-6766'),
+('NCC5', 'Thế Giới Công Nghệ', 'Bình Dương', '0801729329', '1830-7288-8900-7712'),
+('NCC6', 'Cty TNHH Hoàng Bá', 'Long An', '0303676818', '7623-9812-3876-2834'),
+('NCC7', 'Cty Di Động Thành Tiến', 'Hà Nội', '0989140736', '1873-1738-8736-4761'),
+('NCC8', 'Cty Toàn Thắng', 'TP HCM', '0120628918', '8127-9382-1974-2983');
 
 -- --------------------------------------------------------
 
@@ -199,9 +229,29 @@ CREATE TABLE `nhanvien` (
 
 INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai`) VALUES
 ('NV1', 'Phan Trí Dũng', '1978-04-05', 'Đà Nẵng', '0145647854', 0),
+('NV10', 'Nguyễn Thị Hồng Hạnh', '1993-11-29', 'Bến Tre', '01262368193', 0),
+('NV11', 'Phan Thị Hồng Trinh', '1993-12-11', 'Nghệ An', '0366227168', 0),
+('NV12', 'Phan Văn Tài', '1989-06-15', 'Kiên Giang', '0981578293', 0),
+('NV13', 'Lê Công Huynh', '1991-09-12', 'Sóc Trăng', '0977232173', 0),
+('NV14', 'Lê Hồng Hoa', '1992-08-13', 'TP HCM', '0805126735', 0),
+('NV15', 'Nguyễn Thị My', '1992-12-30', 'Hà Nội', '0703689147', 0),
+('NV16', 'Trương Thị Hồng Huệ', '1992-11-28', 'TP HCM', '0825719263', 0),
+('NV17', 'Nguyễn Thành Trung', '1992-01-16', 'Thanh Hoá', '0123691368', 0),
+('NV18', 'Nguyễn Thị Cẩm Duyên', '1995-11-03', 'TP HCM', '0120984178', 0),
+('NV19', 'Lê Thanh Quang', '1995-04-19', 'Huế', '0956146728', 0),
 ('NV2', 'Trần Văn Hi', '1999-04-05', 'TP HCM', '0123456489', 0),
+('NV20', 'Nguyễn Hùng Bá', '1997-02-14', 'Hải Phòng', '0702536184', 0),
+('NV21', 'Huỳnh Công Thành', '1996-11-20', 'Long An', '0709123175', 0),
+('NV22', 'Huỳnh Thị Hồng Hương', '1994-11-27', 'TP HCM', '0912635198', 0),
+('NV23', 'Phan Yến Hân', '1996-03-14', 'Bến Tre', '0123671823', 0),
+('NV24', 'Trương Thanh Dũng', '1997-10-28', 'Đồng Tháp', '0981237651', 0),
 ('NV3', 'Nguyễn Bá Được', '1998-04-05', 'Hà Nội', '0128456786', 1),
-('NV4', 'Trần Văn Hoàng', '1999-11-12', 'TP HCM', '01207764668', 0);
+('NV4', 'Trần Văn Hoàng', '1999-11-12', 'TP HCM', '01207764668', 0),
+('NV5', 'Lê Thanh Tú', '1991-04-11', 'Hải Phòng', '0367756753', 0),
+('NV6', 'Nguyễn Hải Âu', '1992-04-24', 'Huế', '0364198226', 0),
+('NV7', 'Hoàng Thanh Hùng', '1989-11-13', 'Long An', '0276886265', 0),
+('NV8', 'Trịnh Văn Công', '1990-07-16', 'Tiền Giang', '0392656931', 0),
+('NV9', 'Dương Thanh Hồng', '1991-12-03', 'Vũng Tàu', '0977268398', 0);
 
 -- --------------------------------------------------------
 
@@ -212,7 +262,7 @@ INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `NgaySinh`, `DiaChi`, `SDT`, `TrangThai
 CREATE TABLE `phanquyen` (
   `MaQuyen` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `TenQuyen` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `ChiTietQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `ChiTietQuyen` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -220,9 +270,11 @@ CREATE TABLE `phanquyen` (
 --
 
 INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES
-('Q1', 'Admin', '1 2 3'),
-('Q2', 'Nhân viên', '2 3'),
-('Q3', 'Seller', '2 3 4');
+('Q1', 'Quản lý', 'xemSanPham xemLoaiSanPham qlHoaDon qlNhanVien qlKhachHang xemPhieuNhap xemNCC qlTaiKhoan qlQuyen'),
+('Q2', 'Nhân viên Bán hàng', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
+('Q3', 'Phụ Bán Hàng', 'qlBanHang'),
+('Q4', 'Admin', 'qlBanHang qlSanPham qlLoaiSanPham qlHoaDon qlKhuyenMai qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
+('Q5', 'Nhân viên Nhập hàng', 'xemSanPham xemLoaiSanPham xemNhanVien qlPhieuNhap qlNCC');
 
 -- --------------------------------------------------------
 
@@ -261,12 +313,29 @@ CREATE TABLE `sanpham` (
 
 INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`, `TrangThai`) VALUES
 ('SP1', 'LSP1', 'IPhone X', 20, 97, 'iphone-xr-128gb-red-400x400.jpg', 0),
-('SP2', 'LSP2', 'Oppo R5', 8.2, 70, 'iphone-xr-256gb-white-400x400.jpg', 0),
-('SP3', 'LSP3', 'Samsung Nokia', 15, 0, 'iphone-xr-black-400x400.jpg', 0),
-('SP4', 'LSP4', 'Phillip 756', 15, 149, 'oppo-f11-mtp-400x400.jpg', 0),
-('SP5', 'LSP1', 'Iphone 6', 12, 58, 'samsung-galaxy-a30-blue-400x400.jpg', 0),
-('SP6', 'LSP4', 'Phillip new 2015', 20, 55, 'samsung-galaxy-a50-128gb-blue-docquyen-400x400.jpg', 0),
-('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0);
+('SP10', 'LSP1', 'iPhone Xr 256GB', 23.9, 80, 'iphone-xr-256gb-white-400x400.jpg', 0),
+('SP11', 'LSP2', 'OPPO R17 Pro', 15.9, 76, 'oppo-r17-pro-2-400x460.jpg', 0),
+('SP12', 'LSP8', 'Vivo V15', 7.9, 40, 'vivo-v15-quanghai-400x460.jpg', 0),
+('SP13', 'LSP6', 'Blackberry Evolve', 7.9, 30, 'blackberry-evolve6xvk3-640.jpg', 0),
+('SP14', 'LSP7', 'Huawei Y9 (2019)', 5.5, 35, 'huawei-y9-2019-blue-400x460.jpg', 0),
+('SP15', 'LSP2', 'OPPO F7', 5.5, 60, 'oppo-f7-red-mtp-400x460.jpg', 0),
+('SP16', 'LSP9', 'Xiaomi Mi 8', 11.9, 50, 'xiaomi-mi-8-1-400x460-400x460.jpg', 0),
+('SP17', 'LSP9', 'Xiaomi Redmi Note 6 Pro 64GB', 5.6, 70, 'xiaomi-redmi-note-6-pro-black-1-400x460.jpg', 0),
+('SP18', 'LSP3', 'Samsung Galaxy Note 9 512GB', 24, 60, 'samsung-galaxy-note-9-512gb-blue-400x460.jpg', 0),
+('SP19', 'LSP7', 'Huawei Mate 20', 13, 45, 'huawei-mate-20-black-400x460.jpg', 0),
+('SP2', 'LSP2', 'Oppo A7', 8.2, 70, 'oppo-a7-400x460.jpg', 0),
+('SP20', 'LSP8', 'Vivo Y85', 5, 36, 'vivo-y85-red-docquyen-400x460.jpg', 0),
+('SP21', 'LSP8', 'Vivo V11', 8, 30, 'vivo-v11-400x460.jpg', 0),
+('SP22', 'LSP1', 'iPhone Xs Max 512GB', 39, 45, 'iphone-xs-max-512gb-gold-400x460.jpg', 0),
+('SP23', 'LSP2', 'OPPO Fid X', 19.9, 50, 'oppo-find-x-1-400x460-400x460.jpg', 0),
+('SP24', 'LSP1', 'Iphone abc', 25, 10, 'iphone-xr-256gb-white-400x400.jpg', 1),
+('SP3', 'LSP5', 'Nokia 8.1', 7.9, 35, 'nokia-81-silver-400x460.jpg', 0),
+('SP4', 'LSP4', 'Philips S327', 3.9, 60, 'philips-s327-400-400x460.jpg', 0),
+('SP5', 'LSP1', 'iPhone 8 Plus 256GB', 25.7, 58, 'iphone-8-plus-256gb-gold-400x460.jpg', 0),
+('SP6', 'LSP5', 'Nokia 6.1 Plus', 6.5, 55, 'nokia-61-plus-3-400x460.jpg', 0),
+('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0),
+('SP8', 'LSP7', 'Huawei P30 Pro', 23, 75, 'huawei-p30-pro-1-400x460.jpg', 0),
+('SP9', 'LSP3', 'Samsung Galaxy S10+ (512GB)', 29, 57, 'samsung-galaxy-s10-plus-512gb-ceramic-black-400x460.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -286,9 +355,13 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('HIenCUTE', '04102015', 'NV1', 'Q2'),
-('Hoang016', 'abcde', 'NV2', 'Q2'),
-('HoangCUTE', '1213141516', 'NV3', 'Q2');
+('admin', 'admin', 'NV11', 'Q4'),
+('BaDuocSeller', 'baduoc', 'NV3', 'Q2'),
+('ThanhTuNH', 'thanhtu', 'NV5', 'Q5'),
+('TriDungSeller', 'tridung', 'NV1', 'Q2'),
+('VanHoangAdmin', 'vanhoang', 'NV4', 'Q1'),
+('VanTaiNH', 'vantai', 'NV12', 'Q5'),
+('YenHanPhuBH', 'yenhan', 'NV23', 'Q3');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -399,7 +472,8 @@ ALTER TABLE `chitietphieunhap`
 --
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `khuyenmai_ibfk_3` FOREIGN KEY (`MaKM`) REFERENCES `khuyenmai` (`MaKM`) ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `phieunhap`

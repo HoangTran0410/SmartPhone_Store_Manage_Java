@@ -138,6 +138,7 @@ public class ThemSuaTaiKhoanForm extends JFrame {
 
             if (qltkBUS.add(username, pass, manv, maquyen)) {
                 JOptionPane.showMessageDialog(this, "Thêm " + username + " thành công!");
+                this.dispose();
             }
         }
     }

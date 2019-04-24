@@ -134,7 +134,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             }
 
             if (qlcthdBUS.add(mahd, maspThem, soluong, dongia)) {
-                new QuanLySanPhamBUS().updateSoLuong(maspThem, soLuongMax - soluong);
+                JOptionPane.showMessageDialog(this, "Thêm chi tiết cho " + mahd + " thành công!");
                 this.dispose();
             }
         }

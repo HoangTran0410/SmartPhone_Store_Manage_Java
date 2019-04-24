@@ -21,7 +21,7 @@ public class QuanLyChiTietHoaDonDAO {
             ResultSet rs = connection.sqlQuery(qry);
             if (rs != null) {
                 while (rs.next()) {
-                    ChiTietHoaDon hd = new ChiTietHoaDon(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getFloat(4));
+                    ChiTietHoaDon hd = new ChiTietHoaDon(rs.getString("MaHD"), rs.getString("MaSP"), rs.getInt("SoLuong"), rs.getFloat("DonGia"));
                     dshd.add(hd);
                 }
             }
@@ -35,28 +35,37 @@ public class QuanLyChiTietHoaDonDAO {
 
     public Boolean add(ChiTietHoaDon hd) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("INSERT INTO chitiethoadon(MaHD,MaSP,SoLuong,DonGia) VALUES ('" + hd.getMaHoaDon() + "','" + hd.getMaSanPham() + "','" + hd.getSoLuong() + "','" + hd.getDonGia() + "');");
+        Boolean success = connection.sqlUpdate("INSERT INTO chitiethoadon(MaHD,MaSP,SoLuong,DonGia) VALUES ('" 
+                + hd.getMaHoaDon() + "','" 
+                + hd.getMaSanPham() + "','" 
+                + hd.getSoLuong() + "','" 
+                + hd.getDonGia() + "');");
         connection.closeConnect();
         return success;
     }
 
     public Boolean delete(String _mahd, String _masp) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd + "' AND MaSP='" + _masp + "';");
-        connection.closeConnect();
-        return success;
-    }
-    
-    public Boolean deleteAll(String _mahd) {
-        connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd +"';");
+        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE "
+                + "MaHD='" + _mahd
+                + "' AND MaSP='" + _masp + "';");
         connection.closeConnect();
         return success;
     }
 
-    public Boolean update(ChiTietHoaDon hd) {
+    public Boolean deleteAll(String _mahd) {
         connection = new ConnectionDB();
-        Boolean success = connection.sqlUpdate("UPDATE chitiethoadon set MaSP='" + hd.getMaSanPham() + "', SoLuong='" + hd.getSoLuong() + "', DonGia='" + hd.getDonGia() + "' WHERE MaHD='" + hd.getMaHoaDon() + "';");
+        Boolean success = connection.sqlUpdate("DELETE FROM chitiethoadon WHERE MaHD='" + _mahd + "';");
+        connection.closeConnect();
+        return success;
+    }
+
+    public Boolean update(ChiTietHoaDon ct) {
+        connection = new ConnectionDB();
+        Boolean success = connection.sqlUpdate("UPDATE chitiethoadon set "
+                + "SoLuong='" + ct.getSoLuong()
+                + "', DonGia='" + ct.getDonGia()
+                + "' WHERE MaHD='" + ct.getMaHoaDon() + "' AND MaSP='" + ct.getMaSanPham() + "';");
         connection.closeConnect();
         return success;
     }

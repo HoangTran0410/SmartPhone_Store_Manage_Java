@@ -1,11 +1,15 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -31,10 +35,14 @@ public class HienThiSanPham extends JPanel {
     JButton btnRefresh = new JButton("Làm mới");
 
     JLabel lbImage = new JLabel();
+    JTextField txMaSP = new JTextField(12);
+    JTextField txLoaiSP = new JTextField(12);
+    JTextField txTenSP = new JTextField(12);
+    JTextField txDonGia = new JTextField(12);
+    JTextField txSoLuong = new JTextField(7);
 
     JTextField txSoLuong1 = new JTextField(5);
     JTextField txSoLuong2 = new JTextField(5);
-
     JTextField txGia1 = new JTextField(6);
     JTextField txGia2 = new JTextField(6);
 
@@ -110,34 +118,72 @@ public class HienThiSanPham extends JPanel {
             @Override
             public void mouseReleased(MouseEvent me) {
                 String masp = getSelectedSanPham(1);
-                if (masp != null) {
-                    // show hình
-                    for (SanPham sp : qlspBUS.getDssp()) {
-                        if (sp.getMaSP().equals(masp)) {
-                            // scale the product image
-                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-                            int w = lbImage.getWidth();
-                            int h = lbImage.getHeight();
-                            ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
-                            Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
-                            lbImage.setIcon(new ImageIcon(imgScaled));
-                        }
-                    }
-
-                }
+                showInfo(masp);
             }
         });
 
-        // panel image
-        JPanel plcenterImage = new JPanel();
+        // panel image ----------- Copy From BanHangForm
+        JPanel plImage = new JPanel();
         lbImage.setPreferredSize(new Dimension(250, 250));
         lbImage.setBorder(BorderFactory.createLineBorder(Color.black));
-        plcenterImage.add(lbImage);
+        plImage.add(lbImage);
+        
+        JPanel plTextField = new JPanel();
+        plTextField.setPreferredSize(new Dimension(400, 250));
+        plTextField.setLayout(new FlowLayout());
+        plTextField.setBackground(new Color(240, 240, 240));
+        // border
+        txMaSP.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
+        txLoaiSP.setBorder(BorderFactory.createTitledBorder("Loại sản phẩm"));
+        txTenSP.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
+        txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
+        txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
+        // font
+        Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        txMaSP.setFont(f);
+        txLoaiSP.setFont(f);
+        txTenSP.setFont(f);
+        txDonGia.setFont(f);
+        txSoLuong.setFont(f);
+        // add to panel
+        plTextField.add(txMaSP);
+        plTextField.add(txLoaiSP);
+        plTextField.add(txTenSP);
+        plTextField.add(txDonGia);
+        plTextField.add(txSoLuong);
+        
+        plImage.add(plTextField);
+        
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
-        this.add(plcenterImage, BorderLayout.WEST);
+        this.add(plImage, BorderLayout.SOUTH);
+    }
+    
+    public void showInfo(String masp) { // copy from BanHangForm
+        // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
+        if (masp != null) {
+            // show hình
+            for (SanPham sp : qlspBUS.getDssp()) {
+                if (sp.getMaSP().equals(masp)) {
+                    int w = lbImage.getWidth();
+                    int h = lbImage.getHeight();
+                    ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
+                    Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
+                    lbImage.setIcon(new ImageIcon(imgScaled));
+
+                    // show info
+                    String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
+                    txMaSP.setText(sp.getMaSP());
+                    txTenSP.setText(sp.getTenSP());
+                    txLoaiSP.setText(loai + " - " + sp.getMaLSP());
+                    txDonGia.setText(String.valueOf(sp.getDonGia()));
+                    txSoLuong.setText(String.valueOf(sp.getSoLuong()));
+                    return;
+                }
+            }
+        }
     }
 
     private void addDocumentListener(JTextField tx) {
@@ -215,17 +261,20 @@ public class HienThiSanPham extends JPanel {
     private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
         table.clear();
         int stt = 1; // lưu số thứ tự dòng hiện tại
+        Boolean hienSanPhamAn = LoginForm.quyenLogin.getChiTietQuyen().contains("qlSanPham");
         for (SanPham sp : data) {
-            table.addRow(new String[]{
-                String.valueOf(stt), 
-                sp.getMaSP(), 
-                sp.getMaLSP(), 
-                sp.getTenSP(),
-                String.valueOf(sp.getDonGia()), 
-                String.valueOf(sp.getSoLuong()),
-                (sp.getTrangThai()==0?"Hiện":"Ẩn")
-            });
-            stt++;
+            if (hienSanPhamAn || sp.getTrangThai() == 0) {
+                table.addRow(new String[]{
+                    String.valueOf(stt),
+                    sp.getMaSP(),
+                    sp.getMaLSP(),
+                    sp.getTenSP(),
+                    String.valueOf(sp.getDonGia()),
+                    String.valueOf(sp.getSoLuong()),
+                    (sp.getTrangThai() == 0 ? "Hiện" : "Ẩn")
+                });
+                stt++;
+            }
         }
     }
 }
