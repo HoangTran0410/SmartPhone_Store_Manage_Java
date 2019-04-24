@@ -421,7 +421,11 @@ class ThongKeKhachHang extends JPanel {
             for (HoaDon hd : dshd) {
                 if (kh.getMaKH().equals(hd.getMaKhachHang())) {
                     for (HoaDon hhd : qlhdBUS.search("Mã hóa đơn", hd.getMaHoaDon(), ngay1, ngay2, -1, -1)) {
-                        tb.addRow(new String[]{"", "", hd.getMaHoaDon(), String.valueOf(hhd.getNgayLap()), String.valueOf(hhd.getTongTien())});
+                        tb.addRow(new String[]{"", "", 
+                            hd.getMaHoaDon(), 
+                            String.valueOf(hhd.getNgayLap()), 
+                            String.valueOf(hhd.getTongTien())
+                        });
                         tong += hhd.getTongTien();
                     }
                 }
