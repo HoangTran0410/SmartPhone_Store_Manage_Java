@@ -455,7 +455,7 @@ class HoaDonBanHang extends JPanel {
     }
 
     private void btnHuyOnClick() {
-
+        clear();
     }
 
     private void btnThanhToanOnClick() {
@@ -475,13 +475,7 @@ class HoaDonBanHang extends JPanel {
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         clear();
-    }
-    
-    public void clear() {
-        txKhachHang.setText("");
-        txTongTien.setText("");
-        dscthd.clear();
-        setDataToTable(dscthd, tbChiTietHoaDon);
+        BanHangForm.csp.refreshAll();
     }
 
     private void btnXoaOnClick() {
@@ -501,6 +495,13 @@ class HoaDonBanHang extends JPanel {
             dscthd.remove(i);
             setDataToTable(dscthd, tbChiTietHoaDon);
         }
+    }
+    
+    public void clear() {
+        txKhachHang.setText("");
+        txTongTien.setText("");
+        dscthd.clear();
+        setDataToTable(dscthd, tbChiTietHoaDon);
     }
 
     public void addChiTiet(String masp, int soluong) {
