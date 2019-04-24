@@ -60,11 +60,9 @@ public class BanHangForm extends JPanel {
         setLayout(null);
 
         csp = new ChonSanPhamBanHang(0, 0, width - 555, height);
-
         this.add(csp);
 
         hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
-
         this.add(hdbh);
     }
 
@@ -78,11 +76,11 @@ class ChonSanPhamBanHang extends JPanel {
     JTextField txTimKiem = new JTextField(30);
 
     JLabel lbImage = new JLabel();
-    JTextField txMaSP = new JTextField(15);
-    JTextField txLoaiSP = new JTextField(15);
-    JTextField txTenSP = new JTextField(15);
-    JTextField txDonGia = new JTextField(15);
-    JTextField txSoLuong = new JTextField(10);
+    JTextField txMaSP = new JTextField(12);
+    JTextField txLoaiSP = new JTextField(12);
+    JTextField txTenSP = new JTextField(12);
+    JTextField txDonGia = new JTextField(12);
+    JTextField txSoLuong = new JTextField(7);
 
     JButton btnThem = new JButton("Thêm");
 
@@ -111,10 +109,10 @@ class ChonSanPhamBanHang extends JPanel {
 
         this.add(plSanPham, BorderLayout.CENTER);
 
-        // panel chi tiết sản phẩm chọn
+        // =========== panel chi tiết sản phẩm chọn ================
         JPanel plChiTiet = new JPanel();
         plChiTiet.setPreferredSize(new Dimension(_width - 10, 258));
-        plChiTiet.setBackground(new Color(100, 100, 100));
+        plChiTiet.setBackground(new Color(240, 240, 240));
         plChiTiet.setLayout(new BorderLayout());
 
         lbImage.setBackground(Color.yellow);
@@ -123,12 +121,27 @@ class ChonSanPhamBanHang extends JPanel {
 
         JPanel plTextField = new JPanel();
         plTextField.setLayout(new FlowLayout());
+        plTextField.setBackground(new Color(30, 30, 30));
+        // border
         txMaSP.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
         txLoaiSP.setBorder(BorderFactory.createTitledBorder("Loại sản phẩm"));
         txTenSP.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
         txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
+        // disable
+        txMaSP.setEditable(false);
+        txLoaiSP.setEditable(false);
+        txTenSP.setEditable(false);
+        txDonGia.setEditable(false);
+        // font
+        Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        txMaSP.setFont(f);
+        txLoaiSP.setFont(f);
+        txTenSP.setFont(f);
+        txDonGia.setFont(f);
+        txSoLuong.setFont(f);
+        // add to panel
         plTextField.add(txMaSP);
         plTextField.add(txLoaiSP);
         plTextField.add(txTenSP);
@@ -165,6 +178,20 @@ class ChonSanPhamBanHang extends JPanel {
 
         setDataToTable(qlspBUS.getDssp(), tbSanPham);
     }
+    
+    public void refreshTable() {
+        setDataToTable(qlspBUS.getDssp(), tbSanPham);
+    }
+    
+    public void refreshAll() {
+        refreshTable();
+        txMaSP.setText("");
+        txLoaiSP.setText("");
+        txTenSP.setText("");
+        txDonGia.setText("");
+        txSoLuong.setText("");
+        lbImage.setIcon(null);
+    }
 
     public void showInfo(String masp, int soluong) {
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
@@ -185,6 +212,7 @@ class ChonSanPhamBanHang extends JPanel {
                     txLoaiSP.setText(loai + " - " + sp.getMaLSP());
                     txDonGia.setText(String.valueOf(sp.getDonGia()));
                     txSoLuong.setText(String.valueOf(soluong));
+                    return;
                 }
             }
         }
