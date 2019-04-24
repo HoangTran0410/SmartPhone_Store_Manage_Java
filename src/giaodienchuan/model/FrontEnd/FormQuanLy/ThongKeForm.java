@@ -4,12 +4,18 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -68,41 +74,75 @@ public class ThongKeForm extends JPanel {
 
 class ThongKeSanPham extends JPanel {
 
-    QuanLyChiTietHoaDonBUS qlcthdBUS;
+    QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
     ArrayList<ChiTietHoaDon> dscthd;
 
-    QuanLyHoaDonBUS qlhdBUS;
+    QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
+    ArrayList<HoaDon> dshd;
 
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
     ArrayList<SanPham> dssp;
+
+    QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
+    ArrayList<PhieuNhap> dspn;
+
+    ChiTietPhieuNhapBUS qlctpnBUS = new ChiTietPhieuNhapBUS();
+    ArrayList<ChiTietPhieuNhap> dsctpn;
+
+    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
+    ArrayList<NhaCungCap> dsncc;
+    
+    QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
 
     JTextField txKhoangNgayTu = new JTextField(15);
     JTextField txKhoangNgayDen = new JTextField(15);
     DatePicker dPicker1;
     DatePicker dPicker2;
 
+    JComboBox cbTieuChi;
+
+    MyTable tb;
+
     public ThongKeSanPham() {
         this.setLayout(new BorderLayout());
-        dssp = new QuanLySanPhamBUS().getDssp();
+        this.setBackground(Color.CYAN);
+        dssp = qlspBUS.getDssp();
+        dshd = qlhdBUS.getDshd();
+        dscthd = qlcthdBUS.getDscthd();
+        dspn = qlpnBUS.getDspn();
 
         DatePickerSettings pickerSettings = new DatePickerSettings();
         pickerSettings.setVisibleDateTextField(false);
         dPicker1 = new DatePicker(pickerSettings);
+        dPicker1.addDateChangeListener((dce) -> {
+            txKhoangNgayTu.setText(dPicker1.getDateStringOrEmptyString());
+        });
         dPicker2 = new DatePicker(pickerSettings.copySettings());
+        dPicker2.addDateChangeListener((dce) -> {
+            txKhoangNgayDen.setText(dPicker2.getDateStringOrEmptyString());
+        });
 
         DateButton db = new DateButton(dPicker1);
         DateButton db2 = new DateButton(dPicker2);
-//        dscthd = qlcthdBUS.getDscthd();
 
         //Panel tieu chi
         JPanel plTieuchi = new JPanel();
         plTieuchi.setLayout(new FlowLayout());
 
+        cbTieuChi = new JComboBox(new String[]{"Số lượng nhập", "Số lượng bán"});
+        cbTieuChi.addActionListener((ae) -> {
+            cbSearchOnChange();
+        });
+        plTieuchi.add(cbTieuChi);
+
         JPanel plKhoangNgay1 = new JPanel();
         txKhoangNgayTu.setBorder(BorderFactory.createTitledBorder("Từ:"));
+        addDocumentListener(txKhoangNgayTu);
         plKhoangNgay1.add(txKhoangNgayTu);
         plKhoangNgay1.add(dPicker1);
         JPanel plKhoangNgay2 = new JPanel();
         txKhoangNgayDen.setBorder(BorderFactory.createTitledBorder("Đến"));
+        addDocumentListener(txKhoangNgayDen);
         plKhoangNgay2.add(txKhoangNgayDen);
         plKhoangNgay2.add(dPicker2);
 
@@ -110,20 +150,114 @@ class ThongKeSanPham extends JPanel {
         plTieuchi.add(plKhoangNgay2);
         this.add(plTieuchi, BorderLayout.NORTH);
 
-        //Lable thong ke 
-        JLabel lb = new JLabel();
-
-//        mtb.setHeaders(new String[]{"Tên sản phẩm","Loại sản phẩm","Đơn giá","Số lượng bán"});
-        //Thong ke san pham da ban trong khoang ngay
-        this.setBackground(Color.LIGHT_GRAY);
+        //Table thong ke
+        tb = new MyTable();
+        cbSearchOnChange();
+        this.add(tb, BorderLayout.CENTER);
     }
 
-    private void showThongKe() {
+    private void soLuongSanPhamNhap() {
+        tb.clear();
+        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã phiếu nhập", "Tên nhà cung cấp", "Ngày nhập", "Số lượng"});
+        LocalDate ngay1 = null, ngay2 = null;
+        String khoangTG = "";
 
+        try {
+            ngay1 = LocalDate.parse(txKhoangNgayTu.getText());
+            txKhoangNgayTu.setForeground(Color.black);
+            khoangTG += String.valueOf(ngay1);
+        } catch (DateTimeParseException e) {
+            txKhoangNgayTu.setForeground(Color.red);
+            khoangTG += "Từ ngày đầu";
+        }
+        try {
+            ngay2 = LocalDate.parse(txKhoangNgayDen.getText());
+            txKhoangNgayDen.setForeground(Color.black);
+            khoangTG += " đến " + String.valueOf(ngay2);
+        } catch (DateTimeParseException e) {
+            txKhoangNgayDen.setForeground(Color.red);
+            khoangTG += " đến nay";
+        }
+
+        for (SanPham sp : dssp) {
+            int tongSoLuong = 0;
+            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+            for (PhieuNhap pn : qlpnBUS.search("Tất cả", "", ngay1, ngay2, -1, -1)) {
+                ChiTietPhieuNhap ctpn = qlctpnBUS.getChiTiet(pn.getMaPN(), sp.getMaSP());
+                if (ctpn != null) {
+                    tb.addRow(new String[]{"", "", pn.getMaPN(), qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC(), String.valueOf(pn.getNgayNhap()), String.valueOf(ctpn.getSoLuong())});
+                    tongSoLuong += ctpn.getSoLuong();
+                }
+            }
+            tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+        }
     }
 
-    public void tim() {
+    private void soLuongSanPhamBan() {
+        tb.clear();
+        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã hóa đơn", "Tên nhân viên", "Ngày lập", "Số lượng"});
+        LocalDate ngay1 = null, ngay2 = null;
+        String khoangTG = "";
 
+        try {
+            ngay1 = LocalDate.parse(txKhoangNgayTu.getText());
+            txKhoangNgayTu.setForeground(Color.black);
+            khoangTG += String.valueOf(ngay1);
+        } catch (DateTimeParseException e) {
+            txKhoangNgayTu.setForeground(Color.red);
+            khoangTG += "Từ ngày đầu";
+        }
+        try {
+            ngay2 = LocalDate.parse(txKhoangNgayDen.getText());
+            txKhoangNgayDen.setForeground(Color.black);
+            khoangTG += " đến " + String.valueOf(ngay2);
+        } catch (DateTimeParseException e) {
+            txKhoangNgayDen.setForeground(Color.red);
+            khoangTG += " đến nay";
+        }
+
+        for (SanPham sp : dssp) {
+            int tongSoLuong = 0;
+            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+            for (HoaDon hd : qlhdBUS.search("Tất cả", "", ngay1, ngay2, -1, -1)) {
+                ChiTietHoaDon cthd = qlcthdBUS.getChiTiet(hd.getMaHoaDon(), sp.getMaSP());
+                if (cthd != null) {
+                    tb.addRow(new String[]{"", "", hd.getMaHoaDon(), qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV(), String.valueOf(hd.getNgayLap()), String.valueOf(cthd.getSoLuong())});
+                    tongSoLuong += cthd.getSoLuong();
+                }
+            }
+            tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+        }
+    }
+
+    private void addDocumentListener(JTextField txField) {
+        txField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                cbSearchOnChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                cbSearchOnChange();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                cbSearchOnChange();
+            }
+        });
+    }
+
+    public void cbSearchOnChange() {
+        if (cbTieuChi.getSelectedItem().equals("Số lượng nhập")) {
+            soLuongSanPhamNhap();
+        }
+        if (cbTieuChi.getSelectedItem().equals("Số lượng bán")) {
+            soLuongSanPhamBan();
+        }
     }
 }
 
@@ -240,6 +374,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
         }
     }
 
@@ -280,6 +415,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
         }
     }
 
@@ -296,17 +432,17 @@ class ThongKeNhanVien extends JPanel {
         txField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
-                tongTienTungNhanVien_searchOnChange();
+                cbSearchOnChange();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                tongTienTungNhanVien_searchOnChange();
+                cbSearchOnChange();
             }
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-                tongTienTungNhanVien_searchOnChange();
+                cbSearchOnChange();
             }
         });
     }
@@ -431,6 +567,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
         }
     }
 
@@ -472,6 +609,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
+            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
         }
     }
 

@@ -54,6 +54,8 @@ import javax.swing.event.DocumentListener;
  *
  * @author DELL
  */
+
+
 public class BanHangForm extends JPanel {
 
     public static HoaDonBanHang hdbh;
