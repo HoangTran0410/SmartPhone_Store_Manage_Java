@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -191,7 +190,7 @@ class ThongKeSanPham extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 
@@ -229,7 +228,7 @@ class ThongKeSanPham extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 
@@ -375,7 +374,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 
@@ -416,7 +415,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 
@@ -568,7 +567,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 
@@ -610,7 +609,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
-            tb.addRow(new String[]{"+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++", "+++++++++++++++"});
+            tb.addRow(new String[]{"", "","", "", "", ""});
         }
     }
 

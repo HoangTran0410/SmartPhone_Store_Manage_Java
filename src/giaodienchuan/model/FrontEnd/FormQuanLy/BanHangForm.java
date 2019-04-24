@@ -54,8 +54,6 @@ import javax.swing.event.DocumentListener;
  *
  * @author DELL
  */
-
-
 public class BanHangForm extends JPanel {
 
     public static HoaDonBanHang hdbh;
@@ -300,6 +298,8 @@ class HoaDonBanHang extends JPanel {
     MyTable tbChiTietHoaDon = new MyTable();
     JButton btnXoa = new JButton("Xóa");
     JButton btnSua = new JButton("Sửa");
+    JButton btnRefresh = new JButton("Làm mới");
+
     JButton btnThanhToan = new JButton("Thanh toán");
     JButton btnHuy = new JButton("Hủy");
 
@@ -348,7 +348,7 @@ class HoaDonBanHang extends JPanel {
             });
         });
         btnChonNhanVien.setEnabled(false);
-        
+
         btnChonKhuyenMai.setPreferredSize(new Dimension(30, 30));
         btnChonKhuyenMai.addActionListener((ae) -> {
             ChonKhuyenMaiForm ckm = new ChonKhuyenMaiForm(txKhuyenMai);
@@ -358,12 +358,15 @@ class HoaDonBanHang extends JPanel {
                     String makm = txKhuyenMai.getText();
                     khuyenMai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm);
                     if (khuyenMai != null) {
-                        if(!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
-                            JOptionPane.showMessageDialog(txKhuyenMai, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
+                        if (!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
+                            JOptionPane.showMessageDialog(null, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
                             txKhuyenMai.setText(""); // xóa mã trong textfield
                             return;
                         }
-                        txKhuyenMai.setText(khuyenMai.getTenKM()+ " (" + khuyenMai.getMaKM()+ ")");
+                        txKhuyenMai.setText(khuyenMai.getTenKM() + " (" + khuyenMai.getMaKM() + ")");
+
+                        // cập nhật lại table
+                        setDataToTable(dscthd, tbChiTietHoaDon);
                     }
                 }
             });
@@ -450,6 +453,7 @@ class HoaDonBanHang extends JPanel {
         plButtonChiTiet.setPreferredSize(new Dimension(_width - 10, plBtn_height));
         btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_30px_1.png")));
         btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_wrench_30px.png")));
+        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_refresh_30px.png")));
 
         btnXoa.addActionListener((ae) -> {
             btnXoaOnClick();
@@ -457,13 +461,17 @@ class HoaDonBanHang extends JPanel {
         btnSua.addActionListener((ae) -> {
             btnSuaOnClick();
         });
+        btnRefresh.addActionListener((ae) -> {
+            setDataToTable(dscthd, tbChiTietHoaDon);
+        });
 
         plButtonChiTiet.add(btnXoa);
         plButtonChiTiet.add(btnSua);
+        plButtonChiTiet.add(btnRefresh);
 
         tbChiTietHoaDon.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
         tbChiTietHoaDon.setHeaders(new String[]{"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
-        tbChiTietHoaDon.setColumnsWidth(new double[]{1, 2, 4, 2.2, 2, 3});
+        tbChiTietHoaDon.setColumnsWidth(new double[]{1, 2, 3, 2.2, 2.5, 3});
         tbChiTietHoaDon.setAlignment(0, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(1, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
@@ -600,8 +608,17 @@ class HoaDonBanHang extends JPanel {
             stt++;
             tongtien += thanhtien;
         }
-        
-        t.addRow(new String[] {"", "", "", "", "Tổng tiền", String.valueOf(tongtien)});
-        txTongTien.setText(String.valueOf(tongtien));
+
+        // check khuyến mãi
+        t.addRow(new String[]{"", "", "", "", "Tổng tiền", String.valueOf(tongtien)});
+        if (khuyenMai != null && khuyenMai.getPhanTramKM() > 0 && khuyenMai.getDieuKhienKM() <= tongtien) {
+            float giaTriKhuyenMai = tongtien * khuyenMai.getPhanTramKM() / 100;
+            float tongTienSauKhuyenMai = tongtien - giaTriKhuyenMai;
+            t.addRow(new String[]{"", "", "", "", "Khuyến mãi", String.valueOf(-giaTriKhuyenMai)});
+            t.addRow(new String[]{"", "", "", "", "Còn lại", String.valueOf(tongTienSauKhuyenMai)});
+            txTongTien.setText(String.valueOf(tongTienSauKhuyenMai));
+        } else {
+            txTongTien.setText(String.valueOf(tongtien));
+        }
     }
 }
