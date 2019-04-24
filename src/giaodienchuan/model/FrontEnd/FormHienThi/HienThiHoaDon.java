@@ -23,7 +23,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
+import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HienThiHoaDon extends JPanel {
 
@@ -31,6 +38,14 @@ public class HienThiHoaDon extends JPanel {
 
     JTextField txTim = new JTextField(10);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khuyến mãi", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
+    
+    JTextField txMaHoaDon = new JTextField(15);
+    JTextField txNhanVien = new JTextField(15);
+    JTextField txNgayLap = new JTextField(15);
+    JTextField txKhuyenMai = new JTextField(15);
+    JTextField txGioLap = new JTextField(15);
+    JTextField txKhachHang = new JTextField(15);
+    JTextField txTongTien = new JTextField(15);
 
     JButton btnRefresh = new JButton("Làm mới");
     JButton btnDetails = new JButton("Xem chi tiết");
@@ -103,12 +118,56 @@ public class HienThiHoaDon extends JPanel {
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
         plHeader.add(btnRefresh);
+        
+        // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
+        JPanel plThongTin = new JPanel();
+        plThongTin.setPreferredSize(new Dimension(400, 250));
+        // set border
+        txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn:"));
+        txNhanVien.setBorder(BorderFactory.createTitledBorder("Nhân viên:"));
+        txNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập:"));
+        txKhuyenMai.setBorder(BorderFactory.createTitledBorder("Khuyến mãi:"));
+        txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập:"));
+        txKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng:"));
+        txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
+
+        // font
+        Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        txMaHoaDon.setFont(f);
+        txNhanVien.setFont(f);
+        txNgayLap.setFont(f);
+        txGioLap.setFont(f);
+        txKhachHang.setFont(f);
+        txKhuyenMai.setFont(f);
+        txTongTien.setFont(f);
+        
+        // add to panel
+        plThongTin.add(txMaHoaDon);
+        plThongTin.add(txNhanVien);
+        plThongTin.add(txKhachHang);
+        plThongTin.add(txKhuyenMai);
+        plThongTin.add(txTongTien);
+        plThongTin.add(txNgayLap);
+        plThongTin.add(txGioLap);
+        
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(tbHoaDon, BorderLayout.CENTER);
+        this.add(plThongTin, BorderLayout.SOUTH);
 
         // add action listener
+        // event
+        tbHoaDon.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
+            @Override
+            public void mouseReleased(MouseEvent me) {
+                String mahd = getSelectedHoaDon();
+                if (mahd != null) {
+                    showInfo(mahd);
+                }
+            }
+        });
+        
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -136,6 +195,29 @@ public class HienThiHoaDon extends JPanel {
         addDocumentListener(txKhoangNgay2);
         addDocumentListener(txKhoangTien1);
         addDocumentListener(txKhoangTien2);
+    }
+    
+    private void showInfo(String mahd) {
+        if (mahd != null) {
+            // show hình
+            for (HoaDon hd : qlhd.getDshd()) {
+                if (hd.getMaHoaDon().equals(mahd)) {
+                    // show info
+                    String tennhanvien = new QuanLyNhanVienBUS().getNhanVien(hd.getMaNhanVien()).getTenNV();
+                    String tenkhach = new QuanLyKhachHangBUS().getKhachHang(hd.getMaKhachHang()).getTenKH();
+                    String tenkhuyenmai = new QuanLyKhuyenMaiBUS().getKhuyenMai(hd.getMaKhuyenMai()).getTenKM();
+                    
+                    txMaHoaDon.setText(hd.getMaHoaDon());
+                    txNhanVien.setText(tennhanvien + " - " + hd.getMaNhanVien());
+                    txKhachHang.setText(tenkhach + " - " + hd.getMaKhachHang());
+                    txKhuyenMai.setText(tenkhuyenmai + " - " + hd.getMaKhuyenMai());
+                    txNgayLap.setText(hd.getNgayLap().toString());
+                    txGioLap.setText(hd.getGioLap().toString());
+                    txTongTien.setText(String.valueOf(hd.getTongTien()));
+                    return;
+                }
+            }
+        }
     }
 
     public void refresh() {
