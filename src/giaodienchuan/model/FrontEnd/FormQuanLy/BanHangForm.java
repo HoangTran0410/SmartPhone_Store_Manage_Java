@@ -25,7 +25,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -52,6 +51,8 @@ import javax.swing.event.DocumentListener;
  *
  * @author DELL
  */
+
+
 public class BanHangForm extends JPanel {
 
     public static HoaDonBanHang hdbh;
