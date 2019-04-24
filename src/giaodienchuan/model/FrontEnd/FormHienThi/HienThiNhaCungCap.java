@@ -34,13 +34,12 @@ public class HienThiNhaCungCap extends JPanel {
     MyTable mtb;
     JTextField txTim = new JTextField(20);
     JComboBox<String> cbTypeSearch;
-    JLabel lbImage = new JLabel();
     JButton btnRefresh = new JButton("Làm mới");
     final int MANCC_I = 1, TENNCC_I = 2, DIACHI_I = 3, SDT_I = 4, FAX_I = 5;
 
     public HienThiNhaCungCap() {
         setLayout(new BorderLayout());
-        
+
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã NCC", "Tên NCC", "Địa chỉ", "SDT", "Fax"});// stt dau ara ???
@@ -91,31 +90,10 @@ public class HienThiNhaCungCap extends JPanel {
                 txSearchOnChange();
             }
         });
-        mtb.getTable().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                String mancc = getSelectedNhaCungCap(1);
-                if (mancc != null) {
-                    // show hình
-                    for (NhaCungCap ncc : BUS.getDsncc()) {
-                        if (ncc.getMaNCC().equals(mancc)) {
-                            // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-//                            lbImage.setIcon(new ImageIcon(new ImageIcon(.getUrlHinhAnh()).getImage().getScaledInstance(lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_DEFAULT)));
-                        }
-                    }
-
-                }
-            }
-        });
-
-        JPanel plcenterImage = new JPanel();
-        lbImage.setPreferredSize(new Dimension(250, 250));
-        plcenterImage.add(lbImage);
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
-        this.add(plcenterImage, BorderLayout.SOUTH);
     }
 
     private void setDataToTable(ArrayList<NhaCungCap> data, MyTable table) {
