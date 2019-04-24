@@ -82,6 +82,7 @@ class ChonSanPhamBanHang extends JPanel {
     JTextField txDonGia = new JTextField(12);
     JTextField txSoLuong = new JTextField(7);
 
+    JButton btnRefresh = new JButton("Làm mới");
     JButton btnThem = new JButton("Thêm");
 
     public ChonSanPhamBanHang(int _x, int _y, int _width, int _height) {
@@ -96,10 +97,17 @@ class ChonSanPhamBanHang extends JPanel {
         plSanPham.setBackground(new Color(49, 49, 49));
         plSanPham.setLayout(new BorderLayout());
 
+        JPanel plTimKiem = new JPanel();
         txTimKiem.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
         txTimKiem.setHorizontalAlignment(JLabel.CENTER);
         addDocumentListener(txTimKiem);
-        plSanPham.add(txTimKiem, BorderLayout.NORTH);
+        plTimKiem.add(txTimKiem);
+        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
+        btnRefresh.addActionListener((ae) -> {
+            refreshTable();
+        });
+        plTimKiem.add(btnRefresh);
+        plSanPham.add(plTimKiem, BorderLayout.NORTH);
 
         tbSanPham.setHeaders(new String[]{"Mã", "Loại", "Tên", "Đơn giá", "Số lượng"});
         tbSanPham.setColumnsWidth(new double[]{.5, .5, 3, 1, .5});
@@ -121,7 +129,7 @@ class ChonSanPhamBanHang extends JPanel {
 
         JPanel plTextField = new JPanel();
         plTextField.setLayout(new FlowLayout());
-        plTextField.setBackground(new Color(30, 30, 30));
+        plTextField.setBackground(new Color(240, 240, 240));
         // border
         txMaSP.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
         txLoaiSP.setBorder(BorderFactory.createTitledBorder("Loại sản phẩm"));
@@ -178,11 +186,11 @@ class ChonSanPhamBanHang extends JPanel {
 
         setDataToTable(qlspBUS.getDssp(), tbSanPham);
     }
-    
+
     public void refreshTable() {
         setDataToTable(qlspBUS.getDssp(), tbSanPham);
     }
-    
+
     public void refreshAll() {
         refreshTable();
         txMaSP.setText("");
@@ -204,7 +212,7 @@ class ChonSanPhamBanHang extends JPanel {
                     ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
                     Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
                     lbImage.setIcon(new ImageIcon(imgScaled));
-                    
+
                     // show info
                     String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
                     txMaSP.setText(sp.getMaSP());
@@ -297,7 +305,7 @@ class HoaDonBanHang extends JPanel {
         int plIP_height = 180;
         JPanel plInput = new JPanel();
         plInput.setPreferredSize(new Dimension(_width - 10, plIP_height));
-        plInput.setBackground(new Color(49, 49, 49));
+        plInput.setBackground(new Color(240, 240, 240));
         plInput.setLayout(new FlowLayout());
 
         // btn
@@ -460,17 +468,17 @@ class HoaDonBanHang extends JPanel {
 
     private void btnThanhToanOnClick() {
         HoaDon hd = new HoaDon(
-                txMaHoaDon.getText(), 
-                nhanVien.getMaNV(), 
-                khachHang.getMaKH(), 
-                "KM1", 
-                LocalDate.parse(txNgayLap.getText()), 
-                LocalTime.parse(txGioLap.getText()), 
+                txMaHoaDon.getText(),
+                nhanVien.getMaNV(),
+                khachHang.getMaKH(),
+                "KM1",
+                LocalDate.parse(txNgayLap.getText()),
+                LocalTime.parse(txGioLap.getText()),
                 Float.parseFloat(txTongTien.getText()));
         new QuanLyHoaDonBUS().add(hd);
-        
+
         QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
-        for(ChiTietHoaDon ct : dscthd) {
+        for (ChiTietHoaDon ct : dscthd) {
             qlcthd.add(ct);
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
@@ -491,12 +499,12 @@ class HoaDonBanHang extends JPanel {
         if (i >= 0) {
             ChiTietHoaDon ct = dscthd.get(i);
             BanHangForm.csp.showInfo(ct.getMaSanPham(), ct.getSoLuong());
-            
+
             dscthd.remove(i);
             setDataToTable(dscthd, tbChiTietHoaDon);
         }
     }
-    
+
     public void clear() {
         txKhachHang.setText("");
         txTongTien.setText("");
@@ -506,13 +514,30 @@ class HoaDonBanHang extends JPanel {
 
     public void addChiTiet(String masp, int soluong) {
         SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
-        if (soluong > sp.getSoLuong()) {
-            JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
-            return;
-        }
-        ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
-        dscthd.add(cthd);
 
+        Boolean daCo = false; // check xem trong danh sách chi tiết hóa đơn đã có sản phẩm này chưa
+        for (ChiTietHoaDon cthd : dscthd) {
+            if (cthd.getMaSanPham().equals(sp.getMaSP())) {
+                int tongSoLuong = soluong + cthd.getSoLuong();
+                if (tongSoLuong > sp.getSoLuong()) {
+                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
+                    return;
+                }
+                cthd.setSoLuong(tongSoLuong); // có rồi thì thay đổi số lượng
+                daCo = true;
+            }
+        }
+
+        if (!daCo) { // nếu chưa có thì thêm mới
+            if (soluong > sp.getSoLuong()) {
+                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
+                return;
+            }
+            ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
+            dscthd.add(cthd);
+        }
+
+        // cập nhật lại table
         setDataToTable(dscthd, tbChiTietHoaDon);
     }
 
