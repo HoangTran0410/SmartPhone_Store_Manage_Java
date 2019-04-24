@@ -188,6 +188,7 @@ class ChonSanPhamBanHang extends JPanel {
     }
 
     public void refreshTable() {
+        qlspBUS.readDB();
         setDataToTable(qlspBUS.getDssp(), tbSanPham);
     }
 
@@ -298,7 +299,7 @@ class HoaDonBanHang extends JPanel {
 
     public HoaDonBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
-        this.setBackground(new Color(59, 68, 75));
+        this.setBackground(new Color(0, 0, 0));
         this.setLayout(new FlowLayout());
 
         // =============== panel input =================
@@ -390,13 +391,13 @@ class HoaDonBanHang extends JPanel {
 
         // add to panel
         plInput.add(txMaHoaDon);
+        plInput.add(txTongTien);
+        plInput.add(txKhachHang);
+        plInput.add(btnChonKhachHang);
         plInput.add(txNhanVien);
         plInput.add(btnChonNhanVien);
         plInput.add(txNgayLap);
         plInput.add(txGioLap);
-        plInput.add(txKhachHang);
-        plInput.add(btnChonKhachHang);
-        plInput.add(txTongTien);
 
         this.add(plInput);
 
@@ -444,7 +445,7 @@ class HoaDonBanHang extends JPanel {
         JPanel plThanhToan = new JPanel();
         plThanhToan.setLayout(new FlowLayout(FlowLayout.RIGHT));
         plThanhToan.setPreferredSize(new Dimension(_width - 10, plTT_height));
-        plThanhToan.setBackground(new Color(59, 68, 75));
+        plThanhToan.setBackground(new Color(0, 0, 0));
 
         btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
         btnThanhToan.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_us_dollar_30px.png")));
@@ -485,7 +486,7 @@ class HoaDonBanHang extends JPanel {
         clear();
         BanHangForm.csp.refreshAll();
     }
-    
+
     private void btnXoaOnClick() {
         int i = tbChiTietHoaDon.getTable().getSelectedRow();
         if (i >= 0) {
@@ -510,7 +511,7 @@ class HoaDonBanHang extends JPanel {
         txTongTien.setText("");
         dscthd.clear();
         setDataToTable(dscthd, tbChiTietHoaDon);
-        }
+    }
 
     public void addChiTiet(String masp, int soluong) {
         SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
@@ -563,7 +564,8 @@ class HoaDonBanHang extends JPanel {
             stt++;
             tongtien += thanhtien;
         }
-
+        
+        t.addRow(new String[] {"", "", "", "", "Tổng tiền", String.valueOf(tongtien)});
         txTongTien.setText(String.valueOf(tongtien));
     }
 }
