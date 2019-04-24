@@ -45,7 +45,7 @@ public class ThongKeForm extends JPanel {
         ThongKeThuNhap tktn = new ThongKeThuNhap();
         this.setBackground(Color.darkGray);
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
-        tabs.setPreferredSize(new Dimension(1200, 850));
+        tabs.setPreferredSize(new Dimension(1100, 850));
 
         //add tab thong ke san pham
         tabs.addTab("Sản phẩm", tksp);
@@ -73,7 +73,7 @@ class ThongKeSanPham extends JPanel {
     DatePicker dPicker2;
 
     public ThongKeSanPham() {
-        this.setLayout(new BorderLayout(1200, 800));
+        this.setLayout(new BorderLayout());
         dssp = new QuanLySanPhamBUS().getDssp();
 
         DatePickerSettings pickerSettings = new DatePickerSettings();
@@ -143,7 +143,7 @@ class ThongKeNhanVien extends JPanel {
     MyTable tb;
 
     public ThongKeNhanVien() {
-        this.setLayout(new BorderLayout(1200, 800));
+        this.setLayout(new BorderLayout());
         this.setBackground(Color.CYAN);
         dssp = qlspBUS.getDssp();
         dshd = qlhdBUS.getDshd();
@@ -191,7 +191,7 @@ class ThongKeNhanVien extends JPanel {
         //Table thong ke
         tb = new MyTable();
         cbSearchOnChange();
-        this.add(tb, BorderLayout.SOUTH);
+        this.add(tb, BorderLayout.CENTER);
     }
 
     public void tongTienTungNhanVien_searchOnChange() {
@@ -325,7 +325,7 @@ class ThongKeKhachHang extends JPanel {
     MyTable tb;
 
     public ThongKeKhachHang() {
-        this.setLayout(new BorderLayout(1200, 800));
+        this.setLayout(new BorderLayout());
         this.setBackground(Color.CYAN);
         dssp = qlspBUS.getDssp();
         dshd = qlhdBUS.getDshd();
@@ -374,7 +374,7 @@ class ThongKeKhachHang extends JPanel {
         //Table thong ke
         tb = new MyTable();
         cbSearchOnChange();
-        this.add(tb, BorderLayout.SOUTH);
+        this.add(tb, BorderLayout.CENTER);
     }
 
     //Thong ke tong tien hoa don cua tung khach hang
