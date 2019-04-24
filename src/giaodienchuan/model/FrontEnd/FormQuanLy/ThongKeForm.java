@@ -15,7 +15,6 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,6 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,23 +38,31 @@ import javax.swing.event.DocumentListener;
 public class ThongKeForm extends JPanel {
 
     public ThongKeForm() {
+        this.setBackground(Color.darkGray);
+
         ThongKeSanPham tksp = new ThongKeSanPham();
         ThongKeNhanVien tknv = new ThongKeNhanVien();
         ThongKeKhachHang tkkh = new ThongKeKhachHang();
         ThongKeNhaCungCap tkncc = new ThongKeNhaCungCap();
         ThongKeThuNhap tktn = new ThongKeThuNhap();
-        this.setBackground(Color.darkGray);
+        ThongKe_Hoang tkH = new ThongKe_Hoang();
+
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
-        tabs.setPreferredSize(new Dimension(1100, 850));
+        tabs.setPreferredSize(new Dimension(1100, 720));
 
         //add tab thong ke san pham
-        tabs.addTab("Sản phẩm", tksp);
-        tabs.addTab("Nhân viên", tknv);
-        tabs.addTab("Khách hàng", tkkh);
-        tabs.addTab("Nhà cung cấp", tkncc);
-        tabs.addTab("Thu nhập", tktn);
+        tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), tksp);
+        tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), tknv);
+        tabs.addTab("Khách hàng", getIcon("icons8_user_30px.png"), tkkh);
+        tabs.addTab("Nhà cung cấp", getIcon("icons8_company_30px.png"), tkncc);
+        tabs.addTab("Thu nhập", getIcon("icons8_us_dollar_30px.png"), tktn);
+        tabs.addTab("Hoàng's Thống kê", getIcon("icons8_pie_chart_30px.png"), tkH);
         this.add(tabs);
         this.setVisible(true);
+    }
+
+    private ImageIcon getIcon(String filename) {
+        return new ImageIcon(getClass().getResource("/giaodienchuan/images/" + filename));
     }
 }
 
@@ -123,7 +131,7 @@ class ThongKeNhanVien extends JPanel {
 
     QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
     ArrayList<ChiTietHoaDon> dscthd;
-    
+
     QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
     ArrayList<HoaDon> dshd;
 
@@ -137,7 +145,7 @@ class ThongKeNhanVien extends JPanel {
     JTextField txKhoangNgayDen = new JTextField(15);
     DatePicker dPicker1;
     DatePicker dPicker2;
-    
+
     JComboBox cbTieuChi;
 
     MyTable tb;
@@ -166,7 +174,7 @@ class ThongKeNhanVien extends JPanel {
         //Panel tieu chi
         JPanel plTieuchi = new JPanel();
         plTieuchi.setLayout(new FlowLayout());
-        
+
         cbTieuChi = new JComboBox(new String[]{"Tổng tiền", "Số lượng sản phẩm"});
         cbTieuChi.addActionListener((ae) -> {
             cbSearchOnChange();
@@ -234,6 +242,7 @@ class ThongKeNhanVien extends JPanel {
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
         }
     }
+
     public void sanPhamCuaTungNhanVien_searchOnChange() {
         tb.setHeaders(new String[]{"Mã nhân viên", "Tên nhân viên", "Mã hóa đơn", "Ngày lập", "Mã sản phẩm", "Tên sản phẩm", "Số lượng sản phẩm"});
         tb.clear();
@@ -273,12 +282,14 @@ class ThongKeNhanVien extends JPanel {
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
         }
     }
-    
-    public void cbSearchOnChange(){
-        if(cbTieuChi.getSelectedItem().equals("Tổng tiền"))
+
+    public void cbSearchOnChange() {
+        if (cbTieuChi.getSelectedItem().equals("Tổng tiền")) {
             tongTienTungNhanVien_searchOnChange();
-        if(cbTieuChi.getSelectedItem().equals("Số lượng sản phẩm"))
+        }
+        if (cbTieuChi.getSelectedItem().equals("Số lượng sản phẩm")) {
             sanPhamCuaTungNhanVien_searchOnChange();
+        }
     }
 
     private void addDocumentListener(JTextField txField) {
@@ -349,7 +360,7 @@ class ThongKeKhachHang extends JPanel {
         //Panel tieu chi
         JPanel plTieuchi = new JPanel();
         plTieuchi.setLayout(new FlowLayout());
-        
+
         cbTieuChi = new JComboBox(new String[]{"Tổng tiền", "Số lượng sản phẩm"});
         cbTieuChi.addActionListener((ae) -> {
             cbSearchOnChange();
@@ -459,12 +470,14 @@ class ThongKeKhachHang extends JPanel {
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
         }
     }
-    
-    public void cbSearchOnChange(){
-        if(cbTieuChi.getSelectedItem().equals("Tổng tiền"))
+
+    public void cbSearchOnChange() {
+        if (cbTieuChi.getSelectedItem().equals("Tổng tiền")) {
             tongTienTungKhachHang_searchOnChange();
-        if(cbTieuChi.getSelectedItem().equals("Số lượng sản phẩm"))
+        }
+        if (cbTieuChi.getSelectedItem().equals("Số lượng sản phẩm")) {
             sanPhamCuaTungKhachHang_searchOnChange();
+        }
     }
 
     private void addDocumentListener(JTextField txField) {
@@ -499,4 +512,11 @@ class ThongKeThuNhap extends JPanel {
     public ThongKeThuNhap() {
     }
 
+}
+
+class ThongKe_Hoang extends JPanel {
+
+    public ThongKe_Hoang() {
+
+    }
 }
