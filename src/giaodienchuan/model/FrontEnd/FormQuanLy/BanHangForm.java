@@ -345,6 +345,7 @@ class HoaDonBanHang extends JPanel {
                 }
             });
         });
+        btnChonNhanVien.setEnabled(false);
         
         btnChonKhuyenMai.setPreferredSize(new Dimension(30, 30));
         btnChonKhuyenMai.addActionListener((ae) -> {
