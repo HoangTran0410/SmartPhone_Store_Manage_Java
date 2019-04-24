@@ -121,7 +121,7 @@ public class HienThiHoaDon extends JPanel {
         
         // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
         JPanel plThongTin = new JPanel();
-        plThongTin.setPreferredSize(new Dimension(400, 250));
+        plThongTin.setPreferredSize(new Dimension(300, 170));
         // set border
         txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn:"));
         txNhanVien.setBorder(BorderFactory.createTitledBorder("Nhân viên:"));
