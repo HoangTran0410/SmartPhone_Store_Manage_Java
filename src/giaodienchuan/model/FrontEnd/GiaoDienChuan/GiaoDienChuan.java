@@ -14,6 +14,7 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyQuyenForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.ThongKeForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
@@ -54,6 +55,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     QuanLyPhieuNhapForm qlpn;
     QuanLyKhuyenMaiForm qlkm;
     QuanLyNhaCungCapForm qlncc;
+    ThongKeForm thongke;
 
     public GiaoDienChuan() {
 
@@ -319,8 +321,10 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                 break;
 
             case "Thống kê":
-                emptypage.setLabelText("Thống kê đang bảo trì");
-                plContent.add(emptypage, BorderLayout.CENTER);
+                if (thongke == null) {
+                    thongke = new ThongKeForm();
+                }
+                plContent.add(thongke, BorderLayout.CENTER);
                 break;
 
             case "Công cụ":

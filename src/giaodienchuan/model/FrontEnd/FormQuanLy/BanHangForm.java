@@ -485,7 +485,7 @@ class HoaDonBanHang extends JPanel {
         clear();
         BanHangForm.csp.refreshAll();
     }
-
+    
     private void btnXoaOnClick() {
         int i = tbChiTietHoaDon.getTable().getSelectedRow();
         if (i >= 0) {
@@ -510,7 +510,7 @@ class HoaDonBanHang extends JPanel {
         txTongTien.setText("");
         dscthd.clear();
         setDataToTable(dscthd, tbChiTietHoaDon);
-    }
+        }
 
     public void addChiTiet(String masp, int soluong) {
         SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
