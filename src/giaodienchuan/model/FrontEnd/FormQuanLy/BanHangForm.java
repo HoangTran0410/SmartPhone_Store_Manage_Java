@@ -15,8 +15,11 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
+import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -278,16 +281,19 @@ class HoaDonBanHang extends JPanel {
 
     NhanVien nhanVien;
     KhachHang khachHang;
+    KhuyenMai khuyenMai;
 
     JTextField txMaHoaDon = new JTextField(20);
     JTextField txNhanVien = new JTextField(17);
-    JTextField txNgayLap = new JTextField(20);
-    JTextField txGioLap = new JTextField(20);
+    JTextField txNgayLap = new JTextField(9);
+    JTextField txGioLap = new JTextField(9);
     JTextField txKhachHang = new JTextField(17);
     JTextField txTongTien = new JTextField(20);
+    JTextField txKhuyenMai = new JTextField(17);
 
     MoreButton btnChonNhanVien = new MoreButton();
     MoreButton btnChonKhachHang = new MoreButton();
+    MoreButton btnChonKhuyenMai = new MoreButton();
 
     MyTable tbChiTietHoaDon = new MyTable();
     JButton btnXoa = new JButton("Xóa");
@@ -339,6 +345,26 @@ class HoaDonBanHang extends JPanel {
                 }
             });
         });
+        
+        btnChonKhuyenMai.setPreferredSize(new Dimension(30, 30));
+        btnChonKhuyenMai.addActionListener((ae) -> {
+            ChonKhuyenMaiForm ckm = new ChonKhuyenMaiForm(txKhuyenMai);
+            ckm.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    String makm = txKhuyenMai.getText();
+                    khuyenMai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm);
+                    if (khuyenMai != null) {
+                        if(!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
+                            JOptionPane.showMessageDialog(txKhuyenMai, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
+                            txKhuyenMai.setText(""); // xóa mã trong textfield
+                            return;
+                        }
+                        txKhuyenMai.setText(khuyenMai.getTenKM()+ " (" + khuyenMai.getMaKM()+ ")");
+                    }
+                }
+            });
+        });
 
         // set border
         txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn:"));
@@ -347,6 +373,7 @@ class HoaDonBanHang extends JPanel {
         txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập:"));
         txKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng:"));
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
+        txKhuyenMai.setBorder(BorderFactory.createTitledBorder("Khuyến mãi:"));
 
         // font
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
@@ -357,6 +384,7 @@ class HoaDonBanHang extends JPanel {
         txKhachHang.setFont(f);
         txMaHoaDon.setFont(f);
         txTongTien.setFont(f);
+        txKhuyenMai.setFont(f);
 
         // set Text
         if (LoginForm.nhanVienLogin != null) {
@@ -373,7 +401,8 @@ class HoaDonBanHang extends JPanel {
                 if (txNhanVien.getText().equals("")
                         || txKhachHang.getText().equals("")
                         || txTongTien.getText().equals("")
-                        || txTongTien.getText().equals("0")) {
+                        || txTongTien.getText().equals("0")
+                        || txKhuyenMai.getText().equals("")) {
                     btnThanhToan.setEnabled(false);
                 } else {
                     btnThanhToan.setEnabled(true);
@@ -388,6 +417,7 @@ class HoaDonBanHang extends JPanel {
         txNgayLap.setEditable(false);
         txGioLap.setEditable(false);
         txTongTien.setEditable(false);
+        txKhuyenMai.setEditable(false);
 
         // add to panel
         plInput.add(txMaHoaDon);
@@ -398,6 +428,8 @@ class HoaDonBanHang extends JPanel {
         plInput.add(btnChonNhanVien);
         plInput.add(txNgayLap);
         plInput.add(txGioLap);
+        plInput.add(txKhuyenMai);
+        plInput.add(btnChonKhuyenMai);
 
         this.add(plInput);
 
@@ -472,7 +504,7 @@ class HoaDonBanHang extends JPanel {
                 txMaHoaDon.getText(),
                 nhanVien.getMaNV(),
                 khachHang.getMaKH(),
-                "KM1",
+                khuyenMai.getMaKM(),
                 LocalDate.parse(txNgayLap.getText()),
                 LocalTime.parse(txGioLap.getText()),
                 Float.parseFloat(txTongTien.getText()));
@@ -509,6 +541,7 @@ class HoaDonBanHang extends JPanel {
     public void clear() {
         txKhachHang.setText("");
         txTongTien.setText("");
+        txKhuyenMai.setText("");
         dscthd.clear();
         setDataToTable(dscthd, tbChiTietHoaDon);
     }
