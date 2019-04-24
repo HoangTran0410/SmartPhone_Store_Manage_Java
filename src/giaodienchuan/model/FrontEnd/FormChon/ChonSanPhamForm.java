@@ -25,7 +25,7 @@ public class ChonSanPhamForm extends JFrame {
     public ChonSanPhamForm(JTextField _masp, JTextField _malsp, JTextField _tensp, JTextField _donGia, JTextField _soLuong) {
         this.setLayout(new BorderLayout());
         this.setTitle("Chọn Sản Phẩm");
-        this.setSize(1200 - 200, 600);
+        this.setSize(1200 - 200, 800);
         this.setLocationRelativeTo(null);
         this.txMasp = _masp;
         this.txMalsp = _malsp;
