@@ -7,6 +7,7 @@ package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
@@ -43,6 +44,8 @@ import javax.swing.event.DocumentListener;
 public class HienThiPhieuNhap extends JPanel {
 
     QuanLyPhieuNhapBUS qlpn = new QuanLyPhieuNhapBUS();
+    QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
 
     JTextField txTim = new JTextField(15);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã nhà cung cấp", "Mã nhân viên", "Ngày lập", "Giờ lập", "Tổng tiền"});
@@ -204,15 +207,15 @@ public class HienThiPhieuNhap extends JPanel {
             for (PhieuNhap pn : qlpn.getDspn()) {
                 if (pn.getMaPN().equals(mapn)) {
                     // show info
-                    String tennhanvien = new QuanLyNhanVienBUS().getNhanVien(pn.getMaNV()).getTenNV();
-                    String tenncc = new QuanLyNhaCungCapBUS().getNhaCungCap(pn.getMaNCC()).getTenNCC();
+                    String tennhanvien = qlnvBUS.getNhanVien(pn.getMaNV()).getTenNV();
+                    String tenncc = qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC();
                     
                     txMaPhieuNhap.setText(pn.getMaPN());
                     txNhaCC.setText(tenncc + " - " + pn.getMaNCC());
                     txNhanVien.setText(tennhanvien + " - " + pn.getMaNV());
                     txNgayLap.setText(pn.getNgayNhap().toString());
                     txGioLap.setText(pn.getGioNhap().toString());
-                    txTongTien.setText(String.valueOf(pn.getTongTien()));
+                    txTongTien.setText(PriceFormatter.format(pn.getTongTien()));
                     return;
                 }
             }
