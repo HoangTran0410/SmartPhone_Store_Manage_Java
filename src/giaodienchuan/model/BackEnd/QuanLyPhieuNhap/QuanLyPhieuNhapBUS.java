@@ -25,6 +25,10 @@ public class QuanLyPhieuNhapBUS {
     public void readDB() {
         dspn = DAO.readDB();
     }
+    
+    public String getNextID() {
+        return "PN" + (dspn.size() + 1);
+    }
 
     public ArrayList<PhieuNhap> getDspn() {
         return this.dspn;

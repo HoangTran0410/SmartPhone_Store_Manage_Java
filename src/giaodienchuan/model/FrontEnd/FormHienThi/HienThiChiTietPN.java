@@ -6,7 +6,7 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
@@ -28,7 +28,7 @@ import javax.swing.event.DocumentListener;
  */
 public class HienThiChiTietPN extends JPanel {
 
-    ChiTietPhieuNhapBUS qlctpn = new ChiTietPhieuNhapBUS();
+    QuanLyChiTietPhieuNhapBUS qlctpn = new QuanLyChiTietPhieuNhapBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
 
     JTextField txTim = new JTextField(15);

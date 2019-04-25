@@ -5,7 +5,7 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
@@ -93,7 +93,7 @@ class ThongKeSanPham extends JPanel {
     QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
     ArrayList<PhieuNhap> dspn;
 
-    ChiTietPhieuNhapBUS qlctpnBUS = new ChiTietPhieuNhapBUS();
+    QuanLyChiTietPhieuNhapBUS qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
     ArrayList<ChiTietPhieuNhap> dsctpn;
 
     QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
@@ -657,7 +657,7 @@ class ThongKeNhaCungCap extends JPanel {
     QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
     ArrayList<PhieuNhap> dspn;
 
-    ChiTietPhieuNhapBUS qlctpnBUS = new ChiTietPhieuNhapBUS();
+    QuanLyChiTietPhieuNhapBUS qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
     ArrayList<ChiTietPhieuNhap> dsctpn;
 
     QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();

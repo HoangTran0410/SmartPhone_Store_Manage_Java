@@ -5,7 +5,7 @@
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiChiTietPN;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaChiTietPhieuNhapForm;
 import java.awt.BorderLayout;
@@ -72,7 +72,7 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame {
         String masp = formHienThi.getSelectedChiTietPhieuNhap(2);
         if (masp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " của phiếu nhập " + this.mapn + "?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new ChiTietPhieuNhapBUS().delete(this.mapn, masp);
+                new QuanLyChiTietPhieuNhapBUS().delete(this.mapn, masp);
                 formHienThi.refresh();
             }
 
