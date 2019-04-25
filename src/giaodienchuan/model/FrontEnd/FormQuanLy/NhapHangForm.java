@@ -6,20 +6,17 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.PriceFormatter;
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
-import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.NhanVien;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
-import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
-import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
-import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
-import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
-import giaodienchuan.model.FrontEnd.FormChon.ChonKhuyenMaiForm;
+import giaodienchuan.model.BackEnd.QuanLyNCC.NhaCungCap;
+import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -59,40 +56,59 @@ public class NhapHangForm extends JPanel {
 
         csp = new ChonSanPhamBanHang(0, 0, width - 555, height);
         this.add(csp);
-
+        
         pnh = new PhieuNhapHang(width - 550, 0, 550, height);
         this.add(pnh);
-    }
+        
+        csp.btnThem.addActionListener((ae) -> {
+            try {
+                String masp = csp.txMaSP.getText();
+                int soluong = Integer.parseInt(csp.txSoLuong.getText());
+                if (soluong > 0) {
+                    pnh.addChiTiet(masp, soluong);
+                } else {
+                    JOptionPane.showMessageDialog(csp.txSoLuong, "Số lượng phải là số dương!");
+                    csp.txSoLuong.requestFocus();
+                }
 
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(csp.txSoLuong, "Số lượng phải là số nguyên!");
+                csp.txSoLuong.requestFocus();
+            }
+        });
+    }
 }
 
 class PhieuNhapHang extends JPanel {
+    
+    QuanLyChiTietPhieuNhapBUS qlctpn = new QuanLyChiTietPhieuNhapBUS();
+    QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
+    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
+    QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
 
     NhanVien nhanVien;
-    KhachHang khachHang;
-    KhuyenMai khuyenMai;
+    NhaCungCap nhacungcap;
 
-    JTextField txMaHoaDon = new JTextField(20);
+    JTextField txMaPhieuNhap = new JTextField(20);
     JTextField txNhanVien = new JTextField(17);
-    JTextField txNgayLap = new JTextField(9);
-    JTextField txGioLap = new JTextField(9);
-    JTextField txKhachHang = new JTextField(17);
+    JTextField txNhaCC = new JTextField(17);
+    JTextField txNgayLap = new JTextField(20);
+    JTextField txGioLap = new JTextField(20);
     JTextField txTongTien = new JTextField(20);
-    JTextField txKhuyenMai = new JTextField(17);
 
     MoreButton btnChonNhanVien = new MoreButton();
-    MoreButton btnChonKhachHang = new MoreButton();
-    MoreButton btnChonKhuyenMai = new MoreButton();
+    MoreButton btnChonNhaCC = new MoreButton();
 
-    MyTable tbChiTietHoaDon = new MyTable();
+    MyTable tbChiTietPhieuNhap = new MyTable();
     JButton btnXoa = new JButton("Xóa");
     JButton btnSua = new JButton("Sửa");
     JButton btnRefresh = new JButton("Làm mới");
 
-    JButton btnThanhToan = new JButton("Nhập hàng");
+    JButton btnNhapHang = new JButton("Nhập hàng");
     JButton btnHuy = new JButton("Hủy");
-
-    ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
+    
+    ArrayList<ChiTietPhieuNhap> dsctpn = new ArrayList<>();
 
     public PhieuNhapHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
@@ -107,16 +123,16 @@ class PhieuNhapHang extends JPanel {
         plInput.setLayout(new FlowLayout());
 
         // btn
-        btnChonKhachHang.setPreferredSize(new Dimension(30, 30));
-        btnChonKhachHang.addActionListener((ae) -> {
-            ChonKhachHangForm ckh = new ChonKhachHangForm(txKhachHang);
-            ckh.addWindowListener(new WindowAdapter() {
+        btnChonNhaCC.setPreferredSize(new Dimension(30, 30));
+        btnChonNhaCC.addActionListener((ae) -> {
+            ChonNhaCungCapForm cncc = new ChonNhaCungCapForm(txNhaCC);
+            cncc.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    String makh = txKhachHang.getText();
-                    khachHang = new QuanLyKhachHangBUS().getKhachHang(makh);
-                    if (khachHang != null) {
-                        txKhachHang.setText(khachHang.getTenKH() + " (" + khachHang.getMaKH() + ")");
+                    String mancc = txNhaCC.getText();
+                    nhacungcap = qlnccBUS.getNhaCungCap(mancc);
+                    if (nhacungcap != null) {
+                        txNhaCC.setText(nhacungcap.getTenNCC() + " (" + nhacungcap.getMaNCC() + ")");
                     }
                 }
             });
@@ -129,7 +145,7 @@ class PhieuNhapHang extends JPanel {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     String mavn = txNhanVien.getText();
-                    nhanVien = new QuanLyNhanVienBUS().getNhanVien(mavn);
+                    nhanVien = qlnvBUS.getNhanVien(mavn);
                     if (nhanVien != null) {
                         txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
                     }
@@ -138,48 +154,23 @@ class PhieuNhapHang extends JPanel {
         });
         btnChonNhanVien.setEnabled(false);
 
-        btnChonKhuyenMai.setPreferredSize(new Dimension(30, 30));
-        btnChonKhuyenMai.addActionListener((ae) -> {
-            ChonKhuyenMaiForm ckm = new ChonKhuyenMaiForm(txKhuyenMai);
-            ckm.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosed(WindowEvent e) {
-                    String makm = txKhuyenMai.getText();
-                    khuyenMai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm);
-                    if (khuyenMai != null) {
-                        if (!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
-                            JOptionPane.showMessageDialog(null, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
-                            txKhuyenMai.setText(""); // xóa mã trong textfield
-                            return;
-                        }
-                        txKhuyenMai.setText(khuyenMai.getTenKM() + " (" + khuyenMai.getMaKM() + ")");
-
-                        // cập nhật lại table
-                        setDataToTable(dscthd, tbChiTietHoaDon);
-                    }
-                }
-            });
-        });
-
         // set border
-        txMaHoaDon.setBorder(BorderFactory.createTitledBorder("Mã hóa đơn:"));
+        txMaPhieuNhap.setBorder(BorderFactory.createTitledBorder("Mã phiếu nhập:"));
         txNhanVien.setBorder(BorderFactory.createTitledBorder("Nhân viên:"));
         txNgayLap.setBorder(BorderFactory.createTitledBorder("Ngày lập:"));
         txGioLap.setBorder(BorderFactory.createTitledBorder("Giờ lập:"));
-        txKhachHang.setBorder(BorderFactory.createTitledBorder("Khách hàng:"));
+        txNhaCC.setBorder(BorderFactory.createTitledBorder("Nhà cung cấp:"));
         txTongTien.setBorder(BorderFactory.createTitledBorder("Tổng tiền (triệu vnd):"));
-        txKhuyenMai.setBorder(BorderFactory.createTitledBorder("Khuyến mãi:"));
 
         // font
         Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        txMaHoaDon.setFont(f);
+        txMaPhieuNhap.setFont(f);
         txNhanVien.setFont(f);
         txNgayLap.setFont(f);
         txGioLap.setFont(f);
-        txKhachHang.setFont(f);
-        txMaHoaDon.setFont(f);
+        txNhaCC.setFont(f);
+        txMaPhieuNhap.setFont(f);
         txTongTien.setFont(f);
-        txKhuyenMai.setFont(f);
 
         // set Text
         if (LoginForm.nhanVienLogin != null) {
@@ -187,44 +178,40 @@ class PhieuNhapHang extends JPanel {
             txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
         }
 
-        txMaHoaDon.setText(new QuanLyHoaDonBUS().getNextID());
+        txMaPhieuNhap.setText(qlpnBUS.getNextID());
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 txNgayLap.setText(LocalDate.now().toString());
                 txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 if (txNhanVien.getText().equals("")
-                        || txKhachHang.getText().equals("")
+                        || txNhaCC.getText().equals("")
                         || txTongTien.getText().equals("")
-                        || txTongTien.getText().equals("0")
-                        || txKhuyenMai.getText().equals("")) {
-                    btnThanhToan.setEnabled(false);
+                        || txTongTien.getText().equals("0")) {
+                    btnNhapHang.setEnabled(false);
                 } else {
-                    btnThanhToan.setEnabled(true);
+                    btnNhapHang.setEnabled(true);
                 }
             }
         }, 0, 1000);
 
         // set editable
-        txMaHoaDon.setEditable(false);
+        txMaPhieuNhap.setEditable(false);
         txNhanVien.setEditable(false);
-        txKhachHang.setEditable(false);
+        txNhaCC.setEditable(false);
         txNgayLap.setEditable(false);
         txGioLap.setEditable(false);
         txTongTien.setEditable(false);
-        txKhuyenMai.setEditable(false);
 
         // add to panel
-        plInput.add(txMaHoaDon);
+        plInput.add(txMaPhieuNhap);
         plInput.add(txTongTien);
-        plInput.add(txKhachHang);
-        plInput.add(btnChonKhachHang);
+        plInput.add(txNhaCC);
+        plInput.add(btnChonNhaCC);
         plInput.add(txNhanVien);
         plInput.add(btnChonNhanVien);
         plInput.add(txNgayLap);
         plInput.add(txGioLap);
-        plInput.add(txKhuyenMai);
-        plInput.add(btnChonKhuyenMai);
 
         this.add(plInput);
 
@@ -251,23 +238,23 @@ class PhieuNhapHang extends JPanel {
             btnSuaOnClick();
         });
         btnRefresh.addActionListener((ae) -> {
-            setDataToTable(dscthd, tbChiTietHoaDon);
+            setDataToTable(dsctpn, tbChiTietPhieuNhap);
         });
 
         plButtonChiTiet.add(btnXoa);
         plButtonChiTiet.add(btnSua);
         plButtonChiTiet.add(btnRefresh);
 
-        tbChiTietHoaDon.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
-        tbChiTietHoaDon.setHeaders(new String[]{"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
-        tbChiTietHoaDon.setColumnsWidth(new double[]{1, 2, 3, 2.2, 2.5, 3});
-        tbChiTietHoaDon.setAlignment(0, JLabel.CENTER);
-        tbChiTietHoaDon.setAlignment(1, JLabel.CENTER);
-        tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
-        tbChiTietHoaDon.setAlignment(4, JLabel.RIGHT);
-        tbChiTietHoaDon.setAlignment(5, JLabel.RIGHT);
+        tbChiTietPhieuNhap.setPreferredSize(new Dimension(_width - 10, plSP_height - plBtn_height));
+        tbChiTietPhieuNhap.setHeaders(new String[]{"STT", "Mã", "Tên", "Số lượng", "Đơn giá", "Thành tiền"});
+        tbChiTietPhieuNhap.setColumnsWidth(new double[]{1, 2, 3, 2.2, 2.5, 3});
+        tbChiTietPhieuNhap.setAlignment(0, JLabel.CENTER);
+        tbChiTietPhieuNhap.setAlignment(1, JLabel.CENTER);
+        tbChiTietPhieuNhap.setAlignment(3, JLabel.CENTER);
+        tbChiTietPhieuNhap.setAlignment(4, JLabel.RIGHT);
+        tbChiTietPhieuNhap.setAlignment(5, JLabel.RIGHT);
 
-        plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
+        plSanPham.add(tbChiTietPhieuNhap, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
 
         this.add(plSanPham);
@@ -280,17 +267,17 @@ class PhieuNhapHang extends JPanel {
         plThanhToan.setBackground(new Color(0, 0, 0));
 
         btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
-        btnThanhToan.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_us_dollar_30px.png")));
+        btnNhapHang.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_us_dollar_30px.png")));
 
         btnHuy.addActionListener((ae) -> {
             btnHuyOnClick();
         });
-        btnThanhToan.addActionListener((ae) -> {
-            btnThanhToanOnClick();
+        btnNhapHang.addActionListener((ae) -> {
+            btnNhapHangOnClick();
         });
 
         plThanhToan.add(btnHuy);
-        plThanhToan.add(btnThanhToan);
+        plThanhToan.add(btnNhapHang);
 
         this.add(plThanhToan);
     }
@@ -299,20 +286,18 @@ class PhieuNhapHang extends JPanel {
         clear();
     }
 
-    private void btnThanhToanOnClick() {
-        HoaDon hd = new HoaDon(
-                txMaHoaDon.getText(),
+    private void btnNhapHangOnClick() {
+        PhieuNhap pn = new PhieuNhap (
+                txMaPhieuNhap.getText(),
+                nhacungcap.getMaNCC(),
                 nhanVien.getMaNV(),
-                khachHang.getMaKH(),
-                khuyenMai.getMaKM(),
                 LocalDate.parse(txNgayLap.getText()),
                 LocalTime.parse(txGioLap.getText()),
                 Float.parseFloat(txTongTien.getText()));
-        new QuanLyHoaDonBUS().add(hd);
-
-        QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
-        for (ChiTietHoaDon ct : dscthd) {
-            qlcthd.add(ct);
+        qlpnBUS.add(pn);
+        
+        for (ChiTietPhieuNhap ct : dsctpn) {
+            qlctpn.add(ct);
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         clear();
@@ -320,71 +305,62 @@ class PhieuNhapHang extends JPanel {
     }
 
     private void btnXoaOnClick() {
-        int i = tbChiTietHoaDon.getTable().getSelectedRow();
-        if (i >= 0 && i < dscthd.size()) {
-            dscthd.remove(i);
-            setDataToTable(dscthd, tbChiTietHoaDon);
+        int i = tbChiTietPhieuNhap.getTable().getSelectedRow();
+        if (i >= 0 && i < dsctpn.size()) {
+            dsctpn.remove(i);
+            setDataToTable(dsctpn, tbChiTietPhieuNhap);
         }
     }
 
     private void btnSuaOnClick() {
-        int i = tbChiTietHoaDon.getTable().getSelectedRow();
-        if (i >= 0 && i < dscthd.size()) {
-            ChiTietHoaDon ct = dscthd.get(i);
-            NhapHangForm.csp.showInfo(ct.getMaSanPham(), ct.getSoLuong());
+        int i = tbChiTietPhieuNhap.getTable().getSelectedRow();
+        if (i >= 0 && i < dsctpn.size()) {
+            ChiTietPhieuNhap ct = dsctpn.get(i);
+            NhapHangForm.csp.showInfo(ct.getMaSP(), ct.getSoLuong());
 
-            dscthd.remove(i);
-            setDataToTable(dscthd, tbChiTietHoaDon);
+            dsctpn.remove(i);
+            setDataToTable(dsctpn, tbChiTietPhieuNhap);
         }
     }
 
     public void clear() {
-        txKhachHang.setText("");
+        txNhaCC.setText("");
         txTongTien.setText("");
-        txKhuyenMai.setText("");
-        dscthd.clear();
-        setDataToTable(dscthd, tbChiTietHoaDon);
+        dsctpn.clear();
+        setDataToTable(dsctpn, tbChiTietPhieuNhap);
     }
 
     public void addChiTiet(String masp, int soluong) {
-        SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
+        SanPham sp = qlspBUS.getSanPham(masp);
 
         Boolean daCo = false; // check xem trong danh sách chi tiết hóa đơn đã có sản phẩm này chưa
-        for (ChiTietHoaDon cthd : dscthd) {
-            if (cthd.getMaSanPham().equals(sp.getMaSP())) {
-                int tongSoLuong = soluong + cthd.getSoLuong();
-                if (tongSoLuong > sp.getSoLuong()) {
-                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
-                    return;
-                }
-                cthd.setSoLuong(tongSoLuong); // có rồi thì thay đổi số lượng
+        for (ChiTietPhieuNhap ctpn : dsctpn) {
+            if (ctpn.getMaSP().equals(sp.getMaSP())) {
+                int tongSoLuong = soluong + ctpn.getSoLuong();
+                ctpn.setSoLuong(tongSoLuong); // có rồi thì thay đổi số lượng
                 daCo = true;
             }
         }
 
         if (!daCo) { // nếu chưa có thì thêm mới
-            if (soluong > sp.getSoLuong()) {
-                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
-                return;
-            }
-            ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
-            dscthd.add(cthd);
+            ChiTietPhieuNhap ctpn = new ChiTietPhieuNhap(qlpnBUS.getNextID(), masp, soluong, sp.getDonGia());
+            dsctpn.add(ctpn);
         }
 
         // cập nhật lại table
-        setDataToTable(dscthd, tbChiTietHoaDon);
+        setDataToTable(dsctpn, tbChiTietPhieuNhap);
     }
 
-    public void setDataToTable(ArrayList<ChiTietHoaDon> arr, MyTable t) {
+    public void setDataToTable(ArrayList<ChiTietPhieuNhap> arr, MyTable t) {
         t.clear();
         float tongtien = 0;
         int stt = 1;
-        for (ChiTietHoaDon cthd : arr) {
-            String masp = cthd.getMaSanPham();
-            SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
+        for (ChiTietPhieuNhap ctpn : arr) {
+            String masp = ctpn.getMaSP();
+            SanPham sp = qlspBUS.getSanPham(masp);
             String tensp = sp.getTenSP();
-            int soluong = cthd.getSoLuong();
-            float dongia = cthd.getDonGia();
+            int soluong = ctpn.getSoLuong();
+            float dongia = ctpn.getDonGia();
             float thanhtien = soluong * dongia;
 
             t.addRow(new String[]{
@@ -402,14 +378,6 @@ class PhieuNhapHang extends JPanel {
         // check khuyến mãi
         t.addRow(new String[]{"", "", "", "", "", ""});
         t.addRow(new String[]{"", "", "", "", "Tổng tiền", PriceFormatter.format(tongtien)});
-        if (khuyenMai != null && khuyenMai.getPhanTramKM() > 0 && khuyenMai.getDieuKhienKM() <= tongtien) {
-            float giaTriKhuyenMai = tongtien * khuyenMai.getPhanTramKM() / 100;
-            float tongTienSauKhuyenMai = tongtien - giaTriKhuyenMai;
-            t.addRow(new String[]{"", "", "", "", "Khuyến mãi", PriceFormatter.format(-giaTriKhuyenMai)});
-            t.addRow(new String[]{"", "", "", "", "Còn lại", PriceFormatter.format(tongTienSauKhuyenMai)});
-            txTongTien.setText(String.valueOf(tongTienSauKhuyenMai));
-        } else {
-            txTongTien.setText(String.valueOf(tongtien));
-        }
+        txTongTien.setText(String.valueOf(tongtien));
     }
 }

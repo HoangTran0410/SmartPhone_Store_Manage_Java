@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author Admin
  */
-public class ChiTietPhieuNhapDAO {
+public class QuanLyChiTietPhieuNhapDAO {
 
     ConnectionDB qlctpnConnection;
 

@@ -74,8 +74,8 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         // ======================== Menu =======================
         String[] navItemInfo = {
             "seperate", "2", "", "",
-            "Bán hàng", "icons8_small_business_30px_3.png", "qlBanHang", "",
-            "Nhập hàng", "icons8_downloads_30px.png", "qlNhapHang", "",
+            "Bán hàng", "icons8_small_business_30px_3.png", "qlBanHang", "qlBanHang",
+            "Nhập hàng", "icons8_downloads_30px.png", "qlNhapHang", "qlNhapHang",
             "seperate", "2", "", "",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png", "xemSanPham", "qlSanPham",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png", "xemLoaiSanPham", "qlLoaiSanPham",

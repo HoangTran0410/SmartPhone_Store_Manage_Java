@@ -23,6 +23,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
@@ -35,6 +36,9 @@ import java.awt.event.MouseEvent;
 public class HienThiHoaDon extends JPanel {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
+    QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+    QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
+    QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
 
     JTextField txTim = new JTextField(10);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khuyến mãi", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
@@ -202,9 +206,9 @@ public class HienThiHoaDon extends JPanel {
             for (HoaDon hd : qlhd.getDshd()) {
                 if (hd.getMaHoaDon().equals(mahd)) {
                     // show info
-                    String tennhanvien = new QuanLyNhanVienBUS().getNhanVien(hd.getMaNhanVien()).getTenNV();
-                    String tenkhach = new QuanLyKhachHangBUS().getKhachHang(hd.getMaKhachHang()).getTenKH();
-                    String tenkhuyenmai = new QuanLyKhuyenMaiBUS().getKhuyenMai(hd.getMaKhuyenMai()).getTenKM();
+                    String tennhanvien = qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV();
+                    String tenkhach = qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH();
+                    String tenkhuyenmai = qlkmBUS.getKhuyenMai(hd.getMaKhuyenMai()).getTenKM();
                     
                     txMaHoaDon.setText(hd.getMaHoaDon());
                     txNhanVien.setText(tennhanvien + " - " + hd.getMaNhanVien());
@@ -212,7 +216,7 @@ public class HienThiHoaDon extends JPanel {
                     txKhuyenMai.setText(tenkhuyenmai + " - " + hd.getMaKhuyenMai());
                     txNgayLap.setText(hd.getNgayLap().toString());
                     txGioLap.setText(hd.getGioLap().toString());
-                    txTongTien.setText(String.valueOf(hd.getTongTien()));
+                    txTongTien.setText(PriceFormatter.format(hd.getTongTien()));
                     return;
                 }
             }

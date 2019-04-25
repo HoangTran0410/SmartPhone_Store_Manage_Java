@@ -5,7 +5,7 @@
  */
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiPhieuNhap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaPhieuNhapForm;
@@ -78,7 +78,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
                     " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 
-                new ChiTietPhieuNhapBUS().deleteAll(mapn);
+                new QuanLyChiTietPhieuNhapBUS().deleteAll(mapn);
                 new QuanLyPhieuNhapBUS().delete(mapn);
                 
                 formHienThi.refresh();

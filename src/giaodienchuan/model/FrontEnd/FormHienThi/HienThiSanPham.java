@@ -1,5 +1,6 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
@@ -27,6 +28,7 @@ import javax.swing.event.DocumentListener;
 
 public class HienThiSanPham extends JPanel {
 
+    QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
     MyTable mtb;
 
@@ -174,11 +176,11 @@ public class HienThiSanPham extends JPanel {
                     lbImage.setIcon(new ImageIcon(imgScaled));
 
                     // show info
-                    String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
+                    String loai = qllspBUS.getLoaiSanPham(sp.getMaLSP()).getTenLSP();
                     txMaSP.setText(sp.getMaSP());
                     txTenSP.setText(sp.getTenSP());
                     txLoaiSP.setText(loai + " - " + sp.getMaLSP());
-                    txDonGia.setText(String.valueOf(sp.getDonGia()));
+                    txDonGia.setText(PriceFormatter.format(sp.getDonGia()));
                     txSoLuong.setText(String.valueOf(sp.getSoLuong()));
                     return;
                 }

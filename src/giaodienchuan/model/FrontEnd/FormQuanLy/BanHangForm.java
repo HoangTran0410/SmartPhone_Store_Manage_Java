@@ -68,6 +68,23 @@ public class BanHangForm extends JPanel {
 
         hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
         this.add(hdbh);
+        
+        csp.btnThem.addActionListener((ae) -> {
+            try {
+                String masp = csp.txMaSP.getText();
+                int soluong = Integer.parseInt(csp.txSoLuong.getText());
+                if (soluong > 0) {
+                    hdbh.addChiTiet(masp, soluong);
+                } else {
+                    JOptionPane.showMessageDialog(csp.txSoLuong, "Số lượng phải là số dương!");
+                    csp.txSoLuong.requestFocus();
+                }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(csp.txSoLuong, "Số lượng phải là số nguyên!");
+                csp.txSoLuong.requestFocus();
+            }
+        });
     }
 
 }
@@ -80,14 +97,14 @@ class ChonSanPhamBanHang extends JPanel {
     JTextField txTimKiem = new JTextField(30);
 
     JLabel lbImage = new JLabel();
-    JTextField txMaSP = new JTextField(12);
+    public JTextField txMaSP = new JTextField(12);
     JTextField txLoaiSP = new JTextField(12);
     JTextField txTenSP = new JTextField(12);
     JTextField txDonGia = new JTextField(12);
-    JTextField txSoLuong = new JTextField(7);
+    public JTextField txSoLuong = new JTextField(7);
 
     JButton btnRefresh = new JButton("Làm mới");
-    JButton btnThem = new JButton("Thêm");
+    public JButton btnThem = new JButton("Thêm");
 
     public ChonSanPhamBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
@@ -160,23 +177,6 @@ class ChonSanPhamBanHang extends JPanel {
         plTextField.add(txDonGia);
         plTextField.add(txSoLuong);
 
-        btnThem.addActionListener((ae) -> {
-            try {
-                String masp = txMaSP.getText();
-                int soluong = Integer.parseInt(txSoLuong.getText());
-                if (soluong > 0) {
-                    BanHangForm.hdbh.addChiTiet(masp, soluong);
-                } else {
-                    JOptionPane.showMessageDialog(txSoLuong, "Số lượng phải là số dương!");
-                    txSoLuong.requestFocus();
-                }
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(txSoLuong, "Số lượng phải là số nguyên!");
-                txSoLuong.requestFocus();
-            }
-        });
-
         plChiTiet.add(plTextField, BorderLayout.CENTER);
         plChiTiet.add(btnThem, BorderLayout.SOUTH);
 
@@ -193,12 +193,12 @@ class ChonSanPhamBanHang extends JPanel {
             }
         });
 
-        setDataToTable(qlspBUS.getDssp(), tbSanPham);
+        refreshAll();
     }
 
     public void refreshTable() {
         qlspBUS.readDB();
-        setDataToTable(qlspBUS.getDssp(), tbSanPham);
+        setDataToTable(qlspBUS.search("", "Tất cả", -1, -1, -1, -1, 0), tbSanPham);
     }
 
     public void refreshAll() {
@@ -284,6 +284,13 @@ class ChonSanPhamBanHang extends JPanel {
 }
 
 class HoaDonBanHang extends JPanel {
+    
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
+    QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
+    QuanLyNhanVienBUS  qlnvBUS = new QuanLyNhanVienBUS();
+    QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
+    QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
+    QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
 
     NhanVien nhanVien;
     KhachHang khachHang;
@@ -331,7 +338,7 @@ class HoaDonBanHang extends JPanel {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     String makh = txKhachHang.getText();
-                    khachHang = new QuanLyKhachHangBUS().getKhachHang(makh);
+                    khachHang = qlkhBUS.getKhachHang(makh);
                     if (khachHang != null) {
                         txKhachHang.setText(khachHang.getTenKH() + " (" + khachHang.getMaKH() + ")");
                     }
@@ -346,7 +353,7 @@ class HoaDonBanHang extends JPanel {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     String mavn = txNhanVien.getText();
-                    nhanVien = new QuanLyNhanVienBUS().getNhanVien(mavn);
+                    nhanVien = qlnvBUS.getNhanVien(mavn);
                     if (nhanVien != null) {
                         txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
                     }
@@ -362,7 +369,7 @@ class HoaDonBanHang extends JPanel {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     String makm = txKhuyenMai.getText();
-                    khuyenMai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm);
+                    khuyenMai = qlkmBUS.getKhuyenMai(makm);
                     if (khuyenMai != null) {
                         if (!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
                             JOptionPane.showMessageDialog(null, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
@@ -404,7 +411,7 @@ class HoaDonBanHang extends JPanel {
             txNhanVien.setText(nhanVien.getTenNV() + " (" + nhanVien.getMaNV() + ")");
         }
 
-        txMaHoaDon.setText(new QuanLyHoaDonBUS().getNextID());
+        txMaHoaDon.setText(qlhdBUS.getNextID());
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -525,9 +532,8 @@ class HoaDonBanHang extends JPanel {
                 LocalDate.parse(txNgayLap.getText()),
                 LocalTime.parse(txGioLap.getText()),
                 Float.parseFloat(txTongTien.getText()));
-        new QuanLyHoaDonBUS().add(hd);
-
-        QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
+        qlhdBUS.add(hd);
+        
         for (ChiTietHoaDon ct : dscthd) {
             qlcthd.add(ct);
         }
@@ -564,7 +570,7 @@ class HoaDonBanHang extends JPanel {
     }
 
     public void addChiTiet(String masp, int soluong) {
-        SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
+        SanPham sp = qlspBUS.getSanPham(masp);
 
         Boolean daCo = false; // check xem trong danh sách chi tiết hóa đơn đã có sản phẩm này chưa
         for (ChiTietHoaDon cthd : dscthd) {
@@ -584,7 +590,7 @@ class HoaDonBanHang extends JPanel {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + sp.getSoLuong() + ")");
                 return;
             }
-            ChiTietHoaDon cthd = new ChiTietHoaDon(new QuanLyHoaDonBUS().getNextID(), masp, soluong, sp.getDonGia());
+            ChiTietHoaDon cthd = new ChiTietHoaDon(qlhdBUS.getNextID(), masp, soluong, sp.getDonGia());
             dscthd.add(cthd);
         }
 
@@ -598,7 +604,7 @@ class HoaDonBanHang extends JPanel {
         int stt = 1;
         for (ChiTietHoaDon cthd : arr) {
             String masp = cthd.getMaSanPham();
-            SanPham sp = new QuanLySanPhamBUS().getSanPham(masp);
+            SanPham sp = qlspBUS.getSanPham(masp);
             String tensp = sp.getTenSP();
             int soluong = cthd.getSoLuong();
             float dongia = cthd.getDonGia();

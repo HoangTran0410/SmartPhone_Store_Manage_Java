@@ -14,14 +14,14 @@ import java.util.ArrayList;
  *
  * @author Admin
  */
-public class ChiTietPhieuNhapBUS {
+public class QuanLyChiTietPhieuNhapBUS {
 
-    ChiTietPhieuNhapDAO qlctpnDAO = new ChiTietPhieuNhapDAO();
+    QuanLyChiTietPhieuNhapDAO qlctpnDAO = new QuanLyChiTietPhieuNhapDAO();
     QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
     ArrayList<ChiTietPhieuNhap> dsctpn = new ArrayList<>();
 
-    public ChiTietPhieuNhapBUS() {
+    public QuanLyChiTietPhieuNhapBUS() {
         dsctpn = qlctpnDAO.readDB();
     }
 

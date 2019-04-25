@@ -6,7 +6,7 @@
 package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
-import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  */
 public class ThemSuaChiTietPhieuNhapForm extends JFrame {
 
-    ChiTietPhieuNhapBUS qlctpnBUS = new ChiTietPhieuNhapBUS();
+    QuanLyChiTietPhieuNhapBUS qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
     String type, mapn, masp;
     JTextField txMasp = new JTextField(15);
     JTextField txMapn = new JTextField(15);
