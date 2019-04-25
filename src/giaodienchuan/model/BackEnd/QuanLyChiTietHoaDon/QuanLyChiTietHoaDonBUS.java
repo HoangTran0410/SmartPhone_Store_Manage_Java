@@ -34,6 +34,16 @@ public class QuanLyChiTietHoaDonBUS {
         }
         return null;
     }
+    
+    public ArrayList<ChiTietHoaDon> getAllChiTiet(String mahd) {
+        ArrayList<ChiTietHoaDon> result = new ArrayList<>();
+        for (ChiTietHoaDon ct : dscthd) {
+            if (ct.getMaHoaDon().equals(mahd)) {
+                result.add(ct);
+            }
+        }
+        return result;
+    }
 
     public Boolean add(ChiTietHoaDon ct) {
         int soLuongChiTietMoi = ct.getSoLuong();
