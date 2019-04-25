@@ -92,6 +92,16 @@ public class QuanLyChiTietPhieuNhapBUS {
         }
         return null;
     }
+    
+    public ArrayList<ChiTietPhieuNhap> getAllChiTiet(String mapn) {
+        ArrayList<ChiTietPhieuNhap> result = new ArrayList<>();
+        for(ChiTietPhieuNhap ctpn : dsctpn) {
+            if(ctpn.getMa().equals(mapn)) {
+                result.add(ctpn);
+            }
+        }
+        return result;
+    }
 
     public Boolean delete(String _maPhieuNhap, String _maSanPham) {
         Boolean success = qlctpnDAO.delete(_maPhieuNhap, _maSanPham);
