@@ -1012,7 +1012,7 @@ class ThongKe_Hoang extends JPanel {
 
         result.add(tb,BorderLayout.CENTER);
         
-        SanPham sp = qlspBUS.getSanPham(txSanPham.getText());
+//        SanPham sp = qlspBUS.getSanPham(txSanPham.getText());
         
         dshd = qlhdBUS.getDshd();
         for (HoaDon hd : dshd) {
@@ -1021,6 +1021,7 @@ class ThongKe_Hoang extends JPanel {
             if (dscthd != null ) {
                 tb.addRow(new String[]{hd.getMaHoaDon(),qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV(),qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH(),"","","",""});
                 for(ChiTietHoaDon cthd : dscthd){
+                    tongTien+=cthd.getDonGia()*cthd.getSoLuong();
                     tb.addRow(new String[]{"","","",qlspBUS.getSanPham(cthd.getMaSanPham()).getTenSP(),String.valueOf(cthd.getSoLuong()),String.valueOf(cthd.getDonGia()),String.valueOf(cthd.getSoLuong()*cthd.getDonGia())});
                 }
             }
