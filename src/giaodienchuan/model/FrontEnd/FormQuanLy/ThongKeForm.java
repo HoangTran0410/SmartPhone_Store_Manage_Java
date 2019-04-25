@@ -19,6 +19,7 @@ import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -854,12 +855,15 @@ class ThongKe_Hoang extends JPanel {
 
     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
     ArrayList<NhanVien> dsnv;
-    
+
     QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
     ArrayList<KhachHang> dskh;
-    
+
     QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
     ArrayList<NhaCungCap> dsncc;
+
+    QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
+    ArrayList<ChiTietHoaDon> dscthd;
 
     JCheckBox chbNhanVien = new JCheckBox();
     JCheckBox chbKhachHang = new JCheckBox();
@@ -929,7 +933,7 @@ class ThongKe_Hoang extends JPanel {
             ChonKhachHangForm ckh = new ChonKhachHangForm(txKhachHang);
         });
         btnChonNhaCC.addActionListener((ae) -> {
-            ChonNhanVienForm cnv = new ChonNhanVienForm(txNhaCC);
+            ChonNhaCungCapForm cnv = new ChonNhaCungCapForm(txNhaCC);
         });
 
         plTieuChi.add(plChonTieuChi, BorderLayout.CENTER);
@@ -937,16 +941,17 @@ class ThongKe_Hoang extends JPanel {
 
         // panel ket qua
         JTabbedPane tabDoiTuongThongKe = new JTabbedPane();
-        
+
         JPanel plThongKeHoaDon = new JPanel();
-        
+
         JPanel plThongKePhieuNhap = new JPanel();
-        
-        
-        tabDoiTuongThongKe.setPreferredSize(new Dimension(700, 600));
+
+        tabDoiTuongThongKe.setPreferredSize(new Dimension(730, 600));
         tabDoiTuongThongKe.setBackground(Color.yellow);
-        tabDoiTuongThongKe.addTab("Hóa đơn", getIcon("icons8_us_dollar_30px.png"), plThongKeHoaDon);
+        tabDoiTuongThongKe.addTab("Hóa đơn", getIcon("icons8_us_dollar_30px.png"), showThongKeHoaDon());
         tabDoiTuongThongKe.addTab("Phiếu nhập", getIcon("icons8_company_30px.png"), plThongKePhieuNhap);
+        
+        
 
         this.add(tabDoiTuongThongKe, BorderLayout.EAST);
     }
@@ -965,6 +970,7 @@ class ThongKe_Hoang extends JPanel {
             } else {
                 tx.setEnabled(false);
                 b.setEnabled(false);
+                tx.setText("");
             }
         });
 
@@ -993,15 +999,33 @@ class ThongKe_Hoang extends JPanel {
             }
         });
     }
-    
+
     private ImageIcon getIcon(String filename) {
         return new ImageIcon(getClass().getResource("/giaodienchuan/images/" + filename));
-    }   
+    }
 
-    private JPanel showThongKeHoaDon(ArrayList<SanPham> _dssp,ArrayList<NhanVien> _dsnv, ArrayList<KhachHang> _dskh){
-        JPanel result =  new JPanel();
+    private JPanel showThongKeHoaDon() {
+        JPanel result = new JPanel();
+        result.setLayout(new BorderLayout());
         MyTable tb = new MyTable();
+        tb.setHeaders(new String[]{"Mã hóa đơn", "Tên nhân viên", "Tên khách hàng", "Tên sản phẩm", "Số lượng", "Đơn giá", "Tổng tiền"});
+
+        result.add(tb,BorderLayout.CENTER);
         
+        SanPham sp = qlspBUS.getSanPham(txSanPham.getText());
+        
+        dshd = qlhdBUS.getDshd();
+        for (HoaDon hd : dshd) {
+            float tongTien = 0;
+            dscthd = qlcthdBUS.getAllChiTiet(hd.getMaHoaDon());
+            if (dscthd != null ) {
+                tb.addRow(new String[]{hd.getMaHoaDon(),qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV(),qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH(),"","","",""});
+                for(ChiTietHoaDon cthd : dscthd){
+                    tb.addRow(new String[]{"","","",qlspBUS.getSanPham(cthd.getMaSanPham()).getTenSP(),String.valueOf(cthd.getSoLuong()),String.valueOf(cthd.getDonGia()),String.valueOf(cthd.getSoLuong()*cthd.getDonGia())});
+                }
+            }
+        }
+
         return result;
     }
 }
