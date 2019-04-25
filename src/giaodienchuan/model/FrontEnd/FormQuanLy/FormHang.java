@@ -63,6 +63,8 @@ import javax.swing.event.DocumentListener;
  * @author DELL
  */
 public class FormHang extends JPanel {
+    
+    ChonSanPhamPanel target;
 
     public FormHang() {
 
@@ -70,6 +72,10 @@ public class FormHang extends JPanel {
 
     public void addChiTiet(String masp, int soluong) {
 
+    }
+    
+    public void setTarget(ChonSanPhamPanel target) {
+        this.target = target;
     }
 }
 
@@ -103,8 +109,6 @@ class PhieuNhapHang extends FormHang {
     JButton btnHuy = new JButton("Hủy");
 
     ArrayList<ChiTietPhieuNhap> dsctpn = new ArrayList<>();
-
-    ChonSanPhamPanel target;
 
     public PhieuNhapHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
@@ -319,10 +323,6 @@ class PhieuNhapHang extends FormHang {
         }
     }
 
-    public void setTarget(ChonSanPhamPanel target) {
-        this.target = target;
-    }
-
     public void clear() {
         txNhaCC.setText("");
         txTongTien.setText("");
@@ -417,8 +417,6 @@ class HoaDonBanHang extends FormHang {
     JButton btnHuy = new JButton("Hủy");
 
     ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
-
-    ChonSanPhamPanel target;
 
     public HoaDonBanHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
@@ -661,10 +659,6 @@ class HoaDonBanHang extends FormHang {
             dscthd.remove(i);
             setDataToTable(dscthd, tbChiTietHoaDon);
         }
-    }
-
-    public void setTarget(ChonSanPhamPanel target) {
-        this.target = target;
     }
 
     public void clear() {
