@@ -18,8 +18,11 @@ import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
+import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,7 +32,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -835,8 +841,95 @@ class ThongKeThuNhap extends JPanel {
 }
 
 class ThongKe_Hoang extends JPanel {
+    
+    JCheckBox chbNhanVien = new JCheckBox();
+    JCheckBox chbKhachHang = new JCheckBox();
+    JCheckBox chbNhaCC = new JCheckBox();
 
+    JTextField txNgay1 = new JTextField(7);
+    JTextField txNgay2 = new JTextField(7);
+    JTextField txNhanVien = new JTextField(15);
+    JTextField txKhachHang = new JTextField(15);
+    JTextField txNhaCC = new JTextField(15);
+    
+    DatePicker dPicker1;
+    DatePicker dPicker2;
+    MoreButton btnChonNhanVien = new MoreButton();
+    MoreButton btnChonKhachHang = new MoreButton();
+    MoreButton btnChonNhaCC = new MoreButton();
+    
     public ThongKe_Hoang() {
-
+        setLayout(new BorderLayout());
+        
+        // panel tieu chi
+        JPanel plTieuChi = new JPanel();
+        plTieuChi.setPreferredSize(new Dimension(350, 600));
+        plTieuChi.setLayout(new BorderLayout());
+        plTieuChi.add(new JLabel("TIÊU CHÍ", JLabel.CENTER), BorderLayout.NORTH);
+        
+        JPanel plChonTieuChi = new JPanel();
+        
+        DatePickerSettings ds = new DatePickerSettings();
+        ds.setVisibleDateTextField(false);
+        dPicker1 = new DatePicker(ds);
+        dPicker2 = new DatePicker(ds.copySettings());
+        dPicker1.addDateChangeListener((dce) -> {
+            txNgay1.setText(dPicker1.getDateStringOrEmptyString());
+        });
+        dPicker2.addDateChangeListener((dce) -> {
+            txNgay2.setText(dPicker2.getDateStringOrEmptyString());
+        });
+        
+        JPanel plChonNgay = new JPanel();
+        plChonNgay.setBorder(BorderFactory.createTitledBorder("Khoảng ngày"));
+        
+        plChonNgay.add(txNgay1);
+        plChonNgay.add(dPicker1);
+        plChonNgay.add(txNgay2);
+        plChonNgay.add(dPicker2);
+        
+        plChonTieuChi.add(plChonNgay);
+        plChonTieuChi.add(getPanelTieuChi("Nhân viên", chbNhanVien, txNhanVien, btnChonNhanVien));
+        plChonTieuChi.add(getPanelTieuChi("Khách hàng", chbKhachHang, txKhachHang, btnChonKhachHang));
+        plChonTieuChi.add(getPanelTieuChi("Nhà cung cấp", chbNhaCC, txNhaCC, btnChonNhaCC));
+        
+        btnChonNhanVien.addActionListener((ae) -> {
+            ChonNhanVienForm cnv = new ChonNhanVienForm(txNhanVien);
+        });
+        btnChonKhachHang.addActionListener((ae) -> {
+            ChonKhachHangForm ckh = new ChonKhachHangForm(txKhachHang);
+        });
+        btnChonNhaCC.addActionListener((ae) -> {
+            ChonNhanVienForm cnv = new ChonNhanVienForm(txNhaCC);
+        });
+        
+        plTieuChi.add(plChonTieuChi, BorderLayout.CENTER);
+        this.add(plTieuChi, BorderLayout.WEST);
+        
+        // panel ket qua
+    }
+    
+    private JPanel getPanelTieuChi(String name,JCheckBox chb, JTextField tx, MoreButton b) {
+        JPanel result = new JPanel();
+        result.setBorder(BorderFactory.createTitledBorder(name));
+        
+        tx.setEnabled(false);
+        b.setEnabled(false);
+        
+        chb.addActionListener((ae) -> {
+            if(chb.isSelected()) {
+                tx.setEnabled(true);
+                b.setEnabled(true);
+            } else {
+                tx.setEnabled(false);
+                b.setEnabled(false);
+            }
+        });
+        
+        result.add(chb);
+        result.add(tx);
+        result.add(b);
+        
+        return result;
     }
 }
