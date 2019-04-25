@@ -4,6 +4,7 @@ import giaodienchuan.model.BackEnd.ReadWriteFile.WorkWithFile;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BanHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.BeginForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.EmptyPage;
+import giaodienchuan.model.FrontEnd.FormQuanLy.NhapHangForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyHoaDonForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLySanPhamForm;
@@ -45,6 +46,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
     JPanel plContent = new JPanel();
     EmptyPage emptypage = new EmptyPage();
     BanHangForm banhang;
+    NhapHangForm nhaphang;
     QuanLySanPhamForm qlsp;
     QuanLyLoaiSanPhamForm qllsp;
     QuanLyTaiKhoanForm qltk;
@@ -73,11 +75,13 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
         String[] navItemInfo = {
             "seperate", "2", "", "",
             "Bán hàng", "icons8_small_business_30px_3.png", "qlBanHang", "",
+            "Nhập hàng", "icons8_downloads_30px.png", "qlNhapHang", "",
+            "seperate", "2", "", "",
             "Sản phẩm", "icons8_multiple_smartphones_30px.png", "xemSanPham", "qlSanPham",
             "Loại sản phẩm", "icons8_dossier_folder_30px.png", "xemLoaiSanPham", "qlLoaiSanPham",
             "Hóa đơn", "icons8_agreement_30px.png", "xemHoaDon", "qlHoaDon",
-            "Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
             "Phiếu nhập", "icons8_truck_30px.png", "xemPheuNhap", "qlPhieuNhap",
+            "Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
             "seperate", "1", "", "",
             "Nhân viên", "icons8_assistant_30px.png", "xemNhanVien", "qlNhanVien",
             "Khách hàng", "icons8_user_30px.png", "xemKhachHang", "qlKhachHang",
@@ -247,6 +251,13 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
                     banhang = new BanHangForm(WIDTH - 250, HEIGHT - 55);
                 }
                 plContent.add(banhang, BorderLayout.CENTER);
+                break;
+                
+            case "Nhập hàng":
+                if (nhaphang == null) {
+                    nhaphang = new NhapHangForm(WIDTH - 250, HEIGHT - 55);
+                }
+                plContent.add(nhaphang, BorderLayout.CENTER);
                 break;
 
             case "Sản phẩm":

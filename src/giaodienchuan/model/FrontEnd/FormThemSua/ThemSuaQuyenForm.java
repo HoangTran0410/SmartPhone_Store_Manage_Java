@@ -171,7 +171,8 @@ class ChiTietQuyenForm extends JPanel {
         setLayout(new FlowLayout());
         setBorder(BorderFactory.createTitledBorder("Chi tiết quyền: "));
         
-        dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"},  new String[] {"qlBanHang"}));
+        dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"},  new String[]{"qlBanHang"}));
+        dsPanel.add(new PanelChooseQuyen("Nhập Hàng", new String[]{"Nhập hàng"}, new String[]{"qlNhapHang"}));
         dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type,                      new String[]{"xemSanPham", "qlSanPham"}));
         dsPanel.add(new PanelChooseQuyen("Loại Sản Phẩm", type,                 new String[]{"xemLoaiSanPham", "qlLoaiSanPham"}));
         dsPanel.add(new PanelChooseQuyen("Hóa Đơn", type,                       new String[]{"xemHoaDon", "qlHoaDon"}));
