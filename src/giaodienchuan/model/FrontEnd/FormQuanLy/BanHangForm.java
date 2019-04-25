@@ -224,7 +224,7 @@ class ChonSanPhamBanHang extends JPanel {
                     lbImage.setIcon(new ImageIcon(imgScaled));
 
                     // show info
-                    String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
+                    String loai = qllspBUS.getLoaiSanPham(sp.getMaLSP()).getTenLSP();
                     txMaSP.setText(sp.getMaSP());
                     txTenSP.setText(sp.getTenSP());
                     txLoaiSP.setText(loai + " - " + sp.getMaLSP());

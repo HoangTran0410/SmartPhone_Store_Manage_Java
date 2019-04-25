@@ -28,6 +28,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.sql.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -197,7 +198,7 @@ class ThongKeSanPham extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -235,7 +236,7 @@ class ThongKeSanPham extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", "", khoangTG, String.valueOf(tongSoLuong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -381,7 +382,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -422,7 +423,7 @@ class ThongKeNhanVien extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -574,7 +575,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, String.valueOf(tong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -616,7 +617,7 @@ class ThongKeKhachHang extends JPanel {
                 }
             }
             tb.addRow(new String[]{"", "", "", khoangTG, "", "Tổng số sản phẩm", String.valueOf(tong)});
-            tb.addRow(new String[]{"", "","", "", "", ""});
+            tb.addRow(new String[]{"", "", "", "", "", ""});
         }
     }
 
@@ -837,14 +838,29 @@ class ThongKeNhaCungCap extends JPanel {
 
 class ThongKeThuNhap extends JPanel {
 
-    public ThongKeThuNhap(){
-        
+    public ThongKeThuNhap() {
+
     }
 
 }
 
 class ThongKe_Hoang extends JPanel {
+
+    QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
+    ArrayList<HoaDon> dshd;
+
+    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
+    ArrayList<SanPham> dssp;
+
+    QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+    ArrayList<NhanVien> dsnv;
     
+    QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
+    ArrayList<KhachHang> dskh;
+    
+    QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
+    ArrayList<NhaCungCap> dsncc;
+
     JCheckBox chbNhanVien = new JCheckBox();
     JCheckBox chbKhachHang = new JCheckBox();
     JCheckBox chbNhaCC = new JCheckBox();
@@ -856,25 +872,26 @@ class ThongKe_Hoang extends JPanel {
     JTextField txKhachHang = new JTextField(15);
     JTextField txNhaCC = new JTextField(15);
     JTextField txSanPham = new JTextField(15);
-    
+
     DatePicker dPicker1;
     DatePicker dPicker2;
     MoreButton btnChonNhanVien = new MoreButton();
     MoreButton btnChonKhachHang = new MoreButton();
     MoreButton btnChonNhaCC = new MoreButton();
     MoreButton btnChonSanPham = new MoreButton();
-    
+
     public ThongKe_Hoang() {
+
         setLayout(new BorderLayout());
-        
+
         // panel tieu chi
         JPanel plTieuChi = new JPanel();
         plTieuChi.setPreferredSize(new Dimension(350, 600));
         plTieuChi.setLayout(new BorderLayout());
         plTieuChi.add(new JLabel("TIÊU CHÍ", JLabel.CENTER), BorderLayout.NORTH);
-        
+
         JPanel plChonTieuChi = new JPanel();
-        
+
         DatePickerSettings ds = new DatePickerSettings();
         ds.setVisibleDateTextField(false);
         dPicker1 = new DatePicker(ds);
@@ -885,21 +902,23 @@ class ThongKe_Hoang extends JPanel {
         dPicker2.addDateChangeListener((dce) -> {
             txNgay2.setText(dPicker2.getDateStringOrEmptyString());
         });
-        
+
         JPanel plChonNgay = new JPanel();
         plChonNgay.setBorder(BorderFactory.createTitledBorder("Khoảng ngày"));
-        
+
+        addDocumentListener(txNgay1);
+        addDocumentListener(txNgay2);
         plChonNgay.add(txNgay1);
         plChonNgay.add(dPicker1);
         plChonNgay.add(txNgay2);
         plChonNgay.add(dPicker2);
-        
+
         plChonTieuChi.add(plChonNgay);
         plChonTieuChi.add(getPanelTieuChi("Sản phẩm", chbSanPham, txSanPham, btnChonSanPham));
         plChonTieuChi.add(getPanelTieuChi("Nhân viên", chbNhanVien, txNhanVien, btnChonNhanVien));
         plChonTieuChi.add(getPanelTieuChi("Khách hàng", chbKhachHang, txKhachHang, btnChonKhachHang));
         plChonTieuChi.add(getPanelTieuChi("Nhà cung cấp", chbNhaCC, txNhaCC, btnChonNhaCC));
-        
+
         btnChonSanPham.addActionListener((ae) -> {
             ChonSanPhamForm cnv = new ChonSanPhamForm(txSanPham, null, null, null, null);
         });
@@ -912,22 +931,35 @@ class ThongKe_Hoang extends JPanel {
         btnChonNhaCC.addActionListener((ae) -> {
             ChonNhanVienForm cnv = new ChonNhanVienForm(txNhaCC);
         });
-        
+
         plTieuChi.add(plChonTieuChi, BorderLayout.CENTER);
         this.add(plTieuChi, BorderLayout.WEST);
-        
+
         // panel ket qua
+        JTabbedPane tabDoiTuongThongKe = new JTabbedPane();
+        
+        JPanel plThongKeHoaDon = new JPanel();
+        
+        JPanel plThongKePhieuNhap = new JPanel();
+        
+        
+        tabDoiTuongThongKe.setPreferredSize(new Dimension(700, 600));
+        tabDoiTuongThongKe.setBackground(Color.yellow);
+        tabDoiTuongThongKe.addTab("Hóa đơn", getIcon("icons8_us_dollar_30px.png"), plThongKeHoaDon);
+        tabDoiTuongThongKe.addTab("Phiếu nhập", getIcon("icons8_company_30px.png"), plThongKePhieuNhap);
+
+        this.add(tabDoiTuongThongKe, BorderLayout.EAST);
     }
-    
-    private JPanel getPanelTieuChi(String name,JCheckBox chb, JTextField tx, MoreButton b) {
+
+    private JPanel getPanelTieuChi(String name, JCheckBox chb, JTextField tx, MoreButton b) {
         JPanel result = new JPanel();
         result.setBorder(BorderFactory.createTitledBorder(name));
-        
+
         tx.setEnabled(false);
         b.setEnabled(false);
-        
+
         chb.addActionListener((ae) -> {
-            if(chb.isSelected()) {
+            if (chb.isSelected()) {
                 tx.setEnabled(true);
                 b.setEnabled(true);
             } else {
@@ -935,10 +967,40 @@ class ThongKe_Hoang extends JPanel {
                 b.setEnabled(false);
             }
         });
-        
+
         result.add(chb);
         result.add(tx);
         result.add(b);
+
+        return result;
+    }
+
+    private void addDocumentListener(JTextField txField) {
+        txField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+//                cbSearchOnChange();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+//                cbSearchOnChange();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+//                cbSearchOnChange();
+            }
+        });
+    }
+    
+    private ImageIcon getIcon(String filename) {
+        return new ImageIcon(getClass().getResource("/giaodienchuan/images/" + filename));
+    }   
+
+    private JPanel showThongKeHoaDon(ArrayList<SanPham> _dssp,ArrayList<NhanVien> _dsnv, ArrayList<KhachHang> _dskh){
+        JPanel result =  new JPanel();
+        MyTable tb = new MyTable();
         
         return result;
     }
