@@ -20,6 +20,7 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
+import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
@@ -835,9 +836,11 @@ class ThongKeNhaCungCap extends JPanel {
 }
 
 class ThongKeThuNhap extends JPanel {
+
     public ThongKeThuNhap(){
         
     }
+
 }
 
 class ThongKe_Hoang extends JPanel {
@@ -845,18 +848,21 @@ class ThongKe_Hoang extends JPanel {
     JCheckBox chbNhanVien = new JCheckBox();
     JCheckBox chbKhachHang = new JCheckBox();
     JCheckBox chbNhaCC = new JCheckBox();
+    JCheckBox chbSanPham = new JCheckBox();
 
     JTextField txNgay1 = new JTextField(7);
     JTextField txNgay2 = new JTextField(7);
     JTextField txNhanVien = new JTextField(15);
     JTextField txKhachHang = new JTextField(15);
     JTextField txNhaCC = new JTextField(15);
+    JTextField txSanPham = new JTextField(15);
     
     DatePicker dPicker1;
     DatePicker dPicker2;
     MoreButton btnChonNhanVien = new MoreButton();
     MoreButton btnChonKhachHang = new MoreButton();
     MoreButton btnChonNhaCC = new MoreButton();
+    MoreButton btnChonSanPham = new MoreButton();
     
     public ThongKe_Hoang() {
         setLayout(new BorderLayout());
@@ -889,10 +895,14 @@ class ThongKe_Hoang extends JPanel {
         plChonNgay.add(dPicker2);
         
         plChonTieuChi.add(plChonNgay);
+        plChonTieuChi.add(getPanelTieuChi("Sản phẩm", chbSanPham, txSanPham, btnChonSanPham));
         plChonTieuChi.add(getPanelTieuChi("Nhân viên", chbNhanVien, txNhanVien, btnChonNhanVien));
         plChonTieuChi.add(getPanelTieuChi("Khách hàng", chbKhachHang, txKhachHang, btnChonKhachHang));
         plChonTieuChi.add(getPanelTieuChi("Nhà cung cấp", chbNhaCC, txNhaCC, btnChonNhaCC));
         
+        btnChonSanPham.addActionListener((ae) -> {
+            ChonSanPhamForm cnv = new ChonSanPhamForm(txSanPham, null, null, null, null);
+        });
         btnChonNhanVien.addActionListener((ae) -> {
             ChonNhanVienForm cnv = new ChonNhanVienForm(txNhanVien);
         });

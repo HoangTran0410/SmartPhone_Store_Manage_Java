@@ -18,7 +18,6 @@ import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
-import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
@@ -30,9 +29,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
@@ -48,242 +44,29 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  *
  * @author DELL
  */
-public class BanHangForm extends JPanel {
+public class NhapHangForm extends JPanel {
 
-    public static HoaDonBanHang hdbh;
+    public static PhieuNhapHang pnh;
     public static ChonSanPhamBanHang csp;
 
-    public BanHangForm(int width, int height) {
+    public NhapHangForm(int width, int height) {
         setLayout(null);
 
         csp = new ChonSanPhamBanHang(0, 0, width - 555, height);
         this.add(csp);
 
-        hdbh = new HoaDonBanHang(width - 550, 0, 550, height);
-        this.add(hdbh);
+        pnh = new PhieuNhapHang(width - 550, 0, 550, height);
+        this.add(pnh);
     }
 
 }
 
-class ChonSanPhamBanHang extends JPanel {
-
-    QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
-    QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
-    MyTable tbSanPham = new MyTable();
-    JTextField txTimKiem = new JTextField(30);
-
-    JLabel lbImage = new JLabel();
-    JTextField txMaSP = new JTextField(12);
-    JTextField txLoaiSP = new JTextField(12);
-    JTextField txTenSP = new JTextField(12);
-    JTextField txDonGia = new JTextField(12);
-    JTextField txSoLuong = new JTextField(7);
-
-    JButton btnRefresh = new JButton("Làm mới");
-    JButton btnThem = new JButton("Thêm");
-
-    public ChonSanPhamBanHang(int _x, int _y, int _width, int _height) {
-        this.setBounds(_x, _y, _width, _height);
-        this.setBackground(new Color(59, 68, 75));
-        this.setLayout(new BorderLayout());
-
-        // panel hiển thị sản phẩm
-        int plSP_height = _height - 300;
-        JPanel plSanPham = new JPanel();
-        plSanPham.setPreferredSize(new Dimension(_width - 10, plSP_height));
-        plSanPham.setBackground(new Color(49, 49, 49));
-        plSanPham.setLayout(new BorderLayout());
-
-        JPanel plTimKiem = new JPanel();
-        txTimKiem.setBorder(BorderFactory.createTitledBorder("Tìm kiếm"));
-        txTimKiem.setHorizontalAlignment(JLabel.CENTER);
-        addDocumentListener(txTimKiem);
-        plTimKiem.add(txTimKiem);
-        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
-        btnRefresh.addActionListener((ae) -> {
-            refreshTable();
-        });
-        plTimKiem.add(btnRefresh);
-        plSanPham.add(plTimKiem, BorderLayout.NORTH);
-
-        tbSanPham.setHeaders(new String[]{"Mã", "Loại", "Tên", "Đơn giá", "Số lượng"});
-        tbSanPham.setColumnsWidth(new double[]{.5, .5, 3, 1, .5});
-        tbSanPham.setAlignment(3, JLabel.RIGHT);
-        tbSanPham.setAlignment(4, JLabel.RIGHT);
-        plSanPham.add(tbSanPham, BorderLayout.CENTER);
-
-        this.add(plSanPham, BorderLayout.CENTER);
-
-        // =========== panel chi tiết sản phẩm chọn ================
-        JPanel plChiTiet = new JPanel();
-        plChiTiet.setPreferredSize(new Dimension(_width - 10, 258));
-        plChiTiet.setBackground(new Color(240, 240, 240));
-        plChiTiet.setLayout(new BorderLayout());
-
-        lbImage.setBackground(Color.yellow);
-        lbImage.setPreferredSize(new Dimension(200, 200));
-        plChiTiet.add(lbImage, BorderLayout.WEST);
-
-        JPanel plTextField = new JPanel();
-        plTextField.setLayout(new FlowLayout());
-        plTextField.setBackground(new Color(240, 240, 240));
-        // border
-        txMaSP.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
-        txLoaiSP.setBorder(BorderFactory.createTitledBorder("Loại sản phẩm"));
-        txTenSP.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
-        txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
-        txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
-        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-        // disable
-        txMaSP.setEditable(false);
-        txLoaiSP.setEditable(false);
-        txTenSP.setEditable(false);
-        txDonGia.setEditable(false);
-        // font
-        Font f = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        txMaSP.setFont(f);
-        txLoaiSP.setFont(f);
-        txTenSP.setFont(f);
-        txDonGia.setFont(f);
-        txSoLuong.setFont(f);
-        // add to panel
-        plTextField.add(txMaSP);
-        plTextField.add(txLoaiSP);
-        plTextField.add(txTenSP);
-        plTextField.add(txDonGia);
-        plTextField.add(txSoLuong);
-
-        btnThem.addActionListener((ae) -> {
-            try {
-                String masp = txMaSP.getText();
-                int soluong = Integer.parseInt(txSoLuong.getText());
-                if (soluong > 0) {
-                    BanHangForm.hdbh.addChiTiet(masp, soluong);
-                } else {
-                    JOptionPane.showMessageDialog(txSoLuong, "Số lượng phải là số dương!");
-                    txSoLuong.requestFocus();
-                }
-
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(txSoLuong, "Số lượng phải là số nguyên!");
-                txSoLuong.requestFocus();
-            }
-        });
-
-        plChiTiet.add(plTextField, BorderLayout.CENTER);
-        plChiTiet.add(btnThem, BorderLayout.SOUTH);
-
-        this.add(plChiTiet, BorderLayout.SOUTH);
-
-        // event
-        tbSanPham.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                String masp = getSelectedSanPham(0);
-                if (masp != null) {
-                    showInfo(masp, 1);
-                }
-            }
-        });
-
-        setDataToTable(qlspBUS.getDssp(), tbSanPham);
-    }
-
-    public void refreshTable() {
-        qlspBUS.readDB();
-        setDataToTable(qlspBUS.getDssp(), tbSanPham);
-    }
-
-    public void refreshAll() {
-        refreshTable();
-        txMaSP.setText("");
-        txLoaiSP.setText("");
-        txTenSP.setText("");
-        txDonGia.setText("");
-        txSoLuong.setText("");
-        lbImage.setIcon(null);
-    }
-
-    public void showInfo(String masp, int soluong) {
-        // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
-        if (masp != null) {
-            // show hình
-            for (SanPham sp : qlspBUS.getDssp()) {
-                if (sp.getMaSP().equals(masp)) {
-                    int w = lbImage.getWidth();
-                    int h = lbImage.getHeight();
-                    ImageIcon img = new ImageIcon(getClass().getResource("/giaodienchuan/images/Product Images/" + sp.getFileNameHinhAnh()));
-                    Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
-                    lbImage.setIcon(new ImageIcon(imgScaled));
-
-                    // show info
-                    String loai = new QuanLyLoaiSanPhamBUS().getLoaiSanPham(sp.getMaLSP()).getTenLSP();
-                    txMaSP.setText(sp.getMaSP());
-                    txTenSP.setText(sp.getTenSP());
-                    txLoaiSP.setText(loai + " - " + sp.getMaLSP());
-                    txDonGia.setText(PriceFormatter.format(sp.getDonGia()));
-                    txSoLuong.setText(String.valueOf(soluong));
-                    return;
-                }
-            }
-        }
-    }
-
-    private void addDocumentListener(JTextField tx) {
-        // https://stackoverflow.com/questions/3953208/value-change-listener-to-jtextfield
-        tx.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                txSearchOnChange();
-            }
-        });
-    }
-
-    public void txSearchOnChange() {
-        setDataToTable(qlspBUS.search(txTimKiem.getText(), "Tất cả", -1, -1, -1, -1, 0), tbSanPham);
-    }
-
-    public String getSelectedSanPham(int col) {
-        int i = tbSanPham.getTable().getSelectedRow();
-        if (i >= 0) {
-            return tbSanPham.getModel().getValueAt(i, col).toString();
-        }
-        return null;
-    }
-
-    private void setDataToTable(ArrayList<SanPham> data, MyTable table) {
-        table.clear();
-        for (SanPham sp : data) {
-            if (sp.getTrangThai() == 0) {
-                table.addRow(new String[]{
-                    sp.getMaSP(),
-                    sp.getMaLSP(),
-                    sp.getTenSP(),
-                    PriceFormatter.format(sp.getDonGia()),
-                    String.valueOf(sp.getSoLuong()),});
-            }
-        }
-    }
-}
-
-class HoaDonBanHang extends JPanel {
+class PhieuNhapHang extends JPanel {
 
     NhanVien nhanVien;
     KhachHang khachHang;
@@ -306,12 +89,12 @@ class HoaDonBanHang extends JPanel {
     JButton btnSua = new JButton("Sửa");
     JButton btnRefresh = new JButton("Làm mới");
 
-    JButton btnThanhToan = new JButton("Thanh toán");
+    JButton btnThanhToan = new JButton("Nhập hàng");
     JButton btnHuy = new JButton("Hủy");
 
     ArrayList<ChiTietHoaDon> dscthd = new ArrayList<>();
 
-    public HoaDonBanHang(int _x, int _y, int _width, int _height) {
+    public PhieuNhapHang(int _x, int _y, int _width, int _height) {
         this.setBounds(_x, _y, _width, _height);
         this.setBackground(new Color(0, 0, 0));
         this.setLayout(new FlowLayout());
@@ -533,7 +316,7 @@ class HoaDonBanHang extends JPanel {
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
         clear();
-        BanHangForm.csp.refreshAll();
+        NhapHangForm.csp.refreshAll();
     }
 
     private void btnXoaOnClick() {
@@ -548,7 +331,7 @@ class HoaDonBanHang extends JPanel {
         int i = tbChiTietHoaDon.getTable().getSelectedRow();
         if (i >= 0 && i < dscthd.size()) {
             ChiTietHoaDon ct = dscthd.get(i);
-            BanHangForm.csp.showInfo(ct.getMaSanPham(), ct.getSoLuong());
+            NhapHangForm.csp.showInfo(ct.getMaSanPham(), ct.getSoLuong());
 
             dscthd.remove(i);
             setDataToTable(dscthd, tbChiTietHoaDon);

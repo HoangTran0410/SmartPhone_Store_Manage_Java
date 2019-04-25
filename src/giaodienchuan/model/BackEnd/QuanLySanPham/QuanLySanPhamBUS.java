@@ -29,7 +29,7 @@ public class QuanLySanPhamBUS {
     public void readDB() {
         dssp = qlspDAO.readDB();
     }
-    
+
     public String getNextID() {
         return "SP" + String.valueOf(this.dssp.size() + 1);
     }
