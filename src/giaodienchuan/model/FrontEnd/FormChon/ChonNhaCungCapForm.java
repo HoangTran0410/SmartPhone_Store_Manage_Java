@@ -28,7 +28,7 @@ public class ChonNhaCungCapForm extends JFrame {
     JTextField txTarget;
 
     public ChonNhaCungCapForm(JTextField _txTarget) {
-        this.setTitle("Chọn khách hàng");
+        this.setTitle("Chọn nhà cung cấp");
         this.setLayout(new BorderLayout());
         this.setSize(1200 - 200, 600);
         this.setLocationRelativeTo(null);
@@ -54,7 +54,7 @@ public class ChonNhaCungCapForm extends JFrame {
                 this.dispose();
 
             } else {
-                JOptionPane.showMessageDialog(this, "Chưa chọn khách hàng nào!");
+                JOptionPane.showMessageDialog(this, "Chưa chọn nhà cung cấp nào!");
             }
         });
 

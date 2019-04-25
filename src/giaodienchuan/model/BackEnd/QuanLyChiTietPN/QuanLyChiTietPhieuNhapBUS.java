@@ -30,14 +30,8 @@ public class QuanLyChiTietPhieuNhapBUS {
     }
 
     public ArrayList<ChiTietPhieuNhap> search(String type, String value) {
-        // Phương pháp tìm từ database
-//        QuanLySanPhamqlctpnDAO qlspDB = new QuanLySanPhamqlctpnDAO();
-//        dssp = qlspDB.search(columnName, value);
-//        qlspDB.close();
 
-        // phương pháp tìm từ arraylist
         ArrayList<ChiTietPhieuNhap> result = new ArrayList<>();
-        readDB();
         dsctpn.forEach((ctpn) -> {
             if (type.equals("Tất cả")) {
                 if (ctpn.getMa().toLowerCase().contains(value.toLowerCase())
@@ -89,15 +83,6 @@ public class QuanLyChiTietPhieuNhapBUS {
         }
         return false;
     }
-//     public boolean add(ChiTietPhieuNhap ctpn)
-//     {
-//         Boolean ok=qlctpnDAO.add(ctpn);
-//         if(ok)
-//         {
-//            dsctpn.add(ctpn);
-//         }
-//         return ok;
-//     }
 
     public ChiTietPhieuNhap getChiTiet(String mapn, String masp) {
         for (ChiTietPhieuNhap ct : dsctpn) {
@@ -106,6 +91,16 @@ public class QuanLyChiTietPhieuNhapBUS {
             }
         }
         return null;
+    }
+    
+    public ArrayList<ChiTietPhieuNhap> getAllChiTiet(String mapn) {
+        ArrayList<ChiTietPhieuNhap> result = new ArrayList<>();
+        for(ChiTietPhieuNhap ctpn : dsctpn) {
+            if(ctpn.getMa().equals(mapn)) {
+                result.add(ctpn);
+            }
+        }
+        return result;
     }
 
     public Boolean delete(String _maPhieuNhap, String _maSanPham) {

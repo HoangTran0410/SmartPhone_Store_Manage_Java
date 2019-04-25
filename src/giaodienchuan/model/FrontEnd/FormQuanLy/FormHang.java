@@ -519,9 +519,8 @@ class HoaDonBanHang extends FormHang {
                 txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 if (txNhanVien.getText().equals("")
                         || txKhachHang.getText().equals("")
-                        || txTongTien.getText().equals("")
-                        || txTongTien.getText().equals("0")
-                        || txKhuyenMai.getText().equals("")) {
+                        || txKhuyenMai.getText().equals("")
+                        || dscthd.isEmpty()) {
                     btnThanhToan.setEnabled(false);
                 } else {
                     btnThanhToan.setEnabled(true);
