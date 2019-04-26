@@ -171,18 +171,20 @@ public class ChiTietPhieuNhapBUS {
         }
           return ok;
      }
-     public Boolean update(String maPhieuNhapBanDau,String maSanPhamBanDau,String mapn, String masp,int soluong,float dongia) {
-        Boolean ok = DAO.update(maPhieuNhapBanDau,maSanPhamBanDau,mapn, masp,soluong,dongia);
+     public Boolean update(String mapn, String masp,int soluong,float dongia) {
+        Boolean ok = DAO.update(mapn, masp,soluong,dongia);
 
         if (ok) {
-             dsctpn.forEach((ctpn) -> {
-            if(ctpn.getMa()==maPhieuNhapBanDau&&ctpn.getMaSP()==maSanPhamBanDau)
+            dsctpn.forEach((ctpn) -> {
+            if(ctpn.getMa()==mapn && ctpn.getMaSP()==masp)
             {
             ChiTietPhieuNhap pn = new ChiTietPhieuNhap(mapn, masp, soluong, dongia);
             dsctpn.add(pn);
-            }       
-             });
-             }
+            }
+            });  
+                    }
+             
+             
              
 
         return ok;

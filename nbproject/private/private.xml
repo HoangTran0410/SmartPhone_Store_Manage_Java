@@ -5,9 +5,13 @@
         <group>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormThemSua/ThemSuaChiTietHoaDonForm.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormThemSua/ThemSuaChiTietPhieuNhapForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLySanPham/QuanLySanPhamBUS.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyChiTietPN/ChiTietPhieuNhapBUS.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyPhieuNhap/QuanLyPhieuNhapDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/FormHienThi/HienThiPhieuNhap.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyChiTietHoaDon/QuanLyChiTietHoaDonDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyChiTietPN/ChiTietPhieuNhapDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/BackEnd/QuanLyNCC/QuanLyNhaCungCapBUS.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/GiaoDienChuan.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SmartPhone_Store_Manage_Java/src/giaodienchuan/model/FrontEnd/GiaoDienChuan/MyTable.java</file>
         </group>
     </open-files>
 </project-private>

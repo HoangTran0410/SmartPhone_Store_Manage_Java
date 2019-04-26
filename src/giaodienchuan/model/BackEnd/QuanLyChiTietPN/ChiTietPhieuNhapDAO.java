@@ -106,9 +106,9 @@ public class ChiTietPhieuNhapDAO {
         return success;
     }
 
-    public boolean update(String _mapn,String _masp,String mapn, String masp, int soluong, float dongia) {// thua :)) hom qua t update no bi mat
+    public boolean update(String mapn, String masp, int soluong, float dongia) {// thua :)) hom qua t update no bi mat
         qlctpnConnection = new ConnectionDB();
-        Boolean ok = qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='" + mapn + "',MaSP='" + masp + "',SoLuong='" + soluong + "',DonGia='" + dongia + "' WHERE MaPN='"+ _mapn + "' AND MaSP='" + _masp + "';");
+        Boolean ok = qlctpnConnection.sqlUpdate("UPDATE `chitietphieunhap` SET MaPN='" + mapn + "',MaSP='" + masp + "',SoLuong='" + soluong + "',DonGia='" + dongia +"' WHERE MaPN='"+mapn+"'AND MaSP='"+masp+"';");
         qlctpnConnection.closeConnect();
         return ok;
     }

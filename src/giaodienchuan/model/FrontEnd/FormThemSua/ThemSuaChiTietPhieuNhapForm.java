@@ -93,6 +93,8 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
             }
             txMapn.setText(this.ctpnSua.getMa());
             txMapn.setEditable(false);
+            txMasp.setText(this.ctpnSua.getMaSP());
+            txMasp.setEditable(false);
             txSoLuong.setText(String.valueOf(this.ctpnSua.getSoLuong()));
             txMasp.setText(this.masp);
 
@@ -150,7 +152,7 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
             int soluong = Integer.parseInt(txSoLuong.getText());
             
 
-            if (qlctpnBUS.update(this.mapn,this.masp,mapn, masp, soluong, dongia)) {
+            if (qlctpnBUS.update(this.mapn, this.masp, soluong, dongia)) {
                 JOptionPane.showMessageDialog(this, "Sửa " + mapn + " thành công!");
                 this.dispose();
             
