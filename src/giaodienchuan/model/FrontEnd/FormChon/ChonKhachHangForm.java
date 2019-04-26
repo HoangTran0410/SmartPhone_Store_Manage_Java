@@ -39,7 +39,7 @@ public class ChonKhachHangForm extends JFrame {
 
         // actionlistener
         btnOK.addActionListener((ActionEvent ae) -> {
-            String makh = formHienThi.getSelectedKhachHang();
+            String makh = formHienThi.getSelectedRow(1);
             if (makh != null) {
                 this.txTarget.setText(makh);
                 this.dispose();

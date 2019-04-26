@@ -61,9 +61,9 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
-        if (masp != null) {
-            ThemSuaLoaiSanPhamForm sualsp = new ThemSuaLoaiSanPhamForm("Sửa", masp);
+        String malsp = formHienThi.getSelectedRow(1);
+        if (malsp != null) {
+            ThemSuaLoaiSanPhamForm sualsp = new ThemSuaLoaiSanPhamForm("Sửa", malsp);
 
             // https://stackoverflow.com/questions/4154780/jframe-catch-dispose-event
             sualsp.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -79,7 +79,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String malsp = formHienThi.getSelectedSanPham();
+        String malsp = formHienThi.getSelectedRow(1);
         if (malsp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa loại sản phẩm " + malsp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyLoaiSanPhamBUS().delete(malsp);

@@ -61,7 +61,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String mapn = formHienThi.getSelectedPhieuNhap();
+        String mapn = formHienThi.getSelectedRow(1);
         if (mapn != null) {
             ThemSuaPhieuNhapForm tspn = new ThemSuaPhieuNhapForm("Sửa", mapn);
             tspn.addWindowListener(new WindowAdapter() {
@@ -76,7 +76,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String mapn = formHienThi.getSelectedPhieuNhap();
+        String mapn = formHienThi.getSelectedRow(1);
         if (mapn != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mapn + 
                     " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
@@ -92,7 +92,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
             JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xóa");
         }
     }
-// cai nay k sai dau sai cai hienthichitiet ak
+    
     private void btnThemMouseClicked() {
         ThemSuaPhieuNhapForm thempn = new ThemSuaPhieuNhapForm("Thêm", "");
         thempn.addWindowListener(new WindowAdapter() {

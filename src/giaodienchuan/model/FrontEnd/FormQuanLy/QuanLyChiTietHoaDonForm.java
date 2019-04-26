@@ -65,7 +65,7 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
     }
     
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedChiTietHoaDon(2);
+        String masp = formHienThi.getSelectedRow(2);
         ThemSuaChiTietHoaDonForm themcthd = new ThemSuaChiTietHoaDonForm("Sửa", this.mahd, masp);
         themcthd.addWindowListener(new WindowAdapter() {
             @Override
@@ -76,8 +76,8 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
     }
 
     private void btnXoaMouseClicked() {
-        String masp = formHienThi.getSelectedChiTietHoaDon(1);
-        String soluong = formHienThi.getSelectedChiTietHoaDon(2);
+        String masp = formHienThi.getSelectedRow(1);
+        String soluong = formHienThi.getSelectedRow(2);
         if (masp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa " + soluong + " sản phẩm " + masp + " của hóa đơn "+ this.mahd +"?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyChiTietHoaDonBUS().delete(this.mahd, masp);

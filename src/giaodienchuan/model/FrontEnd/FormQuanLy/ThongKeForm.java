@@ -49,16 +49,12 @@ import javax.swing.event.DocumentListener;
  * @author nguye
  */
 public class ThongKeForm extends JPanel {
-    
+
     public static final int width = 1120, height = 740;
 
     public ThongKeForm() {
         this.setBackground(Color.darkGray);
 
-        ThongKeSanPham tksp = new ThongKeSanPham();
-        ThongKeNhanVien tknv = new ThongKeNhanVien();
-        ThongKeKhachHang tkkh = new ThongKeKhachHang();
-        ThongKeNhaCungCap tkncc = new ThongKeNhaCungCap();
         ThongKe_Hoang tkH = new ThongKe_Hoang();
 
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
@@ -66,10 +62,30 @@ public class ThongKeForm extends JPanel {
 
         //add tab thong ke san pham
         tabs.addTab("Thống kê tổng quát", getIcon("icons8_pie_chart_30px.png"), tkH);
-        tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), tksp);
-        tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), tknv);
-        tabs.addTab("Khách hàng", getIcon("icons8_user_30px.png"), tkkh);
-        tabs.addTab("Nhà cung cấp", getIcon("icons8_company_30px.png"), tkncc);
+        tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), null);
+        tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), null);
+        tabs.addTab("Khách hàng", getIcon("icons8_user_30px.png"), null);
+        tabs.addTab("Nhà cung cấp", getIcon("icons8_company_30px.png"), null);
+
+        tabs.addChangeListener((ce) -> {
+            int i = tabs.getSelectedIndex();
+            if (tabs.getComponentAt(i) == null) {
+                switch (i) {
+                    case 1:
+                        tabs.setComponentAt(i, new ThongKeSanPham());
+                        break;
+                    case 2:
+                        tabs.setComponentAt(i, new ThongKeNhanVien());
+                        break;
+                    case 3:
+                        tabs.setComponentAt(i, new ThongKeKhachHang());
+                        break;
+                    case 4:
+                        tabs.setComponentAt(i, new ThongKeNhaCungCap());
+                        break;
+                }
+            }
+        });
 
         this.add(tabs);
     }
@@ -806,10 +822,10 @@ class ThongKe_Hoang extends JPanel {
 
     MyTable tbThongKeHoaDon = new MyTable();
     MyTable tbThongKePhieuNhap = new MyTable();
-    
+
     MyTable tbKetQuaHoaDon = new MyTable();
     MyTable tbKetQuaPhieuNhap = new MyTable();
-    
+
     JPanel plSanPham, plNhanVien, plKhachHang, plNhaCC;
     JButton btnRefresh = new JButton("Làm mới");
 
@@ -829,6 +845,9 @@ class ThongKe_Hoang extends JPanel {
         });
         DateButton db = new DateButton(dPicker1);
         DateButton db2 = new DateButton(dPicker2);
+        
+        txNgay1.setBorder(BorderFactory.createTitledBorder("Từ"));
+        txNgay2.setBorder(BorderFactory.createTitledBorder("Đến"));
 
         JPanel plChonNgay = new JPanel();
         plChonNgay.setBorder(BorderFactory.createTitledBorder("Khoảng ngày"));
@@ -890,7 +909,7 @@ class ThongKe_Hoang extends JPanel {
         tbThongKeHoaDon.setAlignment(5, JLabel.RIGHT);
         tbThongKeHoaDon.setAlignment(6, JLabel.RIGHT);
         plThongKeHoaDon.add(tbThongKeHoaDon, BorderLayout.CENTER);
-        
+
         tbKetQuaHoaDon.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHÂP"});
         tbKetQuaHoaDon.setPreferredSize(new Dimension(ThongKeForm.width, 75));
         tbKetQuaHoaDon.setAlignment(0, JLabel.CENTER);
@@ -898,7 +917,6 @@ class ThongKe_Hoang extends JPanel {
         tbKetQuaHoaDon.setAlignment(5, JLabel.RIGHT);
         tbKetQuaHoaDon.setAlignment(6, JLabel.RIGHT);
         plThongKeHoaDon.add(tbKetQuaHoaDon, BorderLayout.SOUTH);
-        
 
         // panal thong ke phieu nhap (nhap kho)
         plThongKePhieuNhap.setLayout(new BorderLayout());
@@ -908,7 +926,7 @@ class ThongKe_Hoang extends JPanel {
         tbThongKePhieuNhap.setAlignment(5, JLabel.RIGHT);
         tbThongKePhieuNhap.setAlignment(6, JLabel.RIGHT);
         plThongKePhieuNhap.add(tbThongKePhieuNhap, BorderLayout.CENTER);
-        
+
         tbKetQuaPhieuNhap.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHẬP"});
         tbKetQuaPhieuNhap.setPreferredSize(new Dimension(ThongKeForm.width, 75));
         tbKetQuaPhieuNhap.setAlignment(0, JLabel.CENTER);
@@ -916,7 +934,6 @@ class ThongKe_Hoang extends JPanel {
         tbKetQuaPhieuNhap.setAlignment(5, JLabel.RIGHT);
         tbKetQuaPhieuNhap.setAlignment(6, JLabel.RIGHT);
         plThongKePhieuNhap.add(tbKetQuaPhieuNhap, BorderLayout.SOUTH);
-        
 
         // tabpane doi tuong thong ke
         tabDoiTuongThongKe.setBackground(Color.yellow);
@@ -954,9 +971,9 @@ class ThongKe_Hoang extends JPanel {
         txNhanVien.setText("");
         txKhachHang.setText("");
         txNhaCC.setText("");
-        
+
         Boolean HoaDon_isSelected = (tabDoiTuongThongKe.getSelectedComponent() == plThongKeHoaDon);
-        if(HoaDon_isSelected) {
+        if (HoaDon_isSelected) {
             onChangeThongKeBanHang();
         } else {
             onChangeThongKeNhapHang();
@@ -1081,7 +1098,7 @@ class ThongKe_Hoang extends JPanel {
             tongTatCaTien += tongTien;
             tongSLHoaDon++;
         }
-        
+
         tbKetQuaHoaDon.clear();
         tbKetQuaHoaDon.addRow(new String[]{
             tongSLHoaDon + " hóa đơn",

@@ -33,7 +33,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class HienThiHoaDon extends JPanel {
+public class HienThiHoaDon extends FormHienThi {
 
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
@@ -61,8 +61,6 @@ public class HienThiHoaDon extends JPanel {
     DatePicker dPicker1;
     DatePicker dPicker2;
 
-    MyTable tbHoaDon;
-
     public HienThiHoaDon() {
         setLayout(new BorderLayout());
         
@@ -82,12 +80,13 @@ public class HienThiHoaDon extends JPanel {
         txKhoangNgay2.setBorder(BorderFactory.createTitledBorder("Đến:"));
 
         //Tao taoble hien thi thong tin hoa don
-        tbHoaDon = new MyTable();
-        tbHoaDon.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"});
-        tbHoaDon.setColumnsWidth(new double[]{.5, 1, 1, 1, 1, 1, 1, 1});
-        tbHoaDon.setAlignment(0, JLabel.CENTER);
-        tbHoaDon.setAlignment(7, JLabel.CENTER);
-        setDataToTable(qlhd.getDshd(), tbHoaDon);
+        mtb = new MyTable();
+        mtb.setHeaders(new String[]{"STT", "Mã hóa đơn", "Mã nhân viên", "Mã khách hàng", "Mã khuyến mãi", "Ngày lập", "Giờ lập", "Tổng tiền"});
+        mtb.setColumnsWidth(new double[]{.5, 1, 1, 1, 1, 1, 1, 1});
+        mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setAlignment(7, JLabel.RIGHT);
+        mtb.setupSort();
+        setDataToTable(qlhd.getDshd(), mtb);
 
         // Tao panel header chuaw
         JPanel plHeader = new JPanel();
@@ -156,15 +155,15 @@ public class HienThiHoaDon extends JPanel {
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
-        this.add(tbHoaDon, BorderLayout.CENTER);
+        this.add(mtb, BorderLayout.CENTER);
         this.add(plThongTin, BorderLayout.SOUTH);
 
         // add action listener
         // event
-        tbHoaDon.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
+        mtb.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
             @Override
             public void mouseReleased(MouseEvent me) {
-                String mahd = getSelectedHoaDon();
+                String mahd = getSelectedRow(1);
                 if (mahd != null) {
                     showInfo(mahd);
                 }
@@ -225,7 +224,7 @@ public class HienThiHoaDon extends JPanel {
 
     public void refresh() {
         qlhd.readDB();
-        setDataToTable(qlhd.getDshd(), tbHoaDon);
+        setDataToTable(qlhd.getDshd(), mtb);
         dPicker1.setDate(null);
         dPicker2.setDate(null);
         txTim.setText("");
@@ -233,14 +232,6 @@ public class HienThiHoaDon extends JPanel {
         txKhoangNgay2.setText("");
         txKhoangTien1.setText("");
         txKhoangTien2.setText("");
-    }
-
-    public String getSelectedHoaDon() {
-        int i = tbHoaDon.getTable().getSelectedRow();
-        if (i >= 0) {
-            return tbHoaDon.getModel().getValueAt(i, 1).toString();
-        }
-        return null;
     }
 
     private void addDocumentListener(JTextField txField) {
@@ -289,13 +280,13 @@ public class HienThiHoaDon extends JPanel {
         } catch (NumberFormatException e) {
             txKhoangTien2.setForeground(Color.red);
         }
-        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), ngay1, ngay2, tong1, tong2), tbHoaDon);
+        setDataToTable(qlhd.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText(), ngay1, ngay2, tong1, tong2), mtb);
     }
 
     private void btnDetailsMouseClicked() {
-        int i = tbHoaDon.getTable().getSelectedRow();
-        if (i >= 0) {
-            QuanLyChiTietHoaDonForm htcthd = new QuanLyChiTietHoaDonForm(tbHoaDon.getModel().getValueAt(i, 1).toString());
+        String mahd = getSelectedRow(1);
+        if (mahd != null) {
+            QuanLyChiTietHoaDonForm htcthd = new QuanLyChiTietHoaDonForm(mahd);
             htcthd.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
@@ -319,7 +310,7 @@ public class HienThiHoaDon extends JPanel {
                 hd.getMaKhuyenMai(),
                 String.valueOf(hd.getNgayLap()), 
                 String.valueOf(hd.getGioLap()), 
-                String.valueOf(hd.getTongTien())});
+                PriceFormatter.format(hd.getTongTien())});
             stt++;
         }
     }

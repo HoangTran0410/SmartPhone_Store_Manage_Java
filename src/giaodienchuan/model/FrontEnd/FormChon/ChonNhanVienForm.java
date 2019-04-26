@@ -39,7 +39,7 @@ public class ChonNhanVienForm extends JFrame {
         this.setVisible(true);
 
         btnOK.addActionListener((ActionEvent ae) -> {
-            String manv = formHienThi.getSelectedNhanVien();
+            String manv = formHienThi.getSelectedRow(1);
             if (manv != null) {
                 this.txMaNV.setText(manv);
                 this.dispose();

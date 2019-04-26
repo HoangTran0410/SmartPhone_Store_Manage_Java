@@ -11,8 +11,6 @@ import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,10 +26,9 @@ import javax.swing.event.DocumentListener;
  *
  * @author Admin
  */
-public class HienThiNhaCungCap extends JPanel {
+public class HienThiNhaCungCap extends FormHienThi {
 
     QuanLyNhaCungCapBUS BUS = new QuanLyNhaCungCapBUS();
-    MyTable mtb;
     JTextField txTim = new JTextField(20);
     JComboBox<String> cbTypeSearch;
     JButton btnRefresh = new JButton("Làm mới");
@@ -46,6 +43,7 @@ public class HienThiNhaCungCap extends JPanel {
         mtb.setColumnsWidth(new double[]{.5, .5, 2, 3, 2, 2});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(BUS.getDsncc(), mtb);
 
         cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã NCC", "Tên NCC", "Địa chỉ", "Điện thoại", "Fax"});
@@ -109,14 +107,6 @@ public class HienThiNhaCungCap extends JPanel {
     public void refresh() {
         BUS.readDB();
         setDataToTable(BUS.getDsncc(), mtb);
-    }
-
-    public String getSelectedNhaCungCap(int col) {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {

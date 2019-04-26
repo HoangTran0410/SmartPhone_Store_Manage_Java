@@ -54,7 +54,7 @@ public class QuanLyKhachHangForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String makh = formHienThi.getSelectedKhachHang();
+        String makh = formHienThi.getSelectedRow(1);
         if (makh != null) {
             ThemSuaKhachHangForm suakh = new ThemSuaKhachHangForm("Sửa", makh);
 
@@ -72,7 +72,7 @@ public class QuanLyKhachHangForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String makh = formHienThi.getSelectedKhachHang();
+        String makh = formHienThi.getSelectedRow(1);
         if (makh != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + makh + " ? Khách hàng sẽ được Ẩn", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyKhachHangBUS().updateTrangThai(makh, 1);

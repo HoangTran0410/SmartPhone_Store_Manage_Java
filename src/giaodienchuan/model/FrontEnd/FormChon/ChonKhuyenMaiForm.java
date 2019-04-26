@@ -5,7 +5,6 @@
  */
 package giaodienchuan.model.FrontEnd.FormChon;
 
-import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhuyenMai;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -49,7 +48,7 @@ public class ChonKhuyenMaiForm extends JFrame {
 
         // actionlistener
         btnOK.addActionListener((ActionEvent ae) -> {
-            String makm = formHienThi.getSelectedKhuyenMai();
+            String makm = formHienThi.getSelectedRow(1);
             if (makm != null) {
                 this.txTarget.setText(makm);
                 this.dispose();

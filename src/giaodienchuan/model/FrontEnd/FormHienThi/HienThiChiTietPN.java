@@ -26,7 +26,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author Admin
  */
-public class HienThiChiTietPN extends JPanel {
+public class HienThiChiTietPN extends FormHienThi {
 
     QuanLyChiTietPhieuNhapBUS qlctpn = new QuanLyChiTietPhieuNhapBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
@@ -35,8 +35,6 @@ public class HienThiChiTietPN extends JPanel {
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã sản phẩm", "Số lượng", "Đơn giá"});
     JButton btnRefresh = new JButton("Làm mới");
     String mapn;
-
-    MyTable mtb;
 
     public HienThiChiTietPN(String _mapn) {
         setLayout(new BorderLayout());
@@ -47,6 +45,7 @@ public class HienThiChiTietPN extends JPanel {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.RIGHT);
+        mtb.setupSort();
         setDataToTable(qlctpn.search("Mã phiếu nhập", this.mapn), mtb);
 
         JPanel plHeader = new JPanel();
@@ -90,14 +89,6 @@ public class HienThiChiTietPN extends JPanel {
 
     private void txSearchOnChange() {
         setDataToTable(qlctpn.search(cbTypeSearch.getSelectedItem().toString(), txTim.getText()), mtb);
-    }
-
-    public String getSelectedChiTietPhieuNhap(int col) {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
-        }
-        return null;
     }
 
     private void setDataToTable(ArrayList<ChiTietPhieuNhap> data, MyTable mtb) {

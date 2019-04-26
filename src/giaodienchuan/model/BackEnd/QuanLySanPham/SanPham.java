@@ -1,9 +1,5 @@
 package giaodienchuan.model.BackEnd.QuanLySanPham;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.util.Locale;
-
 public class SanPham {
 
     String MaSP, MaLSP, TenSP, fileNameHinhAnh;

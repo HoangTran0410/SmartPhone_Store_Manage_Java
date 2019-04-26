@@ -60,7 +60,7 @@ public class QuanLyHoaDonForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String mahd = formHienThi.getSelectedHoaDon();
+        String mahd = formHienThi.getSelectedRow(1);
         if (mahd != null) {
             ThemSuaHoaDonForm tshd = new ThemSuaHoaDonForm("Sửa", mahd);
             tshd.addWindowListener(new WindowAdapter() {
@@ -75,7 +75,7 @@ public class QuanLyHoaDonForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String mahd = formHienThi.getSelectedHoaDon();
+        String mahd = formHienThi.getSelectedRow(1);
         if (mahd != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + 
                     " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 

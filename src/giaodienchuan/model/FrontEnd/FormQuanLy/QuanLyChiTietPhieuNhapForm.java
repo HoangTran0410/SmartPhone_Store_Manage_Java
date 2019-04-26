@@ -69,7 +69,7 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame {
     }
 
     private void btnXoaMouseClicked() {
-        String masp = formHienThi.getSelectedChiTietPhieuNhap(2);
+        String masp = formHienThi.getSelectedRow(2);
         if (masp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa sản phẩm " + masp + " của phiếu nhập " + this.mapn + "?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyChiTietPhieuNhapBUS().delete(this.mapn, masp);
@@ -82,7 +82,7 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame {
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedChiTietPhieuNhap(2);
+        String masp = formHienThi.getSelectedRow(2);
         System.out.println("masp:" + masp);
 
         ThemSuaChiTietPhieuNhapForm themctpn = new ThemSuaChiTietPhieuNhapForm("Sửa", this.mapn, masp);

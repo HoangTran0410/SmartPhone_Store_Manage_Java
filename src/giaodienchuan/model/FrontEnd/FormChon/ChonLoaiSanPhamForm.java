@@ -39,7 +39,7 @@ public class ChonLoaiSanPhamForm extends JFrame {
 
         // actionlistener
         btnOK.addActionListener((ActionEvent ae) -> {
-            String masp = formHienThi.getSelectedSanPham();
+            String masp = formHienThi.getSelectedRow(1);
             if (masp != null) {
                 this.txTarget.setText(masp);
                 this.dispose();

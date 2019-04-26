@@ -39,12 +39,14 @@ public class ChonQuyenForm extends JFrame {
         this.setVisible(true);
 
         btnOK.addActionListener((ActionEvent ae) -> {
-            if (formHienThi.getSelectedSanPham(1) != null) {
+            String maq = formHienThi.getSelectedRow(1);
+            String chitietquyen = formHienThi.getSelectedRow(2);
+            if (maq != null) {
                 if (this.txMaQuyen != null) {
-                    this.txMaQuyen.setText(formHienThi.getSelectedSanPham(1));
+                    this.txMaQuyen.setText(maq);
                 }
                 if (this.txChiTietQuyen != null) {
-                    this.txChiTietQuyen.setText(formHienThi.getSelectedSanPham(2));
+                    this.txChiTietQuyen.setText(chitietquyen);
                 }
                 this.dispose();
             } else {

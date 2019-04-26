@@ -24,10 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiNhanVien extends JPanel {
+public class HienThiNhanVien extends FormHienThi {
 
     QuanLyNhanVienBUS qlnv = new QuanLyNhanVienBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -64,6 +63,7 @@ public class HienThiNhanVien extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Mã nhân viên", "Tên nhân viên", "Ngày sinh", "Địa chỉ", "Số điện thoại", "Trạng thái"});
         mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 1.3, 3, 1.5, 1});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qlnv.getDsnv(), mtb);
 
         // ======== search panel ===========
@@ -124,14 +124,6 @@ public class HienThiNhanVien extends JPanel {
         txTim.setText("");
         txKhoangNgay1.setText("");
         txKhoangNgay2.setText("");
-    }
-
-    public String getSelectedNhanVien() {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MANV_I).toString();
-        }
-        return null;
     }
 
     private void addDocumentListener(JTextField txField) {

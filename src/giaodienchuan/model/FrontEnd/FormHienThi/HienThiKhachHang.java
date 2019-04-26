@@ -18,10 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiKhachHang extends JPanel {
+public class HienThiKhachHang extends FormHienThi {
 
     QuanLyKhachHangBUS qlkh = new QuanLyKhachHangBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -40,6 +39,7 @@ public class HienThiKhachHang extends JPanel {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(2, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qlkh.getDskh(), mtb);
 
         // ======== search panel ===========
@@ -94,14 +94,6 @@ public class HienThiKhachHang extends JPanel {
     public void refresh() {
         qlkh.readDB();
         setDataToTable(qlkh.getDskh(), mtb);
-    }
-
-    public String getSelectedKhachHang() {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MAKH_I).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {
