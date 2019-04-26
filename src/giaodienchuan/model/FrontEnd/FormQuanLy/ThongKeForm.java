@@ -892,7 +892,7 @@ class ThongKe_Hoang extends JPanel {
         plThongKeHoaDon.add(tbThongKeHoaDon, BorderLayout.CENTER);
         
         tbKetQuaHoaDon.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHÂP"});
-        tbKetQuaHoaDon.setPreferredSize(new Dimension(ThongKeForm.width, 70));
+        tbKetQuaHoaDon.setPreferredSize(new Dimension(ThongKeForm.width, 80));
         tbKetQuaHoaDon.setAlignment(0, JLabel.CENTER);
         tbKetQuaHoaDon.setAlignment(4, JLabel.CENTER);
         tbKetQuaHoaDon.setAlignment(5, JLabel.RIGHT);
@@ -910,7 +910,7 @@ class ThongKe_Hoang extends JPanel {
         plThongKePhieuNhap.add(tbThongKePhieuNhap, BorderLayout.CENTER);
         
         tbKetQuaPhieuNhap.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHẬP"});
-        tbKetQuaPhieuNhap.setPreferredSize(new Dimension(ThongKeForm.width, 70));
+        tbKetQuaPhieuNhap.setPreferredSize(new Dimension(ThongKeForm.width, 80));
         tbKetQuaPhieuNhap.setAlignment(0, JLabel.CENTER);
         tbKetQuaPhieuNhap.setAlignment(4, JLabel.CENTER);
         tbKetQuaPhieuNhap.setAlignment(5, JLabel.RIGHT);
@@ -954,6 +954,13 @@ class ThongKe_Hoang extends JPanel {
         txNhanVien.setText("");
         txKhachHang.setText("");
         txNhaCC.setText("");
+        
+        Boolean HoaDon_isSelected = (tabDoiTuongThongKe.getSelectedComponent() == plThongKeHoaDon);
+        if(HoaDon_isSelected) {
+            onChangeThongKeBanHang();
+        } else {
+            onChangeThongKeNhapHang();
+        }
     }
 
     private JPanel getPanelTieuChi(String name, JTextField tx, MoreButton b) {
