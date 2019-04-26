@@ -7,9 +7,13 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MyTable extends JPanel {
 
@@ -55,6 +59,18 @@ public class MyTable extends JPanel {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(align);
         tb.getColumnModel().getColumn(column).setCellRenderer(centerRenderer);
+    }
+
+    // https://stackoverflow.com/questions/28823670/how-to-sort-jtable-in-shortest-way
+    public void setupSort() {
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tb.getModel());
+        tb.setRowSorter(sorter);
+
+        ArrayList<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        for(int i = 0; i < tbModel.getColumnCount(); i++) {
+            sortKeys.add(new RowSorter.SortKey(i, SortOrder.ASCENDING));
+        }
+        sorter.setSortKeys(sortKeys);
     }
 
     public void addRow(String[] data) {

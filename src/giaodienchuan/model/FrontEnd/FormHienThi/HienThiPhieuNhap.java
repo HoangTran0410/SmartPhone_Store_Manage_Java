@@ -41,7 +41,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author Admin
  */
-public class HienThiPhieuNhap extends JPanel {
+public class HienThiPhieuNhap extends FormHienThi {
 
     QuanLyPhieuNhapBUS qlpn = new QuanLyPhieuNhapBUS();
     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
@@ -66,8 +66,6 @@ public class HienThiPhieuNhap extends JPanel {
     JTextField txKhoangTien2 = new JTextField(5);
     DatePicker dPicker1;
     DatePicker dPicker2;
-
-    MyTable mtb;
 
     public HienThiPhieuNhap() {
         setLayout(new BorderLayout());
@@ -95,7 +93,7 @@ public class HienThiPhieuNhap extends JPanel {
         mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.CENTER);
         mtb.setAlignment(6, JLabel.RIGHT);
-
+        mtb.setupSort();
         setDataToTable(qlpn.getDspn(), mtb);
 
         JPanel plHeader = new JPanel();
@@ -167,7 +165,7 @@ public class HienThiPhieuNhap extends JPanel {
         mtb.getTable().addMouseListener(new MouseAdapter() { // copy từ HienThiSanPham
             @Override
             public void mouseReleased(MouseEvent me) {
-                String mapn = getSelectedPhieuNhap();
+                String mapn = getSelectedRow(1);
                 if (mapn != null) {
                     showInfo(mapn);
                 }
@@ -232,14 +230,6 @@ public class HienThiPhieuNhap extends JPanel {
         txKhoangNgay2.setText("");
         txKhoangTien1.setText("");
         txKhoangTien2.setText("");
-    }
-
-    public String getSelectedPhieuNhap() {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, 1).toString();
-        }
-        return null;
     }
 
     private void addDocumentListener(JTextField txField) {

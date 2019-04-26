@@ -55,7 +55,7 @@ public class QuanLyTaiKhoanForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String masp = formHienThi.getSelectedSanPham();
+        String masp = formHienThi.getSelectedRow(1);
         if (masp != null) {
             ThemSuaTaiKhoanForm suatk = new ThemSuaTaiKhoanForm("Sửa", masp);
 
@@ -73,7 +73,7 @@ public class QuanLyTaiKhoanForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String malsp = formHienThi.getSelectedSanPham();
+        String malsp = formHienThi.getSelectedRow(1);
         if (malsp != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản " + malsp + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyTaiKhoanBUS().delete(malsp);

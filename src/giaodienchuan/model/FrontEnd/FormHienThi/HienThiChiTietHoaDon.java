@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiChiTietHoaDon extends JPanel {
+public class HienThiChiTietHoaDon extends FormHienThi {
 
     QuanLyChiTietHoaDonBUS qlcthd = new QuanLyChiTietHoaDonBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
@@ -32,7 +32,6 @@ public class HienThiChiTietHoaDon extends JPanel {
     JTextField txKhoangSoLuong = new JTextField(5);
     JTextField txKhoangThanhTien1 = new JTextField(5);
     JTextField txKhoangThanhTien2 = new JTextField(5);
-    MyTable mtb;
 
     public HienThiChiTietHoaDon(String _mahd) {
         setLayout(new BorderLayout());
@@ -49,6 +48,7 @@ public class HienThiChiTietHoaDon extends JPanel {
         mtb.setAlignment(3, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.RIGHT);
         mtb.setAlignment(5, JLabel.RIGHT);
+        mtb.setupSort();
         setDataToTable(qlcthd.search("Mã hóa đơn", this.mahd, -1, -1, -1, -1), mtb);
 
         JPanel plHeader = new JPanel();
@@ -165,14 +165,6 @@ public class HienThiChiTietHoaDon extends JPanel {
             }
         });
         setDataToTable(dscthd, mtb);
-    }
-
-    public String getSelectedChiTietHoaDon(int col) {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
-        }
-        return null;
     }
 
     private void setDataToTable(ArrayList<ChiTietHoaDon> data, MyTable mtb) {

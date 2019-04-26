@@ -17,10 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiQuyen extends JPanel {
+public class HienThiQuyen extends FormHienThi {
 
     QuanLyQuyenBUS qlqBUS = new QuanLyQuyenBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -37,6 +36,7 @@ public class HienThiQuyen extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Mã quyền", "Tên quyền", "Chi tiết quyền"});
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 2});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qlqBUS.getDsq(), mtb);
 
         // ======== search panel ===========
@@ -90,14 +90,6 @@ public class HienThiQuyen extends JPanel {
     public void refresh() {
         qlqBUS.readDB();
         setDataToTable(qlqBUS.getDsq(), mtb);
-    }
-
-    public String getSelectedSanPham(int col) {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {

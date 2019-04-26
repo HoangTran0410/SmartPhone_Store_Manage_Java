@@ -17,10 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiTaiKhoan extends JPanel {
+public class HienThiTaiKhoan extends FormHienThi {
 
     QuanLyTaiKhoanBUS qltk = new QuanLyTaiKhoanBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -37,6 +36,7 @@ public class HienThiTaiKhoan extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Tên tài khoản", "Mật khẩu", "Mã nhân viên", "Mã quyền"});
         mtb.setColumnsWidth(new double[]{.5, 2, 2, 3, 2});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qltk.getDstk(), mtb);
 
         // ======== search panel ===========
@@ -90,14 +90,6 @@ public class HienThiTaiKhoan extends JPanel {
     public void refresh() {
         qltk.readDB();
         setDataToTable(qltk.getDstk(), mtb);
-    }
-
-    public String getSelectedSanPham() {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, USERNAME_I).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {

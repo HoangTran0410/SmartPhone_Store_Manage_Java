@@ -54,7 +54,7 @@ public class QuanLyNhanVienForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String manv = formHienThi.getSelectedNhanVien();
+        String manv = formHienThi.getSelectedRow(1);
         if (manv != null) {
             ThemSuaNhanVienForm suanv = new ThemSuaNhanVienForm("Sửa", manv);
 
@@ -72,7 +72,7 @@ public class QuanLyNhanVienForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String manv = formHienThi.getSelectedNhanVien();
+        String manv = formHienThi.getSelectedRow(1);
         if (manv != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? Nhân viên sẽ được Ẩn.", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyNhanVienBUS().updateTrangThai(manv, 1);

@@ -48,7 +48,7 @@ public class ChonNhaCungCapForm extends JFrame {
 
         // actionlistener
         btnOK.addActionListener((ActionEvent ae) -> {
-            String mancc = formHienThi.getSelectedNhaCungCap(1);
+            String mancc = formHienThi.getSelectedRow(1);
             if (mancc != null) {
                 this.txTarget.setText(mancc);
                 this.dispose();

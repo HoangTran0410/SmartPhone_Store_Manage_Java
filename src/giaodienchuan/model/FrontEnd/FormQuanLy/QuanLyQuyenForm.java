@@ -55,7 +55,7 @@ public class QuanLyQuyenForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String maquyen = formHienThi.getSelectedSanPham(1);
+        String maquyen = formHienThi.getSelectedRow(1);
         if (maquyen != null) {
             ThemSuaQuyenForm suaq = new ThemSuaQuyenForm("Sửa", maquyen);
 
@@ -73,7 +73,7 @@ public class QuanLyQuyenForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String maquyen = formHienThi.getSelectedSanPham(1);
+        String maquyen = formHienThi.getSelectedRow(1);
         if (maquyen != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa quyền " + maquyen + " ?", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
                 new QuanLyQuyenBUS().delete(maquyen);

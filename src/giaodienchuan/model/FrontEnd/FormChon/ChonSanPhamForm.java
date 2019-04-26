@@ -46,21 +46,21 @@ public class ChonSanPhamForm extends JFrame {
         this.setVisible(true);
 
         btnOK.addActionListener((ActionEvent ae) -> {
-            if (formHienThi.getSelectedSanPham(1) != null) {
+            if (formHienThi.getSelectedRow(1) != null) {
                 if (this.txMasp != null) {
-                    this.txMasp.setText(formHienThi.getSelectedSanPham(1));
+                    this.txMasp.setText(formHienThi.getSelectedRow(1));
                 }
                 if (this.txMalsp != null) {
-                    this.txMalsp.setText(formHienThi.getSelectedSanPham(2));
+                    this.txMalsp.setText(formHienThi.getSelectedRow(2));
                 }
                 if (this.txTensp != null) {
-                    this.txTensp.setText(formHienThi.getSelectedSanPham(3));
+                    this.txTensp.setText(formHienThi.getSelectedRow(3));
                 }
                 if (this.txDonGia != null) {
-                    this.txDonGia.setText(formHienThi.getSelectedSanPham(4));
+                    this.txDonGia.setText(formHienThi.getSelectedRow(4));
                 }
                 if (this.txSoluong != null) {
-                    this.txSoluong.setText(formHienThi.getSelectedSanPham(5));
+                    this.txSoluong.setText(formHienThi.getSelectedRow(5));
                 }
                 this.dispose();
             } else {

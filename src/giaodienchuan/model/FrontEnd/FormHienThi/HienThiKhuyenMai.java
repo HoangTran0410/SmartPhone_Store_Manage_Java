@@ -11,7 +11,6 @@ import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -27,10 +26,9 @@ import javax.swing.event.DocumentListener;
  *
  * @author DELL
  */
-public class HienThiKhuyenMai extends JPanel {
+public class HienThiKhuyenMai extends FormHienThi {
 
     QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -47,6 +45,7 @@ public class HienThiKhuyenMai extends JPanel {
         mtb.setHeaders(new String[]{"STT", "Mã", "Tên", "Điều kiện", "Phần trăm", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"});
         mtb.setColumnsWidth(new double[]{.5, .5, 1.5, .5, .5, 1, 1, 1});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qlkmBUS.getDskm(), mtb);
 
         // ======== search panel ===========
@@ -101,14 +100,6 @@ public class HienThiKhuyenMai extends JPanel {
     public void refresh() {
         qlkmBUS.readDB();
         setDataToTable(qlkmBUS.getDskm(), mtb);
-    }
-
-    public String getSelectedKhuyenMai() {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, MAKM_I).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {

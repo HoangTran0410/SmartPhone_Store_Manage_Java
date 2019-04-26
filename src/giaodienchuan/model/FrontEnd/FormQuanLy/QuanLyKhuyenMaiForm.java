@@ -72,7 +72,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     }
 
     private void btnSuaMouseClicked() {
-        String makm = formHienThi.getSelectedKhuyenMai();
+        String makm = formHienThi.getSelectedRow(1);
         if (makm != null) {
             ThemSuaKhuyenMaiForm suakm = new ThemSuaKhuyenMaiForm("Sửa", makm);
 
@@ -90,7 +90,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     }
 
     private void btnXoaMouseClicked() {
-        String makm = formHienThi.getSelectedKhuyenMai();
+        String makm = formHienThi.getSelectedRow(1);
         if (makm != null) {
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khuyến mãi " + makm,
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
@@ -106,7 +106,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     }
 
     private void btnKetThucMouseClicked() {
-        String makm = formHienThi.getSelectedKhuyenMai();
+        String makm = formHienThi.getSelectedRow(1);
         if (makm != null) {
             
             // check xem khuyến mãi có đang diễn ra ko

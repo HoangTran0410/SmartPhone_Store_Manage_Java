@@ -26,11 +26,10 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class HienThiSanPham extends JPanel {
+public class HienThiSanPham extends FormHienThi {
 
     QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
-    MyTable mtb;
 
     JTextField txTim = new JTextField(15);
     JComboBox<String> cbTypeSearch;
@@ -62,6 +61,7 @@ public class HienThiSanPham extends JPanel {
         mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.CENTER);
         mtb.setAlignment(6, JLabel.CENTER);
+        mtb.setupSort();
         setDataToTable(qlspBUS.getDssp(), mtb);
 
         // ======== search panel ===========
@@ -119,7 +119,7 @@ public class HienThiSanPham extends JPanel {
         mtb.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
-                String masp = getSelectedSanPham(1);
+                String masp = getSelectedRow(1);
                 showInfo(masp);
             }
         });
@@ -129,7 +129,7 @@ public class HienThiSanPham extends JPanel {
         lbImage.setPreferredSize(new Dimension(250, 250));
         lbImage.setBorder(BorderFactory.createLineBorder(Color.black));
         plImage.add(lbImage);
-        
+
         JPanel plTextField = new JPanel();
         plTextField.setPreferredSize(new Dimension(400, 250));
         plTextField.setLayout(new FlowLayout());
@@ -153,16 +153,15 @@ public class HienThiSanPham extends JPanel {
         plTextField.add(txTenSP);
         plTextField.add(txDonGia);
         plTextField.add(txSoLuong);
-        
+
         plImage.add(plTextField);
-        
 
         //=========== add all to this jpanel ===========
         this.add(plHeader, BorderLayout.NORTH);
         this.add(mtb, BorderLayout.CENTER);
         this.add(plImage, BorderLayout.SOUTH);
     }
-    
+
     public void showInfo(String masp) { // copy from BanHangForm
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
         if (masp != null) {
@@ -217,14 +216,6 @@ public class HienThiSanPham extends JPanel {
         txGia1.setText("");
         txGia2.setText("");
         lbImage.setIcon(null);
-    }
-
-    public String getSelectedSanPham(int col) {
-        int i = mtb.getTable().getSelectedRow();
-        if (i >= 0) {
-            return mtb.getModel().getValueAt(i, col).toString();
-        }
-        return null;
     }
 
     private void txSearchOnChange() {
