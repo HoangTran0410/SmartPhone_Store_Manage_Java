@@ -30,6 +30,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -819,6 +820,7 @@ class ThongKe_Hoang extends JPanel {
     JTabbedPane tabDoiTuongThongKe = new JTabbedPane();
     JPanel plThongKeHoaDon = new JPanel();
     JPanel plThongKePhieuNhap = new JPanel();
+    JPanel plThongKeSoLuong = new JPanel();
 
     MyTable tbThongKeHoaDon = new MyTable();
     MyTable tbThongKePhieuNhap = new MyTable();
@@ -910,7 +912,7 @@ class ThongKe_Hoang extends JPanel {
         tbThongKeHoaDon.setAlignment(6, JLabel.RIGHT);
         plThongKeHoaDon.add(tbThongKeHoaDon, BorderLayout.CENTER);
 
-        tbKetQuaHoaDon.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHÂP"});
+        tbKetQuaHoaDon.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG BÁN RA"});
         tbKetQuaHoaDon.setPreferredSize(new Dimension(ThongKeForm.width, 75));
         tbKetQuaHoaDon.setAlignment(0, JLabel.CENTER);
         tbKetQuaHoaDon.setAlignment(4, JLabel.CENTER);
@@ -927,19 +929,23 @@ class ThongKe_Hoang extends JPanel {
         tbThongKePhieuNhap.setAlignment(6, JLabel.RIGHT);
         plThongKePhieuNhap.add(tbThongKePhieuNhap, BorderLayout.CENTER);
 
-        tbKetQuaPhieuNhap.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG THU NHẬP"});
+        tbKetQuaPhieuNhap.setHeaders(new String[]{"TỔNG TẤT CẢ", "", "", "", "", "", "TỔNG NHẬP VÀO"});
         tbKetQuaPhieuNhap.setPreferredSize(new Dimension(ThongKeForm.width, 75));
         tbKetQuaPhieuNhap.setAlignment(0, JLabel.CENTER);
         tbKetQuaPhieuNhap.setAlignment(4, JLabel.CENTER);
         tbKetQuaPhieuNhap.setAlignment(5, JLabel.RIGHT);
         tbKetQuaPhieuNhap.setAlignment(6, JLabel.RIGHT);
         plThongKePhieuNhap.add(tbKetQuaPhieuNhap, BorderLayout.SOUTH);
+        
+        // panel thong ke tong so
+        plThongKeSoLuong = new JPanel();
+        setDataToPanelTong();
 
         // tabpane doi tuong thong ke
         tabDoiTuongThongKe.setBackground(Color.yellow);
         tabDoiTuongThongKe.addTab("Bán ra", getIcon("icons8_small_business_30px_3.png"), plThongKeHoaDon);
         tabDoiTuongThongKe.addTab("Nhập vào", getIcon("icons8_downloads_30px.png"), plThongKePhieuNhap);
-        tabDoiTuongThongKe.addTab("Tổng", getIcon("icons8_futures_30px.png"), new JPanel());
+        tabDoiTuongThongKe.addTab("Tổng", getIcon("icons8_futures_30px.png"), plThongKeSoLuong);
 
         // event chuyen tab
         // tab ban dau la hoa don, nen cần ẩn nha cung cap 
@@ -956,6 +962,14 @@ class ThongKe_Hoang extends JPanel {
         // show giá trị đầu
         onChangeThongKeBanHang();
         onChangeThongKeNhapHang();
+    }
+    
+    private void setDataToPanelTong() {
+        plThongKeSoLuong.removeAll();
+        plThongKeSoLuong.add(getJPanelTong("SẢN PHẨM", "icons8_google_mobile_100px.png", qlspBUS.getDssp().size(), Color.BLUE));
+        plThongKeSoLuong.add(getJPanelTong("NHÂN VIÊN", "icons8_assistant_100px.png", qlnvBUS.getDsnv().size(), Color.BLUE));
+        plThongKeSoLuong.add(getJPanelTong("KHÁCH HÀNG", "icons8_person_male_100px.png", qlkhBUS.getDskh().size(), Color.BLUE));
+        plThongKeSoLuong.add(getJPanelTong("NHÀ CUNG CẤP", "icons8_company_100px.png", qlnccBUS.getDsncc().size(), Color.BLUE));
     }
 
     public void refresh() {
@@ -978,6 +992,7 @@ class ThongKe_Hoang extends JPanel {
         } else {
             onChangeThongKeNhapHang();
         }
+        setDataToPanelTong();
     }
 
     private JPanel getPanelTieuChi(String name, JTextField tx, MoreButton b) {
@@ -1199,6 +1214,35 @@ class ThongKe_Hoang extends JPanel {
             "",
             PriceFormatter.format(tongTatCaTien)
         });
+    }
+    
+    private JPanel getJPanelTong(String name, String iconName, int soluong, Color c) {
+        JPanel result = new JPanel();
+        result.setLayout(new BorderLayout());
+        result.setPreferredSize(new Dimension(ThongKeForm.width / 4 - 15, 200));
+        result.setBorder(BorderFactory.createLineBorder(c));
+        
+        // hinh anh
+        JLabel lbIcon = new JLabel();
+        lbIcon.setIcon(getIcon(iconName));
+        result.add(lbIcon, BorderLayout.WEST);
+        
+        // tieu de
+        JPanel plLeft = new JPanel();
+        
+        JLabel lbTieuDe = new JLabel(name, JLabel.CENTER);
+        lbTieuDe.setPreferredSize(new Dimension(ThongKeForm.width / 4 - 100, 70));
+        lbTieuDe.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        plLeft.add(lbTieuDe);
+        
+        JLabel lbSoLuong = new JLabel(String.valueOf(soluong), JLabel.CENTER);
+        lbSoLuong.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 35));
+        lbSoLuong.setForeground(c);
+        plLeft.add(lbSoLuong);
+        
+        result.add(plLeft, BorderLayout.CENTER);
+        
+        return result;
     }
 }
 
