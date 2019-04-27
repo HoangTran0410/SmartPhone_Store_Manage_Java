@@ -27,6 +27,7 @@ public class MyTable extends JPanel {
         tb = new ZebraJTable();
         tbModel = new DefaultTableModel();
         pane = new JScrollPane(tb);
+        pane.getVerticalScrollBar().setUnitIncrement(8);
 
         tb.setFillsViewportHeight(true);
         tb.setFont(new Font("Segoe UI", 0, 16));
