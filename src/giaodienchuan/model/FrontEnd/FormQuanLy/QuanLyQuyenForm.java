@@ -1,13 +1,17 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiQuyen;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaQuyenForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
+import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
+import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
+import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -15,18 +19,15 @@ public class QuanLyQuyenForm extends JPanel {
 
     HienThiQuyen formHienThi = new HienThiQuyen();
 
-    JButton btnThem = new JButton("Thêm");
-    JButton btnSua = new JButton("Sửa");
-    JButton btnXoa = new JButton("Xóa");
+    ThemButton btnThem = new ThemButton();
+    SuaButton btnSua = new SuaButton();
+    XoaButton btnXoa = new XoaButton();
+    ExportExcelButton btnXuatExcel = new ExportExcelButton();
 
     public QuanLyQuyenForm() {
         setLayout(new BorderLayout());
 
         // buttons
-        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
-        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
-        
         if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlQuyen")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
@@ -37,6 +38,7 @@ public class QuanLyQuyenForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
+        plBtn.add(btnXuatExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -51,6 +53,13 @@ public class QuanLyQuyenForm extends JPanel {
         btnSua.addActionListener((ActionEvent ae) -> {
             btnSuaMouseClicked();
             formHienThi.refresh();
+        });
+        btnXuatExcel.addActionListener((ActionEvent ae) -> {
+            try {
+                new XuatExcel().xuatFileExcelQuyen();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
+            }
         });
     }
 
