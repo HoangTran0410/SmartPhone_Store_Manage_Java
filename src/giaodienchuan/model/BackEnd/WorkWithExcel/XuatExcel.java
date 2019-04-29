@@ -153,7 +153,7 @@ public class XuatExcel {
         cell = row.createCell(5, CellType.STRING);
         cell.setCellValue("Số điện thoại");
 
-        cell = row.createCell(5, CellType.STRING);
+        cell = row.createCell(6, CellType.STRING);
         cell.setCellValue("Trạng thái");
 
         for (NhanVien nv : list) {
