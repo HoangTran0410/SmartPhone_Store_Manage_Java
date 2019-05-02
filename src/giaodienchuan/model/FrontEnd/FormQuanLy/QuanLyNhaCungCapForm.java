@@ -1,29 +1,31 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhaCungCap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhaCungCapForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
+import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
+import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
+import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class QuanLyNhaCungCapForm extends JPanel {
 
     HienThiNhaCungCap formHienThi = new HienThiNhaCungCap();
-    JButton btnXoa = new JButton("Xóa");
-    JButton btnThem = new JButton("Thêm");
-    JButton btnSua = new JButton("Sửa");
+    
+    ThemButton btnThem = new ThemButton();
+    SuaButton btnSua = new SuaButton();
+    XoaButton btnXoa = new XoaButton();
+    ExportExcelButton btnXuatExcel = new ExportExcelButton();
 
     public QuanLyNhaCungCapForm() {
         setLayout(new BorderLayout());
-
-        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
-        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
         
         if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNCC")) {
             btnThem.setEnabled(false);
@@ -35,6 +37,7 @@ public class QuanLyNhaCungCapForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
+        plBtn.add(btnXuatExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -49,7 +52,13 @@ public class QuanLyNhaCungCapForm extends JPanel {
             btnSuaMouseClicked();
             formHienThi.refresh();
         });
-
+        btnXuatExcel.addActionListener((ActionEvent ae) -> {
+            try {
+                new XuatExcel().xuatFileExcelNhaCungCap();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
+            }
+        });
     }
 
     private void btnSuaMouseClicked() {

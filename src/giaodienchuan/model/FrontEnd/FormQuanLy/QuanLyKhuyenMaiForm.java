@@ -7,11 +7,17 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhuyenMai;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
+import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
+import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
+import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,18 +32,16 @@ public class QuanLyKhuyenMaiForm extends JPanel {
 
     HienThiKhuyenMai formHienThi = new HienThiKhuyenMai();
 
-    JButton btnThem = new JButton("Thêm");
-    JButton btnSua = new JButton("Sửa");
-    JButton btnXoa = new JButton("Xóa");
+    ThemButton btnThem = new ThemButton();
+    SuaButton btnSua = new SuaButton();
+    XoaButton btnXoa = new XoaButton();
+    ExportExcelButton btnXuatExcel = new ExportExcelButton();
     JButton btnKetThuc = new JButton("Kết thúc");
 
     public QuanLyKhuyenMaiForm() {
         setLayout(new BorderLayout());
 
         // buttons
-        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_forever_30px_1.png")));
-        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
         btnKetThuc.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
 
         if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlKhuyenMai")) {
@@ -52,6 +56,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnKetThuc);
+        plBtn.add(btnXuatExcel);
 
         this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
@@ -68,6 +73,13 @@ public class QuanLyKhuyenMaiForm extends JPanel {
         });
         btnKetThuc.addActionListener((ActionEvent ae) -> {
             btnKetThucMouseClicked();
+        });
+        btnXuatExcel.addActionListener((ActionEvent ae) -> {
+            try {
+                new XuatExcel().xuatFileExcelKhuyenMai();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
+            }
         });
     }
 

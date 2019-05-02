@@ -299,7 +299,8 @@ class PhieuNhapHang extends FormHang {
         for (ChiTietPhieuNhap ct : dsctpn) {
             qlctpn.add(ct);
         }
-        JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+        JOptionPane.showMessageDialog(this, "Nhập thành công");
+        txMaPhieuNhap.setText(qlpnBUS.getNextID()); // lấy mã cho phiếu nhập mới
         clear();
         this.target.refreshAll();
     }
@@ -637,6 +638,7 @@ class HoaDonBanHang extends FormHang {
             qlcthd.add(ct);
         }
         JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+        txMaHoaDon.setText(qlhdBUS.getNextID());
         clear();
         this.target.refreshAll();
     }
