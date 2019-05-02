@@ -30,7 +30,7 @@ public class QuanLyNhanVienBUS {
     public void readDB() {
         dsnv = qlnvDAO.readDB();
     }
-    
+
     public String getNextID() {
         return "NV" + String.valueOf(this.dsnv.size() + 1);
     }
@@ -93,7 +93,7 @@ public class QuanLyNhanVienBUS {
             }
         });
 
-        //Ngay lap, tong tien
+        //Ngay sinh
         for (int i = result.size() - 1; i >= 0; i--) {
             NhanVien nv = result.get(i);
             LocalDate ngaysinh = nv.getNgaySinh();

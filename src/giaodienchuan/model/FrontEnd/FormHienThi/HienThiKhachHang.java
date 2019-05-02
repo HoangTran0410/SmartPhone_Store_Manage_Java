@@ -35,10 +35,9 @@ public class HienThiKhachHang extends FormHienThi {
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
         mtb.setHeaders(new String[]{"STT", "Mã khách hàng", "Tên khách hàng", "Địa chỉ", "Số điện thoại", "Trạng thái"});
-        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 3, 2, 1.5});
+        mtb.setColumnsWidth(new double[]{.5, 1.5, 2.5, 3, 2, .5});
         mtb.setAlignment(0, JLabel.CENTER);
-        mtb.setAlignment(2, JLabel.CENTER);
-        mtb.setAlignment(4, JLabel.CENTER);
+        mtb.setAlignment(5, JLabel.CENTER);
         mtb.setupSort();
         setDataToTable(qlkh.getDskh(), mtb);
 

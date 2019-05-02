@@ -17,14 +17,14 @@ import javax.swing.table.TableRowSorter;
 
 public class MyTable extends JPanel {
 
-    ZebraJTable tb;
+    JTable tb;
     DefaultTableModel tbModel;
     JScrollPane pane;
 
     public MyTable() {
         setLayout(new BorderLayout());
 
-        tb = new ZebraJTable();
+        tb = new JTable();
         tbModel = new DefaultTableModel();
         pane = new JScrollPane(tb);
         pane.getVerticalScrollBar().setUnitIncrement(8);

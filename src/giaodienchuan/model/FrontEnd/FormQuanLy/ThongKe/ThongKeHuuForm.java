@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package giaodienchuan.model.FrontEnd.FormQuanLy;
+package giaodienchuan.model.FrontEnd.FormQuanLy.ThongKe;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;

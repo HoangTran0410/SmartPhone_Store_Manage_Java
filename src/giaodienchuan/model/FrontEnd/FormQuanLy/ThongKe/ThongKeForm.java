@@ -1,4 +1,4 @@
-package giaodienchuan.model.FrontEnd.FormQuanLy;
+package giaodienchuan.model.FrontEnd.FormQuanLy.ThongKe;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
@@ -26,6 +26,7 @@ import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
+import giaodienchuan.model.FrontEnd.MyButton.RefreshButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -55,11 +56,13 @@ public class ThongKeForm extends JPanel {
         this.setBackground(Color.darkGray);
 
         ThongKe_Hoang tkH = new ThongKe_Hoang();
+        ThongKeForm_NewVersion tk2 = new ThongKeForm_NewVersion();
 
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP);
         tabs.setPreferredSize(new Dimension(width, height));
 
         //add tab thong ke san pham
+        tabs.addTab("Thống kê ver2", getIcon("icons8_company_30px.png"), tk2);
         tabs.addTab("Thống kê tổng quát", getIcon("icons8_pie_chart_30px.png"), tkH);
         tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), null);
         tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), null);
@@ -131,7 +134,7 @@ class ThongKe_Hoang extends JPanel {
     MyTable tbKetQuaPhieuNhap = new MyTable();
 
     JPanel plSanPham, plNhanVien, plKhachHang, plNhaCC;
-    JButton btnRefresh = new JButton("Làm mới");
+    RefreshButton btnRefresh = new RefreshButton();
 
     public ThongKe_Hoang() {
         setLayout(new BorderLayout());
@@ -162,12 +165,8 @@ class ThongKe_Hoang extends JPanel {
         plChonNgay.add(dPicker1);
         plChonNgay.add(txNgay2);
         plChonNgay.add(dPicker2);
-
-        btnChonSanPham.setPreferredSize(new Dimension(30, 30));
-        btnChonNhanVien.setPreferredSize(new Dimension(30, 30));
-        btnChonKhachHang.setPreferredSize(new Dimension(30, 30));
-        btnChonNhaCC.setPreferredSize(new Dimension(30, 30));
-
+        
+        // event
         btnChonSanPham.addActionListener((ae) -> {
             ChonSanPhamForm cnv = new ChonSanPhamForm(txSanPham, null, null, null, null);
         });
@@ -180,7 +179,6 @@ class ThongKe_Hoang extends JPanel {
         btnChonNhaCC.addActionListener((ae) -> {
             ChonNhaCungCapForm cnv = new ChonNhaCungCapForm(txNhaCC);
         });
-        btnRefresh.setIcon(new ImageIcon(getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         btnRefresh.addActionListener((ae) -> {
             refresh();
         });
@@ -198,12 +196,7 @@ class ThongKe_Hoang extends JPanel {
         plChonTieuChi.add(plKhachHang);
         plChonTieuChi.add(plNhaCC);
         plChonTieuChi.add(btnRefresh);
-
-        // panel tieu chi
-        JPanel plTieuChi = new JPanel();
-        plTieuChi.setLayout(new BorderLayout());
-        plTieuChi.add(plChonTieuChi, BorderLayout.CENTER);
-        this.add(plTieuChi, BorderLayout.NORTH);
+        this.add(plChonTieuChi, BorderLayout.NORTH);
 
         // panel thong ke hoa don (ban duoc)
         plThongKeHoaDon.setLayout(new BorderLayout());

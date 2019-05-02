@@ -15,7 +15,7 @@ import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyNhanVienForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyQuyenForm;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyTaiKhoanForm;
-import giaodienchuan.model.FrontEnd.FormQuanLy.ThongKeForm;
+import giaodienchuan.model.FrontEnd.FormQuanLy.ThongKe.ThongKeForm;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarButton;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarContainer;
 import giaodienchuan.model.FrontEnd.NavBar.NavBarSeperator;
