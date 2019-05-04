@@ -11,7 +11,6 @@ import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -79,9 +78,19 @@ public class QuanLyNhanVienForm extends JPanel {
     private void btnXoaMouseClicked() {
         String manv = formHienThi.getSelectedRow(1);
         if (manv != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? Nhân viên sẽ được Ẩn.", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyNhanVienBUS().updateTrangThai(manv, 1);
-                formHienThi.refresh();
+            QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+            if (qlnvBUS.getNhanVien(manv).getTrangThai() == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? "
+                        + "Nhân viên sẽ được TẠM ẨN", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlnvBUS.updateTrangThai(manv, 1);
+                    formHienThi.refresh();
+                }
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn XÓA HOÀN TOÀN nhân viên " + manv + " ?",
+                        "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlnvBUS.delete(manv);
+                    formHienThi.refresh();
+                }
             }
 
         } else {

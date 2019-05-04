@@ -78,9 +78,19 @@ public class QuanLyKhachHangForm extends JPanel {
     private void btnXoaMouseClicked() {
         String makh = formHienThi.getSelectedRow(1);
         if (makh != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + makh + " ? Khách hàng sẽ được Ẩn", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyKhachHangBUS().updateTrangThai(makh, 1);
-                formHienThi.refresh();
+            QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
+            if (qlkhBUS.getKhachHang(makh).getTrangThai() == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng " + makh + " ? "
+                        + "Nhân viên sẽ được TẠM ẨN", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlkhBUS.updateTrangThai(makh, 1);
+                    formHienThi.refresh();
+                }
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn XÓA HOÀN TOÀN khách hàng " + makh + " ?",
+                        "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlkhBUS.delete(makh);
+                    formHienThi.refresh();
+                }
             }
 
         } else {
