@@ -9,14 +9,12 @@ import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
-//import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 public class QuanLyHoaDonForm extends JPanel {
 
@@ -30,13 +28,11 @@ public class QuanLyHoaDonForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-        
 //        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
 //            btnThem.setEnabled(false);
 //            btnXoa.setEnabled(false);
 //            btnSua.setEnabled(false);
 //        }
-
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
@@ -61,11 +57,7 @@ public class QuanLyHoaDonForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelHoaDon();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelHoaDon();
         });
     }
 
@@ -87,13 +79,13 @@ public class QuanLyHoaDonForm extends JPanel {
     private void btnXoaMouseClicked() {
         String mahd = formHienThi.getSelectedRow(1);
         if (mahd != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + 
-                    " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd
+                    + " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo",
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                
+
                 new QuanLyChiTietHoaDonBUS().deleteAll(mahd);
                 new QuanLyHoaDonBUS().delete(mahd);
-                
+
                 formHienThi.refresh();
             }
 

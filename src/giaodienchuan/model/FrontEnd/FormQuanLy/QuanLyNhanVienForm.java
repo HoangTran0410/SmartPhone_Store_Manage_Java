@@ -28,8 +28,7 @@ public class QuanLyNhanVienForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-        
-        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNhanVien")) {
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNhanVien")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
@@ -55,11 +54,7 @@ public class QuanLyNhanVienForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelNhanVien();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelNhanVien();
         });
     }
 

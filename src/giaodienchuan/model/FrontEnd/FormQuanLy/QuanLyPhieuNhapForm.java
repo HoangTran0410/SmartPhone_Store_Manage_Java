@@ -18,7 +18,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -27,8 +26,9 @@ import javax.swing.JPanel;
  * @author Admin
  */
 public class QuanLyPhieuNhapForm extends JPanel {
+
     HienThiPhieuNhap formHienThi = new HienThiPhieuNhap();
-    
+
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
@@ -62,11 +62,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelPhieuNhap();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelPhieuNhap();
         });
     }
 
@@ -88,13 +84,13 @@ public class QuanLyPhieuNhapForm extends JPanel {
     private void btnXoaMouseClicked() {
         String mapn = formHienThi.getSelectedRow(1);
         if (mapn != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mapn + 
-                    " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mapn
+                    + " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo",
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                
+
                 new QuanLyChiTietPhieuNhapBUS().deleteAll(mapn);
                 new QuanLyPhieuNhapBUS().delete(mapn);
-                
+
                 formHienThi.refresh();
             }
 
@@ -102,7 +98,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
             JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xóa");
         }
     }
-    
+
     private void btnThemMouseClicked() {
         ThemSuaPhieuNhapForm thempn = new ThemSuaPhieuNhapForm("Thêm", "");
         thempn.addWindowListener(new WindowAdapter() {

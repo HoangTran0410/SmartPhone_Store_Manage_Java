@@ -11,7 +11,6 @@ import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -54,11 +53,7 @@ public class QuanLySanPhamForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelSanPham();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelSanPham();
         });
     }
 

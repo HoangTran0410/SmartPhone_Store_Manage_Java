@@ -17,7 +17,6 @@ import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -75,11 +74,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
             btnKetThucMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelKhuyenMai();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelKhuyenMai();
         });
     }
 
@@ -120,16 +115,16 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     private void btnKetThucMouseClicked() {
         String makm = formHienThi.getSelectedRow(1);
         if (makm != null) {
-            
+
             // check xem khuyến mãi có đang diễn ra ko
             String trangthai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm).getTrangThai();
             Boolean dangDienRa = trangthai.equals("Đang diễn ra");
-            
-            if(!dangDienRa) {
+
+            if (!dangDienRa) {
                 JOptionPane.showMessageDialog(this, "Không thể dừng khuyến mãi " + trangthai);
                 return;
             }
-            
+
             // check đồng ý kết thúc
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn dừng khuyến mãi " + makm
                     + " ? Ngày kết thúc Khuyến mãi sẽ được dời về hôm nay",

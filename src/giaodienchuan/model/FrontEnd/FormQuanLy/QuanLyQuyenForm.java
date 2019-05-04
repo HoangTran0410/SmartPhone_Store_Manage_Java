@@ -11,7 +11,6 @@ import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -28,7 +27,7 @@ public class QuanLyQuyenForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlQuyen")) {
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlQuyen")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
@@ -55,11 +54,7 @@ public class QuanLyQuyenForm extends JPanel {
             formHienThi.refresh();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelQuyen();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelQuyen();
         });
     }
 

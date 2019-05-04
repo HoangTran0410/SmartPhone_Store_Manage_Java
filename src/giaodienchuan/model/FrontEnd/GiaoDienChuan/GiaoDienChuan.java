@@ -23,6 +23,7 @@ import giaodienchuan.model.FrontEnd.NavBar.NavBarTitle;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,7 +37,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class GiaoDienChuan extends JFrame implements MouseListener {
-
+    
     final int WIDTH = 1400, HEIGHT = 800;
     int px, py;
     NavBarContainer menu, header;

@@ -30,8 +30,7 @@ public class ThemSuaSanPhamForm extends JFrame {
     JTextField txGia = new JTextField(15);
     JTextField txSoLuong = new JTextField(15);
     JTextField txHinhAnh = new JTextField(15);
-
-    FileDialog fdChooseImg = new FileDialog(this);
+    
     FileButton btnChonAnh = new FileButton();
     MoreButton btnChonLoai = new MoreButton();
     JComboBox<String> cbChonTrangThai;
@@ -195,8 +194,9 @@ public class ThemSuaSanPhamForm extends JFrame {
     }
 
     private void btnChonAnhMouseClicked() {
-        fdChooseImg.setVisible(true);
-        String filename = fdChooseImg.getFile();
+        FileDialog fd = new FileDialog(new JFrame());
+        fd.setVisible(true);
+        String filename = fd.getFile();
         if (filename != null) {
             txHinhAnh.setText(filename);
         }
