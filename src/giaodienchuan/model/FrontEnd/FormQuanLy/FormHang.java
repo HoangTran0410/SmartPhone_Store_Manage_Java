@@ -254,7 +254,6 @@ class PhieuNhapHang extends FormHang {
         tbChiTietPhieuNhap.setAlignment(3, JLabel.CENTER);
         tbChiTietPhieuNhap.setAlignment(4, JLabel.RIGHT);
         tbChiTietPhieuNhap.setAlignment(5, JLabel.RIGHT);
-        tbChiTietPhieuNhap.setupSort();
 
         plSanPham.add(tbChiTietPhieuNhap, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -589,7 +588,6 @@ class HoaDonBanHang extends FormHang {
         tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(4, JLabel.RIGHT);
         tbChiTietHoaDon.setAlignment(5, JLabel.RIGHT);
-        tbChiTietHoaDon.setupSort();
 
         plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -785,6 +783,7 @@ class ChonSanPhamPanel extends JPanel {
         tbSanPham.setColumnsWidth(new double[]{.5, .5, 3, 1, .5});
         tbSanPham.setAlignment(3, JLabel.RIGHT);
         tbSanPham.setAlignment(4, JLabel.RIGHT);
+        tbSanPham.setupSort();
         plSanPham.add(tbSanPham, BorderLayout.CENTER);
 
         this.add(plSanPham, BorderLayout.CENTER);
