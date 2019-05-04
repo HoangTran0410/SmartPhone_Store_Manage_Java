@@ -89,15 +89,15 @@ public class QuanLyPhieuNhapForm extends JPanel {
                 }
             });
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn phiếu nhập nào để sửa");
         }
     }
 
     private void btnXoaMouseClicked() {
         String mapn = formHienThi.getSelectedRow(1);
         if (mapn != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mapn
-                    + " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo",
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa phiếu nhập " + mapn
+                    + " ? Mọi chi tiết trong phiếu nhập sẽ bị xóa theo",
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
 
                 new QuanLyChiTietPhieuNhapBUS().deleteAll(mapn);
@@ -107,7 +107,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn phiếu nhập nào để xóa");
         }
     }
 
