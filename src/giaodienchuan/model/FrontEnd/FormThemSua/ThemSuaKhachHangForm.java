@@ -42,7 +42,7 @@ public class ThemSuaKhachHangForm extends JFrame {
         txDiachi.setBorder(BorderFactory.createTitledBorder("Địa chỉ"));
         txSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
         cbChonTrangThai = new JComboBox<>(new String[]{"Ẩn", "Hiện"});
-        
+
         // chon trang thai
         JPanel plChonTT = new JPanel();
         plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
@@ -64,7 +64,7 @@ public class ThemSuaKhachHangForm extends JFrame {
         if (this.type.equals("Thêm")) {
             this.setTitle("Thêm khách hàng");
             txMakh.setText(qlkhBUS.getNextID());
-            
+
             cbChonTrangThai.setSelectedItem("Hiện");
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
@@ -108,9 +108,7 @@ public class ThemSuaKhachHangForm extends JFrame {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
 
         this.setVisible(true);
@@ -121,7 +119,7 @@ public class ThemSuaKhachHangForm extends JFrame {
             String makh = txMakh.getText();
             String tenkh = txTenkh.getText();
             String diachi = txDiachi.getText();
-            String  sdt = txSDT.getText();
+            String sdt = txSDT.getText();
             int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
             if (qlkhBUS.add(makh, tenkh, diachi, sdt, trangthai)) {
@@ -136,7 +134,7 @@ public class ThemSuaKhachHangForm extends JFrame {
             String makh = txMakh.getText();
             String tenkh = txTenkh.getText();
             String diachi = txDiachi.getText();
-            String  sdt = txSDT.getText();
+            String sdt = txSDT.getText();
             int trangthai = (cbChonTrangThai.getSelectedItem().toString().equals("Hiện") ? 0 : 1);
 
             if (qlkhBUS.update(makh, tenkh, diachi, sdt, trangthai)) {
@@ -150,14 +148,14 @@ public class ThemSuaKhachHangForm extends JFrame {
         String makh = txMakh.getText();
         String tenkh = txTenkh.getText();
         String diachi = txDiachi.getText();
-        String  sdt = txSDT.getText();
+        String sdt = txSDT.getText();
 
         if (makh.trim().equals("")) {
             return showErrorTx(txMakh, "Mã khách hàng không được để trống");
 
         } else if (tenkh.trim().equals("")) {
             return showErrorTx(txTenkh, "Tên khách hàng không được để trống");
-        
+
         } else if (diachi.trim().equals("")) {
             return showErrorTx(txTenkh, "Địa chỉ không được để trống");
 

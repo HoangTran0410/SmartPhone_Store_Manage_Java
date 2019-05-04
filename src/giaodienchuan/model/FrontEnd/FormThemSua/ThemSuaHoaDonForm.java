@@ -138,9 +138,7 @@ public class ThemSuaHoaDonForm extends JFrame {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonNhanVien.addActionListener((ActionEvent ae) -> {
             btnChonNhanVienMouseClicked();

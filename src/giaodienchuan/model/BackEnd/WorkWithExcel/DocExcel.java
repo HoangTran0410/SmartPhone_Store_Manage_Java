@@ -48,6 +48,7 @@ public class DocExcel {
     }
 
     private String getFile() {
+        fd.setFile("*.xls");
         fd.setVisible(true);
         String url = fd.getDirectory() + fd.getFile();
         if (url.equals("nullnull")) {
@@ -419,8 +420,8 @@ public class DocExcel {
                     String tensp = cellIterator.next().getStringCellValue();
                     float dongia = (float) cellIterator.next().getNumericCellValue();
                     int soluong = (int) cellIterator.next().getNumericCellValue();
-                    int trangthai = (int) cellIterator.next().getNumericCellValue();
                     String hinhanh = cellIterator.next().getStringCellValue();
+                    int trangthai = (int) cellIterator.next().getNumericCellValue();
 
                     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
 

@@ -51,7 +51,7 @@ public class XuatExcel {
     FileDialog fd = new FileDialog(new JFrame(), "Xuất excel", FileDialog.SAVE);
 
     private String getFile() {
-        fd.setFilenameFilter(new FileNAmè);
+        fd.setFile("untitled.xls");
         fd.setVisible(true);
         String url = fd.getDirectory() + fd.getFile();
         if (url.equals("nullnull")) {
@@ -402,7 +402,8 @@ public class XuatExcel {
             row.createCell(3, CellType.STRING).setCellValue("Tên");
             row.createCell(4, CellType.STRING).setCellValue("Đơn giá");
             row.createCell(5, CellType.STRING).setCellValue("Số lượng");
-            row.createCell(6, CellType.STRING).setCellValue("Trạng thái");
+            row.createCell(6, CellType.STRING).setCellValue("Hình ảnh");
+            row.createCell(7, CellType.STRING).setCellValue("Trạng thái");
 
             for (SanPham sp : list) {
                 rownum++;
@@ -416,7 +417,8 @@ public class XuatExcel {
                 row.createCell(3, CellType.STRING).setCellValue(sp.getTenSP());
                 row.createCell(4, CellType.STRING).setCellValue(String.valueOf(sp.getDonGia()));
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(sp.getSoLuong()));
-                row.createCell(6, CellType.STRING).setCellValue(sp.getTrangThai() == 0 ? "Hiện" : "Ẩn");
+                row.createCell(5, CellType.STRING).setCellValue(String.valueOf(sp.getFileNameHinhAnh()));
+                row.createCell(7, CellType.STRING).setCellValue(sp.getTrangThai() == 0 ? "Hiện" : "Ẩn");
 
             }
             for (int i = 0; i < rownum; i++) {
