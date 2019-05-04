@@ -339,8 +339,8 @@ public class XuatExcel {
             row.createCell(0, CellType.NUMERIC).setCellValue("STT");
             row.createCell(1, CellType.STRING).setCellValue("Mã khuyến mãi");
             row.createCell(2, CellType.STRING).setCellValue("Tên khuyến mãi");
-            row.createCell(3, CellType.STRING).setCellValue("Điều kiện");
-            row.createCell(4, CellType.STRING).setCellValue("Phần trăm");
+            row.createCell(3, CellType.NUMERIC).setCellValue("Điều kiện");
+            row.createCell(4, CellType.NUMERIC).setCellValue("Phần trăm");
             row.createCell(5, CellType.STRING).setCellValue("Ngày bắt đầu");
             row.createCell(6, CellType.STRING).setCellValue("Ngày kết thúc");
 
@@ -351,8 +351,8 @@ public class XuatExcel {
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(km.getMaKM());
                 row.createCell(2, CellType.STRING).setCellValue(km.getTenKM());
-                row.createCell(3, CellType.STRING).setCellValue(String.valueOf(km.getDieuKhienKM()));
-                row.createCell(4, CellType.STRING).setCellValue(String.valueOf(km.getPhanTramKM()));
+                row.createCell(3, CellType.NUMERIC).setCellValue(km.getDieuKhienKM());
+                row.createCell(4, CellType.NUMERIC).setCellValue(km.getPhanTramKM());
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(km.getNgayBD()));
                 row.createCell(6, CellType.STRING).setCellValue(String.valueOf(km.getNgayKT()));
             }
