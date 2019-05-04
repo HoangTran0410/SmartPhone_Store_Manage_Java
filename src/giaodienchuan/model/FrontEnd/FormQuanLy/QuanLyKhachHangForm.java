@@ -1,11 +1,13 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhachHang;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhachHangForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -21,7 +23,9 @@ public class QuanLyKhachHangForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyKhachHangForm() {
         setLayout(new BorderLayout());
@@ -31,6 +35,7 @@ public class QuanLyKhachHangForm extends JPanel {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -38,6 +43,7 @@ public class QuanLyKhachHangForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
@@ -54,6 +60,9 @@ public class QuanLyKhachHangForm extends JPanel {
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
             new XuatExcel().xuatFileExcelKhachHang();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelKhachhang();
         });
     }
 

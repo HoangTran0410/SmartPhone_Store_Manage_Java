@@ -1,11 +1,13 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyLoaiSanPham.QuanLyLoaiSanPhamBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiLoaiSanPham;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaLoaiSanPhamForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -22,7 +24,9 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     JComboBox<String> cbTypeSearch;
 
@@ -37,6 +41,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -44,6 +49,7 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         //=========== add all to this jpanel ===========
         this.add(formHienThi, BorderLayout.CENTER);
@@ -61,6 +67,9 @@ public class QuanLyLoaiSanPhamForm extends JPanel {
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
             new XuatExcel().xuatFileExcelLoaiSanPham();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelLoaiSanPham();
         });
     }
 

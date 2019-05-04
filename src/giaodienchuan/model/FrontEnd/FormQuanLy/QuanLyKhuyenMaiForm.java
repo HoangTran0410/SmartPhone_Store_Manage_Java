@@ -7,11 +7,13 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhuyenMai;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -34,8 +36,10 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
-    ExportExcelButton btnXuatExcel = new ExportExcelButton();
     JButton btnKetThuc = new JButton("Kết thúc");
+    
+    ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyKhuyenMaiForm() {
         setLayout(new BorderLayout());
@@ -48,6 +52,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
             btnKetThuc.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -56,6 +61,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
         plBtn.add(btnSua);
         plBtn.add(btnKetThuc);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
@@ -75,6 +81,9 @@ public class QuanLyKhuyenMaiForm extends JPanel {
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
             new XuatExcel().xuatFileExcelKhuyenMai();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelKhuyenMai();
         });
     }
 

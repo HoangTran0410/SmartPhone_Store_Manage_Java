@@ -2,11 +2,13 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -23,6 +25,7 @@ public class QuanLyHoaDonForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
 
     public QuanLyHoaDonForm() {
@@ -33,12 +36,15 @@ public class QuanLyHoaDonForm extends JPanel {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
+        
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -55,6 +61,9 @@ public class QuanLyHoaDonForm extends JPanel {
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
             new XuatExcel().xuatFileExcelHoaDon();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            JOptionPane.showMessageDialog(this, "Chức năng chưa hoàn thành!");
         });
     }
 

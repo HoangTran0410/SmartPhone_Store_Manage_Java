@@ -62,6 +62,7 @@ public class XuatExcel {
 
     // Xuất file Excel Nhà cung cấp    
     public void xuatFileExcelNhaCungCap() {
+        fd.setTitle("Xuất dữ liệu nhà cung cấp ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -124,6 +125,7 @@ public class XuatExcel {
 
     // Xuất file Excel Nhân viên
     public void xuatFileExcelNhanVien() {
+        fd.setTitle("Xuất dữ liệu nhân viên ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -188,6 +190,7 @@ public class XuatExcel {
 
     // Xuất file Excel Khách hàng
     public void xuatFileExcelKhachHang() {
+        fd.setTitle("Xuất dữ liệu khách hàng ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -250,6 +253,7 @@ public class XuatExcel {
 
     // Xuất file Excel Tài khoản
     public void xuatFileExcelTaiKhoan() {
+        fd.setTitle("Xuất dữ liệu tài khoản ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -315,6 +319,7 @@ public class XuatExcel {
 
     // Xuất file Excel Khuyến mãi
     public void xuatFileExcelKhuyenMai() {
+        fd.setTitle("Xuất dữ liệu khuyến mãi ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -379,6 +384,7 @@ public class XuatExcel {
 
     // Xuất file Excel Sản phẩm
     public void xuatFileExcelSanPham() {
+        fd.setTitle("Xuất dữ liệu sản phẩm ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -449,6 +455,7 @@ public class XuatExcel {
 
     // Xuất file Excel Loại sản phẩm
     public void xuatFileExcelLoaiSanPham() {
+        fd.setTitle("Xuất dữ liệu loại sản phẩm ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -507,6 +514,7 @@ public class XuatExcel {
 
     // Xuất file Excel Quyền
     public void xuatFileExcelQuyen() {
+        fd.setTitle("Xuất dữ liệu quyền ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -565,6 +573,7 @@ public class XuatExcel {
 
     // Xuất file Excel Hóa đơn
     public void xuatFileExcelHoaDon() {
+        fd.setTitle("Xuất dữ liệu hóa đơn ra excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -634,6 +643,7 @@ public class XuatExcel {
 
     // Xuất file Excel Phiếu nhập
     public void xuatFileExcelPhieuNhap() {
+        fd.setTitle("Xuất dữ liệu phiếu nhập ra excel");
         String url = getFile();
         if (url == null) {
             return;

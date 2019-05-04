@@ -1,11 +1,13 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyQuyen.QuanLyQuyenBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiQuyen;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaQuyenForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -21,7 +23,9 @@ public class QuanLyQuyenForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyQuyenForm() {
         setLayout(new BorderLayout());
@@ -31,6 +35,7 @@ public class QuanLyQuyenForm extends JPanel {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -38,6 +43,7 @@ public class QuanLyQuyenForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -55,6 +61,9 @@ public class QuanLyQuyenForm extends JPanel {
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
             new XuatExcel().xuatFileExcelQuyen();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelQuyen();
         });
     }
 

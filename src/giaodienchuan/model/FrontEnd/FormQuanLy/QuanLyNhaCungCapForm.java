@@ -40,8 +40,8 @@ public class QuanLyNhaCungCapForm extends JPanel {
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
-        plBtn.add(btnNhapExcel);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);

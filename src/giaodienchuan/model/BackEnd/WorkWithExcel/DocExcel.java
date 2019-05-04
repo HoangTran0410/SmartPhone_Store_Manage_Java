@@ -59,6 +59,7 @@ public class DocExcel {
 
     //Đọc file excel Nhà cung cấp
     public void docFileExcelNhaCungCap() {
+        fd.setTitle("Nhập dữ liệu nhà cung cấp từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -114,7 +115,8 @@ public class DocExcel {
     }
 
     // Đọc file excel quyền
-    public void docFileQuyen() {
+    public void docFileExcelQuyen() {
+        fd.setTitle("Nhập dữ liệu quyền từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -168,7 +170,8 @@ public class DocExcel {
     }
 
     //Đọc file excel Tài khoản
-    public void docFileTaiKhoan() {
+    public void docFileExcelTaiKhoan() {
+        fd.setTitle("Nhập dữ liệu tài khoản từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -224,6 +227,7 @@ public class DocExcel {
 
     //Đọc file excel Khách hàng
     public void docFileExcelKhachhang() {
+        fd.setTitle("Nhập dữ liệu khách hàng từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -249,7 +253,7 @@ public class DocExcel {
                     String ten = cellIterator.next().getStringCellValue();
                     String diachi = cellIterator.next().getStringCellValue();
                     String sdt = cellIterator.next().getStringCellValue();
-                    int trangthai = (int) cellIterator.next().getNumericCellValue();
+                    int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
 
@@ -280,6 +284,7 @@ public class DocExcel {
 
     //Đọc file excel Nhân viên
     public void docFileExcelNhanVien() {
+        fd.setTitle("Nhập dữ liệu nhân viên từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -306,7 +311,7 @@ public class DocExcel {
                     LocalDate ngaysinh = LocalDate.parse(cellIterator.next().getStringCellValue());
                     String diachi = cellIterator.next().getStringCellValue();
                     String sdt = cellIterator.next().getStringCellValue();
-                    int trangthai = (int) cellIterator.next().getNumericCellValue();
+                    int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
 
@@ -337,6 +342,7 @@ public class DocExcel {
 
     //Đọc file excel Khuyến mãi
     public void docFileExcelKhuyenMai() {
+        fd.setTitle("Nhập dữ liệu khuyến mãi từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -393,7 +399,8 @@ public class DocExcel {
     }
 
     //Đọc file excel Sản phẩm
-    public void docFileSanPham() {
+    public void docFileExcelSanPham() {
+        fd.setTitle("Nhập dữ liệu sản phẩm từ excel");
         String url = getFile();
         if (url == null) {
             return;
@@ -421,7 +428,7 @@ public class DocExcel {
                     float dongia = (float) cellIterator.next().getNumericCellValue();
                     int soluong = (int) cellIterator.next().getNumericCellValue();
                     String hinhanh = cellIterator.next().getStringCellValue();
-                    int trangthai = (int) cellIterator.next().getNumericCellValue();
+                    int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
 
@@ -451,7 +458,8 @@ public class DocExcel {
     }
 
     //Đọc file excel Loại sản phẩm
-    public void docFileLoaiSanPham() {
+    public void docFileExcelLoaiSanPham() {
+        fd.setTitle("Nhập dữ liệu loại sản phẩm từ excel");
         String url = getFile();
         if (url == null) {
             return;
