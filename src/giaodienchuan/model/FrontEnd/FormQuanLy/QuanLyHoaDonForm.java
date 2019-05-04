@@ -5,6 +5,7 @@ import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
@@ -28,20 +29,16 @@ public class QuanLyHoaDonForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-//        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
-//            btnThem.setEnabled(false);
-//            btnXoa.setEnabled(false);
-//            btnSua.setEnabled(false);
-//        }
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+        }
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
-        // Không cho phép thêm sửa xóa trong quản lý, chỉ trong bán hàng mới được
-        btnThem.setEnabled(false);
-        btnXoa.setEnabled(false);
-        btnSua.setEnabled(false);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);

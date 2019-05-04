@@ -10,6 +10,7 @@ import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiPhieuNhap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaPhieuNhapForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
@@ -38,9 +39,11 @@ public class QuanLyPhieuNhapForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-        btnThem.setEnabled(false);
-        btnSua.setEnabled(false);
-        btnXoa.setEnabled(false);
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlPhieuNhap")) {
+            btnThem.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnXoa.setEnabled(false);
+        }
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
