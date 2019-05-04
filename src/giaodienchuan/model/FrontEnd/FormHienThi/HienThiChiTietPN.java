@@ -46,6 +46,7 @@ public class HienThiChiTietPN extends FormHienThi {
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.RIGHT);
+        mtb.setAlignment(6, JLabel.RIGHT);
         mtb.setupSort();
         setDataToTable(qlctpn.search("Mã phiếu nhập", this.mapn), mtb);
 
