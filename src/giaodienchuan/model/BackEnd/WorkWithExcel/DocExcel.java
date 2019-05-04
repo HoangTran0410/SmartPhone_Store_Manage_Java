@@ -192,7 +192,7 @@ public class DocExcel {
                     int stt = (int) cellIterator.next().getNumericCellValue();
                     String taikhoan = cellIterator.next().getStringCellValue();
                     String matkhau = cellIterator.next().getStringCellValue();
-                    String manv = cellIterator.next().getStringCellValue();
+                    String manv = cellIterator.next().getStringCellValue().split(" - ")[0];
                     String maquyen = cellIterator.next().getStringCellValue();
 
                     QuanLyTaiKhoanBUS qltkBUS = new QuanLyTaiKhoanBUS();
@@ -416,7 +416,7 @@ public class DocExcel {
 
                     int stt = (int) cellIterator.next().getNumericCellValue();
                     String masp = cellIterator.next().getStringCellValue();
-                    String maloai = cellIterator.next().getStringCellValue();
+                    String maloai = cellIterator.next().getStringCellValue().split(" - ")[0];
                     String tensp = cellIterator.next().getStringCellValue();
                     float dongia = (float) cellIterator.next().getNumericCellValue();
                     int soluong = (int) cellIterator.next().getNumericCellValue();

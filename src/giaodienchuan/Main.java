@@ -14,5 +14,7 @@ public class Main {
         }
         
         new LoginForm().setVisible(true);
+//        String s = "Hoang - dep trai";
+//        System.out.println(s.split(" - ")[0]);
     }
 }

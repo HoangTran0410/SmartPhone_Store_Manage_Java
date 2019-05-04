@@ -284,8 +284,8 @@ public class XuatExcel {
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(tk.getUsername());
                 row.createCell(2, CellType.STRING).setCellValue(tk.getPassword());
-                row.createCell(3, CellType.STRING).setCellValue(manv + " (" + qlnvBUS.getNhanVien(manv).getTenNV() + ")");
-                row.createCell(4, CellType.STRING).setCellValue(maq + " (" + qlqBUS.getQuyen(maq).getTenQuyen() + ")");
+                row.createCell(3, CellType.STRING).setCellValue(manv + " - " + qlnvBUS.getNhanVien(manv).getTenNV());
+                row.createCell(4, CellType.STRING).setCellValue(maq + " - " + qlqBUS.getQuyen(maq).getTenQuyen());
             }
             for (int i = 0; i < rownum; i++) {
                 sheet.autoSizeColumn(i);
@@ -413,11 +413,11 @@ public class XuatExcel {
 
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(sp.getMaSP());
-                row.createCell(2, CellType.STRING).setCellValue(maloai + " (" + qllsp.getLoaiSanPham(maloai).getTenLSP() + ")");
+                row.createCell(2, CellType.STRING).setCellValue(maloai + " - " + qllsp.getLoaiSanPham(maloai).getTenLSP());
                 row.createCell(3, CellType.STRING).setCellValue(sp.getTenSP());
                 row.createCell(4, CellType.STRING).setCellValue(String.valueOf(sp.getDonGia()));
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(sp.getSoLuong()));
-                row.createCell(5, CellType.STRING).setCellValue(String.valueOf(sp.getFileNameHinhAnh()));
+                row.createCell(6, CellType.STRING).setCellValue(String.valueOf(sp.getFileNameHinhAnh()));
                 row.createCell(7, CellType.STRING).setCellValue(sp.getTrangThai() == 0 ? "Hiện" : "Ẩn");
 
             }
@@ -599,9 +599,9 @@ public class XuatExcel {
 
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(hd.getMaHoaDon());
-                row.createCell(2, CellType.STRING).setCellValue(hd.getMaNhanVien() + " (" + qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV() + ")");
-                row.createCell(3, CellType.STRING).setCellValue(hd.getMaKhachHang() + " (" + qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH() + ")");
-                row.createCell(4, CellType.STRING).setCellValue(hd.getMaKhuyenMai() + " (" + qlkmBUS.getKhuyenMai(hd.getMaKhuyenMai()).getTenKM() + ")");
+                row.createCell(2, CellType.STRING).setCellValue(hd.getMaNhanVien() + " - " + qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV());
+                row.createCell(3, CellType.STRING).setCellValue(hd.getMaKhachHang() + " - " + qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH());
+                row.createCell(4, CellType.STRING).setCellValue(hd.getMaKhuyenMai() + " - " + qlkmBUS.getKhuyenMai(hd.getMaKhuyenMai()).getTenKM());
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(hd.getNgayLap()));
                 row.createCell(6, CellType.STRING).setCellValue(String.valueOf(hd.getGioLap()));
                 row.createCell(7, CellType.NUMERIC).setCellValue(hd.getTongTien());
@@ -666,8 +666,8 @@ public class XuatExcel {
 
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(pn.getMaPN());
-                row.createCell(2, CellType.STRING).setCellValue(pn.getMaNCC() + " (" + qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC() + ")");
-                row.createCell(3, CellType.STRING).setCellValue(pn.getMaNV() + " (" + qlnvBUS.getNhanVien(pn.getMaNV()).getTenNV() + ")");
+                row.createCell(2, CellType.STRING).setCellValue(pn.getMaNCC() + " - " + qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC());
+                row.createCell(3, CellType.STRING).setCellValue(pn.getMaNV() + " - " + qlnvBUS.getNhanVien(pn.getMaNV()).getTenNV());
                 row.createCell(4, CellType.STRING).setCellValue(String.valueOf(pn.getNgayNhap()));
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(pn.getGioNhap()));
                 row.createCell(6, CellType.NUMERIC).setCellValue(String.valueOf(pn.getTongTien()));
