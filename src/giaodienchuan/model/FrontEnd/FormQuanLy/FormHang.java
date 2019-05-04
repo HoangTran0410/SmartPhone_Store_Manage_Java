@@ -32,6 +32,10 @@ import giaodienchuan.model.FrontEnd.FormChon.ChonNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
+import giaodienchuan.model.FrontEnd.MyButton.RefreshButton;
+import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
+import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
+import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -101,9 +105,9 @@ class PhieuNhapHang extends FormHang {
     MoreButton btnChonNhaCC = new MoreButton();
 
     MyTable tbChiTietPhieuNhap = new MyTable();
-    JButton btnXoa = new JButton("Xóa");
-    JButton btnSua = new JButton("Sửa");
-    JButton btnRefresh = new JButton("Làm mới");
+    XoaButton btnXoa = new XoaButton();
+    SuaButton btnSua = new SuaButton();
+    RefreshButton btnRefresh = new RefreshButton();
 
     JButton btnNhapHang = new JButton("Nhập hàng");
     JButton btnHuy = new JButton("Hủy");
@@ -227,9 +231,6 @@ class PhieuNhapHang extends FormHang {
         plButtonChiTiet.setLayout(new FlowLayout(FlowLayout.CENTER));
         plButtonChiTiet.setBackground(new Color(220, 220, 220));
         plButtonChiTiet.setPreferredSize(new Dimension(_width - 10, plBtn_height));
-        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_30px_1.png")));
-        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_wrench_30px.png")));
-        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_refresh_30px.png")));
 
         btnXoa.addActionListener((ae) -> {
             btnXoaOnClick();
@@ -253,6 +254,7 @@ class PhieuNhapHang extends FormHang {
         tbChiTietPhieuNhap.setAlignment(3, JLabel.CENTER);
         tbChiTietPhieuNhap.setAlignment(4, JLabel.RIGHT);
         tbChiTietPhieuNhap.setAlignment(5, JLabel.RIGHT);
+        tbChiTietPhieuNhap.setupSort();
 
         plSanPham.add(tbChiTietPhieuNhap, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -410,9 +412,9 @@ class HoaDonBanHang extends FormHang {
     MoreButton btnChonKhuyenMai = new MoreButton();
 
     MyTable tbChiTietHoaDon = new MyTable();
-    JButton btnXoa = new JButton("Xóa");
-    JButton btnSua = new JButton("Sửa");
-    JButton btnRefresh = new JButton("Làm mới");
+    XoaButton btnXoa = new XoaButton();
+    SuaButton btnSua = new SuaButton();
+    RefreshButton btnRefresh = new RefreshButton();
 
     JButton btnThanhToan = new JButton("Thanh toán");
     JButton btnHuy = new JButton("Hủy");
@@ -564,9 +566,6 @@ class HoaDonBanHang extends FormHang {
         plButtonChiTiet.setLayout(new FlowLayout(FlowLayout.CENTER));
         plButtonChiTiet.setBackground(new Color(220, 220, 220));
         plButtonChiTiet.setPreferredSize(new Dimension(_width - 10, plBtn_height));
-        btnXoa.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_delete_30px_1.png")));
-        btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_wrench_30px.png")));
-        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_refresh_30px.png")));
 
         btnXoa.addActionListener((ae) -> {
             btnXoaOnClick();
@@ -590,6 +589,7 @@ class HoaDonBanHang extends FormHang {
         tbChiTietHoaDon.setAlignment(3, JLabel.CENTER);
         tbChiTietHoaDon.setAlignment(4, JLabel.RIGHT);
         tbChiTietHoaDon.setAlignment(5, JLabel.RIGHT);
+        tbChiTietHoaDon.setupSort();
 
         plSanPham.add(tbChiTietHoaDon, BorderLayout.CENTER);
         plSanPham.add(plButtonChiTiet, BorderLayout.SOUTH);
@@ -753,8 +753,8 @@ class ChonSanPhamPanel extends JPanel {
     JTextField txDonGia = new JTextField(12);
     JTextField txSoLuong = new JTextField(7);
 
-    JButton btnRefresh = new JButton("Làm mới");
-    JButton btnThem = new JButton("Thêm");
+    RefreshButton btnRefresh = new RefreshButton();
+    ThemButton btnThem = new ThemButton();
 
     FormHang target = new FormHang();
 
@@ -775,7 +775,6 @@ class ChonSanPhamPanel extends JPanel {
         txTimKiem.setHorizontalAlignment(JLabel.CENTER);
         addDocumentListener(txTimKiem);
         plTimKiem.add(txTimKiem);
-        btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         btnRefresh.addActionListener((ae) -> {
             refreshTable();
         });
@@ -809,7 +808,6 @@ class ChonSanPhamPanel extends JPanel {
         txTenSP.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
         txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
-        btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
         // disable
         txMaSP.setEditable(false);
         txLoaiSP.setEditable(false);
