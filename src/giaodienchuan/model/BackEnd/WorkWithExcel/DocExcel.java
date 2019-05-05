@@ -76,9 +76,9 @@ public class DocExcel {
             Row row1 = rowIterator.next();
 
             String hanhDongKhiTrung = "";
-            int countThem = 0,
-                    countGhiDe = 0,
-                    countBoQua = 0;
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -164,6 +164,11 @@ public class DocExcel {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
+            
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -177,16 +182,42 @@ public class DocExcel {
                     String chitiet = cellIterator.next().getStringCellValue();
 
                     QuanLyQuyenBUS qlqBUS = new QuanLyQuyenBUS();
+                    
+                    Quyen qOld = qlqBUS.getQuyen(ma);
+                    if (qOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "Tên", "Chi tiết quyển"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", qOld.getMaQuyen(),
+                                qOld.getTenQuyen(),
+                                qOld.getChiTietQuyen()
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten, chitiet
+                            });
 
-                    if (qlqBUS.getQuyen(ma) != null) {
-                        qlqBUS.update(ma, ten, chitiet);
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlqBUS.update(ma, ten, chitiet);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         Quyen q = new Quyen(ma, ten, chitiet);
                         qlqBUS.add(q);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem 
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
