@@ -27,6 +27,7 @@ import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.WritePDF.WritePDF;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,6 +36,8 @@ import java.awt.event.MouseEvent;
 
 public class HienThiHoaDon extends FormHienThi {
 
+    WritePDF pdfWriter;
+
     QuanLyHoaDonBUS qlhd = new QuanLyHoaDonBUS();
     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
     QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
@@ -42,7 +45,7 @@ public class HienThiHoaDon extends FormHienThi {
 
     JTextField txTim = new JTextField(10);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã hóa đơn", "Mã nhân viên", "Mã khuyến mãi", "Mã khách hàng", "Ngày lập", "Giờ lập", "Tổng tiền"});
-    
+
     JTextField txMaHoaDon = new JTextField(15);
     JTextField txNhanVien = new JTextField(15);
     JTextField txNgayLap = new JTextField(15);
@@ -52,6 +55,7 @@ public class HienThiHoaDon extends FormHienThi {
     JTextField txTongTien = new JTextField(15);
 
     JButton btnRefresh = new JButton("Làm mới");
+    JButton btnPrintPDF = new JButton("In PDF");
     JButton btnDetails = new JButton("Xem chi tiết");
     JTextField txKhoangNgay1 = new JTextField(8);
     JTextField txKhoangNgay2 = new JTextField(8);
@@ -63,7 +67,7 @@ public class HienThiHoaDon extends FormHienThi {
 
     public HienThiHoaDon() {
         setLayout(new BorderLayout());
-        
+
         // khoang ngay
         DatePickerSettings pickerSettings = new DatePickerSettings();
         pickerSettings.setVisibleDateTextField(false);
@@ -71,7 +75,7 @@ public class HienThiHoaDon extends FormHienThi {
         dPicker2 = new DatePicker(pickerSettings.copySettings());
         dPicker1.setDateToToday();
         dPicker2.setDateToToday();
-        
+
         // calendar icon
         DateButton db = new DateButton(dPicker1);
         DateButton db2 = new DateButton(dPicker2);
@@ -121,7 +125,8 @@ public class HienThiHoaDon extends FormHienThi {
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
         plHeader.add(btnRefresh);
-        
+        plHeader.add(btnPrintPDF);
+
         // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
         JPanel plThongTin = new JPanel();
         plThongTin.setPreferredSize(new Dimension(300, 170));
@@ -143,7 +148,7 @@ public class HienThiHoaDon extends FormHienThi {
         txKhachHang.setFont(f);
         txKhuyenMai.setFont(f);
         txTongTien.setFont(f);
-        
+
         // add to panel
         plThongTin.add(txMaHoaDon);
         plThongTin.add(txNhanVien);
@@ -169,9 +174,16 @@ public class HienThiHoaDon extends FormHienThi {
                 }
             }
         });
-        
         btnRefresh.addActionListener((ae) -> {
             refresh();
+        });
+
+        btnPrintPDF.addActionListener((ae) -> {
+            if (getSelectedRow(0) != null) {
+                pdfWriter = new WritePDF("HoaDon.pdf");
+                pdfWriter.writeHoaDon(String.valueOf(mtb.getTable().getValueAt(mtb.getTable().getSelectedRow(), 1)));
+                pdfWriter.closeFile();
+            }
         });
 
         cbTypeSearch.addActionListener((ae) -> {
@@ -198,7 +210,7 @@ public class HienThiHoaDon extends FormHienThi {
         addDocumentListener(txKhoangTien1);
         addDocumentListener(txKhoangTien2);
     }
-    
+
     private void showInfo(String mahd) {
         if (mahd != null) {
             // show hình
@@ -208,7 +220,7 @@ public class HienThiHoaDon extends FormHienThi {
                     String tennhanvien = qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV();
                     String tenkhach = qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH();
                     String tenkhuyenmai = qlkmBUS.getKhuyenMai(hd.getMaKhuyenMai()).getTenKM();
-                    
+
                     txMaHoaDon.setText(hd.getMaHoaDon());
                     txNhanVien.setText(tennhanvien + " - " + hd.getMaNhanVien());
                     txKhachHang.setText(tenkhach + " - " + hd.getMaKhachHang());
@@ -303,13 +315,13 @@ public class HienThiHoaDon extends FormHienThi {
         int stt = 1; // lưu số thứ tự dòng hiện tại
         for (HoaDon hd : data) {
             table.addRow(new String[]{
-                String.valueOf(stt), 
-                hd.getMaHoaDon(), 
-                hd.getMaNhanVien(), 
+                String.valueOf(stt),
+                hd.getMaHoaDon(),
+                hd.getMaNhanVien(),
                 hd.getMaKhachHang(),
                 hd.getMaKhuyenMai(),
-                String.valueOf(hd.getNgayLap()), 
-                String.valueOf(hd.getGioLap()), 
+                String.valueOf(hd.getNgayLap()),
+                String.valueOf(hd.getGioLap()),
                 PriceFormatter.format(hd.getTongTien())});
             stt++;
         }

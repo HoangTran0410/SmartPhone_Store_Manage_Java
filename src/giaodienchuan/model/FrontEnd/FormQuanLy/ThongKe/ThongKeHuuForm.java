@@ -153,7 +153,7 @@ class ThongKeSanPham extends JPanel {
                     tongSoLuong += ctpn.getSoLuong();
                 }
             }
-
+            
             tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
             tb.addRow(new String[]{"", "", "", "", "", ""});
 
@@ -185,7 +185,6 @@ class ThongKeSanPham extends JPanel {
                     tongSoLuong += cthd.getSoLuong();
                 }
             }
-
             tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
             tb.addRow(new String[]{"", "", "", "", "", ""});
             tongTatCa += tongSoLuong;

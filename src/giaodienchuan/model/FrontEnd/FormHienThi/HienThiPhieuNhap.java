@@ -12,6 +12,7 @@ import giaodienchuan.model.BackEnd.QuanLyNCC.QuanLyNhaCungCapBUS;
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.WritePDF.WritePDF;
 import giaodienchuan.model.FrontEnd.FormQuanLy.QuanLyChiTietPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.DateButton;
@@ -47,7 +48,7 @@ public class HienThiPhieuNhap extends FormHienThi {
     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
     QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
 
-    JTextField txTim = new JTextField(15);
+    JTextField txTim = new JTextField(10);
     JComboBox cbTypeSearch = new JComboBox(new String[]{"Tất cả", "Mã phiếu nhập", "Mã nhà cung cấp", "Mã nhân viên", "Ngày lập", "Giờ lập", "Tổng tiền"});
     
     JTextField txMaPhieuNhap = new JTextField(15);
@@ -58,6 +59,7 @@ public class HienThiPhieuNhap extends FormHienThi {
     JTextField txTongTien = new JTextField(15);
 
     JButton btnRefresh = new JButton("Làm mới");
+    JButton btnPrintPDF = new JButton("In PDF");
     JButton btnDetails = new JButton("Xem chi tiết");
 
     JTextField txKhoangNgay1 = new JTextField(8);
@@ -66,6 +68,8 @@ public class HienThiPhieuNhap extends FormHienThi {
     JTextField txKhoangTien2 = new JTextField(5);
     DatePicker dPicker1;
     DatePicker dPicker2;
+    
+    WritePDF pdfWriter;
 
     public HienThiPhieuNhap() {
         setLayout(new BorderLayout());
@@ -126,6 +130,7 @@ public class HienThiPhieuNhap extends FormHienThi {
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
         plHeader.add(btnRefresh);
+        plHeader.add(btnPrintPDF);
         
         // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
         JPanel plThongTin = new JPanel();
@@ -173,6 +178,14 @@ public class HienThiPhieuNhap extends FormHienThi {
         });
         btnRefresh.addActionListener((ae) -> {
             refresh();
+        });
+        
+        btnPrintPDF.addActionListener((ae) -> {
+            if (getSelectedRow(0) != null) {
+                pdfWriter = new WritePDF("PhieuNhap.pdf");
+                pdfWriter.writePhieuNhap(String.valueOf(mtb.getTable().getValueAt(mtb.getTable().getSelectedRow(), 1)));
+                pdfWriter.closeFile();
+            }
         });
 
         btnDetails.addActionListener((ae) -> {
