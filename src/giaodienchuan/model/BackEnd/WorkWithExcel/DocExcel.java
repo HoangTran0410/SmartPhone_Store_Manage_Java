@@ -128,7 +128,7 @@ public class DocExcel {
                 }
             }
             JOptionPane.showMessageDialog(null, "Đọc thành công, "
-                    + "Thêm " + countThem 
+                    + "Thêm " + countThem
                     + "; Ghi đè " + countGhiDe
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
@@ -164,7 +164,7 @@ public class DocExcel {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
-            
+
             String hanhDongKhiTrung = "";
             int countThem = 0;
             int countGhiDe = 0;
@@ -182,7 +182,7 @@ public class DocExcel {
                     String chitiet = cellIterator.next().getStringCellValue();
 
                     QuanLyQuyenBUS qlqBUS = new QuanLyQuyenBUS();
-                    
+
                     Quyen qOld = qlqBUS.getQuyen(ma);
                     if (qOld != null) {
                         if (!hanhDongKhiTrung.contains("tất cả")) {
@@ -214,7 +214,7 @@ public class DocExcel {
                 }
             }
             JOptionPane.showMessageDialog(null, "Đọc thành công, "
-                    + "Thêm " + countThem 
+                    + "Thêm " + countThem
                     + "; Ghi đè " + countGhiDe
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
@@ -251,6 +251,11 @@ public class DocExcel {
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
 
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -264,16 +269,43 @@ public class DocExcel {
                     String maquyen = cellIterator.next().getStringCellValue();
 
                     QuanLyTaiKhoanBUS qltkBUS = new QuanLyTaiKhoanBUS();
+                    TaiKhoan tkOld = qltkBUS.getTaiKhoan(manv);
 
-                    if (qltkBUS.getTaiKhoan(taikhoan) != null) {
-                        qltkBUS.update(taikhoan, matkhau, manv, maquyen);
+                    if (tkOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Tên tài khoản", "Mật khẩu", "Mã nhân viên", "Mã quyền"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", tkOld.getUsername(),
+                                tkOld.getPassword(),
+                                tkOld.getMaNV(),
+                                tkOld.getMaQuyen(),
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", taikhoan, matkhau, manv, maquyen
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qltkBUS.update(taikhoan, matkhau, manv, maquyen);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         TaiKhoan tk = new TaiKhoan(taikhoan, matkhau, manv, maquyen);
                         qltkBUS.add(tk);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
@@ -306,6 +338,11 @@ public class DocExcel {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
+            
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -321,12 +358,36 @@ public class DocExcel {
                     int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
+                    KhachHang khOLD = qlkhBUS.getKhachHang(ma);
 
-                    if (qlkhBUS.getKhachHang(ma) != null) {
-                        qlkhBUS.update(ma, ten, diachi, sdt, trangthai);
+                    if (khOLD != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "Tên", "Địa chỉ", "SDT", "Trạng thái"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", khOLD.getMaKH(),
+                                khOLD.getTenKH(),
+                                khOLD.getDiaChi(),
+                                khOLD.getSDT(),
+                                String.valueOf(khOLD.getTrangThai())
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten, diachi, sdt, String.valueOf(trangthai)
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlkhBUS.update(ma, ten, diachi, sdt, trangthai);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         KhachHang kh = new KhachHang(ma, ten, diachi, sdt, trangthai);
                         qlkhBUS.add(kh);
+                        countThem++;
                     }
                 }
             }
