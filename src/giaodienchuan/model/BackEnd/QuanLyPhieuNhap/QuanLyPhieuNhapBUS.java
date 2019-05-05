@@ -29,6 +29,15 @@ public class QuanLyPhieuNhapBUS {
     public String getNextID() {
         return "PN" + (dspn.size() + 1);
     }
+    
+    public PhieuNhap getPhieuNhap(String mapn){
+        for (PhieuNhap pn : dspn) {
+            if (pn.getMaPN().equals(mapn)) {
+                return pn;
+            }
+        }
+        return null;
+    }
 
     public ArrayList<PhieuNhap> getDspn() {
         return this.dspn;
