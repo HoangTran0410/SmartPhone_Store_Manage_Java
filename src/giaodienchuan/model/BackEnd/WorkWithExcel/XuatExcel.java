@@ -355,7 +355,7 @@ public class XuatExcel {
                 row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
                 row.createCell(1, CellType.STRING).setCellValue(km.getMaKM());
                 row.createCell(2, CellType.STRING).setCellValue(km.getTenKM());
-                row.createCell(3, CellType.NUMERIC).setCellValue(km.getDieuKhienKM());
+                row.createCell(3, CellType.NUMERIC).setCellValue(km.getDieuKienKM());
                 row.createCell(4, CellType.NUMERIC).setCellValue(km.getPhanTramKM());
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(km.getNgayBD()));
                 row.createCell(6, CellType.STRING).setCellValue(String.valueOf(km.getNgayKT()));

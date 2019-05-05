@@ -114,7 +114,7 @@ public class ThemSuaKhuyenMaiForm extends JFrame {
 
             txMaKM.setText(this.kmSua.getMaKM());
             txTenKM.setText(this.kmSua.getTenKM());
-            txDieuKienKhuyenMai.setText(String.valueOf(this.kmSua.getDieuKhienKM()));
+            txDieuKienKhuyenMai.setText(String.valueOf(this.kmSua.getDieuKienKM()));
             txPhanTramKhuyenMai.setText(String.valueOf(this.kmSua.getPhanTramKM()));
             txNgayBD.setText(this.kmSua.getNgayBD().toString());
             dPickerNgayBD.setDate(this.kmSua.getNgayBD());

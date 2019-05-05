@@ -24,7 +24,7 @@ public class QuanLyKhuyenMaiBUS {
         dskm.forEach((km) -> {
             System.out.print(km.getMaKM()+ " ");
             System.out.print(km.getTenKM()+ " ");
-            System.out.println(km.getDieuKhienKM()+ " ");
+            System.out.println(km.getDieuKienKM()+ " ");
             System.out.println(km.getPhanTramKM()+ " ");
             System.out.println(km.getNgayBD()+ " ");
             System.out.println(km.getNgayKT());
@@ -59,7 +59,7 @@ public class QuanLyKhuyenMaiBUS {
             if (type.equals("Tất cả")) {
                 if (km.getMaKM().toLowerCase().contains(value.toLowerCase())
                         || km.getTenKM().toLowerCase().contains(value.toLowerCase())
-                        || String.valueOf(km.getDieuKhienKM()).toLowerCase().contains(value.toLowerCase())
+                        || String.valueOf(km.getDieuKienKM()).toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(km.getPhanTramKM()).toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(km.getNgayBD()).toLowerCase().contains(value.toLowerCase())
                         || String.valueOf(km.getNgayKT()).toLowerCase().contains(value.toLowerCase())) {
@@ -78,7 +78,7 @@ public class QuanLyKhuyenMaiBUS {
                         }
                         break;
                     case "Điều kiện khuyến mãi":
-                        if (String.valueOf(km.getDieuKhienKM()).toLowerCase().contains(value.toLowerCase())) {
+                        if (String.valueOf(km.getDieuKienKM()).toLowerCase().contains(value.toLowerCase())) {
                             result.add(km);
                         }
                         break;
@@ -103,7 +103,7 @@ public class QuanLyKhuyenMaiBUS {
 
         for (int i = result.size() - 1; i >= 0; i--) {
             KhuyenMai km = result.get(i);
-            float dkkm = km.getDieuKhienKM();
+            float dkkm = km.getDieuKienKM();
             float phantram = km.getPhanTramKM();
             LocalDate ngaybd = km.getNgayBD();
             LocalDate ngaykt = km.getNgayKT();
@@ -155,7 +155,7 @@ public class QuanLyKhuyenMaiBUS {
             dskm.forEach((km) -> {
                 if (km.getMaKM().equals(makm)) {
                     km.setTenKM(tenkm);
-                    km.setDieuKhienKM(dkkm);
+                    km.setDieuKienKM(dkkm);
                     km.setPhanTramKM(phantramkm);
                     km.setNgayBD(ngaybd);
                     km.setNgayKT(ngaykt);

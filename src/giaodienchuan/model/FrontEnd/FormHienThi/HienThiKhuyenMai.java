@@ -118,7 +118,7 @@ public class HienThiKhuyenMai extends FormHienThi {
                 String.valueOf(stt),
                 km.getMaKM(),
                 km.getTenKM(),
-                "≥ " + PriceFormatter.format(km.getDieuKhienKM()),
+                "≥ " + PriceFormatter.format(km.getDieuKienKM()),
                 String.valueOf(km.getPhanTramKM()) + " %",
                 String.valueOf(km.getNgayBD()),
                 String.valueOf(km.getNgayKT()),

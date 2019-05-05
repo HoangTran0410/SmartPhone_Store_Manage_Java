@@ -725,7 +725,7 @@ class HoaDonBanHang extends FormHang {
         // check khuyến mãi
         t.addRow(new String[]{"", "", "", "", "", ""});
         t.addRow(new String[]{"", "", "", "", "Tổng tiền", PriceFormatter.format(tongtien)});
-        if (khuyenMai != null && khuyenMai.getPhanTramKM() > 0 && khuyenMai.getDieuKhienKM() <= tongtien) {
+        if (khuyenMai != null && khuyenMai.getPhanTramKM() > 0 && khuyenMai.getDieuKienKM() <= tongtien) {
             float giaTriKhuyenMai = tongtien * khuyenMai.getPhanTramKM() / 100;
             float tongTienSauKhuyenMai = tongtien - giaTriKhuyenMai;
             t.addRow(new String[]{"", "", "", "", "Khuyến mãi", PriceFormatter.format(-giaTriKhuyenMai)});

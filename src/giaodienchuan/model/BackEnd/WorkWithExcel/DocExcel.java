@@ -279,8 +279,7 @@ public class DocExcel {
                                 "Cũ:", tkOld.getUsername(),
                                 tkOld.getPassword(),
                                 tkOld.getMaNV(),
-                                tkOld.getMaQuyen(),
-                            });
+                                tkOld.getMaQuyen(),});
                             mtb.addRow(new String[]{
                                 "Mới:", taikhoan, matkhau, manv, maquyen
                             });
@@ -338,7 +337,7 @@ public class DocExcel {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
-            
+
             String hanhDongKhiTrung = "";
             int countThem = 0;
             int countGhiDe = 0;
@@ -391,7 +390,11 @@ public class DocExcel {
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
@@ -425,6 +428,11 @@ public class DocExcel {
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
 
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -440,16 +448,45 @@ public class DocExcel {
                     int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+                    NhanVien nvOld = qlnvBUS.getNhanVien(ma);
 
-                    if (qlnvBUS.getNhanVien(ma) != null) {
-                        qlnvBUS.update(ma, ten, ngaysinh, diachi, sdt, trangthai);
+                    if (nvOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "Tên", "Ngày sinh", "Địa chỉ", "SDT", "Trạng thái"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", nvOld.getMaNV(),
+                                nvOld.getTenNV(),
+                                String.valueOf(nvOld.getNgaySinh()),
+                                nvOld.getDiaChi(),
+                                nvOld.getSDT(),
+                                String.valueOf(nvOld.getTrangThai())
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten, String.valueOf(ngaysinh), diachi, sdt, String.valueOf(trangthai)
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlnvBUS.update(ma, ten, ngaysinh, diachi, sdt, trangthai);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         NhanVien nv = new NhanVien(ma, ten, ngaysinh, diachi, sdt, trangthai);
                         qlnvBUS.add(nv);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
@@ -483,6 +520,11 @@ public class DocExcel {
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
 
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -498,16 +540,44 @@ public class DocExcel {
                     LocalDate ngayketthuc = LocalDate.parse(cellIterator.next().getStringCellValue());
 
                     QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
+                    KhuyenMai kmOld = qlkmBUS.getKhuyenMai(ma);
 
-                    if (qlkmBUS.getKhuyenMai(ma) != null) {
-                        qlkmBUS.update(ma, ten, dieukien, phantram, ngaybatdau, ngayketthuc);
+                    if (kmOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "TênKM", "Điều kiện", "Giảm giá", "Ngày bắt đầu", "Ngày kết thúc"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", kmOld.getMaKM(),
+                                kmOld.getTenKM(),
+                                String.valueOf(kmOld.getDieuKienKM()),
+                                String.valueOf(kmOld.getPhanTramKM()),
+                                String.valueOf(kmOld.getNgayBD()),
+                                String.valueOf(kmOld.getNgayKT()),});
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten, String.valueOf(dieukien), String.valueOf(ngaybatdau), String.valueOf(ngayketthuc)
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlkmBUS.update(ma, ten, dieukien, phantram, ngaybatdau, ngayketthuc);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         KhuyenMai km = new KhuyenMai(ma, ten, dieukien, phantram, ngaybatdau, ngayketthuc);
                         qlkmBUS.add(km);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
@@ -540,6 +610,10 @@ public class DocExcel {
             HSSFSheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
 
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
@@ -557,16 +631,45 @@ public class DocExcel {
                     int trangthai = (cellIterator.next().getStringCellValue().equals("Ẩn") ? 1 : 0);
 
                     QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
+                    SanPham spOld = qlspBUS.getSanPham(masp);
+                    if (spOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã SP","Mã LSP", "Tên SP", "Đơn giá", "Số lượng", "Hình ảnh","Trạng thái"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", spOld.getMaSP(),
+                                spOld.getMaLSP(),
+                                spOld.getTenSP(),
+                                String.valueOf(spOld.getDonGia()),
+                                String.valueOf(spOld.getSoLuong()),
+                                spOld.getFileNameHinhAnh(),
+                                String.valueOf(spOld.getTrangThai())
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", masp,maloai, tensp, String.valueOf(dongia), String.valueOf(soluong), hinhanh,String.valueOf(trangthai)
+                            });
 
-                    if (qlspBUS.getSanPham(masp) != null) {
-                        qlspBUS.update(masp, maloai, tensp, dongia, soluong, hinhanh, trangthai);
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlspBUS.update(masp, maloai, tensp, dongia, soluong,hinhanh,trangthai);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
-                        SanPham sp = new SanPham(masp, maloai, tensp, dongia, soluong, hinhanh, trangthai);
+                        SanPham sp = new SanPham(masp, maloai, tensp, dongia, soluong,hinhanh,trangthai);
                         qlspBUS.add(sp);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
@@ -600,6 +703,11 @@ public class DocExcel {
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
 
+            String hanhDongKhiTrung = "";
+            int countThem = 0;
+            int countGhiDe = 0;
+            int countBoQua = 0;
+            
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -612,17 +720,42 @@ public class DocExcel {
                     String mota = cellIterator.next().getStringCellValue();
 
                     QuanLyLoaiSanPhamBUS qllspBUS = new QuanLyLoaiSanPhamBUS();
+                    LoaiSanPham lspOld = qllspBUS.getLoaiSanPham(ma);
 
-                    if (qllspBUS.getLoaiSanPham(ma) != null) {
-                        qllspBUS.update(ma, ten, mota);
+                    if (lspOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "Tên", "Mô tả"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", lspOld.getMaLSP(),
+                                lspOld.getTenLSP(),
+                                lspOld.getMoTa(),
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten,mota
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qllspBUS.update(ma, ten, mota);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
-                        LoaiSanPham lsp = new LoaiSanPham(ma, ten, mota);
+                        LoaiSanPham lsp = new LoaiSanPham(ma, ten,mota);
                         qllspBUS.add(lsp);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
-
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
         } catch (IOException ex) {
