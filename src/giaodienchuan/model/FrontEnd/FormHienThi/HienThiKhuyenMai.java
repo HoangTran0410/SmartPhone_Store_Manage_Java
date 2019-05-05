@@ -5,6 +5,7 @@
  */
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
@@ -42,9 +43,11 @@ public class HienThiKhuyenMai extends FormHienThi {
 
         mtb = new MyTable();
         mtb.setPreferredSize(new Dimension(1200 - 250, 600));
-        mtb.setHeaders(new String[]{"STT", "Mã", "Tên", "Điều kiện", "Phần trăm", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"});
-        mtb.setColumnsWidth(new double[]{.5, .5, 1.5, .5, .5, 1, 1, 1});
+        mtb.setHeaders(new String[]{"STT", "Mã", "Tên", "Điều kiện", "Giảm giá", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"});
+        mtb.setColumnsWidth(new double[]{.5, .5, 1.5, .7, .5, 1, 1, 1});
         mtb.setAlignment(0, JLabel.CENTER);
+        mtb.setAlignment(3, JLabel.RIGHT);
+        mtb.setAlignment(4, JLabel.CENTER);
         mtb.setupSort();
         setDataToTable(qlkmBUS.getDskm(), mtb);
 
@@ -115,8 +118,8 @@ public class HienThiKhuyenMai extends FormHienThi {
                 String.valueOf(stt),
                 km.getMaKM(),
                 km.getTenKM(),
-                String.valueOf(km.getDieuKhienKM()),
-                String.valueOf(km.getPhanTramKM()),
+                "≥ " + PriceFormatter.format(km.getDieuKhienKM()),
+                String.valueOf(km.getPhanTramKM()) + " %",
                 String.valueOf(km.getNgayBD()),
                 String.valueOf(km.getNgayKT()),
                 km.getTrangThai()

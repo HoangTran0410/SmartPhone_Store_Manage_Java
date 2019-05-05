@@ -5,6 +5,10 @@
  */
 package giaodienchuan.model.BackEnd.WorkWithExcel;
 
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
+import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
+import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.HoaDon;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.KhachHang;
 import giaodienchuan.model.BackEnd.QuanLyKhachHang.QuanLyKhachHangBUS;
@@ -585,12 +589,15 @@ public class XuatExcel {
             HSSFSheet sheet = workbook.createSheet("Hóa đơn");
 
             QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
+            QuanLyChiTietHoaDonBUS qlcthdBUS = new QuanLyChiTietHoaDonBUS();
             QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
             QuanLyKhachHangBUS qlkhBUS = new QuanLyKhachHangBUS();
             QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
+            QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
             ArrayList<HoaDon> list = qlhdBUS.getDshd();
 
             int rownum = 0;
+            int sttHoaDon = 0;
             Row row = sheet.createRow(rownum);
 
             row.createCell(0, CellType.NUMERIC).setCellValue("STT");
@@ -602,11 +609,17 @@ public class XuatExcel {
             row.createCell(6, CellType.STRING).setCellValue("Giờ lập");
             row.createCell(7, CellType.STRING).setCellValue("Tổng tiền");
 
+            row.createCell(8, CellType.STRING).setCellValue("Sản phẩm");
+            row.createCell(9, CellType.STRING).setCellValue("Số lượng");
+            row.createCell(10, CellType.STRING).setCellValue("Đơn giá");
+            row.createCell(11, CellType.STRING).setCellValue("Thành tiền");
+
             for (HoaDon hd : list) {
                 rownum++;
+                sttHoaDon++;
                 row = sheet.createRow(rownum);
 
-                row.createCell(0, CellType.NUMERIC).setCellValue(rownum);
+                row.createCell(0, CellType.NUMERIC).setCellValue(sttHoaDon);
                 row.createCell(1, CellType.STRING).setCellValue(hd.getMaHoaDon());
                 row.createCell(2, CellType.STRING).setCellValue(hd.getMaNhanVien() + " - " + qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV());
                 row.createCell(3, CellType.STRING).setCellValue(hd.getMaKhachHang() + " - " + qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH());
@@ -614,6 +627,18 @@ public class XuatExcel {
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(hd.getNgayLap()));
                 row.createCell(6, CellType.STRING).setCellValue(String.valueOf(hd.getGioLap()));
                 row.createCell(7, CellType.NUMERIC).setCellValue(hd.getTongTien());
+
+                for (ChiTietHoaDon cthd : qlcthdBUS.getAllChiTiet(hd.getMaHoaDon())) {
+                    rownum++;
+                    row = sheet.createRow(rownum);
+
+                    String masp = cthd.getMaSanPham();
+
+                    row.createCell(8, CellType.STRING).setCellValue(masp + " - " + qlspBUS.getSanPham(masp).getTenSP());
+                    row.createCell(9, CellType.NUMERIC).setCellValue(cthd.getSoLuong());
+                    row.createCell(10, CellType.NUMERIC).setCellValue(cthd.getDonGia());
+                    row.createCell(11, CellType.NUMERIC).setCellValue(cthd.getDonGia() * cthd.getSoLuong());
+                }
             }
             for (int i = 0; i < rownum; i++) {
                 sheet.autoSizeColumn(i);
@@ -655,6 +680,8 @@ public class XuatExcel {
             HSSFSheet sheet = workbook.createSheet("Hóa đơn");
 
             QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
+            QuanLyChiTietPhieuNhapBUS qlctpnBUS = new QuanLyChiTietPhieuNhapBUS();
+            QuanLySanPhamBUS qlspBUS = new QuanLySanPhamBUS();
             QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
             QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
             ArrayList<PhieuNhap> list = qlpnBUS.getDspn();
@@ -669,6 +696,10 @@ public class XuatExcel {
             row.createCell(4, CellType.STRING).setCellValue("Ngày lập");
             row.createCell(5, CellType.STRING).setCellValue("Giờ lập");
             row.createCell(6, CellType.STRING).setCellValue("Tổng tiền");
+            row.createCell(7, CellType.STRING).setCellValue("Sản phẩm");
+            row.createCell(8, CellType.STRING).setCellValue("Số lượng");
+            row.createCell(9, CellType.STRING).setCellValue("Đơn giá");
+            row.createCell(10, CellType.STRING).setCellValue("Thành tiền");
 
             for (PhieuNhap pn : list) {
                 rownum++;
@@ -680,7 +711,19 @@ public class XuatExcel {
                 row.createCell(3, CellType.STRING).setCellValue(pn.getMaNV() + " - " + qlnvBUS.getNhanVien(pn.getMaNV()).getTenNV());
                 row.createCell(4, CellType.STRING).setCellValue(String.valueOf(pn.getNgayNhap()));
                 row.createCell(5, CellType.STRING).setCellValue(String.valueOf(pn.getGioNhap()));
-                row.createCell(6, CellType.NUMERIC).setCellValue(String.valueOf(pn.getTongTien()));
+                row.createCell(6, CellType.NUMERIC).setCellValue(pn.getTongTien());
+
+                for (ChiTietPhieuNhap ctpn : qlctpnBUS.getAllChiTiet(pn.getMaPN())) {
+                    rownum++;
+                    row = sheet.createRow(rownum);
+
+                    String masp = ctpn.getMaSP();
+
+                    row.createCell(7, CellType.STRING).setCellValue(masp + " - " + qlspBUS.getSanPham(masp).getTenSP());
+                    row.createCell(8, CellType.NUMERIC).setCellValue(ctpn.getSoLuong());
+                    row.createCell(9, CellType.NUMERIC).setCellValue(ctpn.getDonGia());
+                    row.createCell(10, CellType.NUMERIC).setCellValue(ctpn.getDonGia() * ctpn.getSoLuong());
+                }
             }
             for (int i = 0; i < rownum; i++) {
                 sheet.autoSizeColumn(i);

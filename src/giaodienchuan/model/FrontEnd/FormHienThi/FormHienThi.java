@@ -22,8 +22,8 @@ public class FormHienThi extends JPanel {
     
     public String getSelectedRow(int col) {
         int i = mtb.getTable().getSelectedRow();
-        int realI = mtb.getTable().convertRowIndexToModel(i);
         if (i >= 0) {
+            int realI = mtb.getTable().convertRowIndexToModel(i);
             return mtb.getModel().getValueAt(realI, col).toString();
         }
         return null;

@@ -2,16 +2,20 @@ package giaodienchuan.model.FrontEnd.GiaoDienChuan;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -41,6 +45,8 @@ public class MyTable extends JPanel {
         tb.getTableHeader().setForeground(new Color(color, color, color));
         tb.setBackground(new Color(bgColor, bgColor, bgColor));
         tb.setForeground(new Color(color, color, color));
+
+        tb.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         add(pane, BorderLayout.CENTER);
     }
@@ -103,12 +109,28 @@ public class MyTable extends JPanel {
             column.setPreferredWidth((int) (getPreferredSize().width * (percentages[i] / total)));
         }
     }
+
+    //https://stackoverflow.com/questions/17627431/auto-resizing-the-jtable-column-widths
+    public void resizeColumnWidth() {
+        final TableColumnModel columnModel = tb.getColumnModel();
+        for (int column = 0; column < tb.getColumnCount(); column++) {
+            int width = 15; // Min width
+            for (int row = 0; row < tb.getRowCount(); row++) {
+                TableCellRenderer renderer = tb.getCellRenderer(row, column);
+                Component comp = tb.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+
+            width += 15;
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
+        tb.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    }
 }
 
 /**
  * A JTable that draws a zebra striped background.
  */
-
 //http://nadeausoftware.com/articles/2008/01/java_tip_how_add_zebra_background_stripes_jtable
 class ZebraJTable extends javax.swing.JTable {
 

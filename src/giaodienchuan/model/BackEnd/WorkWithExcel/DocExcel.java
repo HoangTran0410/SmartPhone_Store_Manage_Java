@@ -21,6 +21,7 @@ import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.QuanLyTaiKhoanBUS;
 import giaodienchuan.model.BackEnd.QuanLyTaiKhoan.TaiKhoan;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import java.awt.FileDialog;
 import java.io.File;
 import java.io.FileInputStream;
@@ -74,6 +75,11 @@ public class DocExcel {
             Iterator<Row> rowIterator = sheet.iterator();
             Row row1 = rowIterator.next();
 
+            String hanhDongKhiTrung = "";
+            int countThem = 0,
+                    countGhiDe = 0,
+                    countBoQua = 0;
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -89,15 +95,43 @@ public class DocExcel {
 
                     QuanLyNhaCungCapBUS qlnccBUS = new QuanLyNhaCungCapBUS();
 
-                    if (qlnccBUS.getNhaCungCap(ma) != null) {
-                        qlnccBUS.update(ma, ten, diachi, sdt, fax);
+                    NhaCungCap nccOld = qlnccBUS.getNhaCungCap(ma);
+                    if (nccOld != null) {
+                        if (!hanhDongKhiTrung.contains("tất cả")) {
+                            MyTable mtb = new MyTable();
+                            mtb.setHeaders(new String[]{"", "Mã", "Tên", "Địa chỉ", "SDT", "Fax"});
+                            mtb.addRow(new String[]{
+                                "Cũ:", nccOld.getMaNCC(),
+                                nccOld.getTenNCC(),
+                                nccOld.getDiaChi(),
+                                nccOld.getSDT(),
+                                nccOld.getFax()
+                            });
+                            mtb.addRow(new String[]{
+                                "Mới:", ma, ten, diachi, sdt, fax
+                            });
+
+                            MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
+                            hanhDongKhiTrung = mop.getAnswer();
+                        }
+                        if (hanhDongKhiTrung.contains("Ghi đè")) {
+                            qlnccBUS.update(ma, ten, diachi, sdt, fax);
+                            countGhiDe++;
+                        } else {
+                            countBoQua++;
+                        }
                     } else {
                         NhaCungCap ncc = new NhaCungCap(ma, ten, diachi, sdt, fax);
                         qlnccBUS.add(ncc);
+                        countThem++;
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Đọc thành công, Vui lòng làm mới để thấy kết quả");
+            JOptionPane.showMessageDialog(null, "Đọc thành công, "
+                    + "Thêm " + countThem 
+                    + "; Ghi đè " + countGhiDe
+                    + "; Bỏ qua " + countBoQua
+                    + ". Vui lòng làm mới để thấy kết quả");
 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());

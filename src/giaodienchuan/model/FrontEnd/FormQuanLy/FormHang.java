@@ -933,7 +933,8 @@ class ChonSanPhamPanel extends JPanel {
     public String getSelectedSanPham(int col) {
         int i = tbSanPham.getTable().getSelectedRow();
         if (i >= 0) {
-            return tbSanPham.getModel().getValueAt(i, col).toString();
+            int realI = tbSanPham.getTable().convertRowIndexToModel(i);
+            return tbSanPham.getModel().getValueAt(realI, col).toString();
         }
         return null;
     }
