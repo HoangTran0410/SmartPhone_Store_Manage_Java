@@ -31,14 +31,11 @@ public class ThemSuaSanPhamForm extends JFrame {
     JTextField txSoLuong = new JTextField(15);
     JTextField txHinhAnh = new JTextField(15);
 
-    FileDialog fdChooseImg = new FileDialog(this);
     FileButton btnChonAnh = new FileButton();
     MoreButton btnChonLoai = new MoreButton();
     JComboBox<String> cbChonTrangThai;
 
     JButton btnThem = new JButton("Thêm");
-    JButton btnThoat = new JButton("Thoát");
-
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
 
@@ -67,7 +64,7 @@ public class ThemSuaSanPhamForm extends JFrame {
         plChonAnh.setBorder(BorderFactory.createTitledBorder("Tên file ảnh"));
         plChonAnh.add(txHinhAnh);
         plChonAnh.add(btnChonAnh);
-        
+
         // chon trang thai
         JPanel plChonTT = new JPanel();
         plChonTT.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
@@ -93,11 +90,9 @@ public class ThemSuaSanPhamForm extends JFrame {
             txMasp.setText(qlspBUS.getNextID());
 
             cbChonTrangThai.setSelectedItem("Hiện");
-            
+
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-            btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
-            plButton.add(btnThoat);
 
         } else {
             this.setTitle("Sửa sản phẩm");
@@ -110,7 +105,7 @@ public class ThemSuaSanPhamForm extends JFrame {
                 JOptionPane.showMessageDialog(null, "Lỗi, không tìm thấy sản phẩm");
                 this.dispose();
             }
-            
+
             cbChonTrangThai.setSelectedItem(this.spSua.getTrangThai() == 0 ? "Hiện" : "Ẩn");
             txMasp.setText(this.spSua.getMaSP());
             txMalsp.setText(this.spSua.getMaLSP());
@@ -122,10 +117,11 @@ public class ThemSuaSanPhamForm extends JFrame {
             txMasp.setEditable(false);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
-            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
-            plButton.add(btnHuy);
         }
+
+        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
+        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
@@ -137,15 +133,8 @@ public class ThemSuaSanPhamForm extends JFrame {
         btnSua.addActionListener((ae) -> {
             btnSuaMouseClicked();
         });
-        btnThoat.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
-        });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonLoai.addActionListener((ActionEvent ae) -> {
             btnChonLoaiMouseClicked();
@@ -195,8 +184,9 @@ public class ThemSuaSanPhamForm extends JFrame {
     }
 
     private void btnChonAnhMouseClicked() {
-        fdChooseImg.setVisible(true);
-        String filename = fdChooseImg.getFile();
+        FileDialog fd = new FileDialog(this);
+        fd.setVisible(true);
+        String filename = fd.getFile();
         if (filename != null) {
             txHinhAnh.setText(filename);
         }

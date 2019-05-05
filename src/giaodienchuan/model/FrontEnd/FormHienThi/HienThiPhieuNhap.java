@@ -320,7 +320,7 @@ public class HienThiPhieuNhap extends FormHienThi {
                 pn.getMaNV(),
                 String.valueOf(pn.getNgayNhap()),
                 String.valueOf(pn.getGioNhap()),
-                String.valueOf(pn.getTongTien())
+                PriceFormatter.format(pn.getTongTien())
             });
             stt++;
         }

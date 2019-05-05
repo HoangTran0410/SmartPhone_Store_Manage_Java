@@ -28,6 +28,7 @@ import javax.swing.JTextField;
  * @author Admin
  */
 public class ThemSuaPhieuNhapForm extends JFrame {
+
     String type;
     QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
     PhieuNhap pnSua;
@@ -115,7 +116,7 @@ public class ThemSuaPhieuNhapForm extends JFrame {
             txtTongTien.setText(String.valueOf(this.pnSua.getTongTien()));
 
             txtMaPN.setEditable(false);
-            
+
             plInput.add(txtTongTien);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
@@ -136,9 +137,7 @@ public class ThemSuaPhieuNhapForm extends JFrame {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonNhanVien.addActionListener((ActionEvent ae) -> {
             btnChonNhanVienMouseClicked();
@@ -146,7 +145,7 @@ public class ThemSuaPhieuNhapForm extends JFrame {
         btnChonNhaCungCap.addActionListener((ae) -> {
             btnChonNhaCungCapMouseClicked();
         });
-        
+
         txtTongTien.setEditable(false);
         this.setVisible(true);
     }
@@ -216,7 +215,7 @@ public class ThemSuaPhieuNhapForm extends JFrame {
 
         } else if (gioNhap.trim().equals("")) {
             return showErrorTx(txtGioNhap, "Giờ nhập không được để trống");
-            
+
         } else {
             try {
                 LocalDate ngay = java.time.LocalDate.parse(ngayNhap);

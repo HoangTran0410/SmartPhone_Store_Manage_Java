@@ -1,5 +1,6 @@
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
@@ -176,8 +177,8 @@ public class HienThiChiTietHoaDon extends FormHienThi {
                 cthd.getMaSanPham(),
                 qlspBUS.getSanPham(cthd.getMaSanPham()).getTenSP(),
                 String.valueOf(cthd.getSoLuong()),
-                String.valueOf(cthd.getDonGia()),
-                String.valueOf(cthd.getSoLuong() * cthd.getDonGia())});
+                PriceFormatter.format(cthd.getDonGia()),
+                PriceFormatter.format(cthd.getSoLuong() * cthd.getDonGia())});
             stt++;
         }
     }

@@ -141,9 +141,7 @@ public class ThemSuaKhuyenMaiForm extends JFrame {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         dPickerNgayBD.addDateChangeListener((dce) -> {
             txNgayBD.setText(dPickerNgayBD.getDateStringOrEmptyString());

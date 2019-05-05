@@ -29,8 +29,6 @@ public class ThemSuaTaiKhoanForm extends JFrame {
     MoreButton btnChonQuyen = new MoreButton();
 
     JButton btnThem = new JButton("Thêm");
-    JButton btnThoat = new JButton("Thoát");
-
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
 
@@ -46,7 +44,7 @@ public class ThemSuaTaiKhoanForm extends JFrame {
         txPassword.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         txMaNV.setBorder(BorderFactory.createTitledBorder(" "));
         txMaQuyen.setBorder(BorderFactory.createTitledBorder(" "));
-        
+
         JPanel plChonNhanVien = new JPanel();
         plChonNhanVien.setBorder(BorderFactory.createTitledBorder("Mã nhân viên"));
         plChonNhanVien.add(txMaNV);
@@ -71,9 +69,7 @@ public class ThemSuaTaiKhoanForm extends JFrame {
             this.setTitle("Thêm tài khoản");
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-            btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
-            plButton.add(btnThoat);
 
         } else {
             this.setTitle("Sửa tài khoản");
@@ -94,10 +90,11 @@ public class ThemSuaTaiKhoanForm extends JFrame {
             txMaQuyen.setText(this.tkSua.getMaQuyen());
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
-            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
-            plButton.add(btnHuy);
         }
+        
+        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
+        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
@@ -106,18 +103,11 @@ public class ThemSuaTaiKhoanForm extends JFrame {
         btnThem.addActionListener((ae) -> {
             btnThemMouseClicked();
         });
-        btnThoat.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
-        });
         btnSua.addActionListener((ae) -> {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonNhanVien.addActionListener((ae) -> {
             ChonNhanVienForm cnv = new ChonNhanVienForm(txMaNV);

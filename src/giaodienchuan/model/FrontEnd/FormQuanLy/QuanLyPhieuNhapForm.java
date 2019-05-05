@@ -7,10 +7,13 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiPhieuNhap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaPhieuNhapForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
@@ -18,7 +21,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -27,26 +29,33 @@ import javax.swing.JPanel;
  * @author Admin
  */
 public class QuanLyPhieuNhapForm extends JPanel {
+
     HienThiPhieuNhap formHienThi = new HienThiPhieuNhap();
-    
+
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyPhieuNhapForm() {
         setLayout(new BorderLayout());
 
         // buttons
-        btnThem.setEnabled(false);
-        btnSua.setEnabled(false);
-        btnXoa.setEnabled(false);
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlPhieuNhap")) {
+            btnThem.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
+        }
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -62,11 +71,10 @@ public class QuanLyPhieuNhapForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelPhieuNhap();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelPhieuNhap();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            JOptionPane.showMessageDialog(this, "Chức năng chưa hoàn thành!");
         });
     }
 
@@ -81,28 +89,28 @@ public class QuanLyPhieuNhapForm extends JPanel {
                 }
             });
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để sửa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn phiếu nhập nào để sửa");
         }
     }
 
     private void btnXoaMouseClicked() {
         String mapn = formHienThi.getSelectedRow(1);
         if (mapn != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mapn + 
-                    " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa phiếu nhập " + mapn
+                    + " ? Mọi chi tiết trong phiếu nhập sẽ bị xóa theo",
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                
+
                 new QuanLyChiTietPhieuNhapBUS().deleteAll(mapn);
                 new QuanLyPhieuNhapBUS().delete(mapn);
-                
+
                 formHienThi.refresh();
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Chưa chọn hóa đơn nào để xóa");
+            JOptionPane.showMessageDialog(null, "Chưa chọn phiếu nhập nào để xóa");
         }
     }
-    
+
     private void btnThemMouseClicked() {
         ThemSuaPhieuNhapForm thempn = new ThemSuaPhieuNhapForm("Thêm", "");
         thempn.addWindowListener(new WindowAdapter() {

@@ -1,17 +1,18 @@
 package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiNhanVien;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaNhanVienForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -22,17 +23,19 @@ public class QuanLyNhanVienForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyNhanVienForm() {
         setLayout(new BorderLayout());
 
         // buttons
-        
-        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNhanVien")) {
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlNhanVien")) {
             btnThem.setEnabled(false);
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -40,6 +43,7 @@ public class QuanLyNhanVienForm extends JPanel {
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
@@ -55,11 +59,10 @@ public class QuanLyNhanVienForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelNhanVien();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelNhanVien();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelNhanVien();
         });
     }
 
@@ -84,9 +87,19 @@ public class QuanLyNhanVienForm extends JPanel {
     private void btnXoaMouseClicked() {
         String manv = formHienThi.getSelectedRow(1);
         if (manv != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? Nhân viên sẽ được Ẩn.", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                new QuanLyNhanVienBUS().updateTrangThai(manv, 1);
-                formHienThi.refresh();
+            QuanLyNhanVienBUS qlnvBUS = new QuanLyNhanVienBUS();
+            if (qlnvBUS.getNhanVien(manv).getTrangThai() == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa nhân viên " + manv + " ? "
+                        + "Nhân viên sẽ được TẠM ẨN", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlnvBUS.updateTrangThai(manv, 1);
+                    formHienThi.refresh();
+                }
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn XÓA HOÀN TOÀN nhân viên " + manv + " ?",
+                        "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+                    qlnvBUS.delete(manv);
+                    formHienThi.refresh();
+                }
             }
 
         } else {

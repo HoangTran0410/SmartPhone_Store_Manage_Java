@@ -7,12 +7,9 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,7 +47,7 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
         this.type = _type;
         this.mapn = _mapn;
         this.masp = _masp;
-        
+
         // inputs
         txMapn.setBorder(BorderFactory.createTitledBorder("Mã phiếu nhập"));
         txMasp.setBorder(BorderFactory.createTitledBorder(" "));
@@ -114,9 +111,7 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
             btnSuaChiTietPhieuNhapMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonSanPham.addActionListener((ae) -> {
             btnChonSanPhamMouseClicked();
@@ -130,7 +125,7 @@ public class ThemSuaChiTietPhieuNhapForm extends JFrame {
             String maSP = txMasp.getText();
             float dongia = Float.parseFloat(txGia.getText());
             int soluong = Integer.parseInt(txSoLuong.getText());
-            
+
             if (soluong <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không hợp lệ");
                 return;

@@ -12,10 +12,10 @@ import javax.swing.JButton;
  *
  * @author DELL
  */
-public class ExportExcelButton extends JButton {
+public class ImportExcelButton extends JButton {
 
-    public ExportExcelButton() {
-        this.setText("Xuất Excel");
+    public ImportExcelButton() {
+        this.setText("Nhập Excel");
         this.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_ms_excel_30px.png")));
     }
 }

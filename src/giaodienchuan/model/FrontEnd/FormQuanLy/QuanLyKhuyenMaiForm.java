@@ -7,17 +7,18 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.KhuyenMai;
 import giaodienchuan.model.BackEnd.QuanLyKhuyenMai.QuanLyKhuyenMaiBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiKhuyenMai;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,8 +36,10 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
-    ExportExcelButton btnXuatExcel = new ExportExcelButton();
     JButton btnKetThuc = new JButton("Kết thúc");
+    
+    ExportExcelButton btnXuatExcel = new ExportExcelButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
     public QuanLyKhuyenMaiForm() {
         setLayout(new BorderLayout());
@@ -49,6 +52,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
             btnXoa.setEnabled(false);
             btnSua.setEnabled(false);
             btnKetThuc.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
         }
 
         JPanel plBtn = new JPanel();
@@ -57,6 +61,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
         plBtn.add(btnSua);
         plBtn.add(btnKetThuc);
         plBtn.add(btnXuatExcel);
+        plBtn.add(btnNhapExcel);
 
         this.add(plBtn, BorderLayout.NORTH);
         this.add(formHienThi, BorderLayout.CENTER);
@@ -75,11 +80,10 @@ public class QuanLyKhuyenMaiForm extends JPanel {
             btnKetThucMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelKhuyenMai();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelKhuyenMai();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            new DocExcel().docFileExcelKhuyenMai();
         });
     }
 
@@ -120,16 +124,16 @@ public class QuanLyKhuyenMaiForm extends JPanel {
     private void btnKetThucMouseClicked() {
         String makm = formHienThi.getSelectedRow(1);
         if (makm != null) {
-            
+
             // check xem khuyến mãi có đang diễn ra ko
             String trangthai = new QuanLyKhuyenMaiBUS().getKhuyenMai(makm).getTrangThai();
             Boolean dangDienRa = trangthai.equals("Đang diễn ra");
-            
-            if(!dangDienRa) {
+
+            if (!dangDienRa) {
                 JOptionPane.showMessageDialog(this, "Không thể dừng khuyến mãi " + trangthai);
                 return;
             }
-            
+
             // check đồng ý kết thúc
             if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn dừng khuyến mãi " + makm
                     + " ? Ngày kết thúc Khuyến mãi sẽ được dời về hôm nay",

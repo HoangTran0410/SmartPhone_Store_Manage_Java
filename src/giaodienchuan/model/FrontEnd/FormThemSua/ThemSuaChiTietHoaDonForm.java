@@ -2,7 +2,6 @@ package giaodienchuan.model.FrontEnd.FormThemSua;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.ChiTietHoaDon;
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
-import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.FrontEnd.FormChon.ChonSanPhamForm;
 import giaodienchuan.model.FrontEnd.MyButton.MoreButton;
 import java.awt.BorderLayout;
@@ -105,9 +104,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             btnThemChiTietHoaDonMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
         btnChonSanPham.addActionListener((ae) -> {
             btnChonSanPhamMouseClicked();
@@ -126,7 +123,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm trong kho không đủ (" + soLuongMax + ")");
                 txSoLuong.setText(String.valueOf(soLuongMax));
                 return;
-                
+
             } else if (soluong <= 0) {
                 JOptionPane.showMessageDialog(this, "Số lượng sản phẩm không hợp lệ");
                 txSoLuong.setText(String.valueOf(soLuongMax));
@@ -148,7 +145,7 @@ public class ThemSuaChiTietHoaDonForm extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 soLuongMax = Integer.parseInt(txSoLuong.getText());
-                if(soLuongMax == 0) {
+                if (soLuongMax == 0) {
                     JOptionPane.showMessageDialog(null, "Sản phẩm đã hết hàng!");
                 }
             }

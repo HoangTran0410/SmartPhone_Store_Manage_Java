@@ -27,8 +27,6 @@ public class ThemSuaQuyenForm extends JFrame {
     ChiTietQuyenForm chitietForm = new ChiTietQuyenForm();
 
     JButton btnThem = new JButton("Thêm");
-    JButton btnThoat = new JButton("Thoát");
-
     JButton btnSua = new JButton("Sửa");
     JButton btnHuy = new JButton("Hủy");
 
@@ -57,9 +55,7 @@ public class ThemSuaQuyenForm extends JFrame {
             txMaQuyen.setText(qlqBUS.getNextID());
 
             btnThem.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_add_30px.png")));
-            btnThoat.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnThem);
-            plButton.add(btnThoat);
 
         } else {
             this.setTitle("Sửa quyền");
@@ -80,10 +76,11 @@ public class ThemSuaQuyenForm extends JFrame {
             txMaQuyen.setEditable(false);
 
             btnSua.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_support_30px.png")));
-            btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
             plButton.add(btnSua);
-            plButton.add(btnHuy);
         }
+        
+        btnHuy.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_cancel_30px_1.png")));
+        plButton.add(btnHuy);
 
         this.add(plInput, BorderLayout.CENTER);
         this.add(plButton, BorderLayout.SOUTH);
@@ -92,18 +89,11 @@ public class ThemSuaQuyenForm extends JFrame {
         btnThem.addActionListener((ae) -> {
             btnThemMouseClicked();
         });
-        btnThoat.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
-        });
         btnSua.addActionListener((ae) -> {
             btnSuaMouseClicked();
         });
         btnHuy.addActionListener((ae) -> {
-            if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn hủy? Mọi giá trị nhập vào sẽ mất!", "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                this.dispose();
-            }
+            this.dispose();
         });
 
         this.setVisible(true);
@@ -162,99 +152,98 @@ public class ThemSuaQuyenForm extends JFrame {
 }
 
 class ChiTietQuyenForm extends JPanel {
-    
+
     final String[] type = {"Chỉ xem", "Xem và Quản lý"};
     ArrayList<PanelChooseQuyen> dsPanel = new ArrayList<>();
-    
+
     public ChiTietQuyenForm() {
         setPreferredSize(new Dimension(300, 600));
         setLayout(new FlowLayout());
         setBorder(BorderFactory.createTitledBorder("Chi tiết quyền: "));
-        
-        dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"},  new String[]{"qlBanHang"}));
+
+        dsPanel.add(new PanelChooseQuyen("Bán Hàng", new String[]{"Bán hàng"}, new String[]{"qlBanHang"}));
         dsPanel.add(new PanelChooseQuyen("Nhập Hàng", new String[]{"Nhập hàng"}, new String[]{"qlNhapHang"}));
-        dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type,                      new String[]{"xemSanPham", "qlSanPham"}));
-        dsPanel.add(new PanelChooseQuyen("Loại Sản Phẩm", type,                 new String[]{"xemLoaiSanPham", "qlLoaiSanPham"}));
-        dsPanel.add(new PanelChooseQuyen("Hóa Đơn", type,                       new String[]{"xemHoaDon", "qlHoaDon"}));
-        dsPanel.add(new PanelChooseQuyen("Khuyến Mãi", type,                    new String[]{"xemKhuyenMai", "qlKhuyenMai"}));
-        dsPanel.add(new PanelChooseQuyen("Nhân Viên", type,                     new String[]{"xemNhanVien", "qlNhanVien"}));
-        dsPanel.add(new PanelChooseQuyen("Khách Hàng", type,                    new String[]{"xemKhachHang", "qlKhachHang"}));
-        dsPanel.add(new PanelChooseQuyen("Phiếu Nhập", type,                    new String[]{"xemPhieuNhap", "qlPhieuNhap"}));
-        dsPanel.add(new PanelChooseQuyen("Nhà Cung Cấp", type,                  new String[]{"xemNCC", "qlNCC"}));
-        dsPanel.add(new PanelChooseQuyen("Tài Khoản", type,                     new String[]{"xemTaiKhoan", "qlTaiKhoan"}));
-        dsPanel.add(new PanelChooseQuyen("Quyền", type,                         new String[]{"xemQuyen", "qlQuyen"}));
-        
-        for(PanelChooseQuyen p : dsPanel) {
+        dsPanel.add(new PanelChooseQuyen("Sản Phẩm", type, new String[]{"xemSanPham", "qlSanPham"}));
+        dsPanel.add(new PanelChooseQuyen("Loại Sản Phẩm", type, new String[]{"xemLoaiSanPham", "qlLoaiSanPham"}));
+        dsPanel.add(new PanelChooseQuyen("Hóa Đơn", type, new String[]{"xemHoaDon", "qlHoaDon"}));
+        dsPanel.add(new PanelChooseQuyen("Khuyến Mãi", type, new String[]{"xemKhuyenMai", "qlKhuyenMai"}));
+        dsPanel.add(new PanelChooseQuyen("Nhân Viên", type, new String[]{"xemNhanVien", "qlNhanVien"}));
+        dsPanel.add(new PanelChooseQuyen("Khách Hàng", type, new String[]{"xemKhachHang", "qlKhachHang"}));
+        dsPanel.add(new PanelChooseQuyen("Phiếu Nhập", type, new String[]{"xemPhieuNhap", "qlPhieuNhap"}));
+        dsPanel.add(new PanelChooseQuyen("Nhà Cung Cấp", type, new String[]{"xemNCC", "qlNCC"}));
+        dsPanel.add(new PanelChooseQuyen("Tài Khoản", type, new String[]{"xemTaiKhoan", "qlTaiKhoan"}));
+        dsPanel.add(new PanelChooseQuyen("Quyền", type, new String[]{"xemQuyen", "qlQuyen"}));
+
+        for (PanelChooseQuyen p : dsPanel) {
             this.add(p);
         }
     }
-    
+
     public String getQuyen() {
         String result = "";
-        for(PanelChooseQuyen p : dsPanel) {
+        for (PanelChooseQuyen p : dsPanel) {
             result += p.getValue();
         }
         return result.trim();
     }
 
     public void setQuyen(String quyen) {
-        for(PanelChooseQuyen p : dsPanel) {
+        for (PanelChooseQuyen p : dsPanel) {
             p.setValue(quyen);
         }
     }
 }
 
-
 class PanelChooseQuyen extends JPanel {
-    
+
     String name;
     String[] type, value;
-    
+
     JCheckBox chb;
     JComboBox<String> cb;
-    
+
     public PanelChooseQuyen(String name, String[] type, String[] value) {
         this.setPreferredSize(new Dimension(250, 50));
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
-        
+
         this.name = name;
         this.type = type;
         this.value = value;
-        
+
         this.chb = new JCheckBox(this.name);
         this.add(this.chb);
-        
+
         this.cb = new JComboBox<>(this.type);
         this.cb.setEnabled(false);
         this.add(this.cb);
-        
+
         chb.addActionListener((ae) -> {
-            if(chb.isSelected()) {
+            if (chb.isSelected()) {
                 this.cb.setEnabled(true);
             } else {
                 this.cb.setEnabled(false);
             }
         });
     }
-    
+
     public String getValue() {
         String result = "";
-        
-        if(chb.isSelected()) {
+
+        if (chb.isSelected()) {
             result += " " + value[cb.getSelectedIndex()];
         }
-        
+
         return result;
     }
-    
+
     public void setValue(String s) {
-        if(s.equals("")) {
+        if (s.equals("")) {
             chb.setSelected(false);
             return;
         }
-        
-        for(int i = 0; i < value.length; i++) {
-            if(s.contains(value[i])) {
+
+        for (int i = 0; i < value.length; i++) {
+            if (s.contains(value[i])) {
                 cb.setSelectedIndex(i);
                 cb.setEnabled(true);
                 chb.setSelected(true);

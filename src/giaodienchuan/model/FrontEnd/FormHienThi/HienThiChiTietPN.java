@@ -5,6 +5,7 @@
  */
 package giaodienchuan.model.FrontEnd.FormHienThi;
 
+import giaodienchuan.model.BackEnd.PriceFormatter;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.ChiTietPhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
@@ -41,10 +42,11 @@ public class HienThiChiTietPN extends FormHienThi {
         this.mapn = _mapn;
 
         mtb = new MyTable();
-        mtb.setHeaders(new String[]{"STT", "Mã phiếu nhập", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá"});
+        mtb.setHeaders(new String[]{"STT", "Mã phiếu nhập", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
         mtb.setAlignment(0, JLabel.CENTER);
         mtb.setAlignment(4, JLabel.CENTER);
         mtb.setAlignment(5, JLabel.RIGHT);
+        mtb.setAlignment(6, JLabel.RIGHT);
         mtb.setupSort();
         setDataToTable(qlctpn.search("Mã phiếu nhập", this.mapn), mtb);
 
@@ -101,7 +103,9 @@ public class HienThiChiTietPN extends FormHienThi {
                 pn.getMaSP(),
                 qlspBUS.getSanPham(pn.getMaSP()).getTenSP(),
                 String.valueOf(pn.getSoLuong()), 
-                String.valueOf(pn.getDonGia())});
+                PriceFormatter.format(pn.getDonGia()),
+                PriceFormatter.format(pn.getSoLuong() * pn.getDonGia())
+            });
             stt++;
         }
     }

@@ -2,21 +2,22 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietHoaDon.QuanLyChiTietHoaDonBUS;
 import giaodienchuan.model.BackEnd.QuanLyHoaDon.QuanLyHoaDonBUS;
+import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiHoaDon;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaHoaDonForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
+import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
 import giaodienchuan.model.FrontEnd.MyButton.ThemButton;
 import giaodienchuan.model.FrontEnd.MyButton.XoaButton;
-//import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 
 public class QuanLyHoaDonForm extends JPanel {
 
@@ -24,28 +25,26 @@ public class QuanLyHoaDonForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
+    ImportExcelButton btnNhapExcel = new ImportExcelButton();
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
 
     public QuanLyHoaDonForm() {
         setLayout(new BorderLayout());
 
         // buttons
+        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
+            btnThem.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnNhapExcel.setEnabled(false);
+        }
         
-//        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
-//            btnThem.setEnabled(false);
-//            btnXoa.setEnabled(false);
-//            btnSua.setEnabled(false);
-//        }
-
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
-        // Không cho phép thêm sửa xóa trong quản lý, chỉ trong bán hàng mới được
-        btnThem.setEnabled(false);
-        btnXoa.setEnabled(false);
-        btnSua.setEnabled(false);
+        plBtn.add(btnNhapExcel);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -61,11 +60,10 @@ public class QuanLyHoaDonForm extends JPanel {
             btnSuaMouseClicked();
         });
         btnXuatExcel.addActionListener((ActionEvent ae) -> {
-            try {
-                new XuatExcel().xuatFileExcelHoaDon();
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Lỗi khi xuất file excel!" + e.getMessage());
-            }
+            new XuatExcel().xuatFileExcelHoaDon();
+        });
+        btnNhapExcel.addActionListener((ActionEvent ae) -> {
+            JOptionPane.showMessageDialog(this, "Chức năng chưa hoàn thành!");
         });
     }
 
@@ -87,13 +85,13 @@ public class QuanLyHoaDonForm extends JPanel {
     private void btnXoaMouseClicked() {
         String mahd = formHienThi.getSelectedRow(1);
         if (mahd != null) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd + 
-                    " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo", 
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa hóa đơn " + mahd
+                    + " ? Mọi chi tiết trong hóa đơn sẽ bị xóa theo",
                     "Chú ý", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-                
+
                 new QuanLyChiTietHoaDonBUS().deleteAll(mahd);
                 new QuanLyHoaDonBUS().delete(mahd);
-                
+
                 formHienThi.refresh();
             }
 
