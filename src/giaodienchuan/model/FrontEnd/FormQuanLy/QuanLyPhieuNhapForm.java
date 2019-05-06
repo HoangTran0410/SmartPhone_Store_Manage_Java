@@ -35,7 +35,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
     ThemButton btnThem = new ThemButton();
     SuaButton btnSua = new SuaButton();
     XoaButton btnXoa = new XoaButton();
-    
+
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
     ImportExcelButton btnNhapExcel = new ImportExcelButton();
 
@@ -44,11 +44,11 @@ public class QuanLyPhieuNhapForm extends JPanel {
 
         // buttons
         if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlPhieuNhap")) {
-            btnThem.setEnabled(false);
-            btnSua.setEnabled(false);
-            btnXoa.setEnabled(false);
             btnNhapExcel.setEnabled(false);
         }
+        btnThem.setEnabled(false);
+        btnSua.setEnabled(false);
+        btnXoa.setEnabled(false);
 
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);

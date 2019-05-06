@@ -32,13 +32,13 @@ public class QuanLyHoaDonForm extends JPanel {
         setLayout(new BorderLayout());
 
         // buttons
-        if(!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
-            btnThem.setEnabled(false);
-            btnXoa.setEnabled(false);
-            btnSua.setEnabled(false);
+        if (!LoginForm.quyenLogin.getChiTietQuyen().contains("qlHoaDon")) {
             btnNhapExcel.setEnabled(false);
         }
-        
+        btnThem.setEnabled(false);
+        btnXoa.setEnabled(false);
+        btnSua.setEnabled(false);
+
         JPanel plBtn = new JPanel();
         plBtn.add(btnThem);
         plBtn.add(btnXoa);
