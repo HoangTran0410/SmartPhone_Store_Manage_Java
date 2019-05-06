@@ -133,10 +133,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -219,10 +217,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -306,10 +302,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -396,10 +390,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -488,10 +480,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -554,10 +544,10 @@ public class DocExcel {
                                 String.valueOf(kmOld.getNgayBD()),
                                 String.valueOf(kmOld.getNgayKT()),});
                             mtb.addRow(new String[]{
-                                "Mới:", ma, ten, 
-                                String.valueOf(dieukien), 
+                                "Mới:", ma, ten,
+                                String.valueOf(dieukien),
                                 String.valueOf(phantram),
-                                String.valueOf(ngaybatdau), 
+                                String.valueOf(ngaybatdau),
                                 String.valueOf(ngayketthuc)
                             });
 
@@ -583,10 +573,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -639,7 +627,7 @@ public class DocExcel {
                     if (spOld != null) {
                         if (!hanhDongKhiTrung.contains("tất cả")) {
                             MyTable mtb = new MyTable();
-                            mtb.setHeaders(new String[]{"", "Mã SP","Mã LSP", "Tên SP", "Đơn giá", "Số lượng", "Hình ảnh","Trạng thái"});
+                            mtb.setHeaders(new String[]{"", "Mã SP", "Mã LSP", "Tên SP", "Đơn giá", "Số lượng", "Hình ảnh", "Trạng thái"});
                             mtb.addRow(new String[]{
                                 "Cũ:", spOld.getMaSP(),
                                 spOld.getMaLSP(),
@@ -650,20 +638,20 @@ public class DocExcel {
                                 String.valueOf(spOld.getTrangThai())
                             });
                             mtb.addRow(new String[]{
-                                "Mới:", masp,maloai, tensp, String.valueOf(dongia), String.valueOf(soluong), hinhanh,String.valueOf(trangthai)
+                                "Mới:", masp, maloai, tensp, String.valueOf(dongia), String.valueOf(soluong), hinhanh, String.valueOf(trangthai)
                             });
 
                             MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
                             hanhDongKhiTrung = mop.getAnswer();
                         }
                         if (hanhDongKhiTrung.contains("Ghi đè")) {
-                            qlspBUS.update(masp, maloai, tensp, dongia, soluong,hinhanh,trangthai);
+                            qlspBUS.update(masp, maloai, tensp, dongia, soluong, hinhanh, trangthai);
                             countGhiDe++;
                         } else {
                             countBoQua++;
                         }
                     } else {
-                        SanPham sp = new SanPham(masp, maloai, tensp, dongia, soluong,hinhanh,trangthai);
+                        SanPham sp = new SanPham(masp, maloai, tensp, dongia, soluong, hinhanh, trangthai);
                         qlspBUS.add(sp);
                         countThem++;
                     }
@@ -675,10 +663,8 @@ public class DocExcel {
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {
@@ -711,7 +697,7 @@ public class DocExcel {
             int countThem = 0;
             int countGhiDe = 0;
             int countBoQua = 0;
-            
+
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
@@ -733,10 +719,9 @@ public class DocExcel {
                             mtb.addRow(new String[]{
                                 "Cũ:", lspOld.getMaLSP(),
                                 lspOld.getTenLSP(),
-                                lspOld.getMoTa(),
-                            });
+                                lspOld.getMoTa(),});
                             mtb.addRow(new String[]{
-                                "Mới:", ma, ten,mota
+                                "Mới:", ma, ten, mota
                             });
 
                             MyJOptionPane mop = new MyJOptionPane(mtb, hanhDongKhiTrung);
@@ -749,7 +734,7 @@ public class DocExcel {
                             countBoQua++;
                         }
                     } else {
-                        LoaiSanPham lsp = new LoaiSanPham(ma, ten,mota);
+                        LoaiSanPham lsp = new LoaiSanPham(ma, ten, mota);
                         qllspBUS.add(lsp);
                         countThem++;
                     }
@@ -760,10 +745,8 @@ public class DocExcel {
                     + "; Ghi đè " + countGhiDe
                     + "; Bỏ qua " + countBoQua
                     + ". Vui lòng làm mới để thấy kết quả");
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy file: " + ex.getMessage());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Lỗi đọc file " + url);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi nhập dữ liệu từ file: " + ex.getMessage());
         } finally {
             try {
                 if (inputStream != null) {

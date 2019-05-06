@@ -410,8 +410,8 @@ public class XuatExcel {
             row.createCell(1, CellType.STRING).setCellValue("Mã sản phẩm");
             row.createCell(2, CellType.STRING).setCellValue("Loại sản phẩm");
             row.createCell(3, CellType.STRING).setCellValue("Tên");
-            row.createCell(4, CellType.STRING).setCellValue("Đơn giá");
-            row.createCell(5, CellType.STRING).setCellValue("Số lượng");
+            row.createCell(4, CellType.NUMERIC).setCellValue("Đơn giá");
+            row.createCell(5, CellType.NUMERIC).setCellValue("Số lượng");
             row.createCell(6, CellType.STRING).setCellValue("Hình ảnh");
             row.createCell(7, CellType.STRING).setCellValue("Trạng thái");
 
@@ -425,8 +425,8 @@ public class XuatExcel {
                 row.createCell(1, CellType.STRING).setCellValue(sp.getMaSP());
                 row.createCell(2, CellType.STRING).setCellValue(maloai + " - " + qllsp.getLoaiSanPham(maloai).getTenLSP());
                 row.createCell(3, CellType.STRING).setCellValue(sp.getTenSP());
-                row.createCell(4, CellType.STRING).setCellValue(String.valueOf(sp.getDonGia()));
-                row.createCell(5, CellType.STRING).setCellValue(String.valueOf(sp.getSoLuong()));
+                row.createCell(4, CellType.NUMERIC).setCellValue(sp.getDonGia());
+                row.createCell(5, CellType.NUMERIC).setCellValue(sp.getSoLuong());
                 row.createCell(6, CellType.STRING).setCellValue(String.valueOf(sp.getFileNameHinhAnh()));
                 row.createCell(7, CellType.STRING).setCellValue(sp.getTrangThai() == 0 ? "Hiện" : "Ẩn");
 
