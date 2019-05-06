@@ -31,11 +31,13 @@ import giaodienchuan.model.BackEnd.QuanLyNhanVien.QuanLyNhanVienBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
+import java.awt.FileDialog;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -50,6 +52,18 @@ public class WritePDF {
     Font fontData;
     Font fontTitle;
     Font fontHeader;
+    
+    FileDialog fd = new FileDialog(new JFrame(), "Xuất excel", FileDialog.SAVE);
+    
+    private String getFile() {
+        fd.setFile("untitled.xls");
+        fd.setVisible(true);
+        String url = fd.getDirectory() + fd.getFile();
+        if (url.equals("nullnull")) {
+            return null;
+        }
+        return url;
+    }
 
     public WritePDF(String url) {
         try {
@@ -106,7 +120,6 @@ public class WritePDF {
     }
 
     public void writeTable(JTable _table) {
-//        setTitle("ư ừ ử ữ ự");
         PdfPTable pdfTable = new PdfPTable(_table.getColumnCount());
         for (int i = 0; i < _table.getRowCount(); i++) {
             for (int j = 0; j < _table.getColumnCount(); j++) {
@@ -137,6 +150,7 @@ public class WritePDF {
 
             Chunk glue = new Chunk(new VerticalPositionMark());// Khoang trong giua hang
             Paragraph paraMaHoaDon = new Paragraph(new Phrase("Hóa đơn: " + String.valueOf(hd.getMaHoaDon()), fontData));
+            
             Paragraph para1 = new Paragraph();
             para1.setFont(fontData);
             para1.add(String.valueOf("Khách hàng: " + qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH() + "  -  " + hd.getMaKhachHang()));
