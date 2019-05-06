@@ -141,7 +141,7 @@ public class QuanLyKhuyenMaiForm extends JPanel {
 
                 QuanLyKhuyenMaiBUS qlkmBUS = new QuanLyKhuyenMaiBUS();
                 KhuyenMai km = qlkmBUS.getKhuyenMai(makm);
-                qlkmBUS.update(km.getMaKM(), km.getTenKM(), km.getDieuKhienKM(), km.getPhanTramKM(), km.getNgayBD(), LocalDate.now());
+                qlkmBUS.update(km.getMaKM(), km.getTenKM(), km.getDieuKienKM(), km.getPhanTramKM(), km.getNgayBD(), LocalDate.now());
 
                 formHienThi.refresh();
             }

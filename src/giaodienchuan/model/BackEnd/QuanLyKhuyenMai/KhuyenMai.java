@@ -14,13 +14,13 @@ import java.time.LocalDate;
 public class KhuyenMai {
 
     String MaKM, TenKM;
-    float DieuKhienKM, PhanTramKM;
+    float DieuKienKM, PhanTramKM;
     LocalDate NgayBD, NgayKT;
 
     public KhuyenMai(String makm, String tenkm, float dkkm, float phantramkm, LocalDate ngaybd, LocalDate ngaykt) {
         this.MaKM = makm;
         this.TenKM = tenkm;
-        this.DieuKhienKM = dkkm;
+        this.DieuKienKM = dkkm;
         this.PhanTramKM = phantramkm;
         this.NgayBD = ngaybd;
         this.NgayKT = ngaykt;
@@ -53,12 +53,12 @@ public class KhuyenMai {
         this.TenKM = TenKM;
     }
 
-    public float getDieuKhienKM() {
-        return DieuKhienKM;
+    public float getDieuKienKM() {
+        return DieuKienKM;
     }
 
-    public void setDieuKhienKM(float DieuKhienKM) {
-        this.DieuKhienKM = DieuKhienKM;
+    public void setDieuKienKM(float DieuKienKM) {
+        this.DieuKienKM = DieuKienKM;
     }
 
     public float getPhanTramKM() {

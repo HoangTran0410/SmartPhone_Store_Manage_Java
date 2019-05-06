@@ -82,7 +82,7 @@ public class QuanLyKhuyenMaiDAO {
         Boolean ok = qlkmConnection.sqlUpdate("INSERT INTO `khuyenmai` (`MaKM`, `TenKM`, `DieuKienKM`, `PhanTramKM`, `NgayBD`, `NgayKT`) VALUES ('"
                 + km.getMaKM()+ "', '"
                 + km.getTenKM() + "', '"
-                + km.getDieuKhienKM() + "', '"
+                + km.getDieuKienKM() + "', '"
                 + km.getPhanTramKM() + "', '"
                 + km.getNgayBD() + "', '"
                 + km.getNgayKT() + "');");
