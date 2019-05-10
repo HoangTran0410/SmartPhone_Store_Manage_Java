@@ -130,48 +130,120 @@ class ThongKeSanPham extends JPanel {
         this.add(tb, BorderLayout.CENTER);
     }
 
+//    private void soLuongSanPhamNhap() {
+//        tb.clear();
+//        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã phiếu nhập", "Tên nhà cung cấp", "Ngày nhập", "Số lượng"});
+//
+//        MyCheckDate mcd = new MyCheckDate(txKhoangNgayTu, txKhoangNgayDen);
+//
+//        int tongTatCa = 0;
+//        for (SanPham sp : qlspBUS.getDssp()) {
+//            int tongSoLuong = 0;
+//            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+//
+//            for (PhieuNhap pn : qlpnBUS.search("Tất cả", "", mcd.getNgayTu(), mcd.getNgayDen(), -1, -1)) {
+//                ChiTietPhieuNhap ctpn = qlctpnBUS.getChiTiet(pn.getMaPN(), sp.getMaSP());
+//                if (ctpn != null) {
+//                    tb.addRow(new String[]{"", "",
+//                        pn.getMaPN(),
+//                        qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC(),
+//                        String.valueOf(pn.getNgayNhap()),
+//                        String.valueOf(ctpn.getSoLuong())
+//                    });
+//                    tongSoLuong += ctpn.getSoLuong();
+//                }
+//            }
+//            
+//            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
+//            tb.addRow(new String[]{"", "", "", "", "", ""});
+//
+//            tongTatCa += tongSoLuong;
+//        }
+//        tb.addRow(new String[]{"", "", "", "", "Tổng tất cả", String.valueOf(tongTatCa)});
+//    }
+//
+//    private void soLuongSanPhamBan() {
+//        tb.clear();
+//        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã hóa đơn", "Tên nhân viên", "Ngày lập", "Số lượng"});
+//
+//        MyCheckDate mcd = new MyCheckDate(txKhoangNgayTu, txKhoangNgayDen);
+//
+//        int tongTatCa = 0;
+//        for (SanPham sp : qlspBUS.getDssp()) {
+//            int tongSoLuong = 0;
+//            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+//
+//            for (HoaDon hd : qlhdBUS.search("Tất cả", "", mcd.getNgayTu(), mcd.getNgayTu(), -1, -1)) {
+//                ChiTietHoaDon cthd = qlcthdBUS.getChiTiet(hd.getMaHoaDon(), sp.getMaSP());
+//                if (cthd != null) {
+//                    tb.addRow(new String[]{"", "",
+//                        hd.getMaHoaDon(),
+//                        qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV(),
+//                        String.valueOf(hd.getNgayLap()),
+//                        String.valueOf(cthd.getSoLuong())
+//                    });
+//                    tongSoLuong += cthd.getSoLuong();
+//                }
+//            }
+//            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
+//            tb.addRow(new String[]{"", "", "", "", "", ""});
+//            tongTatCa += tongSoLuong;
+//        }
+//
+//        tb.addRow(new String[]{"", "", "", "", "Tổng tất cả", String.valueOf(tongTatCa)});
+//    }
     private void soLuongSanPhamNhap() {
         tb.clear();
-        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã phiếu nhập", "Tên nhà cung cấp", "Ngày nhập", "Số lượng"});
+        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã phiếu nhập", "Tên nhà cung cấp", "Ngày nhập", "Số lượng", "Ðơn giá", "Tổng tiền"});
 
         MyCheckDate mcd = new MyCheckDate(txKhoangNgayTu, txKhoangNgayDen);
 
         int tongTatCa = 0;
+        float tongTien = 0;
         for (SanPham sp : qlspBUS.getDssp()) {
             int tongSoLuong = 0;
-            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+            float tongTienPhieuNhapCuaMoiSanPham = 0;
+            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", "", String.valueOf(sp.getDonGia()), ""});
 
             for (PhieuNhap pn : qlpnBUS.search("Tất cả", "", mcd.getNgayTu(), mcd.getNgayDen(), -1, -1)) {
                 ChiTietPhieuNhap ctpn = qlctpnBUS.getChiTiet(pn.getMaPN(), sp.getMaSP());
+
                 if (ctpn != null) {
                     tb.addRow(new String[]{"", "",
                         pn.getMaPN(),
                         qlnccBUS.getNhaCungCap(pn.getMaNCC()).getTenNCC(),
                         String.valueOf(pn.getNgayNhap()),
-                        String.valueOf(ctpn.getSoLuong())
+                        String.valueOf(ctpn.getSoLuong()),
+                        "",
+                        String.valueOf(ctpn.getSoLuong() * ctpn.getDonGia())
+
                     });
                     tongSoLuong += ctpn.getSoLuong();
+                    tongTienPhieuNhapCuaMoiSanPham += ctpn.getSoLuong() * ctpn.getDonGia();
                 }
             }
-            
-            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
-            tb.addRow(new String[]{"", "", "", "", "", ""});
+
+            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong), "", String.valueOf(tongTienPhieuNhapCuaMoiSanPham)});
+            tb.addRow(new String[]{"", "", "", "", "", "", "", ""});
 
             tongTatCa += tongSoLuong;
+            tongTien += tongTienPhieuNhapCuaMoiSanPham;
         }
-        tb.addRow(new String[]{"", "", "", "", "Tổng tất cả", String.valueOf(tongTatCa)});
+        tb.addRow(new String[]{"", "", "", "", "Tổng tất cả", String.valueOf(tongTatCa), "", String.valueOf(tongTien)});
     }
 
     private void soLuongSanPhamBan() {
         tb.clear();
-        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã hóa đơn", "Tên nhân viên", "Ngày lập", "Số lượng"});
+        tb.setHeaders(new String[]{"Mã sản phẩm", "Tên sản phẩm", "Mã hóa don", "Tên nhân viên", "Ngày lập", "Số lượng", "Ðơn giá", "Tổng tiền"});
 
         MyCheckDate mcd = new MyCheckDate(txKhoangNgayTu, txKhoangNgayDen);
 
         int tongTatCa = 0;
+        float tongTien = 0;
         for (SanPham sp : qlspBUS.getDssp()) {
             int tongSoLuong = 0;
-            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", ""});
+            float tongTienHoaDonTungSanPham = 0;
+            tb.addRow(new String[]{sp.getMaSP(), sp.getTenSP(), "", "", "", "", String.valueOf(sp.getDonGia()), ""});
 
             for (HoaDon hd : qlhdBUS.search("Tất cả", "", mcd.getNgayTu(), mcd.getNgayTu(), -1, -1)) {
                 ChiTietHoaDon cthd = qlcthdBUS.getChiTiet(hd.getMaHoaDon(), sp.getMaSP());
@@ -180,17 +252,20 @@ class ThongKeSanPham extends JPanel {
                         hd.getMaHoaDon(),
                         qlnvBUS.getNhanVien(hd.getMaNhanVien()).getTenNV(),
                         String.valueOf(hd.getNgayLap()),
-                        String.valueOf(cthd.getSoLuong())
+                        String.valueOf(cthd.getSoLuong()), "", String.valueOf(cthd.getSoLuong() * cthd.getDonGia())
                     });
                     tongSoLuong += cthd.getSoLuong();
+                    tongTienHoaDonTungSanPham += cthd.getSoLuong() * cthd.getDonGia();
                 }
             }
-            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong)});
+
+            tb.addRow(new String[]{"", "", "", "", mcd.getKhoangTG(), String.valueOf(tongSoLuong), "", String.valueOf(tongTienHoaDonTungSanPham)});
             tb.addRow(new String[]{"", "", "", "", "", ""});
             tongTatCa += tongSoLuong;
+            tongTien += tongTienHoaDonTungSanPham;
         }
 
-        tb.addRow(new String[]{"", "", "", "", "Tổng tất cả", String.valueOf(tongTatCa)});
+        tb.addRow(new String[]{"", "", "", "", "T?ng t?t c?", String.valueOf(tongTatCa), "", String.valueOf(tongTien)});
     }
 
     private void addDocumentListener(JTextField txField) {

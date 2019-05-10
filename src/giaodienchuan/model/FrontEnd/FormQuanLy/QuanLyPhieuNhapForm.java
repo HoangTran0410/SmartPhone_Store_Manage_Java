@@ -7,11 +7,12 @@ package giaodienchuan.model.FrontEnd.FormQuanLy;
 
 import giaodienchuan.model.BackEnd.QuanLyChiTietPN.QuanLyChiTietPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
-import giaodienchuan.model.BackEnd.WorkWithExcel.DocExcel;
 import giaodienchuan.model.BackEnd.WorkWithExcel.XuatExcel;
+import giaodienchuan.model.BackEnd.WritePDF.WritePDF;
 import giaodienchuan.model.FrontEnd.FormHienThi.HienThiPhieuNhap;
 import giaodienchuan.model.FrontEnd.FormThemSua.ThemSuaPhieuNhapForm;
 import giaodienchuan.model.FrontEnd.GiaoDienChuan.LoginForm;
+import giaodienchuan.model.FrontEnd.GiaoDienChuan.MyTable;
 import giaodienchuan.model.FrontEnd.MyButton.ExportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.ImportExcelButton;
 import giaodienchuan.model.FrontEnd.MyButton.SuaButton;
@@ -21,6 +22,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -38,6 +40,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
 
     ExportExcelButton btnXuatExcel = new ExportExcelButton();
     ImportExcelButton btnNhapExcel = new ImportExcelButton();
+    JButton btnPrintPDF = new JButton("In PDF");
 
     public QuanLyPhieuNhapForm() {
         setLayout(new BorderLayout());
@@ -56,6 +59,7 @@ public class QuanLyPhieuNhapForm extends JPanel {
         plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
         plBtn.add(btnNhapExcel);
+        plBtn.add(btnPrintPDF);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);
@@ -75,6 +79,14 @@ public class QuanLyPhieuNhapForm extends JPanel {
         });
         btnNhapExcel.addActionListener((ActionEvent ae) -> {
             JOptionPane.showMessageDialog(this, "Chức năng chưa hoàn thành!");
+        });
+        btnPrintPDF.addActionListener((ae) -> {
+            if (formHienThi.getSelectedRow(0) != null) {
+                MyTable mtb = formHienThi.getTable();
+                new WritePDF().writePhieuNhap(String.valueOf(mtb.getTable().getValueAt(mtb.getTable().getSelectedRow(), 1)));
+            } else {
+                JOptionPane.showMessageDialog(null, "Chưa chọn phiếu nhập nào để in");
+            }
         });
     }
 

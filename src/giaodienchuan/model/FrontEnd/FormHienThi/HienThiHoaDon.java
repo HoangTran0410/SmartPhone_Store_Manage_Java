@@ -55,7 +55,7 @@ public class HienThiHoaDon extends FormHienThi {
     JTextField txTongTien = new JTextField(15);
 
     JButton btnRefresh = new JButton("Làm mới");
-    JButton btnPrintPDF = new JButton("In PDF");
+    
     JButton btnDetails = new JButton("Xem chi tiết");
     JTextField txKhoangNgay1 = new JTextField(8);
     JTextField txKhoangNgay2 = new JTextField(8);
@@ -125,7 +125,6 @@ public class HienThiHoaDon extends FormHienThi {
         btnRefresh.setIcon(new ImageIcon(this.getClass().getResource("/giaodienchuan/images/icons8_data_backup_30px.png")));
         plHeader.add(btnDetails);
         plHeader.add(btnRefresh);
-        plHeader.add(btnPrintPDF);
 
         // panel hiển thị các thông tin hóa đơn - copy from BanHangForm
         JPanel plThongTin = new JPanel();
@@ -176,14 +175,6 @@ public class HienThiHoaDon extends FormHienThi {
         });
         btnRefresh.addActionListener((ae) -> {
             refresh();
-        });
-
-        btnPrintPDF.addActionListener((ae) -> {
-            if (getSelectedRow(0) != null) {
-                pdfWriter = new WritePDF("HoaDon.pdf");
-                pdfWriter.writeHoaDon(String.valueOf(mtb.getTable().getValueAt(mtb.getTable().getSelectedRow(), 1)));
-                pdfWriter.closeFile();
-            }
         });
 
         cbTypeSearch.addActionListener((ae) -> {

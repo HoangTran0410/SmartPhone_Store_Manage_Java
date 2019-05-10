@@ -29,4 +29,7 @@ public class FormHienThi extends JPanel {
         return null;
     }
     
+    public MyTable getTable() {
+        return this.mtb;
+    }
 }

@@ -52,28 +52,14 @@ public class WritePDF {
     Font fontData;
     Font fontTitle;
     Font fontHeader;
-    
-    FileDialog fd = new FileDialog(new JFrame(), "Xuất excel", FileDialog.SAVE);
-    
-    private String getFile() {
-        fd.setFile("untitled.xls");
-        fd.setVisible(true);
-        String url = fd.getDirectory() + fd.getFile();
-        if (url.equals("nullnull")) {
-            return null;
-        }
-        return url;
-    }
 
-    public WritePDF(String url) {
+    FileDialog fd = new FileDialog(new JFrame(), "Xuất excel", FileDialog.SAVE);
+
+    public WritePDF() {
         try {
             fontData = new Font(BaseFont.createFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 11, Font.NORMAL);
             fontTitle = new Font(BaseFont.createFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25, Font.NORMAL);
             fontHeader = new Font(BaseFont.createFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 13, Font.NORMAL);
-            document = new Document();
-            file = new FileOutputStream(url);
-            PdfWriter writer = PdfWriter.getInstance(document, file);
-            document.open();
         } catch (DocumentException | FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException ex) {
@@ -135,8 +121,30 @@ public class WritePDF {
         }
     }
 
+    private String getFile() {
+        fd.setFile("untitled.pdf");
+        fd.setVisible(true);
+        String url = fd.getDirectory() + fd.getFile();
+        if (url.equals("nullnull")) {
+            return null;
+        }
+        return url;
+    }
+    
+
     public void writeHoaDon(String mahd) {
+        String url = "";
         try {
+            fd.setTitle("Xuất dữ liệu nhà cung cấp ra excel");
+            url = getFile();
+            if (url == null) {
+                return;
+            }
+            file = new FileOutputStream(url);
+            document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, file);
+            document.open();
+            
             setTitle("Thông tin hóa đơn");
             //Hien thong tin cua hoa don hien tai
             QuanLyHoaDonBUS qlhdBUS = new QuanLyHoaDonBUS();
@@ -150,7 +158,7 @@ public class WritePDF {
 
             Chunk glue = new Chunk(new VerticalPositionMark());// Khoang trong giua hang
             Paragraph paraMaHoaDon = new Paragraph(new Phrase("Hóa đơn: " + String.valueOf(hd.getMaHoaDon()), fontData));
-            
+
             Paragraph para1 = new Paragraph();
             para1.setFont(fontData);
             para1.add(String.valueOf("Khách hàng: " + qlkhBUS.getKhachHang(hd.getMaKhachHang()).getTenKH() + "  -  " + hd.getMaKhachHang()));
@@ -222,15 +230,28 @@ public class WritePDF {
             Paragraph paraTongThanhToan = new Paragraph(new Phrase("Tổng thanh toán: " + PriceFormatter.format(hd.getTongTien()), fontData));
             paraTongThanhToan.setIndentationLeft(300);
             document.add(paraTongThanhToan);
+            document.close();
+            
+            JOptionPane.showMessageDialog(null, "Ghi file thành công: " + url);
 
-        } catch (DocumentException ex) {
-            Logger.getLogger(WritePDF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException | FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi ghi file " + url);
         }
-
     }
 
     public void writePhieuNhap(String mapn) {
+        String url = "";
         try {
+            fd.setTitle("Xuất dữ liệu nhà cung cấp ra excel");
+            url = getFile();
+            if (url == null) {
+                return;
+            }
+            file = new FileOutputStream(url);
+            document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, file);
+            document.open();
+            
             setTitle("Thông tin phiếu nhập");
 
             QuanLyPhieuNhapBUS qlpnBUS = new QuanLyPhieuNhapBUS();
@@ -293,9 +314,12 @@ public class WritePDF {
             Paragraph paraTongThanhToan = new Paragraph(new Phrase("Tổng thanh toán: " + PriceFormatter.format(pn.getTongTien()), fontData));
             paraTongThanhToan.setIndentationLeft(300);
             document.add(paraTongThanhToan);
+            document.close();
+            
+            JOptionPane.showMessageDialog(null, "Ghi file thành công: " + url);
 
-        } catch (DocumentException ex) {
-            Logger.getLogger(WritePDF.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException | FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi ghi file " + url);
         }
 
     }

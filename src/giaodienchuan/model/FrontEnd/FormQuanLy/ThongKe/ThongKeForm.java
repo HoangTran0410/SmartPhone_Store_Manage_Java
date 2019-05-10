@@ -62,7 +62,7 @@ public class ThongKeForm extends JPanel {
         tabs.setPreferredSize(new Dimension(width, height));
 
         //add tab thong ke san pham
-        tabs.addTab("Thống kê ver2", getIcon("icons8_company_30px.png"), tk2);
+//        tabs.addTab("Thống kê ver2", getIcon("icons8_company_30px.png"), tk2);
         tabs.addTab("Thống kê tổng quát", getIcon("icons8_pie_chart_30px.png"), tkH);
         tabs.addTab("Sản phẩm", getIcon("icons8_multiple_smartphones_30px.png"), null);
         tabs.addTab("Nhân viên", getIcon("icons8_assistant_30px.png"), null);
