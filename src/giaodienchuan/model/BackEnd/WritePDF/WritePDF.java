@@ -135,7 +135,7 @@ public class WritePDF {
     public void writeHoaDon(String mahd) {
         String url = "";
         try {
-            fd.setTitle("Xuất dữ liệu nhà cung cấp ra excel");
+            fd.setTitle("In hóa đơn");
             url = getFile();
             if (url == null) {
                 return;
@@ -242,7 +242,7 @@ public class WritePDF {
     public void writePhieuNhap(String mapn) {
         String url = "";
         try {
-            fd.setTitle("Xuất dữ liệu nhà cung cấp ra excel");
+            fd.setTitle("In phiếu nhập");
             url = getFile();
             if (url == null) {
                 return;

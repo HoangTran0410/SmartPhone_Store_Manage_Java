@@ -37,9 +37,9 @@ public class QuanLyChiTietHoaDonForm extends JFrame {
 
         JPanel plBtn = new JPanel();
         // Không cho phép thêm sửa xóa trong quản lý, chỉ trong bán hàng mới được
-        plBtn.add(btnThem);
-        plBtn.add(btnXoa);
-        plBtn.add(btnSua);
+//        plBtn.add(btnThem);
+//        plBtn.add(btnXoa);
+//        plBtn.add(btnSua);
         btnThem.setEnabled(false);
         btnXoa.setEnabled(false);
         btnSua.setEnabled(false);

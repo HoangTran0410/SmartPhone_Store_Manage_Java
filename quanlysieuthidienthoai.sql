@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 23, 2019 lúc 01:11 PM
+-- Thời gian đã tạo: Th5 21, 2019 lúc 11:55 AM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.2.12
 
@@ -47,7 +47,40 @@ INSERT INTO `chitiethoadon` (`MaHD`, `MaSP`, `SoLuong`, `DonGia`) VALUES
 ('HD3', 'SP6', 1, 20),
 ('HD1', 'SP2', 10, 8.2),
 ('HD1', 'SP3', 11, 15),
-('HD4', 'SP1', 3, 20);
+('HD4', 'SP1', 3, 20),
+('HD5', 'SP23', 1, 19.9),
+('HD5', 'SP4', 3, 3.9),
+('HD6', 'SP4', 1, 3.9),
+('HD6', 'SP3', 1, 7.9),
+('HD6', 'SP8', 5, 23),
+('HD6', 'SP10', 2, 23.9),
+('HD7', 'SP10', 1, 23.9),
+('HD7', 'SP12', 2, 7.9),
+('HD7', 'SP16', 3, 11.9),
+('HD7', 'SP17', 1, 5.6),
+('HD8', 'SP15', 1, 5.5),
+('HD8', 'SP16', 1, 11.9),
+('HD9', 'SP10', 1, 23.9),
+('HD9', 'SP1', 1, 20),
+('HD10', 'SP13', 1, 7.9),
+('HD10', 'SP5', 10, 25.7),
+('HD10', 'SP6', 10, 6.5),
+('HD11', 'SP1', 1, 20),
+('HD11', 'SP10', 1, 23.9),
+('HD11', 'SP11', 2, 15.9),
+('HD12', 'SP15', 2, 5.5),
+('HD12', 'SP17', 1, 5.6),
+('HD12', 'SP12', 1, 7.9),
+('HD12', 'SP16', 5, 11.9),
+('HD13', 'SP5', 1, 25.7),
+('HD13', 'SP6', 1, 6.5),
+('HD13', 'SP8', 3, 23),
+('HD14', 'SP23', 49, 19.9),
+('HD15', 'SP10', 1, 23.9),
+('HD15', 'SP1', 2, 20),
+('HD15', 'SP18', 1, 24),
+('HD15', 'SP19', 1, 13),
+('HD16', 'SP1', 20, 20);
 
 -- --------------------------------------------------------
 
@@ -61,6 +94,31 @@ CREATE TABLE `chitietphieunhap` (
   `SoLuong` int(10) UNSIGNED NOT NULL,
   `DonGia` float UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chitietphieunhap`
+--
+
+INSERT INTO `chitietphieunhap` (`MaPN`, `MaSP`, `SoLuong`, `DonGia`) VALUES
+('PN1', 'SP8', 2, 23),
+('PN1', 'SP24', 10, 25),
+('PN2', 'SP3', 35, 7.9),
+('PN3', 'SP1', 5, 20),
+('PN4', 'SP14', 1, 5.5),
+('PN4', 'SP12', 1, 7.9),
+('PN4', 'SP1', 1, 20),
+('PN4', 'SP7', 1, 15.4),
+('PN5', 'SP15', 1, 5.5),
+('PN5', 'SP14', 1, 5.5),
+('PN5', 'SP11', 1, 15.9),
+('PN5', 'SP1', 1, 20),
+('PN6', 'SP10', 1, 23.9),
+('PN6', 'SP15', 10, 5.5),
+('PN6', 'SP17', 5, 5.6),
+('PN7', 'SP21', 100, 8),
+('PN7', 'SP22', 10, 39),
+('PN8', 'SP16', 10, 11.9),
+('PN9', 'SP1', 10, 20);
 
 -- --------------------------------------------------------
 
@@ -84,9 +142,21 @@ CREATE TABLE `hoadon` (
 
 INSERT INTO `hoadon` (`MaHD`, `MaNV`, `MaKH`, `MaKM`, `NgayLap`, `GioLap`, `TongTien`) VALUES
 ('HD1', 'NV2', 'KH2', 'KM2', '2019-04-18', '22:45:52', 267),
+('HD10', 'NV23', 'KH16', 'KM1', '2019-04-24', '22:16:58', 329.9),
+('HD11', 'NV12', 'KH22', 'KM1', '2019-04-25', '13:20:37', 75.7),
+('HD12', 'NV12', 'KH19', 'KM3', '2019-04-26', '17:59:11', 84),
+('HD13', 'NV12', 'KH14', 'KM1', '2019-04-26', '18:58:06', 101.2),
+('HD14', 'NV12', 'KH19', 'KM3', '2019-05-01', '14:14:27', 975.1),
+('HD15', 'NV12', 'KH15', 'KM5', '2019-05-05', '15:12:27', 100.9),
+('HD16', 'NV12', 'KH1', 'KM4', '2019-05-10', '11:21:12', 400),
 ('HD2', 'NV1', 'KH1', 'KM1', '2019-04-18', '23:15:36', 240),
 ('HD3', 'NV1', 'KH1', 'KM1', '2019-04-19', '18:44:34', 35),
-('HD4', 'NV1', 'KH1', 'KM1', '2019-04-21', '12:13:48', 60);
+('HD4', 'NV1', 'KH1', 'KM1', '2019-04-21', '12:13:48', 60),
+('HD5', 'NV15', 'KH1', 'KM1', '2019-04-24', '03:18:01', 31.6),
+('HD6', 'NV15', 'KH7', 'KM1', '2019-04-24', '03:21:35', 174.6),
+('HD7', 'NV15', 'KH13', 'KM1', '2019-04-24', '03:22:30', 81),
+('HD8', 'NV15', 'KH3', 'KM1', '2019-04-24', '11:29:50', 17.4),
+('HD9', 'NV15', 'KH12', 'KM1', '2019-04-24', '21:43:30', 43.9);
 
 -- --------------------------------------------------------
 
@@ -151,7 +221,10 @@ CREATE TABLE `khuyenmai` (
 
 INSERT INTO `khuyenmai` (`MaKM`, `TenKM`, `DieuKienKM`, `PhanTramKM`, `NgayBD`, `NgayKT`) VALUES
 ('KM1', 'Không khuyến mãi', 0, 0, '2019-04-01', '2021-04-30'),
-('KM2', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02');
+('KM2', 'Giảm giá nhân ngày 30/4', 5, 5, '2019-04-28', '2019-05-02'),
+('KM3', 'Giảm giá 1/5', 20, 7.5, '2019-04-25', '2019-05-02'),
+('KM4', 'Giảm giá tết', 15, 5, '2019-04-24', '2019-12-01'),
+('KM5', 'Khuyến mãi xả hàng', 100, 96.69, '2019-05-05', '2019-05-06');
 
 -- --------------------------------------------------------
 
@@ -171,9 +244,10 @@ CREATE TABLE `loaisanpham` (
 
 INSERT INTO `loaisanpham` (`MaLSP`, `TenLSP`, `Mota`) VALUES
 ('LSP1', 'Apple', 'Các sản phẩm của Apple'),
+('LSP10', 'Nokia', 'san pham cua nokia'),
 ('LSP2', 'Oppo', 'Camara Selphi cuc chat tu Oppo'),
 ('LSP3', 'SamSung', 'Khuyen mai lon tu SamSung'),
-('LSP4', 'Phillip', 'Cac san pham tuyet dep tu Phillip'),
+('LSP4', 'Phillip', 'Các sản phẩm tuyệt đẹp đến từ phillip'),
 ('LSP5', 'Nokia', 'Các sản phẩm đến từ thương hiệu Nokia'),
 ('LSP6', 'Blackbery', 'BlackBery is the best'),
 ('LSP7', 'Huawei', 'Các sản phẩm đến từ thương hiệu Huawei'),
@@ -270,11 +344,11 @@ CREATE TABLE `phanquyen` (
 --
 
 INSERT INTO `phanquyen` (`MaQuyen`, `TenQuyen`, `ChiTietQuyen`) VALUES
-('Q1', 'Quản lý', 'xemSanPham xemLoaiSanPham qlHoaDon qlNhanVien qlKhachHang xemPhieuNhap xemNCC qlTaiKhoan qlQuyen'),
+('Q1', 'Quản lý', 'xemSanPham xemLoaiSanPham xemHoaDon qlNhanVien qlKhachHang xemPhieuNhap xemNCC qlTaiKhoan qlQuyen'),
 ('Q2', 'Nhân viên Bán hàng', 'qlBanHang xemSanPham xemLoaiSanPham xemHoaDon xemNhanVien xemKhachHang'),
-('Q3', 'Phụ Bán Hàng', 'qlBanHang'),
-('Q4', 'Admin', 'qlBanHang qlSanPham qlLoaiSanPham qlHoaDon qlKhuyenMai qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
-('Q5', 'Nhân viên Nhập hàng', 'xemSanPham xemLoaiSanPham xemNhanVien qlPhieuNhap qlNCC');
+('Q3', 'Phụ Bán Hàng', 'qlBanHang xemSanPham xemKhuyenMai xemKhachHang'),
+('Q4', 'Admin', 'qlBanHang qlNhapHang qlSanPham qlLoaiSanPham qlHoaDon qlKhuyenMai qlNhanVien qlKhachHang qlPhieuNhap qlNCC qlTaiKhoan qlQuyen'),
+('Q5', 'Nhân viên Nhập hàng', 'qlNhapHang xemSanPham xemLoaiSanPham xemNhanVien qlPhieuNhap qlNCC');
 
 -- --------------------------------------------------------
 
@@ -290,6 +364,21 @@ CREATE TABLE `phieunhap` (
   `GioNhap` time NOT NULL,
   `TongTien` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phieunhap`
+--
+
+INSERT INTO `phieunhap` (`MaPN`, `MaNCC`, `MaNV`, `NgayNhap`, `GioNhap`, `TongTien`) VALUES
+('PN1', 'NCC2', 'NV1', '2019-04-24', '01:25:08', 296),
+('PN2', 'NCC3', 'NV1', '2019-04-24', '01:25:23', 276.5),
+('PN3', 'NCC5', 'NV12', '2019-04-25', '17:06:52', 100),
+('PN4', 'NCC4', 'NV12', '2019-04-26', '02:51:18', 48.8),
+('PN5', 'NCC5', 'NV12', '2019-04-26', '17:54:01', 46.9),
+('PN6', 'NCC8', 'NV12', '2019-04-26', '17:58:26', 106.9),
+('PN7', 'NCC6', 'NV12', '2019-05-01', '14:15:27', 1190),
+('PN8', 'NCC1', 'NV12', '2019-05-10', '11:19:10', 119),
+('PN9', 'NCC2', 'NV12', '2019-05-10', '11:19:53', 200);
 
 -- --------------------------------------------------------
 
@@ -312,29 +401,30 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`MaSP`, `MaLSP`, `TenSP`, `DonGia`, `SoLuong`, `HinhAnh`, `TrangThai`) VALUES
-('SP1', 'LSP1', 'IPhone X', 20, 97, 'iphone-xr-128gb-red-400x400.jpg', 0),
-('SP10', 'LSP1', 'iPhone Xr 256GB', 23.9, 80, 'iphone-xr-256gb-white-400x400.jpg', 0),
-('SP11', 'LSP2', 'OPPO R17 Pro', 15.9, 76, 'oppo-r17-pro-2-400x460.jpg', 0),
-('SP12', 'LSP8', 'Vivo V15', 7.9, 40, 'vivo-v15-quanghai-400x460.jpg', 0),
-('SP13', 'LSP6', 'Blackberry Evolve', 7.9, 30, 'blackberry-evolve6xvk3-640.jpg', 0),
-('SP14', 'LSP7', 'Huawei Y9 (2019)', 5.5, 35, 'huawei-y9-2019-blue-400x460.jpg', 0),
-('SP15', 'LSP2', 'OPPO F7', 5.5, 60, 'oppo-f7-red-mtp-400x460.jpg', 0),
-('SP16', 'LSP9', 'Xiaomi Mi 8', 11.9, 50, 'xiaomi-mi-8-1-400x460-400x460.jpg', 0),
-('SP17', 'LSP9', 'Xiaomi Redmi Note 6 Pro 64GB', 5.6, 70, 'xiaomi-redmi-note-6-pro-black-1-400x460.jpg', 0),
-('SP18', 'LSP3', 'Samsung Galaxy Note 9 512GB', 24, 60, 'samsung-galaxy-note-9-512gb-blue-400x460.jpg', 0),
-('SP19', 'LSP7', 'Huawei Mate 20', 13, 45, 'huawei-mate-20-black-400x460.jpg', 0),
+('SP1', 'LSP1', 'IPhone X', 20, 90, 'iphone-xr-128gb-red-400x400.jpg', 0),
+('SP10', 'LSP1', 'iPhone Xr 256GB', 23.9, 75, 'iphone-xr-256gb-white-400x400.jpg', 0),
+('SP11', 'LSP2', 'OPPO R17 Pro', 15.9, 99, 'oppo-r17-pro-2-400x460.jpg', 0),
+('SP12', 'LSP8', 'Vivo V15', 7.9, 257, 'vivo-v15-quanghai-400x460.jpg', 0),
+('SP13', 'LSP6', 'Blackberry Evolve', 7.9, 46, 'blackberry-evolve6xvk3-640.jpg', 0),
+('SP14', 'LSP7', 'Huawei Y9 (2019)', 5.5, 37, 'huawei-y9-2019-blue-400x460.jpg', 0),
+('SP15', 'LSP2', 'OPPO F7', 5.5, 361, 'oppo-f7-red-mtp-400x460.jpg', 0),
+('SP16', 'LSP9', 'Xiaomi Mi 8', 11.9, 51, 'xiaomi-mi-8-1-400x460-400x460.jpg', 0),
+('SP17', 'LSP9', 'Xiaomi Redmi Note 6 Pro 64GB', 5.6, 68, 'xiaomi-redmi-note-6-pro-black-1-400x460.jpg', 0),
+('SP18', 'LSP3', 'Samsung Galaxy Note 9 512GB', 24, 59, 'samsung-galaxy-note-9-512gb-blue-400x460.jpg', 0),
+('SP19', 'LSP7', 'Huawei Mate 20', 13, 44, 'huawei-mate-20-black-400x460.jpg', 0),
 ('SP2', 'LSP2', 'Oppo A7', 8.2, 70, 'oppo-a7-400x460.jpg', 0),
 ('SP20', 'LSP8', 'Vivo Y85', 5, 36, 'vivo-y85-red-docquyen-400x460.jpg', 0),
-('SP21', 'LSP8', 'Vivo V11', 8, 30, 'vivo-v11-400x460.jpg', 0),
-('SP22', 'LSP1', 'iPhone Xs Max 512GB', 39, 45, 'iphone-xs-max-512gb-gold-400x460.jpg', 0),
-('SP23', 'LSP2', 'OPPO Fid X', 19.9, 50, 'oppo-find-x-1-400x460-400x460.jpg', 0),
-('SP24', 'LSP1', 'Iphone abc', 25, 10, 'iphone-xr-256gb-white-400x400.jpg', 1),
-('SP3', 'LSP5', 'Nokia 8.1', 7.9, 35, 'nokia-81-silver-400x460.jpg', 0),
-('SP4', 'LSP4', 'Philips S327', 3.9, 60, 'philips-s327-400-400x460.jpg', 0),
-('SP5', 'LSP1', 'iPhone 8 Plus 256GB', 25.7, 58, 'iphone-8-plus-256gb-gold-400x460.jpg', 0),
-('SP6', 'LSP5', 'Nokia 6.1 Plus', 6.5, 55, 'nokia-61-plus-3-400x460.jpg', 0),
-('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 100, 'oppo-a7-32gb-gold-400x400.jpg', 0),
-('SP8', 'LSP7', 'Huawei P30 Pro', 23, 75, 'huawei-p30-pro-1-400x460.jpg', 0),
+('SP21', 'LSP8', 'Vivo V11', 8, 130, 'vivo-v11-400x460.jpg', 0),
+('SP22', 'LSP1', 'iPhone Xs Max 512GB', 39, 55, 'iphone-xs-max-512gb-gold-400x460.jpg', 0),
+('SP23', 'LSP2', 'OPPO Fid X', 19.9, 0, 'oppo-find-x-1-400x460-400x460.jpg', 0),
+('SP24', 'LSP1', 'Iphone abc', 25, 20, 'iphone-xr-256gb-white-400x400.jpg', 0),
+('SP25', 'LSP1', 'Apple 4566', 42.5, 45, 'huawei-mate-20-black-400x460.jpg', 0),
+('SP3', 'LSP5', 'Nokia 8.1', 7.9, 69, 'nokia-81-silver-400x460.jpg', 0),
+('SP4', 'LSP4', 'Philips S327', 2, 56, 'philips-s327-400-400x460.jpg', 0),
+('SP5', 'LSP1', 'iPhone 8 Plus 256GB', 25.7, 167, 'iphone-8-plus-256gb-gold-400x460.jpg', 0),
+('SP6', 'LSP5', 'Nokia 6.1 Plus', 6.5, 44, 'nokia-61-plus-3-400x460.jpg', 0),
+('SP7', 'LSP2', 'Oppo NEO 3', 15.4, 101, 'oppo-a7-32gb-gold-400x400.jpg', 1),
+('SP8', 'LSP7', 'Huawei P30 Pro', 23, 69, 'huawei-p30-pro-1-400x460.jpg', 0),
 ('SP9', 'LSP3', 'Samsung Galaxy S10+ (512GB)', 29, 57, 'samsung-galaxy-s10-plus-512gb-ceramic-black-400x460.jpg', 0);
 
 -- --------------------------------------------------------
@@ -355,11 +445,13 @@ CREATE TABLE `taikhoan` (
 --
 
 INSERT INTO `taikhoan` (`TenTaiKhoan`, `MatKhau`, `MaNV`, `MaQuyen`) VALUES
-('admin', 'admin', 'NV11', 'Q4'),
+('admin', 'admin', 'NV12', 'Q4'),
 ('BaDuocSeller', 'baduoc', 'NV3', 'Q2'),
+('NhanVien', 'nv', 'NV20', 'Q2'),
+('Quan Ly', 'quanly', 'NV9', 'Q1'),
 ('ThanhTuNH', 'thanhtu', 'NV5', 'Q5'),
 ('TriDungSeller', 'tridung', 'NV1', 'Q2'),
-('VanHoangAdmin', 'vanhoang', 'NV4', 'Q1'),
+('VanHoangAdmin', 'vanhoang', 'NV4', 'Q3'),
 ('VanTaiNH', 'vantai', 'NV12', 'Q5'),
 ('YenHanPhuBH', 'yenhan', 'NV23', 'Q3');
 

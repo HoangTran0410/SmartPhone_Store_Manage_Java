@@ -54,9 +54,9 @@ public class QuanLyPhieuNhapForm extends JPanel {
         btnXoa.setEnabled(false);
 
         JPanel plBtn = new JPanel();
-        plBtn.add(btnThem);
-        plBtn.add(btnXoa);
-        plBtn.add(btnSua);
+//        plBtn.add(btnThem);
+//        plBtn.add(btnXoa);
+//        plBtn.add(btnSua);
         plBtn.add(btnXuatExcel);
         plBtn.add(btnNhapExcel);
         plBtn.add(btnPrintPDF);

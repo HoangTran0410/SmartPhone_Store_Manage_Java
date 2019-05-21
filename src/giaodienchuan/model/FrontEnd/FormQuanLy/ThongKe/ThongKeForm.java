@@ -238,9 +238,9 @@ class ThongKe_Hoang extends JPanel {
 
         // tabpane doi tuong thong ke
         tabDoiTuongThongKe.setBackground(Color.yellow);
+        tabDoiTuongThongKe.addTab("Tổng", getIcon("icons8_futures_30px.png"), plThongKeSoLuong);
         tabDoiTuongThongKe.addTab("Bán ra", getIcon("icons8_small_business_30px_3.png"), plThongKeHoaDon);
         tabDoiTuongThongKe.addTab("Nhập vào", getIcon("icons8_downloads_30px.png"), plThongKePhieuNhap);
-        tabDoiTuongThongKe.addTab("Tổng", getIcon("icons8_futures_30px.png"), plThongKeSoLuong);
 
         // event chuyen tab
         // tab ban dau la hoa don, nen cần ẩn nha cung cap 

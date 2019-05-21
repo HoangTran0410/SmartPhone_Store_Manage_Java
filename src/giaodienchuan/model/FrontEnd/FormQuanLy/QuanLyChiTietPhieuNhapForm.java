@@ -49,9 +49,9 @@ public class QuanLyChiTietPhieuNhapForm extends JFrame {
         btnSua.setEnabled(false);
         
         JPanel plBtn = new JPanel();
-        plBtn.add(btnThem);
-        plBtn.add(btnXoa);
-        plBtn.add(btnSua);
+//        plBtn.add(btnThem);
+//        plBtn.add(btnXoa);
+//        plBtn.add(btnSua);
 
         this.add(formHienThi, BorderLayout.CENTER);
         this.add(plBtn, BorderLayout.NORTH);

@@ -25,6 +25,7 @@ import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.PhieuNhap;
 import giaodienchuan.model.BackEnd.QuanLyPhieuNhap.QuanLyPhieuNhapBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.QuanLySanPhamBUS;
 import giaodienchuan.model.BackEnd.QuanLySanPham.SanPham;
+import giaodienchuan.model.BackEnd.WritePDF.WritePDF;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhachHangForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonKhuyenMaiForm;
 import giaodienchuan.model.FrontEnd.FormChon.ChonNhaCungCapForm;
@@ -300,7 +301,13 @@ class PhieuNhapHang extends FormHang {
         for (ChiTietPhieuNhap ct : dsctpn) {
             qlctpn.add(ct);
         }
-        JOptionPane.showMessageDialog(this, "Nhập thành công");
+        
+        int reply = JOptionPane.showConfirmDialog(getRootPane(),
+                        "Nhập hàng thành công, bạn có muốn IN PHIẾU NHẬP?", "Thành công",
+                        JOptionPane.YES_NO_OPTION);
+        if(reply == JOptionPane.OK_OPTION) {
+            new WritePDF().writePhieuNhap(txMaPhieuNhap.getText());
+        }
         txMaPhieuNhap.setText(qlpnBUS.getNextID()); // lấy mã cho phiếu nhập mới
         clear();
         this.target.refreshAll();
@@ -474,7 +481,7 @@ class HoaDonBanHang extends FormHang {
                     khuyenMai = qlkmBUS.getKhuyenMai(makm);
                     if (khuyenMai != null) {
                         if (!khuyenMai.getTrangThai().equals("Đang diễn ra")) {
-                            JOptionPane.showMessageDialog(null, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
+                            JOptionPane.showMessageDialog(txKhuyenMai, "Khuyến mãi hiện " + khuyenMai.getTrangThai());
                             txKhuyenMai.setText(""); // xóa mã trong textfield
                             return;
                         }
@@ -635,7 +642,13 @@ class HoaDonBanHang extends FormHang {
         for (ChiTietHoaDon ct : dscthd) {
             qlcthd.add(ct);
         }
-        JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+        
+        int reply = JOptionPane.showConfirmDialog(getRootPane(),
+                        "Thanh toán thành công, bạn có muốn IN HÓA ĐƠN?", "Thành công",
+                        JOptionPane.YES_NO_OPTION);
+        if(reply == JOptionPane.OK_OPTION) {
+            new WritePDF().writeHoaDon(txMaHoaDon.getText());
+        }
         txMaHoaDon.setText(qlhdBUS.getNextID());
         clear();
         this.target.refreshAll();
