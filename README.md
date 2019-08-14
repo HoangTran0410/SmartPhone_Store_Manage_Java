@@ -9,7 +9,7 @@ Stt | Mã sinh viên | Tên
 3 | 3117410110 | Nguyễn Thiên Hữu
 4 | 3117410097 | Hứa Hoàng Huy
 
-### *HƯỚNG DẪN:
+### *HƯỚNG DẪN*:
 
  - Các ==files code== nằm trong thư mục `src/giaodienchuan/`.
  - Các file ==thư viện hỗ trợ== nằm trong `rc/lib/`. Cần import tất cả thư viện vào project trước khi chạy code, gồm:
@@ -22,9 +22,9 @@ Stt | Mã sinh viên | Tên
 		 - commons-codec-1.12
 - Tạo ==DataBase== tên 'quanlysieuthidienthoai' trong phpmyadmin, và import file `quanlysieuthidienthoai.sql` vào.
 
-### GIAO DIỆN
+### *GIAO DIỆN*
 
-==**1.Đăng Nhập**==
+==**1. Đăng Nhập**==
 
 **Tài khoản để đăng nhập lần đầu:**
 
@@ -35,5 +35,5 @@ Mật khẩu: `admin`
 Đây là tài khoản có **quyền cao nhất**
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTY4NTY0NzgxLC0zMDY2MjczXX0=
+eyJoaXN0b3J5IjpbLTM4NjkwODQ5MSwtMzA2NjI3M119
 -->
