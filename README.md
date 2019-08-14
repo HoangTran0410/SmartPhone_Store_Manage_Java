@@ -14,10 +14,13 @@ Stt | Mã sinh viên | Tên
 Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` hoặc `Tổng quan về đồ án.doc` nếu không xem được `.docx`
 
 ### *SCREENSHOTS:*
-
 ![Login](screenshots/login.png)
+![Main](screenshots/main.png)
+![Products](screenshots/products.png)
+![Sell](screenshots/sell.png)
+
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjgzMTY4NTQ3LC00NjY4NDIwNiwtMzg2OT
-A4NDkxLC0zMDY2MjczXX0=
+eyJoaXN0b3J5IjpbMzkxMjI2ODQsLTQ2Njg0MjA2LC0zODY5MD
+g0OTEsLTMwNjYyNzNdfQ==
 -->
