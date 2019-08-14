@@ -9,9 +9,13 @@ Stt | Mã sinh viên | Tên
 3 | 3117410110 | Nguyễn Thiên Hữu
 4 | 3117410097 | Hứa Hoàng Huy
 
-### *HƯỚNG DẪN VÀ CÀI ĐẶT*:
+### *HƯỚNG DẪN, CÀI ĐẶT VÀ CHẠY THỬ*:
+
 Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` hoặc `Tổng quan về đồ án.doc` nếu không xem được `.docx`
+
+### *SCREENSHOTS:*
+ 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzkwODAwMzkyLC0zODY5MDg0OTEsLTMwNj
+eyJoaXN0b3J5IjpbLTQ2Njg0MjA2LC0zODY5MDg0OTEsLTMwNj
 YyNzNdfQ==
 -->
