@@ -15,9 +15,9 @@ Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` h
 
 ### *SCREENSHOTS:*
 
-![enter image description here](screenshots/login.png)
+![Login](screenshots/login.png)
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NTMyNzg4NDUsLTQ2Njg0MjA2LC0zOD
-Y5MDg0OTEsLTMwNjYyNzNdfQ==
+eyJoaXN0b3J5IjpbNjgzMTY4NTQ3LC00NjY4NDIwNiwtMzg2OT
+A4NDkxLC0zMDY2MjczXX0=
 -->
