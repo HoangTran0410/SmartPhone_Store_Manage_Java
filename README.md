@@ -18,9 +18,9 @@ Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` h
 ![Main](screenshots/main.png)
 ![Products](screenshots/products.png)
 ![Sell](screenshots/sell.png)
-
+![Phan quyen](screenshots/phanquyen.png)
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzkxMjI2ODQsLTQ2Njg0MjA2LC0zODY5MD
-g0OTEsLTMwNjYyNzNdfQ==
+eyJoaXN0b3J5IjpbMTgyODIyMzk2MywtNDY2ODQyMDYsLTM4Nj
+kwODQ5MSwtMzA2NjI3M119
 -->
