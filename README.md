@@ -10,8 +10,8 @@ Stt | Mã sinh viên | Tên
 4 | 3117410097 | Hứa Hoàng Huy
 
 ### *HƯỚNG DẪN VÀ CÀI ĐẶT*:
-Các bạn vui lò
+Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` hoặc `Tổng quan về đồ án.doc` nếu không xem được `.docx`
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NzE3NzM3MjIsLTM4NjkwODQ5MSwtMz
-A2NjI3M119
+eyJoaXN0b3J5IjpbNzkwODAwMzkyLC0zODY5MDg0OTEsLTMwNj
+YyNzNdfQ==
 -->
