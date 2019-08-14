@@ -1,6 +1,6 @@
 # ĐỒ ÁN JAVA - QUẢN LÝ ĐIỆN THOẠI
 
-### THÀNH VIÊN NHÓM:
+### *THÀNH VIÊN NHÓM*:
 
 Stt | Mã sinh viên | Tên
 ---- | ---- | ---
@@ -9,7 +9,7 @@ Stt | Mã sinh viên | Tên
 3 | 3117410110 | Nguyễn Thiên Hữu
 4 | 3117410097 | Hứa Hoàng Huy
 
-### HƯỚNG DẪN:
+### *HƯỚNG DẪN:
 
  - Các ==files code== nằm trong thư mục `src/giaodienchuan/`.
  - Các file ==thư viện hỗ trợ== nằm trong `rc/lib/`. Cần import tất cả thư viện vào project trước khi chạy code, gồm:
@@ -35,5 +35,5 @@ Mật khẩu: `admin`
 Đây là tài khoản có **quyền cao nhất**
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzM0MDg3NzkzLC0zMDY2MjczXX0=
+eyJoaXN0b3J5IjpbOTY4NTY0NzgxLC0zMDY2MjczXX0=
 -->
