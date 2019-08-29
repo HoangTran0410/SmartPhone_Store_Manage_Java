@@ -12,7 +12,7 @@ Stt | Mã sinh viên | Tên
 ### *HƯỚNG DẪN, CÀI ĐẶT VÀ CHẠY THỬ*:
 
 Các bạn vui lòng tải về và xem file `Tổng quan về đồ án.docx` hoặc `Tổng quan về đồ án.doc` nếu không xem được `.docx`
-![Video hướng dẫn](https://www.loom.com/share/4993ded95b9f4a1abc8af7704516057b)
+[Video hướng dẫn](https://www.loom.com/share/4993ded95b9f4a1abc8af7704516057b)
 
 ### *SCREENSHOTS:*
 ![Login](screenshots/login.png)
