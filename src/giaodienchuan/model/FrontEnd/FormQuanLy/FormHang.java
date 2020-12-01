@@ -528,7 +528,7 @@ class HoaDonBanHang extends FormHang {
                 txGioLap.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                 if (txNhanVien.getText().equals("")
                         || txKhachHang.getText().equals("")
-                        || txKhuyenMai.getText().equals("")
+                        //|| txKhuyenMai.getText().equals("")
                         || dscthd.isEmpty()) {
                     btnThanhToan.setEnabled(false);
                 } else {
@@ -555,8 +555,8 @@ class HoaDonBanHang extends FormHang {
         plInput.add(btnChonNhanVien);
         plInput.add(txNgayLap);
         plInput.add(txGioLap);
-        plInput.add(txKhuyenMai);
-        plInput.add(btnChonKhuyenMai);
+        //plInput.add(txKhuyenMai);
+        //plInput.add(btnChonKhuyenMai);
 
         this.add(plInput);
 
@@ -633,7 +633,8 @@ class HoaDonBanHang extends FormHang {
                 txMaHoaDon.getText(),
                 nhanVien.getMaNV(),
                 khachHang.getMaKH(),
-                khuyenMai.getMaKM(),
+                "KM1", // mặc định là không khuyễn mãi
+                //khuyenMai.getMaKM(),
                 LocalDate.parse(txNgayLap.getText()),
                 LocalTime.parse(txGioLap.getText()),
                 Float.parseFloat(txTongTien.getText()));

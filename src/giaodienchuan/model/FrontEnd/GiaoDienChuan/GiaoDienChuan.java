@@ -82,7 +82,7 @@ public class GiaoDienChuan extends JFrame implements MouseListener {
             "Loại sản phẩm", "icons8_dossier_folder_30px.png", "xemLoaiSanPham", "qlLoaiSanPham",
             "Hóa đơn", "icons8_agreement_30px.png", "xemHoaDon", "qlHoaDon",
             "Phiếu nhập", "icons8_truck_30px.png", "xemPheuNhap", "qlPhieuNhap",
-            "Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
+            //"Khuyến mãi", "icons8_gift_30px.png", "xemKhuyenMai", "qlKhuyenMai",
             "seperate", "1", "", "",
             "Nhân viên", "icons8_assistant_30px.png", "xemNhanVien", "qlNhanVien",
             "Khách hàng", "icons8_user_30px.png", "xemKhachHang", "qlKhachHang",
